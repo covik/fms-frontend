@@ -1,0 +1,9 @@
+{
+  "name": "fms-react",
+  "version": "0.0.1",
+  "description": "Frontend for Fleet Management System",
+  "author": "Mate Nakic",
+  "license": "UNLICENSED",
+  "main": "index.js",
+  "private": true
+}
