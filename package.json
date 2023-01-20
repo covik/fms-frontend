@@ -6,6 +6,9 @@
   "license": "UNLICENSED",
   "main": "index.js",
   "private": true,
+  "scripts": {
+    "prepare": "husky install"
+  },
   "devDependencies": {
     "@commitlint/cli": "^17.4.2",
     "@commitlint/config-conventional": "^17.4.2",
