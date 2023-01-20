@@ -4,7 +4,6 @@
   "description": "Frontend for Fleet Management System",
   "author": "Mate Nakic",
   "license": "UNLICENSED",
-  "main": "index.js",
   "private": true,
   "scripts": {
     "prepare": "husky install"
