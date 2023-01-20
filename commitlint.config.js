@@ -6,8 +6,8 @@ module.exports = {
       'always',
       [
         'workspace', // anything applied to whole repo
-        'deps' // related to dependencies
+        'deps', // related to dependencies
       ],
     ],
   },
-}
+};
