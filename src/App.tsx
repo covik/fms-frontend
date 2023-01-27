@@ -2,9 +2,10 @@ import {
   Drawer,
   List,
   ListItem,
-  ListItemButton,
+  ListItemButton as MuiListItemButton,
   ListItemIcon,
   ListItemText,
+  styled,
 } from '@mui/material';
 
 import {
@@ -54,6 +55,10 @@ const navigationItems = [
     icon: <Power />,
   },
 ];
+
+const ListItemButton = styled(MuiListItemButton)(({ theme }) => ({
+  padding: theme.spacing(2),
+}));
 
 export function App() {
   return (
