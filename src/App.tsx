@@ -1,4 +1,5 @@
 import {
+  Box,
   Divider,
   Drawer,
   Fade,
@@ -21,6 +22,7 @@ import {
 } from 'mdi-material-ui';
 
 import logo from './assets/logo.svg';
+import { VehicleOverviewPage } from './VehicleOverviewPage';
 
 const navigationItems = [
   {
@@ -93,6 +95,9 @@ export function App() {
           ))}
         </List>
       </Drawer>
+      <Box component="main" sx={{ marginLeft: '57px' }}>
+        <VehicleOverviewPage />
+      </Box>
     </>
   );
 }
