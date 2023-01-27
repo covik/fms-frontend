@@ -1,9 +1,11 @@
 import {
   Drawer,
+  Fade,
   List,
   ListItem,
   ListItemButton,
   ListItemIcon,
+  Tooltip,
   useTheme,
 } from '@mui/material';
 
@@ -62,11 +64,17 @@ export function App() {
     <>
       <Drawer anchor="left" variant="permanent">
         <List disablePadding>
-          {navigationItems.map(({ id, icon }) => (
+          {navigationItems.map(({ id, title, icon }) => (
             <ListItem key={id} disablePadding>
-              <ListItemButton href="#" sx={{ padding: theme.spacing(2) }}>
-                <ListItemIcon sx={{ minWidth: 'auto' }}>{icon}</ListItemIcon>
-              </ListItemButton>
+              <Tooltip
+                title={title}
+                placement="right"
+                TransitionComponent={Fade}
+              >
+                <ListItemButton href="#" sx={{ padding: theme.spacing(2) }}>
+                  <ListItemIcon sx={{ minWidth: 'auto' }}>{icon}</ListItemIcon>
+                </ListItemButton>
+              </Tooltip>
             </ListItem>
           ))}
         </List>
