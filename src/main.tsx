@@ -11,6 +11,15 @@ const theme = createTheme({
   typography: {
     fontFamily: 'FiraGO, sans-serif',
   },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: () => `
+        body {
+          background-color: #edeff0;
+        }
+      `,
+    },
+  },
 });
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
