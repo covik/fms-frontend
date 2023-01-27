@@ -2,10 +2,9 @@ import {
   Drawer,
   List,
   ListItem,
-  ListItemButton as MuiListItemButton,
+  ListItemButton,
   ListItemIcon,
-  ListItemText,
-  styled,
+  useTheme,
 } from '@mui/material';
 
 import {
@@ -56,20 +55,17 @@ const navigationItems = [
   },
 ];
 
-const ListItemButton = styled(MuiListItemButton)(({ theme }) => ({
-  padding: theme.spacing(2),
-}));
-
 export function App() {
+  const theme = useTheme();
+
   return (
     <>
       <Drawer anchor="left" variant="permanent">
         <List disablePadding>
-          {navigationItems.map(({ id, title, icon }) => (
+          {navigationItems.map(({ id, icon }) => (
             <ListItem key={id} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>{icon}</ListItemIcon>
-                <ListItemText primary={title} />
+              <ListItemButton href="#" sx={{ padding: theme.spacing(2) }}>
+                <ListItemIcon sx={{ minWidth: 'auto' }}>{icon}</ListItemIcon>
               </ListItemButton>
             </ListItem>
           ))}
