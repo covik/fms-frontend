@@ -1,4 +1,5 @@
 import {
+  Divider,
   Drawer,
   Fade,
   List,
@@ -18,6 +19,8 @@ import {
   Truck,
   TruckTrailer,
 } from 'mdi-material-ui';
+
+import logo from './assets/logo.svg';
 
 const navigationItems = [
   {
@@ -60,10 +63,18 @@ const navigationItems = [
 export function App() {
   const theme = useTheme();
 
+  const logoSize = 34;
+  const logoSpacing = theme.spacing(1);
+  const itemSpacing = theme.spacing(2);
+
   return (
     <>
       <Drawer anchor="left" variant="permanent">
         <List disablePadding>
+          <ListItem sx={{ padding: logoSpacing, justifyContent: 'center' }}>
+            <img src={logo} alt="logo" width={logoSize} />
+          </ListItem>
+          <Divider />
           {navigationItems.map(({ id, title, icon }) => (
             <ListItem key={id} disablePadding>
               <Tooltip
@@ -71,7 +82,10 @@ export function App() {
                 placement="right"
                 TransitionComponent={Fade}
               >
-                <ListItemButton href="#" sx={{ padding: theme.spacing(2) }}>
+                <ListItemButton
+                  href="#"
+                  sx={{ padding: itemSpacing, justifyContent: 'center' }}
+                >
                   <ListItemIcon sx={{ minWidth: 'auto' }}>{icon}</ListItemIcon>
                 </ListItemButton>
               </Tooltip>
