@@ -8,6 +8,7 @@ module.exports = {
         'workspace', // anything applied to whole repo
         'deps', // related to dependencies
         'app',
+        'branding',
       ],
     ],
   },
