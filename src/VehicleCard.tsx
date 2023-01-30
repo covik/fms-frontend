@@ -1,14 +1,22 @@
 import {
   Card,
+  CardActions,
   CardContent,
   CardHeader,
   CardMedia,
+  IconButton,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
 } from '@mui/material';
-import { CarBattery, Speedometer, TruckFast } from 'mdi-material-ui';
+import {
+  CarBattery,
+  DotsVertical,
+  ShareVariant,
+  Speedometer,
+  TruckFast,
+} from 'mdi-material-ui';
 import fakeGoogleMap from './assets/google-map-fixtures/moving.png';
 
 export interface VehicleAttributes {
@@ -33,7 +41,7 @@ export function VehicleCard({ name, ignition, movement }: VehicleAttributes) {
         subheader="prije 2 minute"
       />
       <CardMedia component="img" image={fakeGoogleMap} />
-      <CardContent>
+      <CardContent sx={{ display: 'none' }}>
         <List disablePadding dense>
           <ListItem disableGutters>
             <ListItemIcon sx={{ minWidth: '40px' }}>
@@ -49,6 +57,14 @@ export function VehicleCard({ name, ignition, movement }: VehicleAttributes) {
           </ListItem>
         </List>
       </CardContent>
+      <CardActions sx={{ justifyContent: 'flex-end' }}>
+        <IconButton>
+          <ShareVariant />
+        </IconButton>
+        <IconButton>
+          <DotsVertical />
+        </IconButton>
+      </CardActions>
     </Card>
   );
 }
