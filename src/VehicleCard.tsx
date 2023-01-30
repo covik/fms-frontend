@@ -7,7 +7,6 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Typography,
 } from '@mui/material';
 import { CarBattery, Speedometer, TruckFast } from 'mdi-material-ui';
 import fakeGoogleMap from './assets/google-map-fixtures/moving.png';
@@ -25,15 +24,12 @@ export function VehicleCard({ name, ignition, movement }: VehicleAttributes) {
     <Card sx={{ width: '360px' }}>
       <CardHeader
         avatar={<TruckFast fontSize="large" htmlColor={headerColor} />}
-        title={
-          <Typography
-            component="h1"
-            variant="h6"
-            style={{ color: headerColor }}
-          >
-            {name}
-          </Typography>
-        }
+        title={name}
+        titleTypographyProps={{
+          color: headerColor,
+          variant: 'h6',
+          component: 'h1',
+        }}
         subheader="prije 2 minute"
       />
       <CardMedia component="img" image={fakeGoogleMap} />
