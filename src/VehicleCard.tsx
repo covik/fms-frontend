@@ -29,7 +29,7 @@ export function VehicleCard({ name, ignition, movement }: VehicleAttributes) {
   const headerColor = 'green';
 
   return (
-    <Card sx={{ width: '360px' }}>
+    <Card sx={{ maxWidth: '360px' }}>
       <CardHeader
         avatar={<TruckFast fontSize="large" htmlColor={headerColor} />}
         title={name}
