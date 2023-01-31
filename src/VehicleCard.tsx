@@ -4,20 +4,28 @@ import {
   CardContent,
   CardHeader,
   CardMedia,
+  Divider,
   IconButton,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
+  Menu,
+  MenuItem,
 } from '@mui/material';
 import {
   CarBattery,
   DotsVertical,
+  History,
+  Pencil,
   ShareVariant,
   Speedometer,
   TruckFast,
+  Wrench,
 } from 'mdi-material-ui';
 import fakeGoogleMap from './assets/google-map-fixtures/moving.png';
+import { useState } from 'react';
+import type { MouseEvent } from 'react';
 
 export interface VehicleAttributes {
   name: string;
@@ -27,6 +35,12 @@ export interface VehicleAttributes {
 
 export function VehicleCard({ name, ignition, movement }: VehicleAttributes) {
   const headerColor = 'green';
+
+  const [anchor, setAnchor] = useState<undefined | HTMLElement>(undefined);
+  const open = Boolean(anchor);
+  const openVehicleActions = (e: MouseEvent<HTMLButtonElement>) =>
+    setAnchor(e.currentTarget);
+  const closeVehicleActions = () => setAnchor(undefined);
 
   return (
     <Card sx={{ maxWidth: '360px' }}>
@@ -61,9 +75,43 @@ export function VehicleCard({ name, ignition, movement }: VehicleAttributes) {
         <IconButton>
           <ShareVariant />
         </IconButton>
-        <IconButton>
+        <IconButton onClick={openVehicleActions}>
           <DotsVertical />
         </IconButton>
+        <Menu
+          open={open}
+          onClose={closeVehicleActions}
+          anchorEl={anchor}
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+          }}
+          transformOrigin={{
+            vertical: 'bottom',
+            horizontal: 'right',
+          }}
+          elevation={4}
+        >
+          <MenuItem dense>
+            <ListItemIcon>
+              <Pencil />
+            </ListItemIcon>
+            <ListItemText>Preimenuj</ListItemText>
+          </MenuItem>
+          <Divider />
+          <MenuItem dense>
+            <ListItemIcon>
+              <History />
+            </ListItemIcon>
+            <ListItemText>Lokacije</ListItemText>
+          </MenuItem>
+          <MenuItem dense>
+            <ListItemIcon>
+              <Wrench />
+            </ListItemIcon>
+            <ListItemText primary="Servisi"></ListItemText>
+          </MenuItem>
+        </Menu>
       </CardActions>
     </Card>
   );
