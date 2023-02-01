@@ -17,3 +17,10 @@ Moving.args = {
   ignition: true,
   movement: 'moving',
 };
+
+export const Stationary = Template.bind({});
+Stationary.args = {
+  name: 'ZD000AA',
+  ignition: false,
+  movement: 'stationary',
+};
