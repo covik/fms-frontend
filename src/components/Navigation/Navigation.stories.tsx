@@ -9,6 +9,13 @@ export default {
   },
 } as ComponentMeta<typeof Navigation>;
 
-const Template: ComponentStory<typeof Navigation> = () => <Navigation />;
+const Template: ComponentStory<typeof Navigation> = (args) => (
+  <Navigation {...args} />
+);
 
 export const Rail = Template.bind({});
+
+export const Bar = Template.bind({});
+Bar.args = {
+  bar: true,
+};
