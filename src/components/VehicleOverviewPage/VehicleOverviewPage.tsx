@@ -1,4 +1,4 @@
-import { VehicleAttributes, VehicleCard } from './VehicleCard';
+import { VehicleAttributes, VehicleCard } from '../VehicleCard';
 import {
   Box,
   FormControlLabel,

@@ -22,7 +22,7 @@ import {
 } from 'mdi-material-ui';
 
 import logo from './assets/logo.svg';
-import { VehicleOverviewPage } from './VehicleOverviewPage';
+import { VehicleOverviewPage } from './components/VehicleOverviewPage';
 
 const navigationItems = [
   {

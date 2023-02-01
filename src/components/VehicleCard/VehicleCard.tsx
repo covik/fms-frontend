@@ -1,7 +1,7 @@
 import { Card, CardHeader, IconButton } from '@mui/material';
 import { ShareVariant } from 'mdi-material-ui';
-import fakeGoogleMap from './assets/google-map-fixtures/moving.png';
-import fakeStationaryVehicle from './assets/google-map-fixtures/stationary.png';
+import fakeGoogleMap from '../../assets/google-map-fixtures/moving.png';
+import fakeStationaryVehicle from '../../assets/google-map-fixtures/stationary.png';
 
 export interface VehicleAttributes {
   name: string;
