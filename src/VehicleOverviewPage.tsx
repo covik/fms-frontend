@@ -24,7 +24,13 @@ const vehicles: (VehicleAttributes & { id: string })[] = [
 
 function PageTitle() {
   return (
-    <Typography component="h1" variant="h3" color="grey" fontWeight="medium">
+    <Typography
+      component="h1"
+      variant="h3"
+      color="grey"
+      fontWeight="medium"
+      lineHeight={1}
+    >
       Vozila
     </Typography>
   );
@@ -74,7 +80,7 @@ export function VehicleOverviewPage() {
   const theme = useTheme();
 
   return (
-    <Box sx={{ padding: theme.spacing(2) }}>
+    <Box sx={{ padding: theme.spacing(1.4) }}>
       <PageHeader />
       <Box sx={{ marginTop: theme.spacing(2) }}>
         {vehicles.map((vehicle) => (
