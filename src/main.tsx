@@ -1,32 +1,12 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
-import { CssBaseline, createTheme, ThemeProvider } from '@mui/material';
+import { DesignBaseline } from './DesignBaseline';
 import { App } from './App';
-import '@fontsource/firago/300.css';
-import '@fontsource/firago/400.css';
-import '@fontsource/firago/500.css';
-import '@fontsource/firago/700.css';
-
-const theme = createTheme({
-  typography: {
-    fontFamily: 'FiraGO, sans-serif',
-  },
-  components: {
-    MuiCssBaseline: {
-      styleOverrides: () => `
-        body {
-          background-color: #edeff0;
-        }
-      `,
-    },
-  },
-});
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
+    <DesignBaseline>
       <App />
-    </ThemeProvider>
+    </DesignBaseline>
   </React.StrictMode>,
 );
