@@ -1,6 +1,5 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Navigation } from './Navigation';
-import { styled } from '@mui/material';
 
 export default {
   title: 'Navigation',
@@ -10,10 +9,6 @@ export default {
   },
 } as ComponentMeta<typeof Navigation>;
 
-const StyledNavigation = styled(Navigation)({
-  position: 'static',
-});
-
-const Template: ComponentStory<typeof Navigation> = () => <StyledNavigation />;
+const Template: ComponentStory<typeof Navigation> = () => <Navigation />;
 
 export const Rail = Template.bind({});

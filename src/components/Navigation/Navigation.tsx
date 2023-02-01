@@ -1,6 +1,5 @@
 import {
   Divider,
-  Drawer,
   Fade,
   List,
   ListItem,
@@ -20,25 +19,23 @@ export function Navigation() {
   const itemSpacing = theme.spacing(2);
 
   return (
-    <Drawer anchor="left" variant="permanent">
-      <List disablePadding>
-        <ListItem sx={{ padding: logoSpacing, justifyContent: 'center' }}>
-          <img src={logo} alt="logo" width={logoSize} />
+    <List disablePadding>
+      <ListItem sx={{ padding: logoSpacing, justifyContent: 'center' }}>
+        <img src={logo} alt="logo" width={logoSize} />
+      </ListItem>
+      <Divider />
+      {items.map(({ id, title, icon }) => (
+        <ListItem key={id} disablePadding>
+          <Tooltip title={title} placement="right" TransitionComponent={Fade}>
+            <ListItemButton
+              href="#"
+              sx={{ padding: itemSpacing, justifyContent: 'center' }}
+            >
+              <ListItemIcon sx={{ minWidth: 'auto' }}>{icon}</ListItemIcon>
+            </ListItemButton>
+          </Tooltip>
         </ListItem>
-        <Divider />
-        {items.map(({ id, title, icon }) => (
-          <ListItem key={id} disablePadding>
-            <Tooltip title={title} placement="right" TransitionComponent={Fade}>
-              <ListItemButton
-                href="#"
-                sx={{ padding: itemSpacing, justifyContent: 'center' }}
-              >
-                <ListItemIcon sx={{ minWidth: 'auto' }}>{icon}</ListItemIcon>
-              </ListItemButton>
-            </Tooltip>
-          </ListItem>
-        ))}
-      </List>
-    </Drawer>
+      ))}
+    </List>
   );
 }
