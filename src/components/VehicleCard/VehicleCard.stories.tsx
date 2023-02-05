@@ -10,6 +10,15 @@ export default {
     title: 'ZD000AA',
     subtitle: 'prije 2 minute',
   },
+  argTypes: {
+    icon: {
+      options: ['Truck', 'TruckFast'],
+      mapping: {
+        Truck,
+        TruckFast,
+      },
+    },
+  },
 } as ComponentMeta<typeof VehicleCard>;
 
 const Template: ComponentStory<typeof VehicleCard> = (args) => (
