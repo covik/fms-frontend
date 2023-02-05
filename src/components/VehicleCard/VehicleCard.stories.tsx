@@ -27,3 +27,9 @@ Stationary.args = {
   icon: Truck,
   color: 'orange',
 };
+
+export const Stopped = Template.bind({});
+Stopped.args = {
+  icon: Truck,
+  color: 'green',
+};
