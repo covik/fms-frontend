@@ -1,0 +1,7 @@
+.google-map-root > div > div > div:last-of-type {
+  display: none;
+}
+
+.google-map-root img[alt='Google'] {
+  display: none;
+}

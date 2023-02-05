@@ -27,6 +27,7 @@ export function Map({
       center={{ lat: x, lng: y }}
       zoom={z}
       mapContainerStyle={{ width, height }}
+      mapContainerClassName="google-map-root"
       options={{
         disableDefaultUI: noControls,
       }}
