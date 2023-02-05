@@ -31,3 +31,9 @@ WithoutControls.args = {
   ...Basic.args,
   noControls: true,
 };
+
+export const WithoutLabels = Template.bind({});
+WithoutLabels.args = {
+  ...Basic.args,
+  noLabels: true,
+};

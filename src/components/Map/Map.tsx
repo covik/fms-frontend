@@ -8,6 +8,7 @@ export interface MapArguments {
   width: CSSProperties['width'];
   height: CSSProperties['height'];
   noControls?: boolean;
+  noLabels?: boolean;
 }
 
 export function Map({
@@ -17,10 +18,19 @@ export function Map({
   width,
   height,
   noControls = false,
+  noLabels = false,
 }: MapArguments) {
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: 'AIzaSyCRzHH5N9W0FWKvY5qhRbk9H-AHm-vs8rw',
   });
+
+  const styles = [
+    {
+      featureType: 'all',
+      elementType: 'labels',
+      stylers: [{ visibility: noLabels ? 'off' : 'on' }],
+    },
+  ];
 
   const map = () => (
     <GoogleMap
@@ -30,6 +40,7 @@ export function Map({
       mapContainerClassName="google-map-root"
       options={{
         disableDefaultUI: noControls,
+        styles,
       }}
     />
   );
