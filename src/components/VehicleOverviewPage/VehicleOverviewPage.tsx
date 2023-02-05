@@ -1,4 +1,4 @@
-import { VehicleAttributes, VehicleCard } from '../VehicleCard';
+import { VehicleCard } from '../VehicleCard';
 import {
   Box,
   FormControlLabel,
@@ -9,16 +9,15 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
-import { Cog } from 'mdi-material-ui';
+import { Cog, TruckFast } from 'mdi-material-ui';
 import { useState } from 'react';
 import type { MouseEvent } from 'react';
 
-const vehicles: (VehicleAttributes & { id: string })[] = [
+const vehicles = [
   {
     id: 'test-01',
     name: 'ZD000AA',
-    ignition: true,
-    movement: 'moving',
+    lastUpdatedSince: 'prije 2 minute',
   },
 ];
 
@@ -86,9 +85,10 @@ export function VehicleOverviewPage() {
         {vehicles.map((vehicle) => (
           <VehicleCard
             key={vehicle.id}
-            name={vehicle.name}
-            movement={vehicle.movement}
-            ignition={vehicle.ignition}
+            title={vehicle.name}
+            subtitle={vehicle.lastUpdatedSince}
+            color="green"
+            icon={TruckFast}
           />
         ))}
       </Box>

@@ -1,36 +1,40 @@
-import { Card, CardHeader, IconButton } from '@mui/material';
+import { Card, CardHeader, Icon, IconButton } from '@mui/material';
 import { ShareVariant } from 'mdi-material-ui';
-import fakeGoogleMap from '../../assets/google-map-fixtures/moving.png';
-import fakeStationaryVehicle from '../../assets/google-map-fixtures/stationary.png';
+import type { SvgIcon } from '@mui/material';
+import type { CSSProperties } from 'react';
 
-export interface VehicleAttributes {
-  name: string;
-  ignition: boolean;
-  movement: 'moving' | 'stationary';
+export interface CardAttributes {
+  title: string;
+  subtitle: string;
+  icon: typeof SvgIcon;
+  color: CSSProperties['color'];
 }
 
-export function VehicleCard({ name, ignition, movement }: VehicleAttributes) {
-  const headerColor = ignition ? 'green' : 'orange';
-  const image =
-    ignition && movement === 'moving' ? fakeGoogleMap : fakeStationaryVehicle;
+export function VehicleCard(props: CardAttributes) {
+  const { title, subtitle, icon: Icon, color: headerColor } = props;
 
   return (
     <Card>
       <CardHeader
-        avatar={<img src={image} />}
-        title={name}
+        avatar={<Icon fontSize="large" htmlColor={headerColor} />}
+        title={title}
         titleTypographyProps={{
           color: headerColor,
           variant: 'h6',
           component: 'h1',
         }}
-        subheader="prije 2 minute"
+        subheader={subtitle}
         action={
-          <IconButton sx={{ marginTop: 1, marginRight: 1 }}>
-            <ShareVariant fontSize="small" />
+          <IconButton>
+            <ShareVariant fontSize="medium" />
           </IconButton>
         }
-        sx={{ padding: 1 }}
+        sx={{
+          'padding': 1.5,
+          '.MuiCardHeader-action': {
+            alignSelf: 'center',
+          },
+        }}
       />
     </Card>
   );

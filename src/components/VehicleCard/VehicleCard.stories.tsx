@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { VehicleCard } from './VehicleCard';
+import { Truck, TruckFast } from 'mdi-material-ui';
 
 export default {
   title: 'VehicleCard',
@@ -13,14 +14,16 @@ const Template: ComponentStory<typeof VehicleCard> = (args) => (
 
 export const Moving = Template.bind({});
 Moving.args = {
-  name: 'ZD000AA',
-  ignition: true,
-  movement: 'moving',
+  title: 'ZD000AA',
+  subtitle: 'prije 2 minute',
+  icon: TruckFast,
+  color: 'green',
 };
 
 export const Stationary = Template.bind({});
 Stationary.args = {
-  name: 'ZD000AA',
-  ignition: false,
-  movement: 'stationary',
+  title: 'ZD000AA',
+  subtitle: 'prije 2 minute',
+  icon: Truck,
+  color: 'orange',
 };
