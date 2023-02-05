@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { VehicleCard } from './VehicleCard';
 import { Truck, TruckFast } from 'mdi-material-ui';
