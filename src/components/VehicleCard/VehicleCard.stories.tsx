@@ -6,6 +6,10 @@ import { Truck, TruckFast } from 'mdi-material-ui';
 export default {
   title: 'VehicleCard',
   component: VehicleCard,
+  args: {
+    title: 'ZD000AA',
+    subtitle: 'prije 2 minute',
+  },
 } as ComponentMeta<typeof VehicleCard>;
 
 const Template: ComponentStory<typeof VehicleCard> = (args) => (
@@ -14,16 +18,12 @@ const Template: ComponentStory<typeof VehicleCard> = (args) => (
 
 export const Moving = Template.bind({});
 Moving.args = {
-  title: 'ZD000AA',
-  subtitle: 'prije 2 minute',
   icon: TruckFast,
   color: 'green',
 };
 
 export const Stationary = Template.bind({});
 Stationary.args = {
-  title: 'ZD000AA',
-  subtitle: 'prije 2 minute',
   icon: Truck,
   color: 'orange',
 };
