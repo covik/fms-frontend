@@ -33,3 +33,9 @@ Stopped.args = {
   icon: Truck,
   color: 'green',
 };
+
+export const Towed = Template.bind({});
+Towed.args = {
+  icon: TruckFast,
+  color: 'orange',
+};
