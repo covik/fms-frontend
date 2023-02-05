@@ -20,3 +20,9 @@ Basic.args = {
   width: '400px',
   height: '400px',
 };
+
+export const WithoutControls = Template.bind({});
+WithoutControls.args = {
+  ...Basic.args,
+  noControls: true,
+};

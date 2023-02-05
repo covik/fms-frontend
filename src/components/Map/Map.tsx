@@ -7,9 +7,17 @@ export interface MapArguments {
   z: number;
   width: CSSProperties['width'];
   height: CSSProperties['height'];
+  noControls?: boolean;
 }
 
-export function Map({ x, y, z, width, height }: MapArguments) {
+export function Map({
+  x,
+  y,
+  z,
+  width,
+  height,
+  noControls = false,
+}: MapArguments) {
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: 'AIzaSyCRzHH5N9W0FWKvY5qhRbk9H-AHm-vs8rw',
   });
@@ -19,6 +27,9 @@ export function Map({ x, y, z, width, height }: MapArguments) {
       center={{ lat: x, lng: y }}
       zoom={z}
       mapContainerStyle={{ width, height }}
+      options={{
+        disableDefaultUI: noControls,
+      }}
     />
   );
 
