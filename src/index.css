@@ -1,3 +1,9 @@
+html,
+body,
+#root {
+  height: 100%;
+}
+
 .google-map-root > div > div > div:last-of-type {
   display: none;
 }
