@@ -1,0 +1,1 @@
+export { DetailedVehicleOverviewPage } from './DetailedVehicleOverviewPage';
