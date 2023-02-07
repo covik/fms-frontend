@@ -1,4 +1,3 @@
-import { VehicleCard } from '../VehicleCard';
 import {
   Box,
   FormControlLabel,
@@ -9,17 +8,10 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
-import { Cog, TruckFast } from 'mdi-material-ui';
+import { Cog } from 'mdi-material-ui';
 import { useState } from 'react';
 import type { MouseEvent } from 'react';
-
-const vehicles = [
-  {
-    id: 'test-01',
-    name: 'ZD000AA',
-    lastUpdatedSince: 'prije 2 minute',
-  },
-];
+import { VehicleList, VehicleListAttributes } from '../VehicleList';
 
 function PageTitle() {
   return (
@@ -75,22 +67,20 @@ function PageHeader() {
   );
 }
 
-export function VehicleOverviewPage() {
+export interface VehicleOverviewPageAttributes {
+  vehicles: VehicleListAttributes['vehicles'];
+}
+
+export function VehicleOverviewPage({
+  vehicles,
+}: VehicleOverviewPageAttributes) {
   const theme = useTheme();
 
   return (
     <Box sx={{ padding: theme.spacing(1.4) }}>
       <PageHeader />
       <Box sx={{ marginTop: theme.spacing(2) }}>
-        {vehicles.map((vehicle) => (
-          <VehicleCard
-            key={vehicle.id}
-            title={vehicle.name}
-            subtitle={vehicle.lastUpdatedSince}
-            color="green"
-            icon={TruckFast}
-          />
-        ))}
+        <VehicleList vehicles={vehicles} />
       </Box>
     </Box>
   );
