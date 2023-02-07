@@ -1,5 +1,6 @@
 import { Box, Typography, useTheme } from '@mui/material';
-import { VehicleList, VehicleListAttributes } from '../VehicleList';
+import { VehicleList } from '../VehicleList';
+import type { VehicleListAttributes } from '../VehicleList';
 
 export interface VehiclesDigestPageAttributes {
   vehicles: VehicleListAttributes['vehicles'];
