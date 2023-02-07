@@ -1,18 +1,18 @@
 import * as React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { VehicleOverviewPage } from './VehicleOverviewPage';
+import { VehiclesDigestPage } from './VehiclesDigestPage';
 import * as VehicleListStories from '../VehicleList/VehicleList.stories';
 
 export default {
-  title: 'VehicleOverviewPage',
-  component: VehicleOverviewPage,
+  title: 'VehiclesDigestPage',
+  component: VehiclesDigestPage,
   parameters: {
     layout: 'fullscreen',
   },
-} as ComponentMeta<typeof VehicleOverviewPage>;
+} as ComponentMeta<typeof VehiclesDigestPage>;
 
-const Template: ComponentStory<typeof VehicleOverviewPage> = (args) => (
-  <VehicleOverviewPage {...args} />
+const Template: ComponentStory<typeof VehiclesDigestPage> = (args) => (
+  <VehiclesDigestPage {...args} />
 );
 
 export const Default = Template.bind({});

@@ -1,13 +1,11 @@
 import { Box, Typography, useTheme } from '@mui/material';
 import { VehicleList, VehicleListAttributes } from '../VehicleList';
 
-export interface VehicleOverviewPageAttributes {
+export interface VehiclesDigestPageAttributes {
   vehicles: VehicleListAttributes['vehicles'];
 }
 
-export function VehicleOverviewPage({
-  vehicles,
-}: VehicleOverviewPageAttributes) {
+export function VehiclesDigestPage({ vehicles }: VehiclesDigestPageAttributes) {
   const theme = useTheme();
 
   return (
