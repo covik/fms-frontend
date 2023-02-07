@@ -7,7 +7,7 @@ export function App() {
     <>
       <Box component="main" sx={{ marginLeft: '57px' }}>
         <Navigation />
-        <VehiclesDigestPage />
+        <VehiclesDigestPage vehicles={[]} />
       </Box>
     </>
   );
