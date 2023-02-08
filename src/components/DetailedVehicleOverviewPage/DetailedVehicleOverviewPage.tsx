@@ -1,7 +1,13 @@
 import { Box, Card, Tab, Tabs, Typography, useTheme } from '@mui/material';
 import { Map } from '../Map/Map';
 
-export function DetailedVehicleOverviewPage() {
+export interface DetailedVehicleOverviewPageAttributes {
+  activeTab: 'live-updates' | 'info' | 'routes' | 'maintenance';
+}
+
+export function DetailedVehicleOverviewPage({
+  activeTab = 'live-updates',
+}: DetailedVehicleOverviewPageAttributes) {
   const theme = useTheme();
 
   return (
@@ -35,11 +41,11 @@ export function DetailedVehicleOverviewPage() {
         />
       </Card>
       <Card sx={{ flexGrow: 0 }}>
-        <Tabs value={0} variant="scrollable" scrollButtons="auto">
-          <Tab value={0} label="Karta" />
-          <Tab value={1} label="Info" />
-          <Tab value={2} label="Rute" />
-          <Tab value={3} label="Servisi" />
+        <Tabs value={activeTab} variant="scrollable" scrollButtons="auto">
+          <Tab value="live-updates" label="Karta" />
+          <Tab value="info" label="Info" />
+          <Tab value="routes" label="Rute" />
+          <Tab value="maintenance" label="Servisi" />
         </Tabs>
       </Card>
     </Box>

@@ -12,8 +12,8 @@ export default {
   },
 } as ComponentMeta<typeof DetailedVehicleOverviewPage>;
 
-const Template: ComponentStory<typeof DetailedVehicleOverviewPage> = () => (
-  <DetailedVehicleOverviewPage />
+const Template: ComponentStory<typeof DetailedVehicleOverviewPage> = (args) => (
+  <DetailedVehicleOverviewPage {...args} />
 );
 
-export const Default = Template.bind({});
+export const LiveUpdates = Template.bind({});
