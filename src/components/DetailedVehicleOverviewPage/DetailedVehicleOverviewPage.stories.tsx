@@ -17,3 +17,8 @@ const Template: ComponentStory<typeof DetailedVehicleOverviewPage> = (args) => (
 );
 
 export const LiveUpdates = Template.bind({});
+
+export const Info = Template.bind({});
+Info.args = {
+  activeTab: 'info',
+};
