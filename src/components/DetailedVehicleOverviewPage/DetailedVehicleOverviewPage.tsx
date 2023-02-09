@@ -3,7 +3,7 @@ import { Map } from '../Map/Map';
 import { LatestInformation } from './LatestInformation';
 
 export interface DetailedVehicleOverviewPageAttributes {
-  activeTab: 'live-updates' | 'info' | 'routes' | 'maintenance';
+  activeTab: 'live-updates' | 'routes' | 'maintenance';
 }
 
 export function DetailedVehicleOverviewPage({
@@ -15,34 +15,26 @@ export function DetailedVehicleOverviewPage({
     {
       id: 'live-updates',
       children: (
-        <Card sx={{ height: '100%' }}>
-          <Map
-            x={44.698832}
-            y={16.373162}
-            z={6}
-            width="100%"
-            height="100%"
-            noControls
-          />
-        </Card>
+        <Box>
+          <Card sx={{ height: '40vh', minHeight: '200px', marginBottom: 1.5 }}>
+            <Map
+              x={44.698832}
+              y={16.373162}
+              z={6}
+              width="100%"
+              height="100%"
+              noControls
+            />
+          </Card>
+          <LatestInformation />
+        </Box>
       ),
-    },
-    {
-      id: 'info',
-      children: <LatestInformation />,
     },
   ];
 
   return (
-    <Box
-      sx={{
-        padding: theme.spacing(1.4),
-        display: 'flex',
-        flexDirection: 'column',
-        height: '100%',
-      }}
-    >
-      <Box sx={{ flexGrow: 0 }}>
+    <Box sx={{ padding: theme.spacing(1.4) }}>
+      <Box sx={{ marginBottom: 1 }}>
         <Typography
           component="h1"
           variant="h4"
@@ -53,16 +45,15 @@ export function DetailedVehicleOverviewPage({
           ZD001AA
         </Typography>
       </Box>
-      <Box sx={{ flexGrow: 1, marginTop: 0.5, marginBottom: 1.4 }}>
+      <Box sx={{ marginTop: 2 }}>
         {tabs.map(({ id, children }) => {
           if (id === activeTab) return children;
           else return null;
         })}
       </Box>
-      <Card sx={{ flexGrow: 0 }}>
-        <Tabs value={activeTab} variant="scrollable" scrollButtons="auto">
-          <Tab value="live-updates" label="Karta" />
-          <Tab value="info" label="Info" />
+      <Card>
+        <Tabs value={activeTab} variant="fullWidth">
+          <Tab value="live-updates" label="Uživo" />
           <Tab value="routes" label="Rute" />
           <Tab value="maintenance" label="Servisi" />
         </Tabs>
