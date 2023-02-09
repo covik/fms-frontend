@@ -45,12 +45,6 @@ export function DetailedVehicleOverviewPage({
           ZD001AA
         </Typography>
       </Box>
-      <Box sx={{ marginTop: 2 }}>
-        {tabs.map(({ id, children }) => {
-          if (id === activeTab) return children;
-          else return null;
-        })}
-      </Box>
       <Card>
         <Tabs value={activeTab} variant="fullWidth">
           <Tab value="live-updates" label="Uživo" />
@@ -58,6 +52,12 @@ export function DetailedVehicleOverviewPage({
           <Tab value="maintenance" label="Servisi" />
         </Tabs>
       </Card>
+      <Box sx={{ marginTop: 2 }}>
+        {tabs.map(({ id, children }) => {
+          if (id === activeTab) return children;
+          else return null;
+        })}
+      </Box>
     </Box>
   );
 }
