@@ -7,7 +7,6 @@ const croatia = {
 };
 
 export default {
-  title: 'Map',
   component: Map,
   args: {
     x: croatia.x,

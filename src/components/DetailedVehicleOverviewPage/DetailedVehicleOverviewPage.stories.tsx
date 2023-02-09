@@ -2,7 +2,6 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { DetailedVehicleOverviewPage } from './DetailedVehicleOverviewPage';
 
 export default {
-  title: 'DetailedVehicleOverviewPage',
   component: DetailedVehicleOverviewPage,
   parameters: {
     viewport: {

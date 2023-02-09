@@ -4,7 +4,6 @@ import { VehiclesDigestPage } from './VehiclesDigestPage';
 import * as VehicleListStories from '../VehicleList/VehicleList.stories';
 
 export default {
-  title: 'VehiclesDigestPage',
   component: VehiclesDigestPage,
   parameters: {
     layout: 'fullscreen',

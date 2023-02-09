@@ -3,7 +3,6 @@ import { LatestInformation } from './LatestInformation';
 import { Box } from '@mui/material';
 
 export default {
-  title: 'LatestInformation',
   component: LatestInformation,
   parameters: {
     viewport: {

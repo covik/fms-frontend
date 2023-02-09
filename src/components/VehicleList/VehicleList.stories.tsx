@@ -4,7 +4,6 @@ import * as VehicleCardStories from '../VehicleCard/VehicleCard.stories';
 import { CardAttributes } from '../VehicleCard';
 
 export default {
-  title: 'VehicleList',
   component: VehicleList,
 } as ComponentMeta<typeof VehicleList>;
 

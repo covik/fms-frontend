@@ -3,7 +3,6 @@ import { VehicleCard } from './VehicleCard';
 import { Truck, TruckFast } from 'mdi-material-ui';
 
 export default {
-  title: 'VehicleCard',
   component: VehicleCard,
   args: {
     title: 'ZD000AA',

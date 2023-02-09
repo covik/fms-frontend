@@ -2,7 +2,6 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Navigation } from './Navigation';
 
 export default {
-  title: 'Navigation',
   component: Navigation,
   parameters: {
     layout: 'centered',
