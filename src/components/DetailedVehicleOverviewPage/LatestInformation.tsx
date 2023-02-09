@@ -11,8 +11,8 @@ import {
   CarBattery,
   ClockOutline,
   DirectionsFork,
-  Engine,
   ImageFilterHdr,
+  LightningBolt,
   MapMarker,
   Navigation,
   SpeedometerSlow,
@@ -32,7 +32,7 @@ export function LatestInformation() {
           </ListItem>
           <ListItem>
             <ListItemIcon>
-              <Engine />
+              <LightningBolt />
             </ListItemIcon>
             <ListItemText primary="Kontakt" secondary="Uključen" />
           </ListItem>
