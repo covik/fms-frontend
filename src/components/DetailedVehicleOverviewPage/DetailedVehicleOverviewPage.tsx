@@ -1,17 +1,6 @@
-import {
-  Box,
-  Card,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
-  Tab,
-  Tabs,
-  Typography,
-  useTheme,
-} from '@mui/material';
+import { Box, Card, Tab, Tabs, Typography, useTheme } from '@mui/material';
 import { Map } from '../Map/Map';
-import { CarBattery, Navigation, SpeedometerMedium } from 'mdi-material-ui';
+import { LatestInformation } from './LatestInformation';
 
 export interface DetailedVehicleOverviewPageAttributes {
   activeTab: 'live-updates' | 'info' | 'routes' | 'maintenance';
@@ -40,30 +29,7 @@ export function DetailedVehicleOverviewPage({
     },
     {
       id: 'info',
-      children: (
-        <Card sx={{ height: 'auto' }}>
-          <List disablePadding dense>
-            <ListItem divider>
-              <ListItemIcon>
-                <Navigation />
-              </ListItemIcon>
-              <ListItemText primary="Kretanje" secondary="U pokretu" />
-            </ListItem>
-            <ListItem divider>
-              <ListItemIcon>
-                <SpeedometerMedium />
-              </ListItemIcon>
-              <ListItemText primary="Brzina" secondary="10 km/h" />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <CarBattery />
-              </ListItemIcon>
-              <ListItemText primary="Baterija" secondary="24.52 V" />
-            </ListItem>
-          </List>
-        </Card>
-      ),
+      children: <LatestInformation />,
     },
   ];
 
