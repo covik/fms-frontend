@@ -1,6 +1,7 @@
 import { Box, Card, Tab, Tabs, Typography } from '@mui/material';
 import { Map } from '../Map/Map';
 import { LatestInformation } from './LatestInformation';
+import { RouteViewer } from './RouteViewer';
 
 export interface DetailedVehicleOverviewPageAttributes {
   activeTab: 'live-updates' | 'routes' | 'maintenance';
@@ -27,6 +28,10 @@ export function DetailedVehicleOverviewPage({
           <LatestInformation />
         </Box>
       ),
+    },
+    {
+      id: 'routes',
+      children: <RouteViewer />,
     },
   ];
 
