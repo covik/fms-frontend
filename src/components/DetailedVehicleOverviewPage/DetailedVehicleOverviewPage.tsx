@@ -1,4 +1,4 @@
-import { Box, Card, Tab, Tabs, Typography, useTheme } from '@mui/material';
+import { Box, Card, Tab, Tabs, Typography } from '@mui/material';
 import { Map } from '../Map/Map';
 import { LatestInformation } from './LatestInformation';
 
@@ -9,8 +9,6 @@ export interface DetailedVehicleOverviewPageAttributes {
 export function DetailedVehicleOverviewPage({
   activeTab = 'live-updates',
 }: DetailedVehicleOverviewPageAttributes) {
-  const theme = useTheme();
-
   const tabs = [
     {
       id: 'live-updates',
@@ -33,31 +31,29 @@ export function DetailedVehicleOverviewPage({
   ];
 
   return (
-    <Box sx={{ padding: theme.spacing(1.4) }}>
-      <Box sx={{ marginBottom: 1 }}>
-        <Typography
-          component="h1"
-          variant="h4"
-          color="grey"
-          fontWeight="medium"
-          lineHeight={1}
-        >
-          ZD001AA
-        </Typography>
-      </Box>
-      <Card>
+    <Box sx={{ padding: 1 }}>
+      <Typography
+        component="h1"
+        variant="h4"
+        color="grey"
+        fontWeight="regular"
+        lineHeight={1}
+        textAlign="center"
+        marginBottom={0.5}
+      >
+        ZD001AA
+      </Typography>
+      <Card sx={{ marginBottom: 2 }}>
         <Tabs value={activeTab} variant="fullWidth">
           <Tab value="live-updates" label="Uživo" />
           <Tab value="routes" label="Rute" />
           <Tab value="maintenance" label="Servisi" />
         </Tabs>
       </Card>
-      <Box sx={{ marginTop: 2 }}>
-        {tabs.map(({ id, children }) => {
-          if (id === activeTab) return children;
-          else return null;
-        })}
-      </Box>
+      {tabs.map(({ id, children }) => {
+        if (id === activeTab) return children;
+        else return null;
+      })}
     </Box>
   );
 }
