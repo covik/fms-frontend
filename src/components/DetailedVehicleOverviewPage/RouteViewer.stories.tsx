@@ -19,6 +19,13 @@ export default {
   ],
 } as ComponentMeta<typeof RouteViewer>;
 
-const Template: ComponentStory<typeof RouteViewer> = () => <RouteViewer />;
+const Template: ComponentStory<typeof RouteViewer> = (args) => (
+  <RouteViewer {...args} />
+);
 
 export const Today = Template.bind({});
+
+export const Yesterday = Template.bind({});
+Yesterday.args = {
+  view: 'yesterday',
+};

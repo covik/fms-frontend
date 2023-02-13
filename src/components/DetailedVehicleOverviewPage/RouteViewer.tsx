@@ -19,12 +19,16 @@ import {
 } from 'mdi-material-ui';
 import { Map } from '../Map/Map';
 
-export function RouteViewer() {
+export interface RouteViewerAttributes {
+  view: 'today' | 'yesterday' | 'custom';
+}
+
+export function RouteViewer({ view = 'today' }: RouteViewerAttributes) {
   return (
     <Box>
       <Card>
         <FormControl fullWidth>
-          <Select value="today" displayEmpty sx={{ margin: -0.3 }}>
+          <Select value={view} displayEmpty sx={{ margin: -0.3 }}>
             <MenuItem value="today">Danas</MenuItem>
             <MenuItem value="yesterday">Jučer</MenuItem>
             <MenuItem value="custom">Prilagođeno</MenuItem>

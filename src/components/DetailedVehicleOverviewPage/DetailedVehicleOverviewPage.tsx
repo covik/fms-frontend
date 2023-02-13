@@ -31,7 +31,7 @@ export function DetailedVehicleOverviewPage({
     },
     {
       id: 'routes',
-      children: <RouteViewer />,
+      children: <RouteViewer view="today" />,
     },
   ];
 
