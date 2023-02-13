@@ -1,5 +1,5 @@
 import { Box, Card, Tab, Tabs, Typography } from '@mui/material';
-import { Map } from '../Map/Map';
+import { Map } from '../Map';
 import { LatestInformation } from './LatestInformation';
 import { RouteBrowser } from './RouteBrowser';
 

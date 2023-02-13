@@ -14,7 +14,7 @@ import {
   Speedometer,
   SpeedometerMedium,
 } from 'mdi-material-ui';
-import { Map } from '../../Map/Map';
+import { Map } from '../../Map';
 import { RouteFilter } from './RouteFilter';
 
 export function RouteBrowser() {
