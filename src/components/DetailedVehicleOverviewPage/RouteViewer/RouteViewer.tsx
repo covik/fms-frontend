@@ -1,13 +1,10 @@
 import {
   Box,
   Card,
-  FormControl,
   List,
   ListItem,
   ListItemIcon,
   ListItemText,
-  MenuItem,
-  Select,
 } from '@mui/material';
 import {
   BedClock,
@@ -17,24 +14,13 @@ import {
   Speedometer,
   SpeedometerMedium,
 } from 'mdi-material-ui';
-import { Map } from '../Map/Map';
+import { Map } from '../../Map/Map';
+import { RouteFilter } from './RouteFilter';
 
-export interface RouteViewerAttributes {
-  view: 'today' | 'yesterday' | 'custom';
-}
-
-export function RouteViewer({ view = 'today' }: RouteViewerAttributes) {
+export function RouteViewer() {
   return (
     <Box>
-      <Card>
-        <FormControl fullWidth>
-          <Select value={view} displayEmpty sx={{ margin: -0.3 }}>
-            <MenuItem value="today">Danas</MenuItem>
-            <MenuItem value="yesterday">Jučer</MenuItem>
-            <MenuItem value="custom">Prilagođeno</MenuItem>
-          </Select>
-        </FormControl>
-      </Card>
+      <RouteFilter view="today" />
       <Card sx={{ height: '40vw', minHeight: '200px', marginTop: 2 }}>
         <Map
           x={44.698832}
