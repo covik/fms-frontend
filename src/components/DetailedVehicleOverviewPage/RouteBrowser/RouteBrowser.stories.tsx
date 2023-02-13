@@ -1,9 +1,9 @@
-import { RouteViewer } from './RouteViewer';
+import { RouteBrowser } from './RouteBrowser';
 import { ComponentMeta, ComponentStory } from '@storybook/react';
 import { Box } from '@mui/material';
 
 export default {
-  component: RouteViewer,
+  component: RouteBrowser,
   parameters: {
     viewport: {
       defaultViewport: 'mobile1',
@@ -17,8 +17,8 @@ export default {
       </Box>
     ),
   ],
-} as ComponentMeta<typeof RouteViewer>;
+} as ComponentMeta<typeof RouteBrowser>;
 
-const Template: ComponentStory<typeof RouteViewer> = () => <RouteViewer />;
+const Template: ComponentStory<typeof RouteBrowser> = () => <RouteBrowser />;
 
 export const Default = Template.bind({});

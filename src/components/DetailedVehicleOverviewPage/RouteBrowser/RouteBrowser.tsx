@@ -17,7 +17,7 @@ import {
 import { Map } from '../../Map/Map';
 import { RouteFilter } from './RouteFilter';
 
-export function RouteViewer() {
+export function RouteBrowser() {
   return (
     <Box>
       <RouteFilter view="today" />
