@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { Navigation } from './components/Navigation';
+import { Navigation } from './components/AppShell';
 import { VehiclesDigestPage } from './components/VehiclesDigestPage';
 
 export function App() {
