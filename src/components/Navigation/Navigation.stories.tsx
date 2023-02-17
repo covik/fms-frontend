@@ -1,20 +1,11 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
-import { Navigation } from './Navigation';
+import { ComponentMeta } from '@storybook/react';
+import { Navigation as NavigationComponent } from './Navigation';
 
 export default {
-  component: Navigation,
+  component: NavigationComponent,
   parameters: {
     layout: 'centered',
   },
-} as ComponentMeta<typeof Navigation>;
+} as ComponentMeta<typeof NavigationComponent>;
 
-const Template: ComponentStory<typeof Navigation> = (args) => (
-  <Navigation {...args} />
-);
-
-export const Rail = Template.bind({});
-
-export const Bar = Template.bind({});
-Bar.args = {
-  bar: true,
-};
+export const Navigation = () => <NavigationComponent />;
