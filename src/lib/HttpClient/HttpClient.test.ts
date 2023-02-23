@@ -1,5 +1,7 @@
 import { describe, expect, it } from '@jest/globals';
-import { request, HttpClientException } from './';
+import { request, HttpClientException, HttpNetworkException } from './';
+import { createMockServer } from '../../mocks/server';
+import { rest } from 'msw';
 
 describe('Client errors', () => {
   const clientSideProblems = [
@@ -46,4 +48,17 @@ describe('Client errors', () => {
       expect(originalError.message).toEqual(message);
     },
   );
+});
+
+describe('Network error', () => {
+  createMockServer(
+    rest.get('http://localhost', (req, res) => {
+      res.networkError('A network error occurred');
+    }),
+  );
+  it(`should throw ${HttpNetworkException.name} if a network error occurs`, async () => {
+    await expect(() => request('http://localhost')).rejects.toThrow(
+      HttpNetworkException,
+    );
+  });
 });

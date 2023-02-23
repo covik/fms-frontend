@@ -1,2 +1,2 @@
 export { request } from './HttpClient';
-export { HttpClientException } from './Exceptions';
+export { HttpClientException, HttpNetworkException } from './Exceptions';
