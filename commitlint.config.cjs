@@ -9,6 +9,7 @@ module.exports = {
         'deps', // related to dependencies
         'app',
         'branding',
+        'http-client',
       ],
     ],
   },
