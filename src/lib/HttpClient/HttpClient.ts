@@ -5,6 +5,15 @@ export async function request(
   init?: RequestInit,
 ): Promise<Response> {
   return new Promise((resolve, reject) => {
-    reject(new HttpClientException(new DOMException('AbortError')));
+    try {
+      new Request(input, init);
+    } catch (e) {
+      reject(new HttpClientException(e as Error));
+    }
+    reject(
+      new HttpClientException(
+        new DOMException('This operation was aborted', 'AbortError'),
+      ),
+    );
   });
 }

@@ -2,24 +2,48 @@ import { describe, expect, it } from '@jest/globals';
 import { request, HttpClientException } from './';
 
 describe('Client errors', () => {
-  describe('Abort request', () => {
-    function abortRequest() {
-      const controller = new AbortController();
-      const signal = controller.signal;
-      const r = request('http://localhost', { signal });
-      controller.abort();
-      return r;
-    }
+  const clientSideProblems = [
+    {
+      requestFunction: () => request('http/localhost'),
+      errorName: 'TypeError',
+      message: 'Failed to parse URL from http/localhost',
+    },
+    {
+      requestFunction: () =>
+        request('http://localhost', {
+          headers: { 'C ontent-Type': 'text/xml' },
+        }),
+      errorName: 'TypeError',
+      message: 'Headers.append: "C ontent-Type" is an invalid header name.',
+    },
+    {
+      requestFunction: async () => {
+        const controller = new AbortController();
+        const signal = controller.signal;
+        const r = request('http://localhost', { signal });
+        controller.abort();
+        await r;
+      },
+      errorName: 'AbortError',
+      message: 'This operation was aborted',
+    },
+  ];
 
-    it(`should throw ${HttpClientException.name} client exception if request gets aborted`, async () => {
-      await expect(abortRequest).rejects.toThrow(HttpClientException);
-    });
+  it.each(clientSideProblems)(
+    'should contain original error as exception property',
+    async ({ requestFunction, errorName, message }) => {
+      let error;
+      try {
+        await requestFunction();
+      } catch (e) {
+        error = e;
+      }
+      expect(error).toBeInstanceOf(HttpClientException);
+      expect(error).toHaveProperty('originalError');
 
-    it('should contain original AbortError in exception property "originalError"', async () => {
-      await expect(abortRequest).rejects.toHaveProperty(
-        'originalError',
-        new DOMException('AbortError'),
-      );
-    });
-  });
+      const originalError = (error as HttpClientException).originalError;
+      expect(originalError.name).toEqual(errorName);
+      expect(originalError.message).toEqual(message);
+    },
+  );
 });
