@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "composite": true,
+    "isolatedModules": false
+  },
+  "include": ["cypress"]
+}
