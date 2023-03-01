@@ -1,8 +1,17 @@
 import { Box, Container, Typography } from '@mui/material';
 import logo from '../../assets/logo.svg';
 import { LoginForm } from './LoginForm';
+import { useState } from 'react';
 
 export function LoginPage() {
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+
+  function tryLogin() {
+    setEmailError('Email je obavezan');
+    setPasswordError('Lozinka je obavezna');
+  }
+
   return (
     <Container component="main" maxWidth="xs" data-testid="login-form">
       <Box
@@ -31,7 +40,11 @@ export function LoginPage() {
             Zara Fleet
           </Typography>
         </Box>
-        <LoginForm />
+        <LoginForm
+          onLoginAttempt={tryLogin}
+          emailError={emailError}
+          passwordError={passwordError}
+        />
       </Box>
     </Container>
   );

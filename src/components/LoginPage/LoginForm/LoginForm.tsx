@@ -5,15 +5,18 @@ export interface LoginFormAttributes {
   isLoading?: boolean;
   emailError?: string;
   passwordError?: string;
+  onLoginAttempt: () => void;
 }
 
 export function LoginForm({
   isLoading = false,
   emailError = '',
   passwordError = '',
+  onLoginAttempt,
 }: LoginFormAttributes) {
   function attemptLogin(e: FormEvent) {
     e.preventDefault();
+    onLoginAttempt();
   }
 
   const ProgressIndicator = <CircularProgress size="2rem" color="inherit" />;
