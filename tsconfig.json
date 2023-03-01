@@ -16,9 +16,6 @@
     "noEmit": true,
     "jsx": "react-jsx"
   },
-  "include": ["src"],
-  "references": [
-    { "path": "./tsconfig.node.json" },
-    { "path": "./tsconfig.cypress.json" }
-  ]
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules", "cypress", "**/*.cy.ts"]
 }
