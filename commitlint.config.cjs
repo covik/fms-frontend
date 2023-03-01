@@ -10,6 +10,7 @@ module.exports = {
         'app',
         'branding',
         'http-client',
+        'session-service',
       ],
     ],
   },
