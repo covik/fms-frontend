@@ -19,3 +19,12 @@ it('should notify user all fields are required', () => {
   cy.contains('Email je obavezan').should('be.visible');
   cy.contains('Lozinka je obavezna').should('be.visible');
 });
+
+it('should display loading indicator on form submit', () => {
+  cy.visit('/');
+
+  cy.get('[type=submit]')
+    .should('not.be.disabled')
+    .click()
+    .should('be.disabled');
+});

@@ -6,10 +6,12 @@ import { useState } from 'react';
 export function LoginPage() {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [isLoading, setLoadingState] = useState(false);
 
   function tryLogin() {
     setEmailError('Email je obavezan');
     setPasswordError('Lozinka je obavezna');
+    setLoadingState(true);
   }
 
   return (
@@ -44,6 +46,7 @@ export function LoginPage() {
           onLoginAttempt={tryLogin}
           emailError={emailError}
           passwordError={passwordError}
+          isLoading={isLoading}
         />
       </Box>
     </Container>
