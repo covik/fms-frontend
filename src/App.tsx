@@ -1,14 +1,5 @@
-import { Box } from '@mui/material';
-import { Navigation } from './components/AppShell';
-import { VehiclesDigestPage } from './components/VehiclesDigestPage';
+import { LoginPage } from './components/LoginPage';
 
 export function App() {
-  return (
-    <>
-      <Box component="main" sx={{ marginLeft: '57px' }}>
-        <Navigation />
-        <VehiclesDigestPage vehicles={[]} />
-      </Box>
-    </>
-  );
+  return <LoginPage />;
 }

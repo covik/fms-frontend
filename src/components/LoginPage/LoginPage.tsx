@@ -4,7 +4,7 @@ import { LoginForm } from './LoginForm';
 
 export function LoginPage() {
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" data-testid="login-form">
       <Box
         sx={{
           marginTop: 8,
