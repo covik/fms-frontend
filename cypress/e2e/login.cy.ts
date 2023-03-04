@@ -27,3 +27,16 @@ it('should notify user all fields are required', () => {
   cy.contains('Email je obavezan').should('be.visible');
   cy.contains('Lozinka je obavezna').should('be.visible');
 });
+
+it('should notify user if credentials are wrong', () => {
+  cy.visit('/');
+  cy.get('[data-testid="form-result"]').should('not.exist');
+
+  cy.get('[name="email"]').type('wrong@example.com');
+  cy.get('[name="password"]').type('incorrect');
+  cy.get('[type=submit]').click();
+
+  cy.get('[data-testid="form-result"]')
+    .should('be.visible')
+    .and('have.text', 'Pogrešan email ili lozinka');
+});
