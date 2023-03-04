@@ -9,9 +9,9 @@ export function LoginPage() {
   const [isLoading, setLoadingState] = useState(false);
 
   function tryLogin() {
+    setLoadingState(true);
     setEmailError('Email je obavezan');
     setPasswordError('Lozinka je obavezna');
-    setLoadingState(true);
   }
 
   return (
