@@ -23,8 +23,7 @@ it('should notify user all fields are required', () => {
 it('should display loading indicator on form submit', () => {
   cy.visit('/');
 
-  cy.get('[type=submit]')
-    .should('not.be.disabled')
-    .click()
-    .should('be.disabled');
+  cy.get('[data-testid="progress-indicator"]').should('not.exist');
+  cy.get('[type=submit]').click().should('be.disabled');
+  cy.get('[data-testid="progress-indicator"]').should('be.visible');
 });

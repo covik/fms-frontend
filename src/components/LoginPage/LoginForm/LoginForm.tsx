@@ -19,7 +19,13 @@ export function LoginForm({
     onLoginAttempt();
   }
 
-  const ProgressIndicator = <CircularProgress size="2rem" color="inherit" />;
+  const ProgressIndicator = (
+    <CircularProgress
+      size="2rem"
+      color="inherit"
+      data-testid="progress-indicator"
+    />
+  );
 
   return (
     <Box component="form" onSubmit={attemptLogin} noValidate>
