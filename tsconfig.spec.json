@@ -4,6 +4,6 @@
     "isolatedModules": false,
     "types": ["cypress", "node"]
   },
-  "include": ["cypress", "src/**/*.cy.ts"],
+  "include": ["cypress", "src/**/*.cy.ts", "src/**/*.cy.tsx"],
   "exclude": []
 }

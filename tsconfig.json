@@ -17,5 +17,5 @@
     "jsx": "react-jsx"
   },
   "include": ["**/*.ts"],
-  "exclude": ["node_modules", "cypress", "**/*.cy.ts"]
+  "exclude": ["node_modules", "cypress", "**/*.cy.ts", "**/*.cy.tsx"]
 }
