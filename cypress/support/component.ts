@@ -20,6 +20,11 @@ import './commands';
 // require('./commands')
 
 import { mount } from 'cypress/react18';
+import { setGlobalConfig } from '@storybook/testing-react';
+// @ts-expect-error
+import * as globalStorybookConfig from '../../.storybook/preview.cjs';
+
+setGlobalConfig(globalStorybookConfig);
 
 // Augment the Cypress namespace to include type definitions for
 // your custom command.
