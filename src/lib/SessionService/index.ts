@@ -1,1 +1,2 @@
-export { check } from './SessionService';
+export { check, create } from './SessionService';
+export { ValidationException, WrongCredentialsException } from './Exception';
