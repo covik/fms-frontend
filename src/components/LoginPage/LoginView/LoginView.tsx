@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@mui/material';
 import logo from '../../../assets/logo.svg';
-import type { FormEvent } from 'react';
+import type { FormEvent, SyntheticEvent } from 'react';
 
 export interface LoginViewAttributes {
   state:
@@ -19,7 +19,7 @@ export interface LoginViewAttributes {
     | 'unexpected-error';
   emailError: string;
   passwordError: string;
-  onLoginAttempt: () => void;
+  onLoginAttempt: (email: string, password: string) => void;
 }
 
 export function LoginView({
@@ -30,16 +30,17 @@ export function LoginView({
 }: LoginViewAttributes) {
   const isLoading = state === 'submitting';
 
-  function attemptLogin(e: FormEvent) {
+  function attemptLogin(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    onLoginAttempt();
+    const input = new FormData(e.target as HTMLFormElement);
+    onLoginAttempt(String(input.get('email')), String(input.get('password')));
   }
 
   const SubmitIndicator = (
     <CircularProgress
       size="2rem"
       color="inherit"
-      data-testid={testingSelectors.form.submitIndicator}
+      data-testid={testingSelectors.submitIndicator}
     />
   );
 
@@ -48,16 +49,17 @@ export function LoginView({
       <Snackbar
         open={state === 'wrong-credentials'}
         message="Pogrešan email ili lozinka"
-        data-testid={testingSelectors.form.result}
+        data-testid={testingSelectors.result}
       />
       <Snackbar
         open={state === 'unexpected-error'}
         message="Došlo je do neočekivane greške"
+        data-testid={testingSelectors.result}
       />
       <Container
         component="main"
         maxWidth="xs"
-        data-testid={testingSelectors.form.container}
+        data-testid={testingSelectors.container}
       >
         <Box
           sx={{
@@ -85,7 +87,12 @@ export function LoginView({
               Zara Fleet
             </Typography>
           </Box>
-          <Box component="form" onSubmit={attemptLogin} noValidate>
+          <Box
+            component="form"
+            onSubmit={attemptLogin}
+            noValidate
+            data-testid={testingSelectors.form}
+          >
             <TextField
               margin="normal"
               fullWidth
@@ -128,11 +135,10 @@ export function LoginView({
 }
 
 export const testingSelectors = {
-  form: {
-    container: 'login-form',
-    result: 'form-result',
-    submitIndicator: 'submit-indicator',
-  },
+  container: 'login-view',
+  result: 'form-result',
+  form: 'login-form',
+  submitIndicator: 'submit-indicator',
   inputs: {
     email: 'email-input',
     password: 'password-input',

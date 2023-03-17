@@ -1,2 +1,2 @@
-export { LoginView } from './LoginView';
+export { LoginView, testingSelectors } from './LoginView';
 export type { LoginViewAttributes } from './LoginView';
