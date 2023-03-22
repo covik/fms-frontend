@@ -12,7 +12,8 @@
     "cy:ct:firefox": "cypress run --component browser firefox",
     "prepare": "husky install",
     "sb:dev": "NODE_OPTIONS=--openssl-legacy-provider start-storybook -p 6006",
-    "sb:build": "NODE_OPTIONS=--openssl-legacy-provider build-storybook"
+    "sb:build": "NODE_OPTIONS=--openssl-legacy-provider build-storybook",
+    "type-check": "tsc -p tsconfig.json && tsc -p tsconfig.spec.json"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
