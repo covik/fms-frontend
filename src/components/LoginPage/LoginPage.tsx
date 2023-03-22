@@ -3,9 +3,12 @@ import { LoginView } from './LoginView';
 import type { LoginViewAttributes } from './LoginView';
 
 export function LoginPage() {
-  const [currentState] = useState<LoginViewAttributes['state']>('initial');
+  const [currentState, goTo] =
+    useState<LoginViewAttributes['state']>('initial');
 
-  function tryLogin() {}
+  function tryLogin() {
+    goTo('submitting');
+  }
 
   return (
     <LoginView
