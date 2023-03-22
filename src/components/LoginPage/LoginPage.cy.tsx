@@ -65,8 +65,25 @@ describe(LoginPage.name, () => {
     cy.contains('Lozinka je obavezna').should('be.visible');
     cy.contains('Email je obavezan').should('not.exist');
   });
+
+  it('should go to error state and show error message if credentials do not match', () => {
+    simulateWrongCredentialsSituation();
+
+    cy.get(`[data-testid="${testingSelectors.inputs.email}"] input`).type(
+      'me@example.com',
+    );
+    cy.get(`[data-testid="${testingSelectors.inputs.password}"] input`).type(
+      'strong-password',
+    );
+
+    cy.contains('Pogrešan email ili lozinka').should('not.exist');
+    cy.get(`[data-testid="${testingSelectors.form}"]`).submit();
+    cy.contains('Pogrešan email ili lozinka').should('be.visible');
+  });
 });
 
 function simulateSubmittingState() {
   cy.stub(Session, 'create', () => new Promise<void>(() => {}));
 }
+
+function simulateWrongCredentialsSituation() {}

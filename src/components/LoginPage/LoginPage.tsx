@@ -15,10 +15,12 @@ export function LoginPage() {
     try {
       await Session.create({ email, password });
     } catch (e) {
-      goTo('validation-error');
       if (e instanceof Session.ValidationException) {
+        goTo('validation-error');
         !e.isEmailOk() && setEmailError('Email je obavezan');
         !e.isPasswordOk() && setPasswordError('Lozinka je obavezna');
+      } else if (e instanceof Session.WrongCredentialsException) {
+        goTo('wrong-credentials');
       }
     }
   }
