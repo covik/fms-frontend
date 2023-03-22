@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@mui/material';
 import logo from '../../../assets/logo.svg';
-import type { FormEvent, SyntheticEvent } from 'react';
+import type { FormEvent } from 'react';
 
 export interface LoginViewAttributes {
   state:
