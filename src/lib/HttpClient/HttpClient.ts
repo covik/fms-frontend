@@ -14,7 +14,7 @@ export async function request(
     }
 
     fetch(request as Request).catch((e) => {
-      if (e.message === 'fetch failed') {
+      if (e.message === 'Failed to fetch') {
         reject(new HttpNetworkException());
       } else
         reject(
