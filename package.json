@@ -8,8 +8,8 @@
   "type": "module",
   "scripts": {
     "prepare": "husky install",
-    "storybook": "NODE_OPTIONS=--openssl-legacy-provider start-storybook -p 6006",
-    "build-storybook": "NODE_OPTIONS=--openssl-legacy-provider build-storybook",
+    "sb:dev": "NODE_OPTIONS=--openssl-legacy-provider start-storybook -p 6006",
+    "sb:build": "NODE_OPTIONS=--openssl-legacy-provider build-storybook",
     "test": "jest"
   },
   "dependencies": {
