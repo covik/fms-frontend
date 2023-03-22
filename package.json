@@ -12,8 +12,7 @@
     "sb:build": "NODE_OPTIONS=--openssl-legacy-provider build-storybook",
     "cy:dev": "cypress open --component --browser chrome",
     "cy:ct:chrome": "cypress run --component --browser chrome",
-    "cy:ct:firefox": "cypress run --component browser firefox",
-    "test": "jest"
+    "cy:ct:firefox": "cypress run --component browser firefox"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
