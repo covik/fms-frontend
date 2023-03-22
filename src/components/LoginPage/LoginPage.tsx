@@ -7,15 +7,19 @@ export function LoginPage() {
   const [currentState, goTo] =
     useState<LoginViewAttributes['state']>('initial');
   const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   async function tryLogin(email: string, password: string) {
     goTo('submitting');
 
     try {
-      await Session.create({ email: '', password: 'stronk' });
+      await Session.create({ email, password });
     } catch (e) {
       goTo('validation-error');
-      setEmailError('Email je obavezan');
+      if (e instanceof Session.ValidationException) {
+        !e.isEmailOk() && setEmailError('Email je obavezan');
+        !e.isPasswordOk() && setPasswordError('Lozinka je obavezna');
+      }
     }
   }
 
@@ -23,7 +27,7 @@ export function LoginPage() {
     <LoginView
       state={currentState}
       emailError={emailError}
-      passwordError={''}
+      passwordError={passwordError}
       onLoginAttempt={tryLogin}
     />
   );

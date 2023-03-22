@@ -48,6 +48,22 @@ describe(LoginPage.name, () => {
       .and('not.be.disabled');
 
     cy.contains('Email je obavezan').should('be.visible');
+    cy.contains('Lozinka je obavezna').should('not.exist');
+  });
+
+  it('should go to validation error state and show error message if password is empty', () => {
+    cy.get(`[data-testid="${testingSelectors.inputs.email}"] input`).type(
+      'me@example.com',
+    );
+
+    cy.get(`[data-testid="${testingSelectors.form}"]`).submit();
+
+    cy.get(`[data-testid="${testingSelectors.inputs.password}"] input`)
+      .should('be.visible')
+      .and('not.be.disabled');
+
+    cy.contains('Lozinka je obavezna').should('be.visible');
+    cy.contains('Email je obavezan').should('not.exist');
   });
 });
 
