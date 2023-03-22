@@ -1,9 +1,6 @@
-import {
-  check,
-  create,
-  ValidationException,
-  WrongCredentialsException,
-} from './';
+import { Session } from './';
+const { check, create, ValidationException, WrongCredentialsException } =
+  Session;
 
 describe('SessionService', () => {
   describe('check()', () => {
