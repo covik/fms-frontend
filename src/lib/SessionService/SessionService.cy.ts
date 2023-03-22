@@ -25,12 +25,12 @@ describe('SessionService', () => {
 
       matrix.forEach(([emailOk, passwordOk, title]) => {
         it(`should throw ${ValidationException.name} if: ${title}`, () => {
-          testException(
+          cy.testException(
             constructInvalidSessionRequest(emailOk, passwordOk),
-          ).then(({ useError }) => {
-            useError().should('be.instanceOf', ValidationException);
-            useError().invoke('isEmailOk').should('equal', emailOk);
-            useError().invoke('isPasswordOk').should('equal', passwordOk);
+          ).then((theError) => {
+            theError().should('be.instanceOf', ValidationException);
+            theError().invoke('isEmailOk').should('equal', emailOk);
+            theError().invoke('isPasswordOk').should('equal', passwordOk);
           });
         });
       });
@@ -40,8 +40,8 @@ describe('SessionService', () => {
       it(`should throw ${WrongCredentialsException.name} if server returns 401 status code`, () => {
         cy.intercept('POST', '/api/session', { statusCode: 401 });
 
-        testException(constructValidSessionRequest).then(({ useError }) => {
-          useError().should('be.instanceOf', WrongCredentialsException);
+        cy.testException(constructValidSessionRequest).then((theError) => {
+          theError().should('be.instanceOf', WrongCredentialsException);
         });
       });
     });
@@ -64,20 +64,4 @@ function constructInvalidSessionRequest(
 
 function constructValidSessionRequest() {
   return create({ email: 'me@example.com', password: 'strong-password' });
-}
-
-function testException(func: () => Promise<unknown>) {
-  return cy
-    .then(async () => {
-      try {
-        await func();
-        return undefined;
-      } catch (e) {
-        return e;
-      }
-    })
-    .then((e) => {
-      cy.wrap(e).as('error');
-      return Promise.resolve({ useError: () => cy.get('@error') });
-    });
 }

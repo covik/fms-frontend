@@ -34,6 +34,7 @@ declare global {
   namespace Cypress {
     interface Chainable {
       mount: typeof mount;
+      testException: typeof testException;
     }
   }
 }
@@ -42,3 +43,21 @@ Cypress.Commands.add('mount', mount);
 
 // Example use:
 // cy.mount(<MyComponent />)
+
+Cypress.Commands.add('testException', testException);
+
+function testException(func: () => Promise<unknown>) {
+  return cy
+    .then(async () => {
+      try {
+        await func();
+        return undefined;
+      } catch (e) {
+        return e;
+      }
+    })
+    .then((e) => {
+      cy.wrap(e).as('error');
+      return Promise.resolve(() => cy.get('@error'));
+    });
+}
