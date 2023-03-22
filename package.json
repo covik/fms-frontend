@@ -10,6 +10,9 @@
     "prepare": "husky install",
     "sb:dev": "NODE_OPTIONS=--openssl-legacy-provider start-storybook -p 6006",
     "sb:build": "NODE_OPTIONS=--openssl-legacy-provider build-storybook",
+    "cy:dev": "cypress open --component --browser chrome",
+    "cy:ct:chrome": "cypress run --component --browser chrome",
+    "cy:ct:firefox": "cypress run --component browser firefox",
     "test": "jest"
   },
   "dependencies": {
