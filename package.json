@@ -7,12 +7,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "prepare": "husky install",
-    "sb:dev": "NODE_OPTIONS=--openssl-legacy-provider start-storybook -p 6006",
-    "sb:build": "NODE_OPTIONS=--openssl-legacy-provider build-storybook",
     "cy:dev": "cypress open --component --browser chrome",
     "cy:ct:chrome": "cypress run --component --browser chrome",
-    "cy:ct:firefox": "cypress run --component browser firefox"
+    "cy:ct:firefox": "cypress run --component browser firefox",
+    "prepare": "husky install",
+    "sb:dev": "NODE_OPTIONS=--openssl-legacy-provider start-storybook -p 6006",
+    "sb:build": "NODE_OPTIONS=--openssl-legacy-provider build-storybook"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
