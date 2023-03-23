@@ -20,7 +20,7 @@ export async function request(
     fetch(request as Request)
       .then((response) => {
         if (!response.ok) reject(new HttpServerException(response));
-        else resolve(undefined as unknown as Response);
+        else resolve(response);
       })
       .catch((e) => {
         if (e.message === 'Failed to fetch') {

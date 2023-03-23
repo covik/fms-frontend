@@ -100,6 +100,20 @@ describe('Server errors', () => {
   });
 });
 
+describe('Successful response', () => {
+  it('should return Response object with correct body and code', () => {
+    const url = 'http://localhost';
+    const statusCode = 200;
+    const body = { testPassing: 'yay!' };
+    cy.intercept(url, { statusCode, body });
+    cy.then(async () => {
+      const req = await request(url);
+      expect(req).to.have.property('status', statusCode);
+      expect(await req.json()).to.deep.equal(body);
+    });
+  });
+});
+
 function assertServerResponse(code: number | undefined = undefined) {
   const requestChain = cy.testException(() => request('http://localhost'));
 
