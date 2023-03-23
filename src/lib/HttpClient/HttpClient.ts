@@ -2,7 +2,7 @@ import {
   ClientException,
   NetworkException,
   ServerException,
-} from './Exceptions';
+} from './Exception';
 
 export async function request(
   input: string,

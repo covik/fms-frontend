@@ -3,7 +3,7 @@ import {
   ClientException,
   NetworkException,
   ServerException,
-} from './Exceptions';
+} from './Exception';
 
 export const Http = {
   request,
