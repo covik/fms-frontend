@@ -1,15 +1,15 @@
 import { CustomError } from 'ts-custom-error';
 
-export class BaseHttpException extends CustomError {}
+export class BaseException extends CustomError {}
 
 /* Exceptions by origin */
-export class HttpClientException extends BaseHttpException {
+export class ClientException extends BaseException {
   public constructor(public originalError: Error) {
     super();
   }
 }
-export class HttpNetworkException extends BaseHttpException {}
-export class HttpServerException extends BaseHttpException {
+export class NetworkException extends BaseException {}
+export class ServerException extends BaseException {
   public constructor(public response: Response) {
     super();
   }
