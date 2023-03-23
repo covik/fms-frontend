@@ -1,17 +1,15 @@
 import { Session } from './';
-const { check, create, ValidationException, WrongCredentialsException } =
-  Session;
 
 describe('SessionService', () => {
   describe('check()', () => {
     it('should return false if request returns non-200 status code', () => {
       cy.intercept('GET', '/api/session', { statusCode: 401 });
-      cy.then(check).should('equal', false);
+      cy.then(Session.check).should('equal', false);
     });
 
     it('should return true if request returns 200 status code', () => {
       cy.intercept('GET', '/api/session', { statusCode: 200 });
-      cy.then(check).should('equal', true);
+      cy.then(Session.check).should('equal', true);
     });
   });
 
@@ -24,11 +22,11 @@ describe('SessionService', () => {
       ];
 
       matrix.forEach(([emailOk, passwordOk, title]) => {
-        it(`should throw ${ValidationException.name} if: ${title}`, () => {
+        it(`should throw ${Session.ValidationException.name} if: ${title}`, () => {
           cy.testException(
             constructInvalidSessionRequest(emailOk, passwordOk),
           ).then((theError) => {
-            theError().should('be.instanceOf', ValidationException);
+            theError().should('be.instanceOf', Session.ValidationException);
             theError().invoke('isEmailOk').should('equal', emailOk);
             theError().invoke('isPasswordOk').should('equal', passwordOk);
           });
@@ -37,11 +35,11 @@ describe('SessionService', () => {
     });
 
     describe('Problematic situations', () => {
-      it(`should throw ${WrongCredentialsException.name} if server returns 401 status code`, () => {
+      it(`should throw ${Session.WrongCredentialsException.name} if server returns 401 status code`, () => {
         cy.intercept('POST', '/api/session', { statusCode: 401 });
 
         cy.testException(constructValidSessionRequest).then((theError) => {
-          theError().should('be.instanceOf', WrongCredentialsException);
+          theError().should('be.instanceOf', Session.WrongCredentialsException);
         });
       });
     });
@@ -55,7 +53,7 @@ function constructInvalidSessionRequest(
   const determineInput = (input: boolean) => (input ? 'Good value' : '   ');
 
   return function () {
-    return create({
+    return Session.create({
       email: determineInput(isEmailValid),
       password: determineInput(isPasswordValid),
     });
@@ -63,5 +61,8 @@ function constructInvalidSessionRequest(
 }
 
 function constructValidSessionRequest() {
-  return create({ email: 'me@example.com', password: 'strong-password' });
+  return Session.create({
+    email: 'me@example.com',
+    password: 'strong-password',
+  });
 }
