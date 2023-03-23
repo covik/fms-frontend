@@ -8,24 +8,17 @@ export async function request(
   input: string,
   init?: RequestInit,
 ): Promise<Response> {
-  return new Promise((resolve, reject) => {
-    let request;
-
-    try {
-      request = new Request(input, init);
-    } catch (e) {
-      reject(new ClientException(e as Error));
-    }
-
-    fetch(request as Request)
-      .then((response) => {
-        if (!response.ok) reject(new ServerException(response));
-        else resolve(response);
-      })
-      .catch((e) => {
-        if (e.message === 'Failed to fetch') {
-          reject(new NetworkException());
-        } else reject(new ClientException(e));
-      });
-  });
+  try {
+    const request = new Request(input, init);
+    const response = await fetch(request);
+    if (!response.ok) return Promise.reject(new ServerException(response));
+    return response;
+  } catch (e) {
+    const error = e as Error;
+    return Promise.reject(
+      error.message === 'Failed to fetch'
+        ? new NetworkException()
+        : new ClientException(error),
+    );
+  }
 }
