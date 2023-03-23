@@ -1,4 +1,8 @@
-import { HttpClientException, HttpNetworkException } from './Exceptions';
+import {
+  HttpClientException,
+  HttpNetworkException,
+  HttpServerException,
+} from './Exceptions';
 
 export async function request(
   input: string,
@@ -13,15 +17,20 @@ export async function request(
       reject(new HttpClientException(e as Error));
     }
 
-    fetch(request as Request).catch((e) => {
-      if (e.message === 'Failed to fetch') {
-        reject(new HttpNetworkException());
-      } else
-        reject(
-          new HttpClientException(
-            new DOMException('This operation was aborted', 'AbortError'),
-          ),
-        );
-    });
+    fetch(request as Request)
+      .then((response) => {
+        if (!response.ok) reject(new HttpServerException(response));
+        else resolve(undefined as unknown as Response);
+      })
+      .catch((e) => {
+        if (e.message === 'Failed to fetch') {
+          reject(new HttpNetworkException());
+        } else
+          reject(
+            new HttpClientException(
+              new DOMException('This operation was aborted', 'AbortError'),
+            ),
+          );
+      });
   });
 }

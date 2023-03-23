@@ -9,4 +9,8 @@ export class HttpClientException extends BaseHttpException {
   }
 }
 export class HttpNetworkException extends BaseHttpException {}
-export class HttpServerException extends BaseHttpException {}
+export class HttpServerException extends BaseHttpException {
+  public constructor(public response: Response) {
+    super();
+  }
+}

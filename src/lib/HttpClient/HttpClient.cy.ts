@@ -1,4 +1,9 @@
-import { request, HttpClientException, HttpNetworkException } from './';
+import {
+  request,
+  HttpClientException,
+  HttpNetworkException,
+  HttpServerException,
+} from './';
 
 describe('Client errors', () => {
   const clientSideProblems = [
@@ -67,3 +72,47 @@ describe('Network error', () => {
     });
   });
 });
+
+describe('Server errors', () => {
+  describe(`should throw ${HttpServerException.name} if a response status code is not 200-299`, () => {
+    it('1xx: not testable', () => {
+      cy.log('the tests hang until timeout');
+    });
+    it('2xx: no exception', () => {
+      let code = -1;
+      cy.intercept('http://localhost', (res) => res.reply(code));
+
+      cy.then(() => (code = 200)).then(assertServerResponse().NotError);
+      cy.then(() => (code = 299)).then(assertServerResponse().NotError);
+    });
+    it('3xx: not testable', () => {
+      cy.log('after issuing 3xx code every request afterwards resolves to 3xx');
+      cy.log('restarting Cypress is needed to restore normal behavior');
+    });
+    it('4xx 5xx: exception', () => {
+      cy.intercept('http://localhost', { statusCode: 400 }).then(
+        assertServerResponse(400).IsError,
+      );
+      cy.intercept('http://localhost', { statusCode: 599 }).then(
+        assertServerResponse(599).IsError,
+      );
+    });
+  });
+});
+
+function assertServerResponse(code: number | undefined = undefined) {
+  const requestChain = cy.testException(() => request('http://localhost'));
+
+  return {
+    IsError: () =>
+      requestChain.then((theError) => {
+        theError().should('be.instanceOf', HttpServerException);
+        theError().its('response').should('be.instanceOf', Response);
+        theError().its('response').its('status').should('equal', code);
+      }),
+    NotError: () =>
+      requestChain.then((theError) => {
+        theError().should('not.be.instanceOf', HttpServerException);
+      }),
+  };
+}
