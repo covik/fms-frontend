@@ -57,6 +57,20 @@ describe('SessionService', () => {
           theError().should('be.instanceOf', Session.WrongCredentialsException);
         });
       });
+
+      it(`should throw ${Http.ServerException.name} if response code is not 200 nor 401`, () => {
+        cy.intercept('POST', '/api/session', { statusCode: 500 });
+        cy.testException(constructValidSessionRequest).then((theError) => {
+          theError().should('be.instanceOf', Http.ServerException);
+        });
+      });
+
+      it(`should throw ${Http.NetworkException.name} if network error occurs`, () => {
+        cy.intercept('POST', '/api/session', { forceNetworkError: true });
+        cy.testException(constructValidSessionRequest).then((theError) => {
+          theError().should('be.instanceOf', Http.NetworkException);
+        });
+      });
     });
   });
 });

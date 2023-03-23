@@ -20,7 +20,15 @@ export async function create(credentials: SessionCredentials): Promise<void> {
   if (isEmailInvalid || isPasswordInvalid)
     throw new ValidationException(isEmailInvalid, isPasswordInvalid);
 
-  throw new WrongCredentialsException();
+  try {
+    await Http.request('/api/session', { method: 'POST' });
+  } catch (e) {
+    if (e instanceof Http.ServerException && e.response.status === 401) {
+      throw new WrongCredentialsException();
+    }
+
+    throw e;
+  }
 }
 
 function validateCredentials(credentials: SessionCredentials) {
