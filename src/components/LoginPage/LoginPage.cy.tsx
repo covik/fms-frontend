@@ -86,4 +86,6 @@ function simulateSubmittingState() {
   cy.stub(Session, 'create', () => new Promise<void>(() => {}));
 }
 
-function simulateWrongCredentialsSituation() {}
+function simulateWrongCredentialsSituation() {
+  cy.intercept('POST', '/api/session', { statusCode: 401 });
+}
