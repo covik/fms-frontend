@@ -35,7 +35,7 @@ describe('Request error', () => {
         await r;
       },
       expectedError: 'AbortError',
-      expectedMessage: 'This operation was aborted',
+      expectedMessage: 'The user aborted a request.',
     },
   ];
 

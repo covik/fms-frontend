@@ -25,12 +25,7 @@ export async function request(
       .catch((e) => {
         if (e.message === 'Failed to fetch') {
           reject(new NetworkException());
-        } else
-          reject(
-            new ClientException(
-              new DOMException('This operation was aborted', 'AbortError'),
-            ),
-          );
+        } else reject(new ClientException(e));
       });
   });
 }
