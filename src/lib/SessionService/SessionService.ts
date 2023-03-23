@@ -1,8 +1,16 @@
 import { ValidationException, WrongCredentialsException } from './Exception';
+import { Http } from '../HttpClient';
 
 export async function check(): Promise<boolean> {
-  const response = await fetch('/api/session');
-  return response.status === 200;
+  try {
+    await Http.request('/api/session');
+    return true;
+  } catch (e) {
+    if (e instanceof Http.ServerException && e.response.status === 401) {
+      return false;
+    }
+    throw e;
+  }
 }
 
 export async function create(credentials: SessionCredentials): Promise<void> {
