@@ -21,6 +21,8 @@ export function LoginPage() {
         !e.isPasswordOk() && setPasswordError('Lozinka je obavezna');
       } else if (e instanceof Session.WrongCredentialsException) {
         goTo('wrong-credentials');
+      } else {
+        goTo('unexpected-error');
       }
     }
   }

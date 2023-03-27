@@ -80,6 +80,21 @@ describe(LoginPage.name, () => {
     cy.get(`[data-testid="${testingSelectors.form}"]`).submit();
     cy.contains('Pogrešan email ili lozinka').should('be.visible');
   });
+
+  it('should go to error state and show error message if server error occurs', () => {
+    simulateServerError();
+
+    cy.get(`[data-testid="${testingSelectors.inputs.email}"] input`).type(
+      'me@example.com',
+    );
+    cy.get(`[data-testid="${testingSelectors.inputs.password}"] input`).type(
+      'strong-password',
+    );
+
+    cy.contains('Došlo je do neočekivane greške').should('not.exist');
+    cy.get(`[data-testid="${testingSelectors.form}"]`).submit();
+    cy.contains('Došlo je do neočekivane greške').should('be.visible');
+  });
 });
 
 function simulateSubmittingState() {
@@ -88,4 +103,8 @@ function simulateSubmittingState() {
 
 function simulateWrongCredentialsSituation() {
   cy.intercept('POST', '/api/session', { statusCode: 401 });
+}
+
+function simulateServerError() {
+  cy.intercept('POST', '/api/session', { statusCode: 500 });
 }
