@@ -21,7 +21,7 @@ describe(LoginPage.name, () => {
   it('should go to submitting state after clicking a submit button', () => {
     simulateSubmittingState();
 
-    cy.get(`[data-testid="${testingSelectors.form}"]`).submit();
+    submitForm();
 
     cy.get(`[data-testid="${testingSelectors.inputs.email}"] input`)
       .should('be.visible')
@@ -41,7 +41,7 @@ describe(LoginPage.name, () => {
       'strong-password',
     );
 
-    cy.get(`[data-testid="${testingSelectors.form}"]`).submit();
+    submitForm();
 
     cy.get(`[data-testid="${testingSelectors.inputs.email}"] input`)
       .should('be.visible')
@@ -56,7 +56,7 @@ describe(LoginPage.name, () => {
       'me@example.com',
     );
 
-    cy.get(`[data-testid="${testingSelectors.form}"]`).submit();
+    submitForm();
 
     cy.get(`[data-testid="${testingSelectors.inputs.password}"] input`)
       .should('be.visible')
@@ -68,34 +68,35 @@ describe(LoginPage.name, () => {
 
   it('should go to error state and show error message if credentials do not match', () => {
     simulateWrongCredentialsSituation();
-
-    cy.get(`[data-testid="${testingSelectors.inputs.email}"] input`).type(
-      'me@example.com',
-    );
-    cy.get(`[data-testid="${testingSelectors.inputs.password}"] input`).type(
-      'strong-password',
-    );
+    fillForm();
 
     cy.contains('Pogrešan email ili lozinka').should('not.exist');
-    cy.get(`[data-testid="${testingSelectors.form}"]`).submit();
+    submitForm();
     cy.contains('Pogrešan email ili lozinka').should('be.visible');
   });
 
   it('should go to error state and show error message if server error occurs', () => {
     simulateServerError();
-
-    cy.get(`[data-testid="${testingSelectors.inputs.email}"] input`).type(
-      'me@example.com',
-    );
-    cy.get(`[data-testid="${testingSelectors.inputs.password}"] input`).type(
-      'strong-password',
-    );
+    fillForm();
 
     cy.contains('Došlo je do neočekivane greške').should('not.exist');
-    cy.get(`[data-testid="${testingSelectors.form}"]`).submit();
+    submitForm();
     cy.contains('Došlo je do neočekivane greške').should('be.visible');
   });
 });
+
+function fillForm() {
+  cy.get(`[data-testid="${testingSelectors.inputs.email}"] input`).type(
+    'me@example.com',
+  );
+  cy.get(`[data-testid="${testingSelectors.inputs.password}"] input`).type(
+    'strong-password',
+  );
+}
+
+function submitForm() {
+  cy.get(`[data-testid="${testingSelectors.form}"]`).submit();
+}
 
 function simulateSubmittingState() {
   cy.stub(Session, 'create', () => new Promise<void>(() => {}));
