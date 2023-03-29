@@ -1,5 +1,5 @@
 import React from 'react';
-import { DesignBaseline } from '../src/DesignBaseline';
+import { DesignBaseline } from '../src/foundation';
 
 export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
