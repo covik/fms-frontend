@@ -5,6 +5,7 @@ import type { ReactNode } from 'react';
 interface AuthAPI {
   isFetching: boolean;
   isAuthenticated: boolean;
+  finishLogin: () => void;
 }
 
 const AuthContext = createContext<AuthAPI | undefined>(undefined);
@@ -15,6 +16,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   );
   const isFetching = state === 'fetching';
   const isAuthenticated = state === 'active';
+  const finishLogin = () => setState('active');
 
   useEffect(() => {
     Session.check().then((isSuccessful) =>
@@ -23,7 +25,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isFetching, isAuthenticated }}>
+    <AuthContext.Provider value={{ isFetching, isAuthenticated, finishLogin }}>
       {children}
     </AuthContext.Provider>
   );

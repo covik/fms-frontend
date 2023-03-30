@@ -15,7 +15,7 @@ describe(App.name, () => {
     simulateNoActiveSession();
     mountApp();
     cy.get(`[data-testid="${testingSelectors.spinner}"]`).should('not.exist');
-    cy.get(`[data-testid="${testingSelectors.loginPage}"]`).should(
+    cy.get(`[data-testid="${testingSelectors.login.page}"]`).should(
       'be.visible',
     );
   });
@@ -24,6 +24,15 @@ describe(App.name, () => {
     simulateActiveSession();
     mountApp();
     cy.get(`[data-testid="${testingSelectors.spinner}"]`).should('not.exist');
+    cy.get(`[data-testid="${authenticatedAppSelector}"]`).should('be.visible');
+  });
+
+  it('should render authenticated app if login succeeds', () => {
+    simulateNoActiveSession();
+    simulateSuccessfulLogin();
+    mountApp();
+    fillForm();
+    submitForm();
     cy.get(`[data-testid="${authenticatedAppSelector}"]`).should('be.visible');
   });
 });
@@ -50,4 +59,21 @@ function simulateNoActiveSession() {
 
 function simulateActiveSession() {
   cy.stub(Session, 'check', () => Promise.resolve(true));
+}
+
+function simulateSuccessfulLogin() {
+  cy.intercept('POST', '/api/session', { statusCode: 200 });
+}
+
+function fillForm() {
+  cy.get(`[data-testid="${testingSelectors.login.email}"] input`).type(
+    'me@example.com',
+  );
+  cy.get(`[data-testid="${testingSelectors.login.password}"] input`).type(
+    'strong-password',
+  );
+}
+
+function submitForm() {
+  cy.get(`[data-testid="${testingSelectors.login.form}"]`).submit();
 }

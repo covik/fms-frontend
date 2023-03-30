@@ -7,18 +7,23 @@ import { useAuth } from './';
 import type { ReactNode } from 'react';
 
 export function App({ children }: { children: ReactNode }) {
-  const { isFetching, isAuthenticated } = useAuth();
+  const { isFetching, isAuthenticated, finishLogin } = useAuth();
 
   if (isFetching) return <FullPageSpinner />;
 
   if (isAuthenticated) return <>{children}</>;
 
-  return <LoginPage onSuccessfulAttempt={() => {}} />;
+  return <LoginPage onSuccessfulAttempt={finishLogin} />;
 }
 
 export const testingSelectors = {
   spinner: 'page-spinner',
-  loginPage: loginSelectors.container,
+  login: {
+    page: loginSelectors.container,
+    email: loginSelectors.inputs.email,
+    password: loginSelectors.inputs.password,
+    form: loginSelectors.form,
+  },
 };
 
 function FullPageSpinner() {
