@@ -1,11 +1,21 @@
 import { Box, CircularProgress } from '@mui/material';
+import {
+  LoginPage,
+  testingSelectors as loginSelectors,
+} from '../components/LoginPage';
+import { useAuth } from './';
 
 export function App() {
-  return <FullPageSpinner />;
+  const { isFetching } = useAuth();
+
+  if (isFetching) return <FullPageSpinner />;
+
+  return <LoginPage />;
 }
 
 export const testingSelectors = {
   spinner: 'page-spinner',
+  loginPage: loginSelectors.container,
 };
 
 function FullPageSpinner() {

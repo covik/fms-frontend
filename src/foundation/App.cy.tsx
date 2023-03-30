@@ -12,8 +12,25 @@ describe(App.name, () => {
     );
     cy.get(`[data-testid="${testingSelectors.spinner}"]`).should('be.visible');
   });
+
+  it('should show login page if there is no active session', () => {
+    simulateNoActiveSession();
+    cy.mount(
+      <AuthProvider>
+        <App />
+      </AuthProvider>,
+    );
+    cy.get(`[data-testid="${testingSelectors.spinner}"]`).should('not.exist');
+    cy.get(`[data-testid="${testingSelectors.loginPage}"]`).should(
+      'be.visible',
+    );
+  });
 });
 
 function simulateFetchingState() {
   cy.stub(Session, 'check', () => new Promise(() => {}));
+}
+
+function simulateNoActiveSession() {
+  cy.stub(Session, 'check', () => Promise.resolve(false));
 }
