@@ -19,12 +19,9 @@ import './commands';
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
-import { mount } from 'cypress/react18';
-import { setGlobalConfig } from '@storybook/testing-react';
-// @ts-expect-error
-import * as globalStorybookConfig from '../../.storybook/preview.cjs';
-
-setGlobalConfig(globalStorybookConfig);
+import { mount as reactMount, MountOptions } from 'cypress/react18';
+import { DesignBaseline } from '../../src/foundation';
+import * as React from 'react';
 
 // Augment the Cypress namespace to include type definitions for
 // your custom command.
@@ -40,6 +37,18 @@ declare global {
 }
 
 Cypress.Commands.add('mount', mount);
+
+function mount(
+  jsx: React.ReactNode,
+  options?: MountOptions,
+  rerenderKey?: string,
+): ReturnType<typeof reactMount> {
+  return reactMount(
+    React.createElement(DesignBaseline, { children: jsx }),
+    options,
+    rerenderKey,
+  );
+}
 
 // Example use:
 // cy.mount(<MyComponent />)
