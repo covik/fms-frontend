@@ -4,11 +4,14 @@ import {
   testingSelectors as loginSelectors,
 } from '../components/LoginPage';
 import { useAuth } from './';
+import type { ReactNode } from 'react';
 
-export function App() {
-  const { isFetching } = useAuth();
+export function App({ children }: { children: ReactNode }) {
+  const { isFetching, isAuthenticated } = useAuth();
 
   if (isFetching) return <FullPageSpinner />;
+
+  if (isAuthenticated) return <>{children}</>;
 
   return <LoginPage />;
 }

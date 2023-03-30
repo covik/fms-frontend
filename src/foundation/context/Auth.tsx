@@ -4,20 +4,26 @@ import type { ReactNode } from 'react';
 
 interface AuthAPI {
   isFetching: boolean;
+  isAuthenticated: boolean;
 }
 
 const AuthContext = createContext<AuthAPI | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [state, setState] = useState<'fetching' | 'inactive'>('fetching');
+  const [state, setState] = useState<'fetching' | 'active' | 'inactive'>(
+    'fetching',
+  );
   const isFetching = state === 'fetching';
+  const isAuthenticated = state === 'active';
 
   useEffect(() => {
-    Session.check().then(() => setState('inactive'));
+    Session.check().then((isSuccessful) =>
+      setState(isSuccessful ? 'active' : 'inactive'),
+    );
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isFetching }}>
+    <AuthContext.Provider value={{ isFetching, isAuthenticated }}>
       {children}
     </AuthContext.Provider>
   );

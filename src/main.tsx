@@ -6,7 +6,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <DesignBaseline>
       <AuthProvider>
-        <App />
+        <App>
+          <div>Hey!</div>
+        </App>
       </AuthProvider>
     </DesignBaseline>
   </React.StrictMode>,
