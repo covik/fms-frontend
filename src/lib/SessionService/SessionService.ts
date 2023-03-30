@@ -21,7 +21,10 @@ export async function create(credentials: SessionCredentials): Promise<void> {
     throw new ValidationException(isEmailInvalid, isPasswordInvalid);
 
   try {
-    await Http.request('/api/session', { method: 'POST' });
+    const body = new URLSearchParams({ email, password });
+    const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+    const method = 'POST';
+    await Http.request('/api/session', { body, headers, method });
   } catch (e) {
     if (e instanceof Http.ServerException && e.response.status === 401) {
       throw new WrongCredentialsException();

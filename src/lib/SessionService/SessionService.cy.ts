@@ -72,6 +72,36 @@ describe('SessionService', () => {
         });
       });
     });
+
+    describe('Constraints', () => {
+      it('should send request as application/x-www-form-urlencoded content type', () => {
+        let contentType = '';
+
+        cy.intercept('POST', '/api/session', (req) => {
+          contentType = (req.headers['content-type'] as string) ?? '';
+          req.reply(200);
+        });
+
+        cy.then(constructValidSessionRequest).then(() =>
+          expect(contentType).to.equal('application/x-www-form-urlencoded'),
+        );
+      });
+
+      it('should send credentials as query string in a request body', () => {
+        let body = '';
+
+        cy.intercept('POST', '/api/session', (req) => {
+          body = (req.body as string) ?? '';
+          req.reply(200);
+        });
+
+        cy.then(constructValidSessionRequest).then(() =>
+          expect(body).to.equal(
+            'email=me%40example.com&password=strong-password',
+          ),
+        );
+      });
+    });
   });
 });
 
