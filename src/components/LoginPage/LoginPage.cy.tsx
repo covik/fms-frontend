@@ -2,7 +2,10 @@ import { LoginPage, testingSelectors } from './';
 import { Session } from '../../lib/SessionService';
 
 describe(LoginPage.name, () => {
-  beforeEach(() => cy.mount(<LoginPage />));
+  beforeEach(() => {
+    const stub = cy.stub().as('successfulAttempt');
+    cy.mount(<LoginPage onSuccessfulAttempt={stub} />);
+  });
 
   it('should render in initial state', () => {
     cy.get(`[data-testid="${testingSelectors.inputs.email}"] input`)
@@ -83,6 +86,15 @@ describe(LoginPage.name, () => {
     submitForm();
     cy.contains('Došlo je do neočekivane greške').should('be.visible');
   });
+
+  it('should execute onSuccessfulAttempt when server responds with 200 status code', () => {
+    simulateCorrectCredentialsSituation();
+    fillForm();
+
+    cy.get('@successfulAttempt').should('not.have.been.called');
+    submitForm();
+    cy.get('@successfulAttempt').should('have.been.calledOnce');
+  });
 });
 
 function fillForm() {
@@ -108,4 +120,8 @@ function simulateWrongCredentialsSituation() {
 
 function simulateServerError() {
   cy.intercept('POST', '/api/session', { statusCode: 500 });
+}
+
+function simulateCorrectCredentialsSituation() {
+  cy.intercept('POST', '/api/session', { statusCode: 200 });
 }

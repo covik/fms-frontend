@@ -3,7 +3,11 @@ import { LoginView } from './LoginView';
 import { Session } from '../../lib/SessionService';
 import type { LoginViewAttributes } from './LoginView';
 
-export function LoginPage() {
+export interface LoginPageAttributes {
+  onSuccessfulAttempt: () => unknown;
+}
+
+export function LoginPage({ onSuccessfulAttempt }: LoginPageAttributes) {
   const [currentState, goTo] =
     useState<LoginViewAttributes['state']>('initial');
   const [emailError, setEmailError] = useState('');
@@ -14,6 +18,7 @@ export function LoginPage() {
 
     try {
       await Session.create({ email, password });
+      onSuccessfulAttempt();
     } catch (e) {
       if (e instanceof Session.ValidationException) {
         goTo('validation-error');

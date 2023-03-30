@@ -13,7 +13,7 @@ export function App({ children }: { children: ReactNode }) {
 
   if (isAuthenticated) return <>{children}</>;
 
-  return <LoginPage />;
+  return <LoginPage onSuccessfulAttempt={() => {}} />;
 }
 
 export const testingSelectors = {
