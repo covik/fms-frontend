@@ -6,7 +6,7 @@ export async function check(): Promise<boolean> {
     await Http.request('/api/session');
     return true;
   } catch (e) {
-    if (e instanceof Http.ServerException && e.response.status === 401) {
+    if (e instanceof Http.ServerException && e.response.status === 404) {
       return false;
     }
     throw e;

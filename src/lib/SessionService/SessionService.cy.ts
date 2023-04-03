@@ -3,8 +3,8 @@ import { Http } from '../HttpClient';
 
 describe('SessionService', () => {
   describe('check()', () => {
-    it('should return false if request returns 401 status code', () => {
-      cy.intercept('GET', '/api/session', { statusCode: 401 });
+    it('should return false if request returns 404 status code', () => {
+      cy.intercept('GET', '/api/session', { statusCode: 404 });
       cy.then(Session.check).should('equal', false);
     });
 
@@ -13,7 +13,7 @@ describe('SessionService', () => {
       cy.then(Session.check).should('equal', true);
     });
 
-    it(`should throw ${Http.ServerException.name} if response code is not 200 nor 401`, () => {
+    it(`should throw ${Http.ServerException.name} if response code is not 200 nor 404`, () => {
       cy.intercept('GET', '/api/session', { statusCode: 500 });
       cy.testException(Session.check).then((theError) => {
         theError().should('be.instanceOf', Http.ServerException);
