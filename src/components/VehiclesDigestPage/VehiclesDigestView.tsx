@@ -6,7 +6,7 @@ export interface VehiclesDigestPageAttributes {
   vehicles: VehicleListAttributes['vehicles'];
 }
 
-export function VehiclesDigestPage({ vehicles }: VehiclesDigestPageAttributes) {
+export function VehiclesDigestView({ vehicles }: VehiclesDigestPageAttributes) {
   const theme = useTheme();
 
   return (
