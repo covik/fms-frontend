@@ -11,6 +11,7 @@ module.exports = {
         'branding',
         'http-client',
         'session-service',
+        'measurement-unit',
       ],
     ],
   },
