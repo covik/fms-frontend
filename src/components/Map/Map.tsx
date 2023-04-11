@@ -43,6 +43,7 @@ export function Map({
       options={{
         disableDefaultUI: noControls,
         styles,
+        streetViewControl: false,
       }}
     >
       {children}
