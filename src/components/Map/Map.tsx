@@ -1,5 +1,5 @@
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
-import type { CSSProperties } from 'react';
+import type { CSSProperties, ReactNode } from 'react';
 
 export interface MapArguments {
   x: number;
@@ -9,6 +9,7 @@ export interface MapArguments {
   height: CSSProperties['height'];
   noControls?: boolean;
   noLabels?: boolean;
+  children?: ReactNode | ReactNode[] | undefined;
 }
 
 export function Map({
@@ -19,6 +20,7 @@ export function Map({
   height,
   noControls = false,
   noLabels = false,
+  children,
 }: MapArguments) {
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: 'AIzaSyCRzHH5N9W0FWKvY5qhRbk9H-AHm-vs8rw',
@@ -42,7 +44,9 @@ export function Map({
         disableDefaultUI: noControls,
         styles,
       }}
-    />
+    >
+      {children}
+    </GoogleMap>
   );
 
   return isLoaded ? map() : <div>Učitvanje mape...</div>;
