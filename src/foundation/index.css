@@ -5,3 +5,9 @@
 .google-map-root img[alt='Google'] {
   display: none;
 }
+
+.vehicle-marker-label {
+  background: #bababa;
+  padding: 1px 4px;
+  border-radius: 5px;
+}
