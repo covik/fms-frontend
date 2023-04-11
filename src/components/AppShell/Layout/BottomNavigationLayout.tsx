@@ -13,7 +13,15 @@ export function BottomNavigationLayout({
 
   return (
     <>
-      <Box sx={{ paddingBottom: navigationHeight }}>{children}</Box>
+      <Box
+        sx={{
+          minHeight: '100vh',
+          paddingBottom: navigationHeight,
+          display: 'flex',
+        }}
+      >
+        {children}
+      </Box>
       <Paper
         square
         variant="elevation"
