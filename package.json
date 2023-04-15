@@ -22,6 +22,7 @@
     "@fontsource/firago": "^4.5.3",
     "@mui/material": "^5.11.5",
     "@react-google-maps/api": "^2.18.1",
+    "date-fns": "^2.29.3",
     "mdi-material-ui": "^7.6.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
