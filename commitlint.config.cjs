@@ -12,6 +12,7 @@ module.exports = {
         'http-client',
         'session-service',
         'measurement-unit',
+        'dimension',
       ],
     ],
   },
