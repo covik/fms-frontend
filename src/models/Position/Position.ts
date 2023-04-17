@@ -1,10 +1,12 @@
 import { InvalidPositionAttribute } from './Exception';
 import { Coordinates } from '../../lib/Dimension';
+import { PositionTimestamps } from './PositionTimestamps';
 
 export interface PositionAttributes {
   id: string;
   coordinates: Coordinates;
   altitude: number;
+  timestamps: PositionTimestamps;
 }
 
 export class Position {
@@ -35,6 +37,12 @@ export class Position {
       );
     }
 
+    if (!Object.prototype.hasOwnProperty.call(attributes, 'timestamps')) {
+      throw new InvalidPositionAttribute(
+        'Property "timestamps" is not passed to constructor.',
+      );
+    }
+
     if (attributes.id.trim() === '') {
       throw new InvalidPositionAttribute(
         'Property "id" must not be empty string.',
@@ -44,6 +52,12 @@ export class Position {
     if (!(attributes.coordinates instanceof Coordinates)) {
       throw new InvalidPositionAttribute(
         `Property "coordinates" must be Coordinates object. Got ${typeof attributes.coordinates}.`,
+      );
+    }
+
+    if (!(attributes.timestamps instanceof PositionTimestamps)) {
+      throw new InvalidPositionAttribute(
+        `Property "timestamps" must be PositionTimestamps object. Got ${typeof attributes.timestamps}.`,
       );
     }
 
@@ -68,5 +82,9 @@ export class Position {
 
   public altitude(): number {
     return this._attributes.altitude;
+  }
+
+  public timestamp(): PositionTimestamps {
+    return this._attributes.timestamps;
   }
 }

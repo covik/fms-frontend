@@ -1,4 +1,4 @@
-import { InvalidPositionAttribute, Position } from './';
+import { InvalidPositionAttribute, Position, PositionTimestamps } from './';
 import type { PositionAttributes } from './';
 import { Coordinates } from '../../lib/Dimension';
 
@@ -6,6 +6,11 @@ describe(Position.name, () => {
   const id = '1234';
   const coordinates = new Coordinates(45, 45);
   const altitude = 15;
+  const timestamps = new PositionTimestamps(
+    new Date('2020-01-01T12:00:00Z'),
+    new Date('2020-01-01T12:00:00Z'),
+    new Date('2020-01-01T12:00:05Z'),
+  );
 
   const problematicSituations = [
     {
@@ -16,19 +21,34 @@ describe(Position.name, () => {
     {
       title: 'id is missing',
       construct: () =>
-        new Position({ coordinates, altitude } as PositionAttributes),
+        new Position({
+          coordinates,
+          altitude,
+          timestamps,
+        } as PositionAttributes),
       expectedMessage: 'Property "id" is not passed to constructor.',
     },
-
     {
       title: 'coordinates is missing',
-      construct: () => new Position({ id, altitude } as PositionAttributes),
+      construct: () =>
+        new Position({ id, altitude, timestamps } as PositionAttributes),
       expectedMessage: 'Property "coordinates" is not passed to constructor.',
     },
     {
       title: 'altitude is missing',
-      construct: () => new Position({ id, coordinates } as PositionAttributes),
+      construct: () =>
+        new Position({ id, coordinates, timestamps } as PositionAttributes),
       expectedMessage: 'Property "altitude" is not passed to constructor.',
+    },
+    {
+      title: 'timestamps is missing',
+      construct: () =>
+        new Position({
+          id,
+          coordinates,
+          altitude,
+        } as PositionAttributes),
+      expectedMessage: 'Property "timestamps" is not passed to constructor.',
     },
     {
       title: 'id is empty',
@@ -37,6 +57,7 @@ describe(Position.name, () => {
           id: '  ',
           coordinates,
           altitude,
+          timestamps,
         } as PositionAttributes),
       expectedMessage: 'Property "id" must not be empty string.',
     },
@@ -47,9 +68,22 @@ describe(Position.name, () => {
           id,
           coordinates: 'aaa',
           altitude,
+          timestamps,
         } as unknown as PositionAttributes),
       expectedMessage:
         'Property "coordinates" must be Coordinates object. Got string.',
+    },
+    {
+      title: 'timestamps is not PositionTimestamps object',
+      construct: () =>
+        new Position({
+          id,
+          coordinates,
+          altitude,
+          timestamps: 'aaa',
+        } as unknown as PositionAttributes),
+      expectedMessage:
+        'Property "timestamps" must be PositionTimestamps object. Got string.',
     },
   ];
 
@@ -71,6 +105,7 @@ describe(Position.name, () => {
       id: '1234',
       coordinates,
       altitude: 10,
+      timestamps,
     });
 
     expect(position.id()).to.string('1234');
@@ -78,5 +113,6 @@ describe(Position.name, () => {
     expect(position.longitude()).to.equal(coordinates.longitude());
     expect(position.coordinates()).to.equal(coordinates);
     expect(position.altitude()).to.equal(10);
+    expect(position.timestamp()).to.equal(timestamps);
   });
 });
