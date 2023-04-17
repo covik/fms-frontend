@@ -1,10 +1,10 @@
 import { InvalidPositionAttribute, Position } from './';
 import type { PositionAttributes } from './';
+import { Coordinates } from '../../lib/Dimension';
 
 describe(Position.name, () => {
   const id = '1234';
-  const latitude = 90;
-  const longitude = 45;
+  const coordinates = new Coordinates(45, 45);
   const altitude = 15;
 
   const problematicSituations = [
@@ -16,25 +16,18 @@ describe(Position.name, () => {
     {
       title: 'id is missing',
       construct: () =>
-        new Position({ latitude, longitude, altitude } as PositionAttributes),
+        new Position({ coordinates, altitude } as PositionAttributes),
       expectedMessage: 'Property "id" is not passed to constructor.',
     },
+
     {
-      title: 'latitude is missing',
-      construct: () =>
-        new Position({ id, longitude, altitude } as PositionAttributes),
-      expectedMessage: 'Property "latitude" is not passed to constructor.',
-    },
-    {
-      title: 'longitude is missing',
-      construct: () =>
-        new Position({ id, latitude, altitude } as PositionAttributes),
-      expectedMessage: 'Property "longitude" is not passed to constructor.',
+      title: 'coordinates is missing',
+      construct: () => new Position({ id, altitude } as PositionAttributes),
+      expectedMessage: 'Property "coordinates" is not passed to constructor.',
     },
     {
       title: 'altitude is missing',
-      construct: () =>
-        new Position({ id, latitude, longitude } as PositionAttributes),
+      construct: () => new Position({ id, coordinates } as PositionAttributes),
       expectedMessage: 'Property "altitude" is not passed to constructor.',
     },
     {
@@ -42,11 +35,21 @@ describe(Position.name, () => {
       construct: () =>
         new Position({
           id: '  ',
-          latitude,
-          longitude,
+          coordinates,
           altitude,
         } as PositionAttributes),
       expectedMessage: 'Property "id" must not be empty string.',
+    },
+    {
+      title: 'coordinates is not Coordinates object',
+      construct: () =>
+        new Position({
+          id,
+          coordinates: 'aaa',
+          altitude,
+        } as unknown as PositionAttributes),
+      expectedMessage:
+        'Property "coordinates" must be Coordinates object. Got string.',
     },
   ];
 
@@ -66,14 +69,14 @@ describe(Position.name, () => {
   it('should return passed arguments through getters', () => {
     const position = new Position({
       id: '1234',
-      latitude: 90,
-      longitude: 45,
+      coordinates,
       altitude: 10,
     });
 
     expect(position.id()).to.string('1234');
-    expect(position.latitude()).to.equal(90);
-    expect(position.longitude()).to.equal(45);
+    expect(position.latitude()).to.equal(coordinates.latitude());
+    expect(position.longitude()).to.equal(coordinates.longitude());
+    expect(position.coordinates()).to.equal(coordinates);
     expect(position.altitude()).to.equal(10);
   });
 });

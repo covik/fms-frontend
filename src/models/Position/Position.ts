@@ -1,9 +1,9 @@
 import { InvalidPositionAttribute } from './Exception';
+import { Coordinates } from '../../lib/Dimension';
 
 export interface PositionAttributes {
   id: string;
-  latitude: number;
-  longitude: number;
+  coordinates: Coordinates;
   altitude: number;
 }
 
@@ -23,15 +23,9 @@ export class Position {
       );
     }
 
-    if (!Object.prototype.hasOwnProperty.call(attributes, 'latitude')) {
+    if (!Object.prototype.hasOwnProperty.call(attributes, 'coordinates')) {
       throw new InvalidPositionAttribute(
-        'Property "latitude" is not passed to constructor.',
-      );
-    }
-
-    if (!Object.prototype.hasOwnProperty.call(attributes, 'longitude')) {
-      throw new InvalidPositionAttribute(
-        'Property "longitude" is not passed to constructor.',
+        'Property "coordinates" is not passed to constructor.',
       );
     }
 
@@ -47,6 +41,12 @@ export class Position {
       );
     }
 
+    if (!(attributes.coordinates instanceof Coordinates)) {
+      throw new InvalidPositionAttribute(
+        `Property "coordinates" must be Coordinates object. Got ${typeof attributes.coordinates}.`,
+      );
+    }
+
     this._attributes = attributes;
   }
 
@@ -54,12 +54,16 @@ export class Position {
     return this._attributes.id;
   }
 
+  public coordinates(): Coordinates {
+    return this._attributes.coordinates;
+  }
+
   public latitude(): number {
-    return this._attributes.latitude;
+    return this._attributes.coordinates.latitude();
   }
 
   public longitude(): number {
-    return this._attributes.longitude;
+    return this._attributes.coordinates.longitude();
   }
 
   public altitude(): number {
