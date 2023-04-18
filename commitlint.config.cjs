@@ -13,6 +13,7 @@ module.exports = {
         'session-service',
         'measurement-unit',
         'dimension',
+        'traccar',
       ],
     ],
   },
