@@ -1,4 +1,14 @@
-import { BaseVehicle, InvalidVehicleAttribute, LocatedVehicle } from './';
+import {
+  BaseVehicle,
+  DisabledVehicle,
+  InvalidVehicleAttribute,
+  LocatedVehicle,
+  NoPositionVehicle,
+  OperationalVehicle,
+  ProblematicLocatedVehicle,
+  ProblematicVehicle,
+  TimedOutVehicle,
+} from './';
 import type { BaseVehicleAttributes, LocatedVehicleAttributes } from './';
 import { Position, PositionTimestamps } from '../Position';
 import { Angle, Speed } from '../../lib/MeasurementUnit';
@@ -95,8 +105,9 @@ describe(BaseVehicle.name, () => {
   });
 });
 
-describe(LocatedVehicle.name, () => {
-  const position = new Position({
+const locatedVehicleAttributes = {
+  ...baseVehicleAttrs,
+  position: new Position({
     id: '1',
     coordinates: new Coordinates(45.501, 15.224),
     altitude: 10,
@@ -105,21 +116,18 @@ describe(LocatedVehicle.name, () => {
       new Date('2020-01-01T12:00:00Z'),
       new Date('2020-01-01T12:00:05Z'),
     ),
-  });
+  }),
+  course: new Angle.Degree(10),
+  speed: new Speed.KPH(40),
+  online: false,
+  ignitionOn: false,
+  inMotion: false,
+};
 
-  const correctVehicleAttributes = {
-    ...baseVehicleAttrs,
-    position,
-    course: new Angle.Degree(10),
-    speed: new Speed.KPH(40),
-    online: false,
-    ignitionOn: false,
-    inMotion: false,
-  };
-
-  specify('should extend BaseVehicle', () => {
-    expect(new LocatedVehicle(correctVehicleAttributes)).to.be.instanceOf(
-      BaseVehicle,
+describe(OperationalVehicle.name, () => {
+  specify(`should extend ${LocatedVehicle.name}`, () => {
+    expect(new OperationalVehicle(locatedVehicleAttributes)).to.be.instanceOf(
+      LocatedVehicle,
     );
   });
 
@@ -128,9 +136,9 @@ describe(LocatedVehicle.name, () => {
       title: 'position is missing',
       construct: () => {
         const { position, ...attributesWithoutPosition } =
-          correctVehicleAttributes;
+          locatedVehicleAttributes;
 
-        return new LocatedVehicle(
+        return new OperationalVehicle(
           attributesWithoutPosition as unknown as LocatedVehicleAttributes,
         );
       },
@@ -139,9 +147,9 @@ describe(LocatedVehicle.name, () => {
     {
       title: 'course is missing',
       construct: () => {
-        const { course, ...attributesWithoutCourse } = correctVehicleAttributes;
+        const { course, ...attributesWithoutCourse } = locatedVehicleAttributes;
 
-        return new LocatedVehicle(
+        return new OperationalVehicle(
           attributesWithoutCourse as unknown as LocatedVehicleAttributes,
         );
       },
@@ -150,9 +158,9 @@ describe(LocatedVehicle.name, () => {
     {
       title: 'speed is missing',
       construct: () => {
-        const { speed, ...attributesWithoutSpeed } = correctVehicleAttributes;
+        const { speed, ...attributesWithoutSpeed } = locatedVehicleAttributes;
 
-        return new LocatedVehicle(
+        return new OperationalVehicle(
           attributesWithoutSpeed as unknown as LocatedVehicleAttributes,
         );
       },
@@ -161,9 +169,9 @@ describe(LocatedVehicle.name, () => {
     {
       title: 'online is missing',
       construct: () => {
-        const { online, ...attributesWithoutOnline } = correctVehicleAttributes;
+        const { online, ...attributesWithoutOnline } = locatedVehicleAttributes;
 
-        return new LocatedVehicle(
+        return new OperationalVehicle(
           attributesWithoutOnline as unknown as LocatedVehicleAttributes,
         );
       },
@@ -173,9 +181,9 @@ describe(LocatedVehicle.name, () => {
       title: 'ignitionOn is missing',
       construct: () => {
         const { ignitionOn, ...attributesWithoutIgnitionOn } =
-          correctVehicleAttributes;
+          locatedVehicleAttributes;
 
-        return new LocatedVehicle(
+        return new OperationalVehicle(
           attributesWithoutIgnitionOn as unknown as LocatedVehicleAttributes,
         );
       },
@@ -185,9 +193,9 @@ describe(LocatedVehicle.name, () => {
       title: 'inMotion is missing',
       construct: () => {
         const { inMotion, ...attributesWithoutInMotion } =
-          correctVehicleAttributes;
+          locatedVehicleAttributes;
 
-        return new LocatedVehicle(
+        return new OperationalVehicle(
           attributesWithoutInMotion as unknown as LocatedVehicleAttributes,
         );
       },
@@ -197,11 +205,11 @@ describe(LocatedVehicle.name, () => {
       title: 'position is not Position object',
       construct: () => {
         const attributesWithIncorrectPosition = {
-          ...correctVehicleAttributes,
+          ...locatedVehicleAttributes,
           position: 'I reject being Position object',
         };
 
-        return new LocatedVehicle(
+        return new OperationalVehicle(
           attributesWithIncorrectPosition as unknown as LocatedVehicleAttributes,
         );
       },
@@ -212,11 +220,11 @@ describe(LocatedVehicle.name, () => {
       title: 'course is not BaseAngle object',
       construct: () => {
         const attributesWithIncorrectCourse = {
-          ...correctVehicleAttributes,
+          ...locatedVehicleAttributes,
           course: 'I reject being BaseAngle object',
         };
 
-        return new LocatedVehicle(
+        return new OperationalVehicle(
           attributesWithIncorrectCourse as unknown as LocatedVehicleAttributes,
         );
       },
@@ -227,11 +235,11 @@ describe(LocatedVehicle.name, () => {
       title: 'speed is not BaseSpeed object',
       construct: () => {
         const attributesWithIncorrectSpeed = {
-          ...correctVehicleAttributes,
+          ...locatedVehicleAttributes,
           speed: 'I reject being BaseSpeed object',
         };
 
-        return new LocatedVehicle(
+        return new OperationalVehicle(
           attributesWithIncorrectSpeed as unknown as LocatedVehicleAttributes,
         );
       },
@@ -241,11 +249,11 @@ describe(LocatedVehicle.name, () => {
       title: 'online is not boolean',
       construct: () => {
         const attributesWithIncorrectOnline = {
-          ...correctVehicleAttributes,
+          ...locatedVehicleAttributes,
           online: undefined,
         };
 
-        return new LocatedVehicle(
+        return new OperationalVehicle(
           attributesWithIncorrectOnline as unknown as LocatedVehicleAttributes,
         );
       },
@@ -255,11 +263,11 @@ describe(LocatedVehicle.name, () => {
       title: 'ignitionOn is not boolean',
       construct: () => {
         const attributesWithIncorrectIgnitionOn = {
-          ...correctVehicleAttributes,
+          ...locatedVehicleAttributes,
           ignitionOn: undefined,
         };
 
-        return new LocatedVehicle(
+        return new OperationalVehicle(
           attributesWithIncorrectIgnitionOn as unknown as LocatedVehicleAttributes,
         );
       },
@@ -269,11 +277,11 @@ describe(LocatedVehicle.name, () => {
       title: 'inMotion is not boolean',
       construct: () => {
         const attributesWithIncorrectInMotion = {
-          ...correctVehicleAttributes,
+          ...locatedVehicleAttributes,
           inMotion: undefined,
         };
 
-        return new LocatedVehicle(
+        return new OperationalVehicle(
           attributesWithIncorrectInMotion as unknown as LocatedVehicleAttributes,
         );
       },
@@ -291,23 +299,47 @@ describe(LocatedVehicle.name, () => {
   });
 
   it('should return passed arguments through getters', () => {
-    const validVehicle = new LocatedVehicle(correctVehicleAttributes);
+    const validVehicle = new OperationalVehicle(locatedVehicleAttributes);
 
-    expect(validVehicle.id()).to.equal(correctVehicleAttributes.id);
-    expect(validVehicle.name()).to.equal(correctVehicleAttributes.name);
-    expect(validVehicle.imei()).to.equal(correctVehicleAttributes.imei);
-    expect(validVehicle.position()).to.equal(correctVehicleAttributes.position);
-    expect(validVehicle.course()).to.equal(correctVehicleAttributes.course);
-    expect(validVehicle.speed()).to.equal(correctVehicleAttributes.speed);
-    expect(validVehicle.isOnline()).to.equal(correctVehicleAttributes.online);
+    expect(validVehicle.id()).to.equal(locatedVehicleAttributes.id);
+    expect(validVehicle.name()).to.equal(locatedVehicleAttributes.name);
+    expect(validVehicle.imei()).to.equal(locatedVehicleAttributes.imei);
+    expect(validVehicle.position()).to.equal(locatedVehicleAttributes.position);
+    expect(validVehicle.course()).to.equal(locatedVehicleAttributes.course);
+    expect(validVehicle.speed()).to.equal(locatedVehicleAttributes.speed);
+    expect(validVehicle.isOnline()).to.equal(locatedVehicleAttributes.online);
     expect(validVehicle.hasIgnitionTurnedOn()).to.equal(
-      correctVehicleAttributes.ignitionOn,
+      locatedVehicleAttributes.ignitionOn,
     );
     expect(validVehicle.isInMotion()).to.equal(
-      correctVehicleAttributes.inMotion,
+      locatedVehicleAttributes.inMotion,
     );
     expect(validVehicle.lastUpdatedAt()).to.equal(
-      correctVehicleAttributes.position.timestamp().fixationTime(),
+      locatedVehicleAttributes.position.timestamp().fixationTime(),
+    );
+  });
+});
+
+describe(DisabledVehicle.name, () => {
+  it(`should extend ${ProblematicLocatedVehicle.name}`, () => {
+    expect(new DisabledVehicle(locatedVehicleAttributes)).to.be.instanceOf(
+      ProblematicLocatedVehicle,
+    );
+  });
+});
+
+describe(TimedOutVehicle.name, () => {
+  it(`should extend ${ProblematicLocatedVehicle.name}`, () => {
+    expect(new TimedOutVehicle(locatedVehicleAttributes)).to.be.instanceOf(
+      ProblematicLocatedVehicle,
+    );
+  });
+});
+
+describe(NoPositionVehicle.name, () => {
+  it(`should extend ${ProblematicLocatedVehicle.name}`, () => {
+    expect(new NoPositionVehicle(baseVehicleAttrs)).to.be.instanceOf(
+      ProblematicVehicle,
     );
   });
 });

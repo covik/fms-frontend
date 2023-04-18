@@ -13,7 +13,7 @@ export interface LocatedVehicleAttributes extends BaseVehicleAttributes {
   inMotion: boolean;
 }
 
-export class LocatedVehicle extends BaseVehicle {
+export abstract class LocatedVehicle extends BaseVehicle {
   public constructor(protected attributes: LocatedVehicleAttributes) {
     const requiredAttributes = [
       'position',
