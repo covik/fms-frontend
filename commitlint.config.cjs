@@ -14,6 +14,7 @@ module.exports = {
         'measurement-unit',
         'dimension',
         'traccar',
+        'vehicle-service',
       ],
     ],
   },
