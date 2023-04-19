@@ -25,6 +25,7 @@ export function Map({
 }: MapArguments) {
   const { isLoaded } = useJsApiLoader({
     googleMapsApiKey: 'AIzaSyCRzHH5N9W0FWKvY5qhRbk9H-AHm-vs8rw',
+    version: '3.51',
   });
 
   const center = useMemo(
