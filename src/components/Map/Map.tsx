@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import type { CSSProperties, ReactNode } from 'react';
 
@@ -26,6 +27,14 @@ export function Map({
     googleMapsApiKey: 'AIzaSyCRzHH5N9W0FWKvY5qhRbk9H-AHm-vs8rw',
   });
 
+  const center = useMemo(
+    () => ({
+      lat: x,
+      lng: y,
+    }),
+    [x, y],
+  );
+
   const styles = [
     {
       featureType: 'all',
@@ -36,7 +45,7 @@ export function Map({
 
   const map = () => (
     <GoogleMap
-      center={{ lat: x, lng: y }}
+      center={center}
       zoom={z}
       mapContainerStyle={{ width, height }}
       mapContainerClassName="google-map-root"
