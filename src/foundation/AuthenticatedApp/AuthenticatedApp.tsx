@@ -1,9 +1,10 @@
 import { BottomNavigationLayout } from '../../components/AppShell';
+import { router, RouterProvider } from '../router';
 
 export function AuthenticatedApp() {
   return (
     <BottomNavigationLayout>
-      <div>To be continued...</div>
+      <RouterProvider router={router} />
     </BottomNavigationLayout>
   );
 }
