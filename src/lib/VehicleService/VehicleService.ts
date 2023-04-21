@@ -109,7 +109,7 @@ function pickVehicleConstructor(
 }
 
 function isLastUpdateAfterTooMuchTime(device: TraccarDeviceInterface): boolean {
-  const MINUTE = 3600;
+  const MINUTE = 60;
   const TOO_MUCH_SECONDS = 65 * MINUTE;
 
   return (
