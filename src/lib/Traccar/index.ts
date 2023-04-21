@@ -11,7 +11,7 @@ export const TraccarDevice = z.object({
   disabled: z.boolean(),
   lastUpdate: datetime,
   positionId: z.number().gte(1).nullable(),
-  groupId: z.number().gte(1).nullable(),
+  groupId: z.number().gte(0),
   phone: z.string(),
   model: z.string(),
   contact: z.string(),
