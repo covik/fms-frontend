@@ -1,9 +1,10 @@
 import { Box, Typography, useTheme } from '@mui/material';
 import { VehicleList } from '../VehicleList';
-import type { VehicleListAttributes } from '../VehicleList';
+import { VehicleCard } from '../VehicleCard';
+import type { CardAttributes } from '../VehicleCard';
 
 export interface VehiclesDigestViewAttributes {
-  vehicles: VehicleListAttributes['vehicles'];
+  vehicles: (CardAttributes & { id: string })[];
 }
 
 export function VehiclesDigestView({ vehicles }: VehiclesDigestViewAttributes) {
@@ -13,7 +14,17 @@ export function VehiclesDigestView({ vehicles }: VehiclesDigestViewAttributes) {
     <Box sx={{ padding: theme.spacing(1.4) }}>
       <PageTitle />
       <Box sx={{ marginTop: theme.spacing(2) }}>
-        <VehicleList vehicles={vehicles} />
+        <VehicleList>
+          {vehicles.map((vehicle) => (
+            <VehicleCard
+              key={vehicle.id}
+              title={vehicle.title}
+              subtitle={vehicle.subtitle}
+              icon={vehicle.icon}
+              color={vehicle.color}
+            />
+          ))}
+        </VehicleList>
       </Box>
     </Box>
   );

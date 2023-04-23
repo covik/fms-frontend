@@ -1,25 +1,8 @@
-import { VehicleCard } from '../VehicleCard';
 import { Box } from '@mui/material';
-import type { CardAttributes } from '../VehicleCard';
+import { ReactNode } from 'react';
 
-export interface VehicleListAttributes {
-  vehicles: (CardAttributes & { id: string })[];
-}
-
-export function VehicleList({ vehicles }: VehicleListAttributes) {
-  return (
-    <Box sx={{ ...spaceOutChildren() }}>
-      {vehicles.map((vehicle) => (
-        <VehicleCard
-          key={vehicle.id}
-          title={vehicle.title}
-          subtitle={vehicle.subtitle}
-          icon={vehicle.icon}
-          color={vehicle.color}
-        />
-      ))}
-    </Box>
-  );
+export function VehicleList({ children }: { children?: ReactNode }) {
+  return <Box sx={{ ...spaceOutChildren() }}>{children}</Box>;
 }
 
 function spaceOutChildren() {

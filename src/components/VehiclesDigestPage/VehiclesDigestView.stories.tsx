@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { VehiclesDigestView } from './VehiclesDigestView';
-import * as VehicleListStories from '../VehicleList/VehicleList.stories';
+import { Truck, TruckFast } from 'mdi-material-ui';
 
 export default {
   component: VehiclesDigestView,
@@ -16,5 +16,20 @@ const Template: ComponentStory<typeof VehiclesDigestView> = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  vehicles: VehicleListStories.Default.args?.vehicles,
+  vehicles: [
+    {
+      id: '1',
+      title: 'ZD002AB',
+      color: 'orange',
+      icon: Truck,
+      subtitle: 'prije 15 minuta',
+    },
+    {
+      id: '2',
+      title: 'ZD003CD',
+      color: 'green',
+      icon: TruckFast,
+      subtitle: 'prije 30 sekundi',
+    },
+  ],
 };

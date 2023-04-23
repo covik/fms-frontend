@@ -4,9 +4,6 @@ import { Truck, TruckFast } from 'mdi-material-ui';
 
 export default {
   component: VehicleCard,
-  args: {
-    title: 'ZD000AA',
-  },
   argTypes: {
     icon: {
       options: ['Truck', 'TruckFast'],
@@ -19,7 +16,7 @@ export default {
 } as ComponentMeta<typeof VehicleCard>;
 
 const Template: ComponentStory<typeof VehicleCard> = (args) => (
-  <VehicleCard {...args} />
+  <VehicleCard {...args} title={'ZD000AA'} />
 );
 
 export const Moving = Template.bind({});
