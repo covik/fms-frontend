@@ -2,17 +2,17 @@ import { Bell, Map, Truck } from 'mdi-material-ui';
 
 export const all = [
   {
-    id: 'map',
+    href: '/',
     title: 'Karta',
     icon: <Map />,
   },
   {
-    id: 'vehicles',
+    href: '/vehicles',
     title: 'Vozila',
     icon: <Truck />,
   },
   {
-    id: 'notifications',
+    href: '/notifications',
     title: 'Obavijesti',
     icon: <Bell />,
   },
