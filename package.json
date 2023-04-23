@@ -7,6 +7,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "build": "vite build",
     "cy:dev": "cypress open --component --browser chrome",
     "cy:ct:chrome": "cypress run --component --browser chrome",
     "cy:ct:firefox": "cypress run --component browser firefox",
