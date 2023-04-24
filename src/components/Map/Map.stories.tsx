@@ -1,5 +1,5 @@
-import { Meta, StoryFn } from '@storybook/react';
 import { Map } from './Map';
+import type { Meta, StoryObj } from '@storybook/react';
 
 const croatia = {
   x: 44.698832,
@@ -13,14 +13,12 @@ export default {
     y: croatia.y,
     z: 6,
   },
-} as Meta<typeof Map>;
+} satisfies Meta<typeof Map>;
 
-const Template: StoryFn<typeof Map> = ({ x, y, z, ...args }) => (
-  <Map x={x} y={y} z={z} {...args} />
-);
+type Story = StoryObj<typeof Map>;
 
-export const Basic = {
-  render: Template,
+export const Basic: Story = {
+  render: ({ x, y, z, ...args }) => <Map x={x} y={y} z={z} {...args} />,
 
   args: {
     width: '400px',
@@ -28,18 +26,14 @@ export const Basic = {
   },
 };
 
-export const WithoutControls = {
-  render: Template,
-
+export const WithoutControls: Story = {
   args: {
     ...Basic.args,
     noControls: true,
   },
 };
 
-export const WithoutLabels = {
-  render: Template,
-
+export const WithoutLabels: Story = {
   args: {
     ...Basic.args,
     noLabels: true,

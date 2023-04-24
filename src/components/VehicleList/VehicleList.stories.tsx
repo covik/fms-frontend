@@ -1,26 +1,22 @@
-import { Meta } from '@storybook/react';
-import { VehicleList as VehicleListComponent } from './VehicleList';
+import { VehicleList } from './VehicleList';
+import { VehicleCard } from '../VehicleCard';
 import * as VehicleCardStories from '../VehicleCard/VehicleCard.stories';
+import type { Meta, StoryObj } from '@storybook/react';
 
 export default {
-  component: VehicleListComponent,
-} as Meta<typeof VehicleListComponent>;
+  component: VehicleList,
+} satisfies Meta<typeof VehicleList>;
 
+type Story = StoryObj<typeof VehicleList>;
 type CardProps = Required<Required<typeof VehicleCardStories.Moving>['args']>;
 
-export const VehicleList = () => (
-  <VehicleListComponent>
-    <VehicleCardStories.Moving
-      {...(VehicleCardStories.Moving.args as CardProps)}
-    />
-    <VehicleCardStories.Stationary
-      {...(VehicleCardStories.Stationary.args as CardProps)}
-    />
-    <VehicleCardStories.Stopped
-      {...(VehicleCardStories.Stopped.args as CardProps)}
-    />
-    <VehicleCardStories.Towed
-      {...(VehicleCardStories.Towed.args as CardProps)}
-    />
-  </VehicleListComponent>
-);
+export const Default: Story = {
+  render: () => (
+    <VehicleList>
+      <VehicleCard {...(VehicleCardStories.Moving.args as CardProps)} />
+      <VehicleCard {...(VehicleCardStories.Stationary.args as CardProps)} />
+      <VehicleCard {...(VehicleCardStories.Stopped.args as CardProps)} />
+      <VehicleCard {...(VehicleCardStories.Towed.args as CardProps)} />
+    </VehicleList>
+  ),
+};

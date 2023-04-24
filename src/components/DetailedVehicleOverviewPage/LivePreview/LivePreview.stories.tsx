@@ -1,5 +1,5 @@
-import { Meta, StoryFn } from '@storybook/react';
 import { LivePreview } from './LivePreview';
+import type { Meta, StoryObj } from '@storybook/react';
 
 export default {
   component: LivePreview,
@@ -8,10 +8,8 @@ export default {
       defaultViewport: 'mobile1',
     },
   },
-} as Meta<typeof LivePreview>;
+} satisfies Meta<typeof LivePreview>;
 
-const Template: StoryFn<typeof LivePreview> = () => <LivePreview />;
+type Story = StoryObj<typeof LivePreview>;
 
-export const Default = {
-  render: Template,
-};
+export const Default: Story = {};

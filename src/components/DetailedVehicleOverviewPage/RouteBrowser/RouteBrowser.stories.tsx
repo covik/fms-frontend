@@ -1,5 +1,5 @@
 import { RouteBrowser } from './RouteBrowser';
-import { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 export default {
   component: RouteBrowser,
@@ -8,10 +8,8 @@ export default {
       defaultViewport: 'mobile1',
     },
   },
-} as Meta<typeof RouteBrowser>;
+} satisfies Meta<typeof RouteBrowser>;
 
-const Template: StoryFn<typeof RouteBrowser> = () => <RouteBrowser />;
+type Story = StoryObj<typeof RouteBrowser>;
 
-export const Default = {
-  render: Template,
-};
+export const Default: Story = {};

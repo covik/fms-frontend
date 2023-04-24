@@ -1,6 +1,6 @@
-import { StoryFn, Meta } from '@storybook/react';
 import { VehicleCard } from './VehicleCard';
 import { Truck, TruckFast } from 'mdi-material-ui';
+import type { Meta, StoryObj } from '@storybook/react';
 
 export default {
   component: VehicleCard,
@@ -13,46 +13,42 @@ export default {
       },
     },
   },
-} as Meta<typeof VehicleCard>;
+} satisfies Meta<typeof VehicleCard>;
 
-const Template: StoryFn<typeof VehicleCard> = (args) => (
-  <VehicleCard {...args} title={'ZD000AA'} />
-);
+type Story = StoryObj<typeof VehicleCard>;
 
-export const Moving = {
-  render: Template,
+const title = 'ZD000AA';
 
+export const Moving: Story = {
   args: {
+    title,
     subtitle: 'prije manje od minute',
     icon: TruckFast,
     color: 'green',
   },
 };
 
-export const Stationary = {
-  render: Template,
-
+export const Stationary: Story = {
   args: {
+    title,
     subtitle: 'prije 55 minuta',
     icon: Truck,
     color: 'orange',
   },
 };
 
-export const Stopped = {
-  render: Template,
-
+export const Stopped: Story = {
   args: {
+    title,
     subtitle: 'prije 5 minuta',
     icon: Truck,
     color: 'green',
   },
 };
 
-export const Towed = {
-  render: Template,
-
+export const Towed: Story = {
   args: {
+    title,
     subtitle: 'prije manje od minute',
     icon: TruckFast,
     color: 'orange',

@@ -1,16 +1,17 @@
-import * as React from 'react';
-import { StoryFn, Meta } from '@storybook/react';
 import { VehiclesDigestView } from './VehiclesDigestView';
 import { Truck, TruckFast } from 'mdi-material-ui';
+import type { Meta, StoryObj } from '@storybook/react';
 
 export default {
   component: VehiclesDigestView,
   parameters: {
     layout: 'fullscreen',
   },
-} as Meta<typeof VehiclesDigestView>;
+} satisfies Meta<typeof VehiclesDigestView>;
 
-export const Default = {
+type Story = StoryObj<typeof VehiclesDigestView>;
+
+export const Default: Story = {
   args: {
     vehicles: [
       {

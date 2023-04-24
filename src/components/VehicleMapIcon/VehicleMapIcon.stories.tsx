@@ -1,30 +1,33 @@
-import { StoryObj, Meta, StoryFn } from '@storybook/react';
 import {
   VehicleMapIconMoving,
   VehicleMapIconStationary,
 } from './VehicleMapIcon';
+import type { StoryObj, Meta } from '@storybook/react';
 
 export default {
   component: VehicleMapIconStationary,
-} as Meta<typeof VehicleMapIconStationary>;
+} satisfies Meta<typeof VehicleMapIconStationary>;
 
-export const StationaryWithoutIgnition = () => (
-  <VehicleMapIconStationary active={false} />
-);
+type StoryStationary = StoryObj<typeof VehicleMapIconStationary>;
+type StoryMoving = StoryObj<typeof VehicleMapIconMoving>;
 
-export const StationaryWithIgnition = () => (
-  <VehicleMapIconStationary active={true} />
-);
+export const StationaryWithoutIgnition: StoryStationary = {
+  render: () => <VehicleMapIconStationary active={false} />,
+};
 
-export const MovingWithIgnition = () => (
-  <VehicleMapIconMoving active={true} angle={0} />
-);
+export const StationaryWithIgnition: StoryStationary = {
+  render: () => <VehicleMapIconStationary active={true} />,
+};
 
-export const MovingWithoutIgnition = () => (
-  <VehicleMapIconMoving active={false} angle={0} />
-);
+export const MovingWithIgnition: StoryMoving = {
+  render: () => <VehicleMapIconMoving active={true} angle={0} />,
+};
 
-export const MovingWithAngle: StoryObj<typeof VehicleMapIconMoving> = {
+export const MovingWithoutIgnition: StoryMoving = {
+  render: () => <VehicleMapIconMoving active={false} angle={0} />,
+};
+
+export const MovingWithAngle: StoryMoving = {
   render: ({ angle }) => <VehicleMapIconMoving active={true} angle={angle} />,
 
   args: {

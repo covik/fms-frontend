@@ -1,19 +1,25 @@
 import { RouteFilter } from './RouteFilter';
-import { Meta, StoryFn } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 export default {
   component: RouteFilter,
-} as Meta<typeof RouteFilter>;
+} satisfies Meta<typeof RouteFilter>;
 
-export const Today = {};
+type Story = StoryObj<typeof RouteFilter>;
 
-export const Yesterday = {
+export const Today: Story = {
+  args: {
+    view: 'today',
+  },
+};
+
+export const Yesterday: Story = {
   args: {
     view: 'yesterday',
   },
 };
 
-export const Custom = {
+export const Custom: Story = {
   args: {
     view: 'custom',
   },

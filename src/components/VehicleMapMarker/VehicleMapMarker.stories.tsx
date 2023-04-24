@@ -1,7 +1,10 @@
 import { VehicleMapMarker } from './VehicleMapMarker';
-import { Meta, StoryFn } from '@storybook/react';
-import * as IconStory from '../VehicleMapIcon/VehicleMapIcon.stories';
+import {
+  VehicleMapIconMoving,
+  VehicleMapIconStationary,
+} from '../VehicleMapIcon';
 import { Map } from '../Map';
+import type { Meta, StoryObj } from '@storybook/react';
 
 const center = {
   lat: 44.111175964131334,
@@ -17,22 +20,30 @@ export default {
       </Map>
     ),
   ],
-} as Meta<typeof VehicleMapMarker>;
+} satisfies Meta<typeof VehicleMapMarker>;
 
-export const StationaryWithoutIgnition = () => (
-  <VehicleMapMarker position={center} name={'Transporter'}>
-    <IconStory.StationaryWithoutIgnition />
-  </VehicleMapMarker>
-);
+type Story = StoryObj<typeof VehicleMapMarker>;
 
-export const StationaryWithIgnition = () => (
-  <VehicleMapMarker position={center} name={'Transporter'}>
-    <IconStory.StationaryWithIgnition />
-  </VehicleMapMarker>
-);
+export const MovingWithIgnition: Story = {
+  render: () => (
+    <VehicleMapMarker position={center} name={'Test'}>
+      <VehicleMapIconMoving active={true} angle={80} />
+    </VehicleMapMarker>
+  ),
+};
 
-export const MovingWithIgnition = () => (
-  <VehicleMapMarker position={center} name={'Transporter'}>
-    <IconStory.MovingWithIgnition />
-  </VehicleMapMarker>
-);
+export const StationaryWithoutIgnition: Story = {
+  render: () => (
+    <VehicleMapMarker position={center} name={'Test'}>
+      <VehicleMapIconStationary active={false} />
+    </VehicleMapMarker>
+  ),
+};
+
+export const StationaryWithIgnition: Story = {
+  render: () => (
+    <VehicleMapMarker position={center} name={'Test'}>
+      <VehicleMapIconStationary active={true} />
+    </VehicleMapMarker>
+  ),
+};

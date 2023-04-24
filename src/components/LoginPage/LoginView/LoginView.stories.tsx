@@ -1,5 +1,5 @@
-import type { Meta, StoryFn } from '@storybook/react';
 import { LoginView } from './LoginView';
+import type { Meta, StoryObj } from '@storybook/react';
 
 export default {
   component: LoginView,
@@ -9,21 +9,23 @@ export default {
     },
     layout: 'fullscreen',
   },
-} as Meta<typeof LoginView>;
+} satisfies Meta<typeof LoginView>;
 
-export const Initial = {
+type Story = StoryObj<typeof LoginView>;
+
+export const Initial: Story = {
   args: {
     state: 'initial',
   },
 };
 
-export const Submitting = {
+export const Submitting: Story = {
   args: {
     state: 'submitting',
   },
 };
 
-export const ValidationError = {
+export const ValidationError: Story = {
   args: {
     state: 'validation-error',
     emailError: 'Email je obavezan',
@@ -31,13 +33,13 @@ export const ValidationError = {
   },
 };
 
-export const WrongCredentials = {
+export const WrongCredentials: Story = {
   args: {
     state: 'wrong-credentials',
   },
 };
 
-export const UnexpectedError = {
+export const UnexpectedError: Story = {
   args: {
     state: 'unexpected-error',
   },

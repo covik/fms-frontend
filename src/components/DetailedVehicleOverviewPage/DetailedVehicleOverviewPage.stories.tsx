@@ -1,5 +1,5 @@
-import { Meta, StoryFn } from '@storybook/react';
 import { DetailedVehicleOverviewPage } from './DetailedVehicleOverviewPage';
+import type { Meta, StoryObj } from '@storybook/react';
 
 export default {
   component: DetailedVehicleOverviewPage,
@@ -9,11 +9,17 @@ export default {
     },
     layout: 'fullscreen',
   },
-} as Meta<typeof DetailedVehicleOverviewPage>;
+} satisfies Meta<typeof DetailedVehicleOverviewPage>;
 
-export const LiveUpdates = {};
+type Story = StoryObj<typeof DetailedVehicleOverviewPage>;
 
-export const Routes = {
+export const LiveUpdates: Story = {
+  args: {
+    activeTab: 'live-updates',
+  },
+};
+
+export const Routes: Story = {
   args: {
     activeTab: 'routes',
   },
