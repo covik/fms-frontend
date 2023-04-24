@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import { DetailedVehicleOverviewPage } from './DetailedVehicleOverviewPage';
 
 export default {
@@ -9,15 +9,12 @@ export default {
     },
     layout: 'fullscreen',
   },
-} as ComponentMeta<typeof DetailedVehicleOverviewPage>;
+} as Meta<typeof DetailedVehicleOverviewPage>;
 
-const Template: ComponentStory<typeof DetailedVehicleOverviewPage> = (args) => (
-  <DetailedVehicleOverviewPage {...args} />
-);
+export const LiveUpdates = {};
 
-export const LiveUpdates = Template.bind({});
-
-export const Routes = Template.bind({});
-Routes.args = {
-  activeTab: 'routes',
+export const Routes = {
+  args: {
+    activeTab: 'routes',
+  },
 };

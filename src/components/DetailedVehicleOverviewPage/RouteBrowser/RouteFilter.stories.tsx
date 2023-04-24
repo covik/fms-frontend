@@ -1,22 +1,20 @@
 import { RouteFilter } from './RouteFilter';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 
 export default {
   component: RouteFilter,
-} as ComponentMeta<typeof RouteFilter>;
+} as Meta<typeof RouteFilter>;
 
-const Template: ComponentStory<typeof RouteFilter> = (args) => (
-  <RouteFilter {...args} />
-);
+export const Today = {};
 
-export const Today = Template.bind({});
-
-export const Yesterday = Template.bind({});
-Yesterday.args = {
-  view: 'yesterday',
+export const Yesterday = {
+  args: {
+    view: 'yesterday',
+  },
 };
 
-export const Custom = Template.bind({});
-Custom.args = {
-  view: 'custom',
+export const Custom = {
+  args: {
+    view: 'custom',
+  },
 };

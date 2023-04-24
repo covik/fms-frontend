@@ -1,5 +1,5 @@
 import { RouteBrowser } from './RouteBrowser';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 
 export default {
   component: RouteBrowser,
@@ -8,8 +8,10 @@ export default {
       defaultViewport: 'mobile1',
     },
   },
-} as ComponentMeta<typeof RouteBrowser>;
+} as Meta<typeof RouteBrowser>;
 
-const Template: ComponentStory<typeof RouteBrowser> = () => <RouteBrowser />;
+const Template: StoryFn<typeof RouteBrowser> = () => <RouteBrowser />;
 
-export const Default = Template.bind({});
+export const Default = {
+  render: Template,
+};

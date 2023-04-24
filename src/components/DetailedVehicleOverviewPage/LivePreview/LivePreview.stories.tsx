@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import { LivePreview } from './LivePreview';
 
 export default {
@@ -8,8 +8,10 @@ export default {
       defaultViewport: 'mobile1',
     },
   },
-} as ComponentMeta<typeof LivePreview>;
+} as Meta<typeof LivePreview>;
 
-const Template: ComponentStory<typeof LivePreview> = () => <LivePreview />;
+const Template: StoryFn<typeof LivePreview> = () => <LivePreview />;
 
-export const Default = Template.bind({});
+export const Default = {
+  render: Template,
+};

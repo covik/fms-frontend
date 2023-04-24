@@ -1,10 +1,10 @@
-import { ComponentMeta } from '@storybook/react';
+import { Meta } from '@storybook/react';
 import { VehicleList as VehicleListComponent } from './VehicleList';
 import * as VehicleCardStories from '../VehicleCard/VehicleCard.stories';
 
 export default {
   component: VehicleListComponent,
-} as ComponentMeta<typeof VehicleListComponent>;
+} as Meta<typeof VehicleListComponent>;
 
 type CardProps = Required<Required<typeof VehicleCardStories.Moving>['args']>;
 

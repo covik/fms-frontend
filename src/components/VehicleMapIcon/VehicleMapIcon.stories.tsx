@@ -1,4 +1,4 @@
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { StoryObj, Meta, StoryFn } from '@storybook/react';
 import {
   VehicleMapIconMoving,
   VehicleMapIconStationary,
@@ -6,7 +6,7 @@ import {
 
 export default {
   component: VehicleMapIconStationary,
-} as ComponentMeta<typeof VehicleMapIconStationary>;
+} as Meta<typeof VehicleMapIconStationary>;
 
 export const StationaryWithoutIgnition = () => (
   <VehicleMapIconStationary active={false} />
@@ -24,10 +24,10 @@ export const MovingWithoutIgnition = () => (
   <VehicleMapIconMoving active={false} angle={0} />
 );
 
-export const MovingWithAngle: ComponentStory<typeof VehicleMapIconMoving> = ({
-  angle,
-}) => <VehicleMapIconMoving active={true} angle={angle} />;
+export const MovingWithAngle: StoryObj<typeof VehicleMapIconMoving> = {
+  render: ({ angle }) => <VehicleMapIconMoving active={true} angle={angle} />,
 
-MovingWithAngle.args = {
-  angle: 270,
+  args: {
+    angle: 270,
+  },
 };

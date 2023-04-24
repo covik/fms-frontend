@@ -1,5 +1,5 @@
 import { VehicleMapMarker } from './VehicleMapMarker';
-import { ComponentMeta, ComponentStory } from '@storybook/react';
+import { Meta, StoryFn } from '@storybook/react';
 import * as IconStory from '../VehicleMapIcon/VehicleMapIcon.stories';
 import { Map } from '../Map';
 
@@ -17,7 +17,7 @@ export default {
       </Map>
     ),
   ],
-} as ComponentMeta<typeof VehicleMapMarker>;
+} as Meta<typeof VehicleMapMarker>;
 
 export const StationaryWithoutIgnition = () => (
   <VehicleMapMarker position={center} name={'Transporter'}>
