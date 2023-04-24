@@ -6,15 +6,22 @@ describe('Request error', () => {
       description: `given an invalid URL then throw ${Http.ClientException.name}`,
       arrange: () => Http.request('https://'),
       expectedError: 'TypeError',
-      expectedMessage:
-        "Failed to construct 'Request': Failed to parse URL from https://",
+      expectedMessage: {
+        chromium:
+          "Failed to construct 'Request': Failed to parse URL from https://",
+        firefox: 'Request constructor: https:// is not a valid URL.',
+      },
     },
     {
       description: `given URL contains username and password then throw ${Http.ClientException.name}`,
       arrange: () => Http.request('http://user:password@example.com/'),
       expectedError: 'TypeError',
-      expectedMessage:
-        "Failed to construct 'Request': Request cannot be constructed from a URL that includes credentials: http://user:password@example.com/",
+      expectedMessage: {
+        chromium:
+          "Failed to construct 'Request': Request cannot be constructed from a URL that includes credentials: http://user:password@example.com/",
+        firefox:
+          'Request constructor: http://user:password@example.com/ is an url with embedded credentials.',
+      },
     },
     {
       description: `given an invalid header name then throw ${Http.ClientException.name}`,
@@ -23,7 +30,11 @@ describe('Request error', () => {
           headers: { 'C ontent-Type': 'text/xml' },
         }),
       expectedError: 'TypeError',
-      expectedMessage: "Failed to construct 'Request': Invalid name",
+      expectedMessage: {
+        chromium: "Failed to construct 'Request': Invalid name",
+        firefox:
+          'Request constructor: c ontent-type is an invalid header name.',
+      },
     },
     {
       description: `given a valid request when it gets aborted then throw ${Http.ClientException.name} if `,
@@ -35,12 +46,18 @@ describe('Request error', () => {
         await r;
       },
       expectedError: 'AbortError',
-      expectedMessage: 'The user aborted a request.',
+      expectedMessage: {
+        chromium: 'The user aborted a request.',
+        firefox: 'The operation was aborted. ',
+      },
     },
   ];
 
   requestErrors.forEach((situation) => {
     specify(situation.description, () => {
+      const browser =
+        Cypress.browser.family === 'firefox' ? 'firefox' : 'chromium';
+
       cy.testException(situation.arrange).then((outcome) => {
         outcome().should('be.instanceOf', Http.ClientException);
         outcome().should('have.property', 'originalError');
@@ -51,7 +68,11 @@ describe('Request error', () => {
 
         outcome()
           .its('originalError')
-          .should('have.property', 'message', situation.expectedMessage);
+          .should(
+            'have.property',
+            'message',
+            situation.expectedMessage[browser],
+          );
       });
     });
   });
