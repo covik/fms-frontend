@@ -12,11 +12,11 @@ export function DetailedVehicleOverviewPage({
   const tabs = [
     {
       id: 'live-updates',
-      children: <LivePreview />,
+      children: <LivePreview key={'live-preview'} />,
     },
     {
       id: 'routes',
-      children: <RouteBrowser />,
+      children: <RouteBrowser key={'route-browser'} />,
     },
   ];
 
