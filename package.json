@@ -10,7 +10,7 @@
     "build": "vite build",
     "cy:dev": "cypress open --component --browser chrome",
     "cy:ct:chrome": "cypress run --component --browser chrome",
-    "cy:ct:firefox": "cypress run --component browser firefox",
+    "cy:ct:firefox": "cypress run --component --browser firefox",
     "prepare": "husky install",
     "dev": "vite",
     "sb:dev": "NODE_OPTIONS=--openssl-legacy-provider storybook dev -p 6006",
