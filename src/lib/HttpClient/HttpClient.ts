@@ -16,9 +16,16 @@ export async function request(
   } catch (e) {
     const error = e as Error;
     return Promise.reject(
-      error.message === 'Failed to fetch'
+      isNetworkError(error)
         ? new NetworkException()
         : new ClientException(error),
     );
   }
+}
+
+function isNetworkError(error: Error): boolean {
+  return (
+    error.message === 'Failed to fetch' ||
+    error.message === 'NetworkError when attempting to fetch resource.'
+  );
 }
