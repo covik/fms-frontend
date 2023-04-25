@@ -13,6 +13,11 @@ export interface MapArguments {
   children?: ReactNode | ReactNode[] | undefined;
 }
 
+const mapOptions = {
+  googleMapsApiKey: 'AIzaSyCRzHH5N9W0FWKvY5qhRbk9H-AHm-vs8rw',
+  version: '3.51',
+};
+
 export function Map({
   x,
   y,
@@ -23,10 +28,7 @@ export function Map({
   noLabels = false,
   children,
 }: MapArguments) {
-  const { isLoaded } = useJsApiLoader({
-    googleMapsApiKey: 'AIzaSyCRzHH5N9W0FWKvY5qhRbk9H-AHm-vs8rw',
-    version: '3.51',
-  });
+  const { isLoaded } = useJsApiLoader(mapOptions);
 
   const center = useMemo(
     () => ({
@@ -36,25 +38,35 @@ export function Map({
     [x, y],
   );
 
-  const styles = [
-    {
-      featureType: 'all',
-      elementType: 'labels',
-      stylers: [{ visibility: noLabels ? 'off' : 'on' }],
-    },
-  ];
+  const mapCss = useMemo(() => ({ width, height }), [width, height]);
+
+  const styles = useMemo(
+    () => [
+      {
+        featureType: 'all',
+        elementType: 'labels',
+        stylers: [{ visibility: noLabels ? 'off' : 'on' }],
+      },
+    ],
+    [noLabels],
+  );
+
+  const options = useMemo(
+    () => ({
+      disableDefaultUI: noControls,
+      styles,
+      streetViewControl: false,
+    }),
+    [noControls, styles],
+  );
 
   const map = () => (
     <GoogleMap
       center={center}
       zoom={z}
-      mapContainerStyle={{ width, height }}
+      mapContainerStyle={mapCss}
       mapContainerClassName="google-map-root"
-      options={{
-        disableDefaultUI: noControls,
-        styles,
-        streetViewControl: false,
-      }}
+      options={options}
     >
       {children}
     </GoogleMap>
