@@ -1,1 +1,1 @@
-export { VehicleList } from './VehicleList';
+export { VehicleList, spaceBetweenItems } from './VehicleList';
