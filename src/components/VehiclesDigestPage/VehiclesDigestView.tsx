@@ -11,7 +11,7 @@ export function VehiclesDigestView({ vehicles }: VehiclesDigestViewAttributes) {
   const theme = useTheme();
 
   return (
-    <Box sx={{ padding: theme.spacing(1.4) }}>
+    <>
       <PageTitle />
       <Box sx={{ marginTop: theme.spacing(2) }}>
         <VehicleList>
@@ -26,7 +26,7 @@ export function VehiclesDigestView({ vehicles }: VehiclesDigestViewAttributes) {
           ))}
         </VehicleList>
       </Box>
-    </Box>
+    </>
   );
 }
 

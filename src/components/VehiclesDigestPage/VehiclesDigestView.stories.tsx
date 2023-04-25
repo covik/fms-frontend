@@ -4,9 +4,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 export default {
   component: VehiclesDigestView,
-  parameters: {
-    layout: 'fullscreen',
-  },
 } satisfies Meta<typeof VehiclesDigestView>;
 
 type Story = StoryObj<typeof VehiclesDigestView>;

@@ -1,4 +1,5 @@
 import { VehiclesDigestView } from './VehiclesDigestView';
+import { VehiclesDigestSkeleton } from './VehiclesDigestSkeleton';
 import { Vehicle } from '../../lib/VehicleService';
 import { OperationalVehicle } from '../../models/Vehicle';
 import { Truck, TruckFast } from 'mdi-material-ui';
@@ -7,6 +8,7 @@ import { Box } from '@mui/material';
 import { hr } from 'date-fns/locale';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
+import type { ReactNode } from 'react';
 
 export function VehiclesDigestPage() {
   const query = useQuery({
@@ -21,9 +23,18 @@ export function VehiclesDigestPage() {
     refetchInterval: 2000,
   });
 
-  if (query.data === undefined) return <div>Loading vehicles...</div>;
+  if (query.data === undefined)
+    return (
+      <PageContainer>
+        <VehiclesDigestSkeleton />
+      </PageContainer>
+    );
 
-  return <OperationalVehiclesList vehicles={query.data} />;
+  return (
+    <PageContainer>
+      <OperationalVehiclesList vehicles={query.data} />
+    </PageContainer>
+  );
 }
 
 function OperationalVehiclesList({
@@ -54,9 +65,9 @@ function OperationalVehiclesList({
     [sortedVehicles],
   );
 
-  return (
-    <Box sx={{ width: '100%' }}>
-      <VehiclesDigestView vehicles={vehiclesAdaptedToView} />
-    </Box>
-  );
+  return <VehiclesDigestView vehicles={vehiclesAdaptedToView} />;
+}
+
+function PageContainer({ children }: { children: ReactNode }) {
+  return <Box sx={{ width: '100%', padding: 1.4 }}>{children}</Box>;
 }
