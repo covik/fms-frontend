@@ -1,7 +1,7 @@
 import { VehiclesDigestView, PageContainer } from './VehiclesDigestView';
 import { VehiclesDigestSkeleton } from './VehiclesDigestSkeleton';
 import { Vehicle } from '../../lib/VehicleService';
-import { OperationalVehicle } from '../../models/Vehicle';
+import { BaseVehicle, LocatedVehicle } from '../../models/Vehicle';
 import { Truck, TruckFast } from 'mdi-material-ui';
 import { formatDistanceToNowStrict } from 'date-fns';
 import { hr } from 'date-fns/locale';
@@ -12,7 +12,6 @@ export function VehiclesDigestPage() {
   const query = useQuery({
     queryKey: ['vehicles'],
     queryFn: ({ signal }) => Vehicle.fetchAll(signal),
-    select: Vehicle.takeOnlyOperational,
     refetchInterval: 2000,
   });
 
@@ -23,14 +22,10 @@ export function VehiclesDigestPage() {
       </PageContainer>
     );
 
-  return <OperationalVehiclesList vehicles={query.data} />;
+  return <VehicleView vehicles={query.data} />;
 }
 
-function OperationalVehiclesList({
-  vehicles,
-}: {
-  vehicles: OperationalVehicle[];
-}) {
+function VehicleView({ vehicles }: { vehicles: BaseVehicle[] }) {
   const sortedVehicles = useMemo(() => {
     const vehicleCopy = vehicles.slice();
     vehicleCopy.sort((vehicleA, vehicleB) =>
@@ -39,25 +34,43 @@ function OperationalVehiclesList({
     return vehicleCopy;
   }, [vehicles]);
 
-  const vehiclesAdaptedToView = useMemo(
-    () =>
-      sortedVehicles.map((vehicle) => ({
-        id: vehicle.id(),
-        title: vehicle.name(),
-        color: vehicle.hasIgnitionTurnedOn() ? 'green' : 'orange',
-        icon: vehicle.isInMotion() ? TruckFast : Truck,
-        subtitle: formatDistanceToNowStrict(vehicle.lastUpdatedAt(), {
-          addSuffix: true,
-          locale: hr,
-        }),
-      })),
+  const operationalVehicles = useMemo(
+    () => Vehicle.takeOnlyOperational(sortedVehicles),
     [sortedVehicles],
+  );
+
+  const timedOutVehicles = useMemo(
+    () => Vehicle.takeOnlyTimedOut(sortedVehicles),
+    [sortedVehicles],
+  );
+
+  const operationalVehiclesAdaptedToView = useMemo(
+    () => operationalVehicles.map(adaptLocatedVehicleToView),
+    [operationalVehicles],
+  );
+
+  const timesOutVehiclesAdaptedToView = useMemo(
+    () => timedOutVehicles.map(adaptLocatedVehicleToView),
+    [timedOutVehicles],
   );
 
   return (
     <VehiclesDigestView
-      operationalVehicles={vehiclesAdaptedToView}
-      timedOutVehicles={[]}
+      operationalVehicles={operationalVehiclesAdaptedToView}
+      timedOutVehicles={timesOutVehiclesAdaptedToView}
     />
   );
+}
+
+function adaptLocatedVehicleToView(vehicle: LocatedVehicle) {
+  return {
+    id: vehicle.id(),
+    title: vehicle.name(),
+    color: vehicle.hasIgnitionTurnedOn() ? 'green' : 'orange',
+    icon: vehicle.isInMotion() ? TruckFast : Truck,
+    subtitle: formatDistanceToNowStrict(vehicle.lastUpdatedAt(), {
+      addSuffix: true,
+      locale: hr,
+    }),
+  };
 }
