@@ -54,3 +54,10 @@ export const Towed: Story = {
     color: 'orange',
   },
 };
+
+export const NoShareButton: Story = {
+  args: {
+    ...Moving.args,
+    onShare: undefined,
+  },
+};

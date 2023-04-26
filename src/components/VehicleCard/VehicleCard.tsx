@@ -8,10 +8,11 @@ export interface CardAttributes {
   subtitle: string;
   icon: typeof SvgIcon;
   color: CSSProperties['color'];
+  onShare?: () => void;
 }
 
 export function VehicleCard(props: CardAttributes) {
-  const { title, subtitle, icon: Icon, color: headerColor } = props;
+  const { title, subtitle, icon: Icon, color: headerColor, onShare } = props;
 
   return (
     <Card>
@@ -25,9 +26,11 @@ export function VehicleCard(props: CardAttributes) {
         }}
         subheader={subtitle}
         action={
-          <IconButton>
-            <ShareVariant fontSize="medium" />
-          </IconButton>
+          typeof onShare === 'function' ? (
+            <IconButton onClick={onShare}>
+              <ShareVariant fontSize="medium" />
+            </IconButton>
+          ) : null
         }
         sx={{
           'padding': 1.5,
