@@ -1,7 +1,8 @@
 import { fetchAll } from './VehicleService';
-import { takeOnlyOperational } from './Filter';
+import { takeOnlyOperational, takeOnlyTimedOut } from './Filter';
 
 export const Vehicle = {
   fetchAll,
   takeOnlyOperational,
+  takeOnlyTimedOut,
 };
