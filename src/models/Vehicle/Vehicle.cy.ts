@@ -3,6 +3,7 @@ import {
   DisabledVehicle,
   InvalidVehicleAttribute,
   isBaseVehicle,
+  isOperationalVehicle,
   LocatedVehicle,
   NoPositionVehicle,
   OperationalVehicle,
@@ -373,5 +374,36 @@ describe(isBaseVehicle.name, () => {
   specify(`given ${NoPositionVehicle.name} it should return true`, () => {
     const vehicle = new NoPositionVehicle(baseVehicleAttrs);
     expect(isBaseVehicle(vehicle)).to.equal(true);
+  });
+});
+
+describe(isOperationalVehicle.name, () => {
+  specify('given null it should return false', () => {
+    expect(isOperationalVehicle(null)).to.equal(false);
+  });
+
+  specify(`given ${BaseVehicle.name} it should return false`, () => {
+    const vehicle = new BaseVehicle(baseVehicleAttrs);
+    expect(isOperationalVehicle(vehicle)).to.equal(false);
+  });
+
+  specify(`given ${TimedOutVehicle.name} it should return false`, () => {
+    const vehicle = new TimedOutVehicle(locatedVehicleAttributes);
+    expect(isOperationalVehicle(vehicle)).to.equal(false);
+  });
+
+  specify(`given ${DisabledVehicle.name} it should return false`, () => {
+    const vehicle = new DisabledVehicle(locatedVehicleAttributes);
+    expect(isOperationalVehicle(vehicle)).to.equal(false);
+  });
+
+  specify(`given ${NoPositionVehicle.name} it should return false`, () => {
+    const vehicle = new NoPositionVehicle(baseVehicleAttrs);
+    expect(isOperationalVehicle(vehicle)).to.equal(false);
+  });
+
+  specify(`given ${OperationalVehicle.name} it should return true`, () => {
+    const vehicle = new OperationalVehicle(locatedVehicleAttributes);
+    expect(isOperationalVehicle(vehicle)).to.equal(true);
   });
 });
