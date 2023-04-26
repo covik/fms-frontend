@@ -15,11 +15,10 @@ import {
   TimedOutVehicle,
 } from './';
 import type { BaseVehicleAttributes, LocatedVehicleAttributes } from './';
-import { Position, PositionTimestamps } from '../Position';
-import { Angle, Speed } from '../../lib/MeasurementUnit';
-import { Coordinates } from '../../lib/Dimension';
-
-const baseVehicleAttrs = { id: '1234', name: 'Test', imei: '4321' };
+import {
+  baseVehicleAttrs,
+  locatedVehicleAttributes,
+} from '../../../cypress/fixtures/base-and-located-vehicle-attributes';
 
 describe(BaseVehicle.name, () => {
   const id = '1234';
@@ -109,25 +108,6 @@ describe(BaseVehicle.name, () => {
     expect(validVehicle.imei()).to.equal(imei);
   });
 });
-
-const locatedVehicleAttributes = {
-  ...baseVehicleAttrs,
-  position: new Position({
-    id: '1',
-    coordinates: new Coordinates(45.501, 15.224),
-    altitude: 10,
-    timestamps: new PositionTimestamps(
-      new Date('2020-01-01T12:00:00Z'),
-      new Date('2020-01-01T12:00:00Z'),
-      new Date('2020-01-01T12:00:05Z'),
-    ),
-  }),
-  course: new Angle.Degree(10),
-  speed: new Speed.KPH(40),
-  online: false,
-  ignitionOn: false,
-  inMotion: false,
-};
 
 describe(OperationalVehicle.name, () => {
   specify(`should extend ${LocatedVehicle.name}`, () => {
