@@ -11,6 +11,7 @@ export {
 } from './Vehicle';
 export {
   isBaseVehicle,
+  isDisabledVehicle,
   isOperationalVehicle,
   isTimedOutVehicle,
 } from './Checker';

@@ -1,5 +1,9 @@
 import { BaseVehicle } from './BaseVehicle';
-import { OperationalVehicle, TimedOutVehicle } from './Vehicle';
+import {
+  DisabledVehicle,
+  OperationalVehicle,
+  TimedOutVehicle,
+} from './Vehicle';
 
 export function isBaseVehicle(vehicle: unknown): vehicle is BaseVehicle {
   return vehicle instanceof BaseVehicle;
@@ -15,4 +19,10 @@ export function isTimedOutVehicle(
   vehicle: unknown,
 ): vehicle is TimedOutVehicle {
   return vehicle instanceof TimedOutVehicle;
+}
+
+export function isDisabledVehicle(
+  vehicle: unknown,
+): vehicle is DisabledVehicle {
+  return vehicle instanceof DisabledVehicle;
 }
