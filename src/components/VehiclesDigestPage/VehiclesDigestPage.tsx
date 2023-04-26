@@ -11,13 +11,8 @@ import { useMemo } from 'react';
 export function VehiclesDigestPage() {
   const query = useQuery({
     queryKey: ['vehicles'],
-    queryFn: async ({ signal }) => {
-      const vehicles = await Vehicle.fetchAll(signal);
-      return vehicles.filter(
-        (vehicle): vehicle is OperationalVehicle =>
-          vehicle instanceof OperationalVehicle,
-      );
-    },
+    queryFn: ({ signal }) => Vehicle.fetchAll(signal),
+    select: Vehicle.takeOnlyOperational,
     refetchInterval: 2000,
   });
 

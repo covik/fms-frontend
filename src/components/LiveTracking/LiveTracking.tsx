@@ -2,7 +2,6 @@ import { Box, CircularProgress, Paper, Skeleton } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { Vehicle } from '../../lib/VehicleService';
 import { Coordinates } from '../../lib/Dimension';
-import { OperationalVehicle } from '../../models/Vehicle';
 import { Map } from '../Map';
 import { VehicleMapMarker } from '../VehicleMapMarker';
 import {
@@ -19,7 +18,8 @@ const CROATIA = {
 export function LiveTracking() {
   const query = useQuery({
     queryKey: ['vehicles'],
-    queryFn: ({ signal }) => fetchVehicles(signal),
+    queryFn: ({ signal }) => Vehicle.fetchAll(signal),
+    select: Vehicle.takeOnlyOperational,
     refetchInterval: 2000,
   });
 
@@ -63,17 +63,6 @@ export function LiveTracking() {
         ))}
       </Map>
     </PageContainer>
-  );
-}
-
-async function fetchVehicles(
-  signal?: AbortSignal,
-): Promise<OperationalVehicle[]> {
-  const vehicles = await Vehicle.fetchAll(signal);
-
-  return vehicles.filter(
-    (vehicle): vehicle is OperationalVehicle =>
-      vehicle instanceof OperationalVehicle,
   );
 }
 
