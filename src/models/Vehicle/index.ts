@@ -9,5 +9,6 @@ export {
   NoPositionVehicle,
   TimedOutVehicle,
 } from './Vehicle';
+export { isBaseVehicle } from './Checker';
 
 export type { LocatedVehicleAttributes } from './LocatedVehicle';
