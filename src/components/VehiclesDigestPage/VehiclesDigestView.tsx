@@ -1,21 +1,24 @@
-import { Box, Typography, useTheme } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { VehicleList } from '../VehicleList';
 import { VehicleCard } from '../VehicleCard';
+import { TimedOutVehiclesHeader } from './TimedOutVehiclesHeader';
 import type { CardAttributes } from '../VehicleCard';
 
 export interface VehiclesDigestViewAttributes {
-  vehicles: (CardAttributes & { id: string })[];
+  operationalVehicles: (CardAttributes & { id: string })[];
+  timedOutVehicles: (CardAttributes & { id: string })[];
 }
 
-export function VehiclesDigestView({ vehicles }: VehiclesDigestViewAttributes) {
-  const theme = useTheme();
-
+export function VehiclesDigestView({
+  operationalVehicles,
+  timedOutVehicles,
+}: VehiclesDigestViewAttributes) {
   return (
     <>
       <PageTitle />
-      <Box sx={{ marginTop: theme.spacing(2) }}>
+      <Box sx={{ marginTop: 2 }}>
         <VehicleList>
-          {vehicles.map((vehicle) => (
+          {operationalVehicles.map((vehicle) => (
             <VehicleCard
               key={vehicle.id}
               title={vehicle.title}
@@ -25,6 +28,24 @@ export function VehiclesDigestView({ vehicles }: VehiclesDigestViewAttributes) {
             />
           ))}
         </VehicleList>
+        {timedOutVehicles.length > 0 ? (
+          <>
+            <Box sx={{ marginTop: 2, marginBottom: 2 }}>
+              <TimedOutVehiclesHeader />
+            </Box>
+            <VehicleList>
+              {timedOutVehicles.map((vehicle) => (
+                <VehicleCard
+                  key={vehicle.id}
+                  title={vehicle.title}
+                  subtitle={vehicle.subtitle}
+                  icon={vehicle.icon}
+                  color={vehicle.color}
+                />
+              ))}
+            </VehicleList>
+          </>
+        ) : null}
       </Box>
     </>
   );

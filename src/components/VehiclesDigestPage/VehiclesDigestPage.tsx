@@ -65,7 +65,12 @@ function OperationalVehiclesList({
     [sortedVehicles],
   );
 
-  return <VehiclesDigestView vehicles={vehiclesAdaptedToView} />;
+  return (
+    <VehiclesDigestView
+      operationalVehicles={vehiclesAdaptedToView}
+      timedOutVehicles={[]}
+    />
+  );
 }
 
 function PageContainer({ children }: { children: ReactNode }) {
