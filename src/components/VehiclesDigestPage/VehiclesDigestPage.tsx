@@ -1,14 +1,12 @@
-import { VehiclesDigestView } from './VehiclesDigestView';
+import { VehiclesDigestView, PageContainer } from './VehiclesDigestView';
 import { VehiclesDigestSkeleton } from './VehiclesDigestSkeleton';
 import { Vehicle } from '../../lib/VehicleService';
 import { OperationalVehicle } from '../../models/Vehicle';
 import { Truck, TruckFast } from 'mdi-material-ui';
 import { formatDistanceToNowStrict } from 'date-fns';
-import { Box } from '@mui/material';
 import { hr } from 'date-fns/locale';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo } from 'react';
-import type { ReactNode } from 'react';
 
 export function VehiclesDigestPage() {
   const query = useQuery({
@@ -30,11 +28,7 @@ export function VehiclesDigestPage() {
       </PageContainer>
     );
 
-  return (
-    <PageContainer>
-      <OperationalVehiclesList vehicles={query.data} />
-    </PageContainer>
-  );
+  return <OperationalVehiclesList vehicles={query.data} />;
 }
 
 function OperationalVehiclesList({
@@ -71,8 +65,4 @@ function OperationalVehiclesList({
       timedOutVehicles={[]}
     />
   );
-}
-
-function PageContainer({ children }: { children: ReactNode }) {
-  return <Box sx={{ width: '100%', padding: 1.4 }}>{children}</Box>;
 }

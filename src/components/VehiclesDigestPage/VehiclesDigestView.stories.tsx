@@ -42,6 +42,13 @@ const timedOutVehicles = [
   },
 ];
 
+export const Empty: Story = {
+  args: {
+    operationalVehicles: [],
+    timedOutVehicles: [],
+  },
+};
+
 export const OnlyOperationalVehicles: Story = {
   args: {
     operationalVehicles,
