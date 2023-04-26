@@ -1,6 +1,7 @@
 import { BaseVehicle } from './BaseVehicle';
 import {
   DisabledVehicle,
+  NoPositionVehicle,
   OperationalVehicle,
   TimedOutVehicle,
 } from './Vehicle';
@@ -25,4 +26,10 @@ export function isDisabledVehicle(
   vehicle: unknown,
 ): vehicle is DisabledVehicle {
   return vehicle instanceof DisabledVehicle;
+}
+
+export function isVehicleWithoutPosition(
+  vehicle: unknown,
+): vehicle is NoPositionVehicle {
+  return vehicle instanceof NoPositionVehicle;
 }

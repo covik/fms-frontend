@@ -14,6 +14,7 @@ export {
   isDisabledVehicle,
   isOperationalVehicle,
   isTimedOutVehicle,
+  isVehicleWithoutPosition,
 } from './Checker';
 
 export type { LocatedVehicleAttributes } from './LocatedVehicle';
