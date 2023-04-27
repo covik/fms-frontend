@@ -22,5 +22,5 @@ export const indexRoute = new Route({
 export const vehiclesRoute = new Route({
   getParentRoute: () => rootRoute,
   path: '/vehicles',
-  component: VehiclesDigestPage,
+  component: () => <VehiclesDigestPage />,
 });

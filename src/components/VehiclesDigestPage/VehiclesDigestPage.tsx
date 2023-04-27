@@ -12,7 +12,7 @@ import { Snackbar } from '@mui/material';
 import { testingSelectors as cardSelectors } from '../VehicleCard';
 
 export interface VehiclesDigestPageAttributes {
-  refetchInterval?: number | false;
+  refetchInterval?: number | false | undefined;
 }
 
 export function VehiclesDigestPage({
