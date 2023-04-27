@@ -15,6 +15,7 @@ module.exports = {
         'dimension',
         'traccar',
         'vehicle-service',
+        'web-share',
       ],
     ],
   },
