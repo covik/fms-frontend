@@ -122,4 +122,11 @@ describe(Coordinates.name, () => {
       expect(coordinates.toString()).to.equal('45.15, 150.29801');
     },
   );
+
+  specify('toGoogleMapsUrl() should return a Google Maps link', () => {
+    const coordinates = new Coordinates(44.09437450651524, 15.250005920779836);
+    expect(coordinates.toGoogleMapsUrl()).to.equal(
+      'https://www.google.com/maps/search/?api=1&query=44.09437450651524%2C15.250005920779836',
+    );
+  });
 });

@@ -45,4 +45,11 @@ export class Coordinates {
   public toString(): string {
     return `${this.latitude()}, ${this.longitude()}`;
   }
+
+  public toGoogleMapsUrl(): string {
+    const coordinatesToString = this.toString().replaceAll(' ', '');
+    const urlEncodedCoordinates = encodeURIComponent(coordinatesToString);
+
+    return `https://www.google.com/maps/search/?api=1&query=${urlEncodedCoordinates}`;
+  }
 }
