@@ -15,7 +15,7 @@ export function VehicleCard(props: CardAttributes) {
   const { title, subtitle, icon: Icon, color: headerColor, onShare } = props;
 
   return (
-    <Card>
+    <Card data-testid={testingSelectors.cardRoot}>
       <CardHeader
         avatar={<Icon fontSize="large" htmlColor={headerColor} />}
         title={title}
@@ -27,7 +27,10 @@ export function VehicleCard(props: CardAttributes) {
         subheader={subtitle}
         action={
           typeof onShare === 'function' ? (
-            <IconButton onClick={onShare}>
+            <IconButton
+              onClick={onShare}
+              data-testid={testingSelectors.shareButton}
+            >
               <ShareVariant fontSize="medium" />
             </IconButton>
           ) : null
@@ -42,3 +45,8 @@ export function VehicleCard(props: CardAttributes) {
     </Card>
   );
 }
+
+export const testingSelectors = {
+  cardRoot: 'vehicle-card',
+  shareButton: 'share-vehicle',
+};
