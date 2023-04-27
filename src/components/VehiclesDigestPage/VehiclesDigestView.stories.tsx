@@ -15,6 +15,7 @@ const operationalVehicles = [
     color: 'orange',
     icon: Truck,
     subtitle: 'prije 15 minuta',
+    shareUrl: 'http://example.com',
   },
   {
     id: '2',
@@ -22,6 +23,7 @@ const operationalVehicles = [
     color: 'green',
     icon: TruckFast,
     subtitle: 'prije 30 sekundi',
+    shareUrl: 'http://example.com',
   },
 ];
 
@@ -32,6 +34,7 @@ const timedOutVehicles = [
     color: 'orange',
     icon: Truck,
     subtitle: 'prije 2 sata',
+    shareUrl: 'http://example.com',
   },
   {
     id: '4',
@@ -39,6 +42,7 @@ const timedOutVehicles = [
     color: 'green',
     icon: TruckFast,
     subtitle: 'prije 13 sati',
+    shareUrl: 'http://example.com',
   },
 ];
 

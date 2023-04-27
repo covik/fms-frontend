@@ -58,9 +58,12 @@ function VehicleView({ vehicles }: { vehicles: BaseVehicle[] }) {
     <VehiclesDigestView
       operationalVehicles={operationalVehiclesAdaptedToView}
       timedOutVehicles={timesOutVehiclesAdaptedToView}
+      onShareRequest={handleShare}
     />
   );
 }
+
+function handleShare(title: string, url: string) {}
 
 function adaptLocatedVehicleToView(vehicle: LocatedVehicle) {
   return {
@@ -72,5 +75,6 @@ function adaptLocatedVehicleToView(vehicle: LocatedVehicle) {
       addSuffix: true,
       locale: hr,
     }),
+    shareUrl: vehicle.position().coordinates().toGoogleMapsUrl(),
   };
 }

@@ -7,13 +7,15 @@ import type { ReactNode } from 'react';
 import type { CardAttributes } from '../VehicleCard';
 
 export interface VehiclesDigestViewAttributes {
-  operationalVehicles: (CardAttributes & { id: string })[];
-  timedOutVehicles: (CardAttributes & { id: string })[];
+  operationalVehicles: (CardAttributes & { id: string; shareUrl: string })[];
+  timedOutVehicles: (CardAttributes & { id: string; shareUrl: string })[];
+  onShareRequest: (title: string, url: string) => void;
 }
 
 export function VehiclesDigestView({
   operationalVehicles,
   timedOutVehicles,
+  onShareRequest,
 }: VehiclesDigestViewAttributes) {
   if (operationalVehicles.length === 0 && timedOutVehicles.length === 0)
     return <NoVehicles />;
@@ -31,6 +33,7 @@ export function VehiclesDigestView({
                 subtitle={vehicle.subtitle}
                 icon={vehicle.icon}
                 color={vehicle.color}
+                onShare={() => onShareRequest(vehicle.title, vehicle.shareUrl)}
               />
             ))}
           </VehicleList>
@@ -47,6 +50,9 @@ export function VehiclesDigestView({
                     subtitle={vehicle.subtitle}
                     icon={vehicle.icon}
                     color={vehicle.color}
+                    onShare={() =>
+                      onShareRequest(vehicle.title, vehicle.shareUrl)
+                    }
                   />
                 ))}
               </VehicleList>
