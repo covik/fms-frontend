@@ -81,6 +81,8 @@ function VehicleView({ vehicles }: { vehicles: BaseVehicle[] }) {
         setShowToast(true);
       }
     } catch (error) {
+      if (error instanceof DOMException && error.name === 'AbortError') return;
+
       setToastMessage(
         error instanceof WebShare.NoNativeSharingMechanism
           ? 'Vaša platforma ne podržava dijeljenje poveznica.'

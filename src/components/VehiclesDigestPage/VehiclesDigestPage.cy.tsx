@@ -38,6 +38,18 @@ describe(VehiclesDigestPage.name, () => {
   );
 
   specify(
+    'given sharing is aborted the toast notification should not pop up',
+    () => {
+      stubVehicleList();
+      simulateSharingAborted();
+      mountPage();
+      assertToastIsNotVisible();
+      triggerShare();
+      assertToastIsNotVisible();
+    },
+  );
+
+  specify(
     'given successfully shared vehicle via native WebShare API the toast notification should not pop up',
     () => {
       stubVehicleList();
@@ -79,6 +91,12 @@ function simulateShareFailedBecauseNoMechanismExists() {
 function simulateShareFailedForUnknownReason() {
   cy.stub(WebShare, 'shareUrl').callsFake(() =>
     Promise.reject(new Error('Share failed unexpectedly.')),
+  );
+}
+
+function simulateSharingAborted() {
+  cy.stub(WebShare, 'shareUrl').callsFake(() =>
+    Promise.reject(new DOMException('Sharing aborted.', 'AbortError')),
   );
 }
 
