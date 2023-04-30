@@ -11,17 +11,11 @@ import { WebShare } from '../../lib/WebShare';
 import { Snackbar } from '@mui/material';
 import { testingSelectors as cardSelectors } from '../VehicleCard';
 
-export interface VehiclesDigestPageAttributes {
-  refetchInterval?: number | false | undefined;
-}
-
-export function VehiclesDigestPage({
-  refetchInterval = 2000,
-}: VehiclesDigestPageAttributes) {
+export function VehiclesDigestPage() {
   const query = useQuery({
     queryKey: ['vehicles'],
     queryFn: ({ signal }) => Vehicle.fetchAll(signal),
-    refetchInterval,
+    refetchInterval: 2000,
   });
 
   if (query.data === undefined)

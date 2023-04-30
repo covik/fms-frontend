@@ -111,7 +111,7 @@ function simulateShareViaClipboard() {
 function mountPage() {
   cy.mount(
     <QueryClientProvider client={createTestClient()}>
-      <VehiclesDigestPage refetchInterval={false} />
+      <VehiclesDigestPage />
     </QueryClientProvider>,
   );
 }
@@ -121,7 +121,6 @@ function createTestClient() {
     defaultOptions: {
       queries: {
         retry: 1,
-        refetchInterval: false,
         refetchOnMount: false,
         refetchOnReconnect: false,
         refetchOnWindowFocus: false,
