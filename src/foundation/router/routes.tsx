@@ -1,9 +1,8 @@
+import { lazy } from 'react';
 import { Outlet, RootRoute, Route } from '@tanstack/router';
-import { LiveTracking } from '../../components/LiveTracking';
-import { VehiclesDigestPage } from '../../components/VehiclesDigestPage';
 import { BottomNavigationLayout } from '../../components/AppShell';
 
-export const rootRoute = new RootRoute({
+const rootRoute = new RootRoute({
   component: () => {
     return (
       <BottomNavigationLayout>
@@ -13,14 +12,16 @@ export const rootRoute = new RootRoute({
   },
 });
 
-export const indexRoute = new Route({
+const indexRoute = new Route({
   getParentRoute: () => rootRoute,
   path: '/',
-  component: LiveTracking,
+  component: lazy(() => import('../../pages/LiveTrackingPage')),
 });
 
-export const vehiclesRoute = new Route({
+const vehiclesRoute = new Route({
   getParentRoute: () => rootRoute,
   path: '/vehicles',
-  component: () => <VehiclesDigestPage />,
+  component: lazy(() => import('../../pages/VehiclesDigestPage')),
 });
+
+export const routeTree = rootRoute.addChildren([indexRoute, vehiclesRoute]);
