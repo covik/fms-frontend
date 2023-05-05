@@ -1,5 +1,5 @@
 import { LoginView, testingSelectors } from './';
-import { composeStories } from '@storybook/testing-react';
+import { composeStories } from '@storybook/react';
 import * as stories from './LoginView.stories';
 
 const {
