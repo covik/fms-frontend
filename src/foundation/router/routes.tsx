@@ -1,15 +1,9 @@
 import { lazy } from 'react';
-import { Outlet, RootRoute, Route } from '@tanstack/router';
-import { BottomNavigationLayout } from '../../components/AppShell';
+import { RootRoute, Route } from '@tanstack/router';
+import { AppShell } from '../../components/AppShell';
 
 const rootRoute = new RootRoute({
-  component: () => {
-    return (
-      <BottomNavigationLayout>
-        <Outlet />
-      </BottomNavigationLayout>
-    );
-  },
+  component: AppShell,
 });
 
 const indexRoute = new Route({

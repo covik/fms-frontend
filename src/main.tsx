@@ -7,18 +7,21 @@ import {
   AuthProvider,
   DesignBaseline,
   AuthenticatedApp,
+  AppVersionProvider,
 } from './foundation';
 
 const queryClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <QueryClientProvider client={queryClient}>
-    <DesignBaseline>
-      <AuthProvider>
-        <App>
-          <AuthenticatedApp />
-        </App>
-      </AuthProvider>
-    </DesignBaseline>
-  </QueryClientProvider>,
+  <AppVersionProvider>
+    <QueryClientProvider client={queryClient}>
+      <DesignBaseline>
+        <AuthProvider>
+          <App>
+            <AuthenticatedApp />
+          </App>
+        </AuthProvider>
+      </DesignBaseline>
+    </QueryClientProvider>
+  </AppVersionProvider>,
 );

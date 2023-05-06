@@ -18,6 +18,7 @@ export function BottomNavigationLayout({
           minHeight: '100vh',
           paddingBottom: navigationHeight,
           display: 'flex',
+          flexDirection: 'column',
         }}
       >
         {children}

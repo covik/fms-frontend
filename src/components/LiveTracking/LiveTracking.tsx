@@ -37,7 +37,7 @@ export function LiveTracking() {
         x={CROATIA.coordinates.latitude()}
         y={CROATIA.coordinates.longitude()}
         z={CROATIA.zoom}
-        height={'100%'}
+        height={'auto'}
         width={'100%'}
       >
         {query.data.map((vehicle) => (
@@ -72,7 +72,6 @@ function PageContainer({ children }: { children: ReactNode | ReactNode[] }) {
       sx={{
         flex: 1,
         display: 'flex',
-        flexDirection: 'column',
         position: 'relative',
       }}
     >
