@@ -1,5 +1,9 @@
 import { ValidationException, WrongCredentialsException } from './Exception';
 import { Http } from '../HttpClient';
+// @ts-expect-error
+import Cookies from 'js-cookie';
+
+export const cookie = 'JSESSIONID';
 
 export async function check(): Promise<boolean> {
   try {
@@ -32,6 +36,11 @@ export async function create(credentials: SessionCredentials): Promise<void> {
 
     throw e;
   }
+}
+
+export function rememberForOneYear() {
+  const value = String(Cookies.get(cookie));
+  Cookies.set(cookie, value, { expires: 365, path: '/' });
 }
 
 function validateCredentials(credentials: SessionCredentials) {

@@ -1,5 +1,6 @@
 import { LoginPage, testingSelectors } from './';
 import { Session } from '../../lib/SessionService';
+import { addDays, getUnixTime } from 'date-fns';
 
 describe(LoginPage.name, () => {
   beforeEach(() => {
@@ -95,6 +96,25 @@ describe(LoginPage.name, () => {
     submitForm();
     cy.get('@successfulAttempt').should('have.been.calledOnce');
   });
+
+  it('should remember session for one year', () => {
+    const now = new Date();
+    const oneYearFromNow = addDays(now, 365);
+    cy.clock(now);
+
+    simulateCorrectCredentialsSituation();
+    fillForm();
+
+    const [session, id] = simulateSessionCookieSetByBackend();
+    submitForm();
+
+    cy.getCookie(session).should('deep.include', {
+      name: session,
+      value: id,
+      expiry: getUnixTime(oneYearFromNow),
+      path: '/',
+    });
+  });
 });
 
 function fillForm() {
@@ -124,4 +144,12 @@ function simulateServerError() {
 
 function simulateCorrectCredentialsSituation() {
   cy.intercept('POST', '/api/session', { statusCode: 200 });
+}
+
+function simulateSessionCookieSetByBackend() {
+  const name = Session.cookie;
+  const value = 'random-string';
+  cy.setCookie(name, value);
+
+  return [name, value];
 }

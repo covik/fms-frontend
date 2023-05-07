@@ -18,6 +18,7 @@ export function LoginPage({ onSuccessfulAttempt }: LoginPageAttributes) {
 
     try {
       await Session.create({ email, password });
+      Session.rememberForOneYear();
       onSuccessfulAttempt();
     } catch (e) {
       if (e instanceof Session.ValidationException) {
