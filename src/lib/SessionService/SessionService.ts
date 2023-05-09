@@ -23,9 +23,9 @@ export async function check(): Promise<boolean> {
   }
 }
 
-export async function obtain(): Promise<unknown> {
+export async function obtain(signal?: AbortSignal): Promise<unknown> {
   try {
-    const response = await Http.request('/api/session');
+    const response = await Http.request('/api/session', { signal });
     const responseJson = await response.json();
 
     const parsedUser = TraccarUser.parse(responseJson);

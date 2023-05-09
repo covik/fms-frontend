@@ -54,6 +54,18 @@ describe('SessionService', () => {
       });
     });
 
+    it(`should throw ${Http.ClientException.name} if request gets aborted`, () => {
+      cy.testException(async () => {
+        const controller = new AbortController();
+        const signal = controller.signal;
+        const request = Session.obtain(signal);
+        controller.abort();
+        return request;
+      }).then((theError) => {
+        theError().should('be.instanceOf', Http.ClientException);
+      });
+    });
+
     it(`should return ${DisabledUser.name} object if user account is disabled`, () => {
       cy.intercept('GET', '/api/session', {
         body: {
