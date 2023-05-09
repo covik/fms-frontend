@@ -18,3 +18,5 @@ export class ValidationException extends CustomError {
 }
 
 export class WrongCredentialsException extends CustomError {}
+
+export class UserNotAuthenticatedException extends CustomError {}

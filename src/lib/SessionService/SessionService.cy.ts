@@ -1,5 +1,6 @@
 import { Session } from './';
 import { Http } from '../HttpClient';
+import { Administrator, DisabledUser, StandardUser } from '../../models/User';
 
 describe('SessionService', () => {
   describe('check()', () => {
@@ -25,6 +26,110 @@ describe('SessionService', () => {
       cy.testException(Session.check).then((theError) => {
         theError().should('be.instanceOf', Http.NetworkException);
       });
+    });
+  });
+
+  describe('obtain()', () => {
+    it(`should throw ${Session.UserNotAuthenticatedException.name} if response code is 404`, () => {
+      cy.intercept('GET', '/api/session', { statusCode: 404 });
+      cy.testException(Session.obtain).then((theError) => {
+        theError().should(
+          'be.instanceOf',
+          Session.UserNotAuthenticatedException,
+        );
+      });
+    });
+
+    it(`should throw ${Http.ServerException.name} if response code is not 200 nor 404`, () => {
+      cy.intercept('GET', '/api/session', { statusCode: 500 });
+      cy.testException(Session.obtain).then((theError) => {
+        theError().should('be.instanceOf', Http.ServerException);
+      });
+    });
+
+    it(`should throw ${Http.NetworkException.name} if network error occurs`, () => {
+      cy.intercept('GET', '/api/session', { forceNetworkError: true });
+      cy.testException(Session.obtain).then((theError) => {
+        theError().should('be.instanceOf', Http.NetworkException);
+      });
+    });
+
+    it(`should return ${DisabledUser.name} object if user account is disabled`, () => {
+      cy.intercept('GET', '/api/session', {
+        body: {
+          id: 1,
+          administrator: false,
+          disabled: true,
+          name: 'Disabled',
+          email: 'disabled@example.com',
+        },
+        statusCode: 200,
+      });
+
+      cy.then(Session.obtain).as('user');
+      cy.get('@user').should('be.instanceOf', DisabledUser);
+      cy.get('@user').invoke('id').should('equal', 1);
+      cy.get('@user').invoke('email').should('equal', 'disabled@example.com');
+      cy.get('@user').invoke('fullName').should('equal', 'Disabled');
+    });
+
+    it(`should return ${Administrator.name} object if user account is administrator`, () => {
+      cy.intercept('GET', '/api/session', {
+        body: {
+          id: 2,
+          administrator: true,
+          disabled: false,
+          name: 'Admin',
+          email: 'admin@example.com',
+        },
+        statusCode: 200,
+      });
+
+      cy.then(Session.obtain).as('user');
+      cy.get('@user').should('be.instanceOf', Administrator);
+      cy.get('@user').invoke('id').should('equal', 2);
+      cy.get('@user').invoke('email').should('equal', 'admin@example.com');
+      cy.get('@user').invoke('fullName').should('equal', 'Admin');
+    });
+
+    it(`should return ${DisabledUser.name} object if administrator account is disabled`, () => {
+      cy.intercept('GET', '/api/session', {
+        body: {
+          id: 3,
+          administrator: true,
+          disabled: true,
+          name: 'Disabled Admin',
+          email: 'disabled-admin@example.com',
+        },
+        statusCode: 200,
+      });
+
+      cy.then(Session.obtain).as('user');
+      cy.get('@user').should('be.instanceOf', DisabledUser);
+      cy.get('@user').invoke('id').should('equal', 3);
+      cy.get('@user')
+        .invoke('email')
+        .should('equal', 'disabled-admin@example.com');
+      cy.get('@user').invoke('fullName').should('equal', 'Disabled Admin');
+    });
+
+    it(`should return ${StandardUser.name} object if account is not disabled nor admin`, () => {
+      cy.intercept('GET', '/api/session', {
+        body: {
+          id: 4,
+          administrator: false,
+          disabled: false,
+          name: 'User',
+          email: 'user@example.com',
+        },
+        statusCode: 200,
+      });
+
+      cy.then(Session.obtain).as('user');
+      cy.get('@user').should('be.instanceOf', StandardUser);
+      cy.get('@user').invoke('id').should('equal', 4);
+      cy.get('@user').invoke('email').should('equal', 'user@example.com');
+      cy.get('@user').invoke('fullName').should('equal', 'User');
     });
   });
 
