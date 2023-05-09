@@ -3,6 +3,14 @@ import { z } from 'zod';
 const id = z.number().gte(1);
 const datetime = z.string().datetime({ offset: true });
 
+export const TraccarUser = z.object({
+  id,
+  administrator: z.boolean(),
+  disabled: z.boolean(),
+  email: z.string().email(),
+  name: z.string().min(1),
+});
+
 export const TraccarDevice = z.object({
   id,
   name: z.string().min(1),
@@ -43,5 +51,6 @@ export const TraccarPosition = z.object({
   }),
 });
 
+export type TraccarUserInterface = z.infer<typeof TraccarUser>;
 export type TraccarDeviceInterface = z.infer<typeof TraccarDevice>;
 export type TraccarPositionInterface = z.infer<typeof TraccarPosition>;
