@@ -6,7 +6,12 @@ import {
 import { Http } from '../HttpClient';
 // @ts-expect-error
 import Cookies from 'js-cookie';
-import { Administrator, DisabledUser, StandardUser } from '../../models/User';
+import {
+  Administrator,
+  BaseUser,
+  DisabledUser,
+  StandardUser,
+} from '../../models/User';
 import { TraccarUser } from '../Traccar';
 
 export const cookie = 'JSESSIONID';
@@ -23,7 +28,7 @@ export async function check(): Promise<boolean> {
   }
 }
 
-export async function obtain(signal?: AbortSignal): Promise<unknown> {
+export async function obtain(signal?: AbortSignal): Promise<BaseUser> {
   try {
     const response = await Http.request('/api/session', { signal });
     const responseJson = await response.json();
