@@ -25,6 +25,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     queryFn: ({ signal }) => Session.obtain(signal),
     ...preventAutomaticRetry,
     ...preventAutomaticRefetch,
+    ...fetchIfOffline(),
   });
 
   const isError = !!query.error;
@@ -58,4 +59,10 @@ export function useAuth(): AuthAPI {
     );
 
   return context;
+}
+
+function fetchIfOffline() {
+  return {
+    networkMode: 'always',
+  } satisfies Record<string, 'always'>;
 }
