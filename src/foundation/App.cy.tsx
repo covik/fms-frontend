@@ -1,19 +1,26 @@
-import { App, AuthProvider } from './';
+import { AuthProvider } from './context/Auth';
+import { App, testingSelectors } from './App';
 import { Session } from '../lib/SessionService';
-import { testingSelectors } from './App';
+import { StandardUser } from '../models/User';
+import { QueryClient } from '@tanstack/query-core';
+import { QueryClientProvider } from '@tanstack/react-query';
 
 const authenticatedAppSelector = 'authenticated-app';
 
 describe(App.name, () => {
   it('should render full page spinner while fetching session information', () => {
-    simulateFetchingState();
+    stubSession().simulateFetching();
+
     mountApp();
+
     cy.get(`[data-testid="${testingSelectors.spinner}"]`).should('be.visible');
   });
 
   it('should show login page if there is no active session', () => {
-    simulateNoActiveSession();
+    stubSession().simulateNoActive();
+
     mountApp();
+
     cy.get(`[data-testid="${testingSelectors.spinner}"]`).should('not.exist');
     cy.get(`[data-testid="${testingSelectors.login.page}"]`).should(
       'be.visible',
@@ -21,48 +28,105 @@ describe(App.name, () => {
   });
 
   it('should render authenticated app if there is active session', () => {
-    simulateActiveSession();
+    stubSession().simulateActive();
+
     mountApp();
+
     cy.get(`[data-testid="${testingSelectors.spinner}"]`).should('not.exist');
     cy.get(`[data-testid="${authenticatedAppSelector}"]`).should('be.visible');
   });
 
   it('should render authenticated app if login succeeds', () => {
-    simulateNoActiveSession();
-    simulateSuccessfulLogin();
+    const session = stubSession();
+    session.simulateNoActive();
+
     mountApp();
     fillForm();
+    simulateSuccessfulLogin().then(session.simulateActive);
     submitForm();
+
     cy.get(`[data-testid="${authenticatedAppSelector}"]`).should('be.visible');
   });
+
+  it('should render error view if fetching session fails', () => {
+    stubSession().simulateFailure();
+
+    mountApp();
+
+    cy.get(`[data-testid="${testingSelectors.spinner}"]`).should('not.exist');
+    cy.get(`[data-testid="${testingSelectors.failure.container}"]`).should(
+      'be.visible',
+    );
+  });
+
+  specify(
+    'given error view is rendered when retry button is clicked it should retry session fetching',
+    () => {
+      const session = stubSession();
+      session.simulateFailure();
+      mountApp();
+      cy.get(`[data-testid="${testingSelectors.failure.container}"]`).should(
+        'be.visible',
+      );
+
+      cy.then(session.simulateActive);
+      cy.get(`[data-testid="${testingSelectors.failure.retry}"]`).click();
+
+      cy.get(`[data-testid="${authenticatedAppSelector}"]`).should(
+        'be.visible',
+      );
+    },
+  );
 });
 
 function mountApp() {
+  const queryClient = new QueryClient();
+
   cy.mount(
-    <AuthProvider>
-      <App>
-        <div data-testid={authenticatedAppSelector}>
-          Authenticated successfully!
-        </div>
-      </App>
-    </AuthProvider>,
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <App>
+          <div data-testid={authenticatedAppSelector}>
+            Authenticated successfully!
+          </div>
+        </App>
+      </AuthProvider>
+    </QueryClientProvider>,
   );
 }
 
-function simulateFetchingState() {
-  cy.stub(Session, 'check', () => new Promise(() => {}));
-}
+function stubSession() {
+  const stub = cy.stub(Session, 'obtain');
 
-function simulateNoActiveSession() {
-  cy.stub(Session, 'check', () => Promise.resolve(false));
-}
+  const simulateFetching = () => stub.callsFake(() => new Promise(() => {}));
 
-function simulateActiveSession() {
-  cy.stub(Session, 'check', () => Promise.resolve(true));
+  const simulateNoActive = () =>
+    stub.callsFake(() =>
+      Promise.reject(new Session.UserNotAuthenticatedException()),
+    );
+
+  const simulateActive = () =>
+    stub.callsFake(() =>
+      Promise.resolve(
+        new StandardUser({ id: 1, email: 'the@example.com', fullName: 'Test' }),
+      ),
+    );
+
+  const simulateFailure = () =>
+    stub.callsFake(() =>
+      Promise.reject(new Error('Session fetch generic failure.')),
+    );
+
+  return {
+    simulateFetching,
+    simulateNoActive,
+    simulateActive,
+    simulateFailure,
+  };
 }
 
 function simulateSuccessfulLogin() {
-  cy.intercept('POST', '/api/session', { statusCode: 200 });
+  return cy.intercept('POST', '/api/session', { statusCode: 200 });
 }
 
 function fillForm() {

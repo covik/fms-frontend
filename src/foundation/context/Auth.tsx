@@ -1,41 +1,61 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useCallback, useContext, useMemo } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { Session } from '../../lib/SessionService';
+import { BaseUser } from '../../models/User';
+import {
+  preventAutomaticRefetch,
+  preventAutomaticRetry,
+} from '../../utils/tanstack-query';
 import type { ReactNode } from 'react';
 
-interface AuthAPI {
-  isFetching: boolean;
-  isAuthenticated: boolean;
+export interface AuthAPI {
+  user: BaseUser | undefined;
+  hasFailed: boolean;
+  hasToSubmitCredentials: boolean;
+  retry: () => void;
   finishLogin: () => void;
+  finishLogout: () => void;
 }
 
 const AuthContext = createContext<AuthAPI | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [state, setState] = useState<'fetching' | 'active' | 'inactive'>(
-    'fetching',
-  );
-  const isFetching = state === 'fetching';
-  const isAuthenticated = state === 'active';
-  const finishLogin = () => setState('active');
+  const query = useQuery({
+    queryKey: ['current-user'],
+    queryFn: ({ signal }) => Session.obtain(signal),
+    ...preventAutomaticRetry,
+    ...preventAutomaticRefetch,
+  });
 
-  useEffect(() => {
-    Session.check().then((isSuccessful) =>
-      setState(isSuccessful ? 'active' : 'inactive'),
-    );
-  }, []);
+  const isError = !!query.error;
+  const hasToSubmitCredentials =
+    query.error instanceof Session.UserNotAuthenticatedException;
+  const hasFailed = isError && !hasToSubmitCredentials;
+  const user = query.data;
+  const retry = useCallback(() => void query.refetch(), [query]);
 
-  return (
-    <AuthContext.Provider value={{ isFetching, isAuthenticated, finishLogin }}>
-      {children}
-    </AuthContext.Provider>
+  const api = useMemo(
+    () => ({
+      user,
+      hasFailed,
+      hasToSubmitCredentials,
+      retry,
+      finishLogin: retry,
+      finishLogout: retry,
+    }),
+    [user, hasFailed, hasToSubmitCredentials, retry],
   );
+
+  return <AuthContext.Provider value={api}>{children}</AuthContext.Provider>;
 }
 
 export function useAuth(): AuthAPI {
   const context = useContext(AuthContext);
 
   if (context === undefined)
-    throw new Error('AuthContext should not return undefined');
+    throw new Error(
+      'AuthContext should not return undefined. Forgot to call AuthProvider?',
+    );
 
   return context;
 }

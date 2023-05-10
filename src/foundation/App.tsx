@@ -3,17 +3,25 @@ import {
   LoginPage,
   testingSelectors as loginSelectors,
 } from '../components/LoginPage';
-import { useAuth } from './';
+import {
+  SessionFailureView,
+  testingSelectors as failureSelectors,
+} from '../components/SessionFailureView';
+import { useAuth } from './context/Auth';
 import type { ReactNode } from 'react';
 
 export function App({ children }: { children: ReactNode }) {
-  const { isFetching, isAuthenticated, finishLogin } = useAuth();
+  const { user, hasToSubmitCredentials, hasFailed, finishLogin, retry } =
+    useAuth();
 
-  if (isFetching) return <FullPageSpinner />;
+  if (hasToSubmitCredentials)
+    return <LoginPage onSuccessfulAttempt={finishLogin} />;
 
-  if (isAuthenticated) return <>{children}</>;
+  if (hasFailed) return <SessionFailureView onRetryRequest={retry} />;
 
-  return <LoginPage onSuccessfulAttempt={finishLogin} />;
+  if (user === undefined) return <FullPageSpinner />;
+
+  return <>{children}</>;
 }
 
 export const testingSelectors = {
@@ -24,6 +32,7 @@ export const testingSelectors = {
     password: loginSelectors.inputs.password,
     form: loginSelectors.form,
   },
+  failure: failureSelectors,
 };
 
 function FullPageSpinner() {
