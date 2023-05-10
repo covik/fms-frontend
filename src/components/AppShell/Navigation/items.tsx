@@ -1,4 +1,4 @@
-import { Bell, Map, Truck } from 'mdi-material-ui';
+import { Account, Map, Truck } from 'mdi-material-ui';
 
 export const all = [
   {
@@ -12,8 +12,8 @@ export const all = [
     icon: <Truck />,
   },
   {
-    href: '/notifications',
-    title: 'Obavijesti',
-    icon: <Bell />,
+    href: '/account',
+    title: 'Račun',
+    icon: <Account />,
   },
 ];
