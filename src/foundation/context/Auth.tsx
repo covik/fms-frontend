@@ -61,6 +61,19 @@ export function useAuth(): AuthAPI {
   return context;
 }
 
+export function useUser(): BaseUser {
+  const { user } = useAuth();
+
+  if (user === undefined)
+    throw new Error(
+      'User is not logged in,' +
+        'a bug exists in authentication logic,' +
+        'or you used useUser() in unauthenticated part of the application.',
+    );
+
+  return user;
+}
+
 function fetchIfOffline() {
   return {
     networkMode: 'always',
