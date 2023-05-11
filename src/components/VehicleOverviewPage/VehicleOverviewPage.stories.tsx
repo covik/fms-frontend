@@ -17,14 +17,12 @@ const title = 'ZD001AA';
 
 export const LiveUpdates: Story = {
   args: {
-    activeTab: 'live-updates',
     title,
   },
 };
 
 export const Routes: Story = {
   args: {
-    activeTab: 'routes',
     title,
   },
 };

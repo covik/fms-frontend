@@ -27,7 +27,7 @@ export function VehicleOverviewPage() {
   if (vehicle === undefined) return <div>Učitavanje podataka</div>;
 
   return (
-    <VehicleOverviewView activeTab={'live-updates'} title={vehicle.name()}>
+    <VehicleOverviewView title={vehicle.name()}>
       {vehicle instanceof LocatedVehicle ? (
         <LivePreviewView vehicle={vehicle}></LivePreviewView>
       ) : (
