@@ -15,8 +15,19 @@ const indexRoute = new Route({
 
 const vehiclesRoute = new Route({
   getParentRoute: () => rootRoute,
-  path: '/vehicles',
+  path: 'vehicles',
+});
+
+const vehiclesIndexRoute = new Route({
+  getParentRoute: () => vehiclesRoute,
+  path: '/',
   component: lazy(() => import('../../pages/VehiclesDigestPage')),
+});
+
+const vehicleRoute = new Route({
+  getParentRoute: () => vehiclesRoute,
+  path: '$vehicleId',
+  component: lazy(() => import('../../pages/VehicleOverviewPage')),
 });
 
 const accountRoute = new Route({
@@ -27,6 +38,6 @@ const accountRoute = new Route({
 
 export const routeTree = rootRoute.addChildren([
   indexRoute,
-  vehiclesRoute,
+  vehiclesRoute.addChildren([vehiclesIndexRoute, vehicleRoute]),
   accountRoute,
 ]);
