@@ -7,3 +7,4 @@ export {
   useVersionManager,
   VersionProvider,
 } from './context/VersionManager';
+export { DateTimeProvider, useDateTime } from './context/DateTime';
