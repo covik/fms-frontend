@@ -1,15 +1,19 @@
 import { Box, Typography } from '@mui/material';
 import { HumanDolly } from 'mdi-material-ui';
+import { Link } from '@tanstack/router';
 import { VehicleList } from '../VehicleList';
 import { VehicleCard } from '../VehicleCard';
 import { TimedOutVehiclesHeader } from './TimedOutVehiclesHeader';
 import type { ReactNode } from 'react';
 import type { CardAttributes } from '../VehicleCard';
 
+type LocatedVehicle = CardAttributes & { id: string; shareUrl: string };
+type ShareHandler = (title: string, url: string) => void;
+
 export interface VehiclesDigestViewAttributes {
-  operationalVehicles: (CardAttributes & { id: string; shareUrl: string })[];
-  timedOutVehicles: (CardAttributes & { id: string; shareUrl: string })[];
-  onShareRequest: (title: string, url: string) => void;
+  operationalVehicles: LocatedVehicle[];
+  timedOutVehicles: LocatedVehicle[];
+  onShareRequest: ShareHandler;
 }
 
 export function VehiclesDigestView({
@@ -27,13 +31,10 @@ export function VehiclesDigestView({
         <Box sx={{ marginTop: 2 }}>
           <VehicleList>
             {operationalVehicles.map((vehicle) => (
-              <VehicleCard
+              <LocatedVehicleCard
+                vehicle={vehicle}
+                handleShare={onShareRequest}
                 key={vehicle.id}
-                title={vehicle.title}
-                subtitle={vehicle.subtitle}
-                icon={vehicle.icon}
-                color={vehicle.color}
-                onShare={() => onShareRequest(vehicle.title, vehicle.shareUrl)}
               />
             ))}
           </VehicleList>
@@ -44,15 +45,10 @@ export function VehiclesDigestView({
               </Box>
               <VehicleList>
                 {timedOutVehicles.map((vehicle) => (
-                  <VehicleCard
+                  <LocatedVehicleCard
+                    vehicle={vehicle}
+                    handleShare={onShareRequest}
                     key={vehicle.id}
-                    title={vehicle.title}
-                    subtitle={vehicle.subtitle}
-                    icon={vehicle.icon}
-                    color={vehicle.color}
-                    onShare={() =>
-                      onShareRequest(vehicle.title, vehicle.shareUrl)
-                    }
                   />
                 ))}
               </VehicleList>
@@ -102,5 +98,32 @@ function NoVehicles() {
         </span>
       </Box>
     </Box>
+  );
+}
+
+function LocatedVehicleCard({
+  vehicle,
+  handleShare,
+}: {
+  vehicle: LocatedVehicle;
+  handleShare: ShareHandler;
+}) {
+  return (
+    <Link
+      to={'/vehicles/$vehicleId'}
+      params={{ vehicleId: vehicle.id }}
+      style={{ display: 'block', textDecoration: 'none' }}
+    >
+      <VehicleCard
+        title={vehicle.title}
+        subtitle={vehicle.subtitle}
+        icon={vehicle.icon}
+        color={vehicle.color}
+        onShare={(e) => {
+          e.preventDefault();
+          handleShare(vehicle.title, vehicle.shareUrl);
+        }}
+      />
+    </Link>
   );
 }

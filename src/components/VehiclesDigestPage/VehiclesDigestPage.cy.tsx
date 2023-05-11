@@ -5,6 +5,13 @@ import { Vehicle } from '../../lib/VehicleService';
 import { OperationalVehicle } from '../../models/Vehicle';
 import { locatedVehicleAttributes } from '../../../cypress/fixtures/base-and-located-vehicle-attributes';
 import { WebShare } from '../../lib/WebShare';
+import {
+  createMemoryHistory,
+  RootRoute,
+  Route,
+  Router,
+  RouterProvider,
+} from '@tanstack/router';
 
 const operationalVehicle1 = new OperationalVehicle(locatedVehicleAttributes);
 
@@ -109,9 +116,21 @@ function simulateShareViaClipboard() {
 }
 
 function mountPage() {
+  const rootRoute = new RootRoute();
+  const indexRoute = new Route({
+    getParentRoute: () => rootRoute,
+    path: '/',
+    component: VehiclesDigestPage,
+  });
+  const routeTree = rootRoute.addChildren([indexRoute]);
+  const router = new Router({
+    routeTree,
+    history: createMemoryHistory({ initialEntries: ['/'] }),
+  });
+
   cy.mount(
     <QueryClientProvider client={createTestClient()}>
-      <VehiclesDigestPage />
+      <RouterProvider router={router} />
     </QueryClientProvider>,
   );
 }

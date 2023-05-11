@@ -1,14 +1,14 @@
 import { Card, CardHeader, Icon, IconButton } from '@mui/material';
 import { ShareVariant } from 'mdi-material-ui';
 import type { SvgIcon } from '@mui/material';
-import type { CSSProperties } from 'react';
+import type { CSSProperties, MouseEvent } from 'react';
 
 export interface CardAttributes {
   title: string;
   subtitle: string;
   icon: typeof SvgIcon;
   color: CSSProperties['color'];
-  onShare?: () => void;
+  onShare?: (event: MouseEvent) => void;
 }
 
 export function VehicleCard(props: CardAttributes) {
