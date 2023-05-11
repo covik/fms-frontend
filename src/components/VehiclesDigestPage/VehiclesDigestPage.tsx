@@ -3,13 +3,12 @@ import { VehiclesDigestSkeleton } from './VehiclesDigestSkeleton';
 import { Vehicle } from '../../lib/VehicleService';
 import { BaseVehicle, LocatedVehicle } from '../../models/Vehicle';
 import { Truck, TruckFast } from 'mdi-material-ui';
-import { formatDistanceToNowStrict } from 'date-fns';
-import { hr } from 'date-fns/locale';
 import { useQuery } from '@tanstack/react-query';
 import { useMemo, useState } from 'react';
 import { WebShare } from '../../lib/WebShare';
 import { Snackbar } from '@mui/material';
 import { testingSelectors as cardSelectors } from '../VehicleCard';
+import { useDateTime } from '../../foundation';
 
 export function VehiclesDigestPage() {
   const query = useQuery({
@@ -34,6 +33,8 @@ export const testingSelectors = {
 };
 
 function VehicleView({ vehicles }: { vehicles: BaseVehicle[] }) {
+  const { distanceToNowStrictWithSuffix } = useDateTime();
+
   const [toastMessage, setToastMessage] = useState('');
   const [showToast, setShowToast] = useState(false);
 
@@ -55,13 +56,18 @@ function VehicleView({ vehicles }: { vehicles: BaseVehicle[] }) {
     [sortedVehicles],
   );
 
+  const adaptVehiclesToView = (vehicles: LocatedVehicle[]) =>
+    vehicles.map((vehicle) =>
+      adaptLocatedVehicleToView(vehicle, distanceToNowStrictWithSuffix),
+    );
+
   const operationalVehiclesAdaptedToView = useMemo(
-    () => operationalVehicles.map(adaptLocatedVehicleToView),
+    () => adaptVehiclesToView(operationalVehicles),
     [operationalVehicles],
   );
 
   const timesOutVehiclesAdaptedToView = useMemo(
-    () => timedOutVehicles.map(adaptLocatedVehicleToView),
+    () => adaptVehiclesToView(timedOutVehicles),
     [timedOutVehicles],
   );
 
@@ -105,16 +111,16 @@ function VehicleView({ vehicles }: { vehicles: BaseVehicle[] }) {
   );
 }
 
-function adaptLocatedVehicleToView(vehicle: LocatedVehicle) {
+function adaptLocatedVehicleToView(
+  vehicle: LocatedVehicle,
+  lastUpdateFormatterFunction: (date: Date) => string,
+) {
   return {
     id: vehicle.id(),
     title: vehicle.name(),
     color: vehicle.hasIgnitionTurnedOn() ? 'green' : 'orange',
     icon: vehicle.isInMotion() ? TruckFast : Truck,
-    subtitle: formatDistanceToNowStrict(vehicle.lastUpdatedAt(), {
-      addSuffix: true,
-      locale: hr,
-    }),
+    subtitle: lastUpdateFormatterFunction(vehicle.lastUpdatedAt()),
     shareUrl: vehicle.position().coordinates().toGoogleMapsUrl(),
   };
 }
