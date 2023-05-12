@@ -21,6 +21,7 @@ export function VehicleOverviewPage() {
 
       return vehicle;
     },
+    refetchInterval: 2000,
   });
 
   if (error instanceof VehicleNotFound) return <div>Vozilo nije pronađeno</div>;
