@@ -13,6 +13,7 @@ import {
   VehicleMapIconStationary,
 } from '../../VehicleMapIcon';
 import { useDateTime } from '../../../foundation';
+import { convert } from '../../../lib/MeasurementUnit/Speed';
 
 export interface LivePreviewViewAttributes {
   vehicle: LocatedVehicle;
@@ -25,9 +26,9 @@ export function LivePreviewView({ vehicle }: LivePreviewViewAttributes) {
     lat: coordinates.latitude(),
     lng: coordinates.longitude(),
   };
-  const formattedSpeed = `${vehicle.speed().value()} ${vehicle
-    .speed()
-    .symbol()}`;
+  const speedInKph = convert(vehicle.speed()).toKph();
+  const roundedSpeed = Math.round(speedInKph.value());
+  const formattedSpeed = `${roundedSpeed} ${speedInKph.symbol()}`;
   const formattedFixTime = distanceToNowStrictWithSuffix(
     vehicle.lastUpdatedAt(),
   );
