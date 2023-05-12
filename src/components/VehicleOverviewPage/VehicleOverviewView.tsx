@@ -25,7 +25,6 @@ function PageTitle({ children }: { children: string }) {
       variant="h3"
       color="grey"
       fontWeight="medium"
-      lineHeight={1}
       textAlign={'left'}
     >
       {children}
