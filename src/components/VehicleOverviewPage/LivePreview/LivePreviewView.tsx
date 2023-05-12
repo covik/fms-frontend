@@ -46,6 +46,7 @@ export function LivePreviewView({ vehicle }: LivePreviewViewAttributes) {
           z={8}
           width="100%"
           height="100%"
+          gestureHandling={false}
         >
           <VehicleMapMarker position={pos} name={vehicle.name()}>
             {vehicle.isInMotion() ? (
