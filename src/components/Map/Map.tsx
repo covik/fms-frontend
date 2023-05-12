@@ -10,6 +10,7 @@ export interface MapArguments {
   height: CSSProperties['height'];
   noControls?: boolean;
   noLabels?: boolean;
+  gestureHandling?: boolean;
   children?: ReactNode | ReactNode[] | undefined;
 }
 
@@ -26,6 +27,7 @@ export function Map({
   height,
   noControls = false,
   noLabels = false,
+  gestureHandling = true,
   children,
 }: MapArguments) {
   const { isLoaded } = useJsApiLoader(mapOptions);
@@ -51,11 +53,12 @@ export function Map({
     [noLabels],
   );
 
-  const options = useMemo(
+  const options: google.maps.MapOptions = useMemo(
     () => ({
       disableDefaultUI: noControls,
       styles,
       streetViewControl: false,
+      gestureHandling: gestureHandling ? 'auto' : 'none',
     }),
     [noControls, styles],
   );
