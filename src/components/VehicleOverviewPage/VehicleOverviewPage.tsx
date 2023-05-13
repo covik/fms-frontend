@@ -10,7 +10,7 @@ export function VehicleOverviewPage() {
   const { vehicleId } = useParams({ from: '/vehicles/$vehicleId' });
 
   const { error, data: vehicle } = useQuery({
-    queryKey: ['vehicles', vehicleId],
+    queryKey: ['vehicles'],
     queryFn: ({ signal }) => Vehicle.fetchAll(signal),
     select: (data) => {
       const vehicle = data.find((vehicle) => vehicle.id() === vehicleId);
