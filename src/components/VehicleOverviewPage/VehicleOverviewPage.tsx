@@ -1,9 +1,7 @@
-import { useParams } from '@tanstack/router';
+import { Outlet, useParams } from '@tanstack/router';
 import { useQuery } from '@tanstack/react-query';
 import { Vehicle } from '../../lib/VehicleService';
-import { CustomError } from 'ts-custom-error';
 import { VehicleOverviewView } from './VehicleOverviewView';
-import { LivePreviewView } from './LivePreview';
 import { LocatedVehicle } from '../../models/Vehicle';
 
 export function VehicleOverviewPage() {
@@ -16,26 +14,24 @@ export function VehicleOverviewPage() {
       const vehicle = data.find((vehicle) => vehicle.id() === vehicleId);
 
       if (vehicle === undefined) {
-        throw new VehicleNotFound();
+        throw new Vehicle.NotFoundException();
       }
 
       return vehicle;
     },
-    refetchInterval: 2000,
   });
 
-  if (error instanceof VehicleNotFound) return <div>Vozilo nije pronađeno</div>;
+  if (error instanceof Vehicle.NotFoundException)
+    return <div>Vozilo nije pronađeno</div>;
   if (vehicle === undefined) return <div>Učitavanje podataka</div>;
 
   return (
     <VehicleOverviewView title={vehicle.name()}>
       {vehicle instanceof LocatedVehicle ? (
-        <LivePreviewView vehicle={vehicle}></LivePreviewView>
+        <Outlet />
       ) : (
         <div>Vozilo nema poziciju</div>
       )}
     </VehicleOverviewView>
   );
 }
-
-class VehicleNotFound extends CustomError {}

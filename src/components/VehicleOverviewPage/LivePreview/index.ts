@@ -1,1 +1,1 @@
-export { LivePreviewView } from './LivePreviewView';
+export { LivePreviewPage } from './LivePreviewPage';
