@@ -2,6 +2,9 @@ import { z } from 'zod';
 
 const id = z.number().gte(1);
 const datetime = z.string().datetime({ offset: true });
+const latitude = z.number().gte(-90).lte(90);
+const longitude = z.number().gte(-180).lte(180);
+const speed = z.number().nonnegative();
 
 export const TraccarUser = z.object({
   id,
@@ -37,10 +40,10 @@ export const TraccarPosition = z.object({
   serverTime: datetime,
   outdated: z.boolean(),
   valid: z.boolean(),
-  latitude: z.number().gte(-90).lte(90),
-  longitude: z.number().gte(-180).lte(180),
+  latitude,
+  longitude,
   altitude: z.number(),
-  speed: z.number().gte(0),
+  speed,
   course: z.number().min(0).max(360),
   address: z.string().nullable(),
   accuracy: z.number(),
@@ -51,6 +54,34 @@ export const TraccarPosition = z.object({
   }),
 });
 
+export const TraccarTrip = z.object({
+  deviceId: id,
+  deviceName: z.string().min(1),
+  maxSpeed: speed,
+  averageSpeed: speed,
+  distance: z.number().gt(0),
+  duration: z.number().nonnegative(),
+  startTime: datetime,
+  startLat: latitude,
+  startLon: longitude,
+  endTime: datetime,
+  endLat: latitude,
+  endLon: longitude,
+});
+
+export const TraccarTripStop = z.object({
+  deviceId: id,
+  deviceName: z.string().min(1),
+  startTime: datetime,
+  endTime: datetime,
+  latitude,
+  longitude,
+  duration: z.number().nonnegative(),
+  distance: z.number().min(0).max(0),
+});
+
 export type TraccarUserInterface = z.infer<typeof TraccarUser>;
 export type TraccarDeviceInterface = z.infer<typeof TraccarDevice>;
 export type TraccarPositionInterface = z.infer<typeof TraccarPosition>;
+export type TraccarTripInterface = z.infer<typeof TraccarTrip>;
+export type TraccarTripStopInterface = z.infer<typeof TraccarTripStop>;
