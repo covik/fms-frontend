@@ -16,6 +16,7 @@ module.exports = {
         'traccar',
         'vehicle-service',
         'web-share',
+        'utils',
       ],
     ],
   },
