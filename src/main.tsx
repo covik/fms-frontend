@@ -8,6 +8,7 @@ import {
   DesignBaseline,
   AuthenticatedApp,
   AppVersionProvider,
+  DateTimeProvider,
 } from './foundation';
 
 const queryClient = new QueryClient();
@@ -15,13 +16,15 @@ const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <AppVersionProvider>
     <QueryClientProvider client={queryClient}>
-      <DesignBaseline>
-        <AuthProvider>
-          <App>
-            <AuthenticatedApp />
-          </App>
-        </AuthProvider>
-      </DesignBaseline>
+      <DateTimeProvider>
+        <DesignBaseline>
+          <AuthProvider>
+            <App>
+              <AuthenticatedApp />
+            </App>
+          </AuthProvider>
+        </DesignBaseline>
+      </DateTimeProvider>
     </QueryClientProvider>
   </AppVersionProvider>,
 );

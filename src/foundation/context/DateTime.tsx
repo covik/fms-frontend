@@ -1,5 +1,7 @@
 import { createContext, useCallback, useContext, useMemo } from 'react';
 import { hr } from 'date-fns/locale';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { formatDistanceToNowStrict } from 'date-fns';
 import type { Locale } from 'date-fns';
 import type { ReactNode } from 'react';
@@ -43,7 +45,12 @@ export function DateTimeProvider({
 
   return (
     <DateTimeContext.Provider value={value}>
-      {children}
+      <LocalizationProvider
+        dateAdapter={AdapterDateFns}
+        adapterLocale={actualLocale}
+      >
+        {children}
+      </LocalizationProvider>
     </DateTimeContext.Provider>
   );
 }
