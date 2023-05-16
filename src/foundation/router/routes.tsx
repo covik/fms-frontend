@@ -2,6 +2,9 @@ import { lazy } from 'react';
 import { RootRoute, Route } from '@tanstack/router';
 import { AppShell } from '../../components/AppShell';
 import { AccountPage } from '../../components/AccountPage';
+import { MissingTripDatePage } from '../../components/VehicleOverviewPage';
+import { z } from 'zod';
+import { formatDateForURL } from '../../utils/date';
 
 const rootRoute = new RootRoute({
   component: AppShell,
@@ -36,6 +39,29 @@ const vehicleLivePreviewRoute = new Route({
   component: lazy(() => import('../../pages/VehicleLivePreviewPage')),
 });
 
+const vehicleTripsRoute = new Route({
+  getParentRoute: () => vehicleRoute,
+  path: 'trips',
+});
+
+const vehicleTripsRedirect = new Route({
+  getParentRoute: () => vehicleTripsRoute,
+  path: '/',
+  component: MissingTripDatePage,
+});
+
+const vehicleTripViewerRoute = new Route({
+  getParentRoute: () => vehicleTripsRoute,
+  path: '$date',
+  parseParams: (params) => ({
+    date: z.coerce.date().parse(params.date),
+  }),
+  stringifyParams: ({ date }) => ({
+    date: formatDateForURL(date),
+  }),
+  component: lazy(() => import('../../pages/VehicleTripViewerPage')),
+});
+
 const accountRoute = new Route({
   getParentRoute: () => rootRoute,
   path: '/account',
@@ -46,7 +72,13 @@ export const routeTree = rootRoute.addChildren([
   indexRoute,
   vehiclesRoute.addChildren([
     vehiclesIndexRoute,
-    vehicleRoute.addChildren([vehicleLivePreviewRoute]),
+    vehicleRoute.addChildren([
+      vehicleLivePreviewRoute,
+      vehicleTripsRoute.addChildren([
+        vehicleTripsRedirect,
+        vehicleTripViewerRoute,
+      ]),
+    ]),
   ]),
   accountRoute,
 ]);
