@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import logo from '../../../assets/logo.svg';
+import { Logo } from '../../Logo';
 import type { FormEvent } from 'react';
 
 export interface LoginViewAttributes {
@@ -76,7 +76,7 @@ export function LoginView({
               marginBottom: 2,
             }}
           >
-            <img src={logo} alt="" width="36" />
+            <Logo size={36} />
             <Typography
               component="h1"
               variant="h5"

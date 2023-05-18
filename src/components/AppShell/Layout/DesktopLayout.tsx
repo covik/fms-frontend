@@ -1,6 +1,6 @@
 import { Box, Drawer } from '@mui/material';
 import { Navigation } from '../Navigation';
-import logo from '../../../assets/logo.svg';
+import { Logo } from '../../Logo';
 import type { ReactNode } from 'react';
 
 export interface DesktopLayoutAttributes {
@@ -43,7 +43,7 @@ export function DesktopLayout({ children }: DesktopLayoutAttributes) {
             marginBottom: 1,
           }}
         >
-          <img src={logo} alt={'Logo'} width={logoSize} />
+          <Logo size={logoSize} />
         </Box>
         <Box sx={{ overflow: 'auto' }}>
           <Navigation vertical />
