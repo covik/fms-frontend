@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useMemo, useRef } from 'react';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import type { CSSProperties, ReactNode } from 'react';
 
@@ -11,6 +11,7 @@ export interface MapArguments {
   noControls?: boolean;
   noLabels?: boolean;
   gestureHandling?: boolean;
+  onZoomChanged?: (zoom: number) => void;
   children?: ReactNode | ReactNode[] | undefined;
 }
 
@@ -28,9 +29,11 @@ export function Map({
   noControls = false,
   noLabels = false,
   gestureHandling = true,
+  onZoomChanged,
   children,
 }: MapArguments) {
   const { isLoaded } = useJsApiLoader(mapOptions);
+  const mapRef = useRef<google.maps.Map>();
 
   const center = useMemo(
     () => ({
@@ -70,6 +73,15 @@ export function Map({
       mapContainerStyle={mapCss}
       mapContainerClassName="google-map-root"
       options={options}
+      onZoomChanged={() => {
+        if (mapRef.current === undefined) return;
+        const currentZoom = mapRef.current?.getZoom();
+        if (currentZoom && typeof onZoomChanged === 'function')
+          onZoomChanged(currentZoom);
+      }}
+      onLoad={(map) => {
+        mapRef.current = map;
+      }}
     >
       {children}
     </GoogleMap>

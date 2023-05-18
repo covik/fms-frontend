@@ -9,6 +9,7 @@ module.exports = {
         'deps', // related to dependencies
         'app',
         'branding',
+        'map',
         'http-client',
         'session-service',
         'measurement-unit',
