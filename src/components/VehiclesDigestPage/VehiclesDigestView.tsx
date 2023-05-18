@@ -4,6 +4,7 @@ import { Link } from '@tanstack/router';
 import { VehicleList } from '../VehicleList';
 import { VehicleCard } from '../VehicleCard';
 import { TimedOutVehiclesHeader } from './TimedOutVehiclesHeader';
+import { PageTitle } from '../PageTitle';
 import type { ReactNode } from 'react';
 import type { CardAttributes } from '../VehicleCard';
 
@@ -27,34 +28,32 @@ export function VehiclesDigestView({
   return (
     <PageContainer>
       <Box sx={{ width: '100%' }}>
-        <PageTitle />
-        <Box sx={{ marginTop: 2 }}>
-          <VehicleList>
-            {operationalVehicles.map((vehicle) => (
-              <LocatedVehicleCard
-                vehicle={vehicle}
-                handleShare={onShareRequest}
-                key={vehicle.id}
-              />
-            ))}
-          </VehicleList>
-          {timedOutVehicles.length > 0 ? (
-            <>
-              <Box sx={{ marginTop: 2, marginBottom: 2 }}>
-                <TimedOutVehiclesHeader />
-              </Box>
-              <VehicleList>
-                {timedOutVehicles.map((vehicle) => (
-                  <LocatedVehicleCard
-                    vehicle={vehicle}
-                    handleShare={onShareRequest}
-                    key={vehicle.id}
-                  />
-                ))}
-              </VehicleList>
-            </>
-          ) : null}
-        </Box>
+        <PageTitle>Vozila</PageTitle>
+        <VehicleList>
+          {operationalVehicles.map((vehicle) => (
+            <LocatedVehicleCard
+              vehicle={vehicle}
+              handleShare={onShareRequest}
+              key={vehicle.id}
+            />
+          ))}
+        </VehicleList>
+        {timedOutVehicles.length > 0 ? (
+          <>
+            <Box sx={{ marginTop: 2, marginBottom: 2 }}>
+              <TimedOutVehiclesHeader />
+            </Box>
+            <VehicleList>
+              {timedOutVehicles.map((vehicle) => (
+                <LocatedVehicleCard
+                  vehicle={vehicle}
+                  handleShare={onShareRequest}
+                  key={vehicle.id}
+                />
+              ))}
+            </VehicleList>
+          </>
+        ) : null}
       </Box>
     </PageContainer>
   );
@@ -62,20 +61,6 @@ export function VehiclesDigestView({
 
 export function PageContainer({ children }: { children: ReactNode }) {
   return <Box sx={{ width: '100%', padding: 1.4 }}>{children}</Box>;
-}
-
-function PageTitle() {
-  return (
-    <Typography
-      component="h1"
-      variant="h3"
-      color="grey"
-      fontWeight="medium"
-      lineHeight={1}
-    >
-      Vozila
-    </Typography>
-  );
 }
 
 function NoVehicles() {

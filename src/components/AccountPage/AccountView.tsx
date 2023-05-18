@@ -1,15 +1,9 @@
-import {
-  Avatar,
-  Box,
-  Card,
-  CardHeader,
-  Typography,
-  useTheme,
-} from '@mui/material';
+import { Avatar, Box, Card, CardHeader, useTheme } from '@mui/material';
 import {
   AccountTie as UserIcon,
   ShieldAccount as AdminIcon,
 } from 'mdi-material-ui';
+import { PageTitle } from '../PageTitle';
 import type { ReactNode } from 'react';
 
 export interface AccountViewAttributes {
@@ -29,8 +23,8 @@ export function AccountView({
 
   return (
     <PageContainer>
-      <PageTitle />
-      <Card sx={{ marginTop: 1 }}>
+      <PageTitle>Račun</PageTitle>
+      <Card>
         <CardHeader
           title={name}
           subheader={email}
@@ -55,18 +49,4 @@ export function AccountView({
 
 export function PageContainer({ children }: { children: ReactNode }) {
   return <Box sx={{ width: '100%', padding: 1.4 }}>{children}</Box>;
-}
-
-function PageTitle() {
-  return (
-    <Typography
-      component="h1"
-      variant="h3"
-      color="grey"
-      fontWeight="medium"
-      lineHeight={1}
-    >
-      Račun
-    </Typography>
-  );
 }

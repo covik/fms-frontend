@@ -1,4 +1,5 @@
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
+import { PageTitle } from '../PageTitle';
 import type { ReactNode } from 'react';
 
 export interface DetailedVehicleOverviewViewAttributes {
@@ -15,19 +16,5 @@ export function VehicleOverviewView({
       <PageTitle>{title}</PageTitle>
       {children}
     </Box>
-  );
-}
-
-function PageTitle({ children }: { children: string }) {
-  return (
-    <Typography
-      component="h1"
-      variant="h3"
-      color="grey"
-      fontWeight="medium"
-      textAlign={'left'}
-    >
-      {children}
-    </Typography>
   );
 }
