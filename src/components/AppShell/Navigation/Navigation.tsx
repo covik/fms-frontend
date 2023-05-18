@@ -7,6 +7,9 @@ const StyledTabs = styled(Tabs)(({ theme }) => ({
   '.MuiTab-root:not(.Mui-selected)': {
     color: theme.palette.text.primary,
   },
+  '.MuiTabs-indicator': {
+    top: 0,
+  },
 }));
 
 export function Navigation() {
