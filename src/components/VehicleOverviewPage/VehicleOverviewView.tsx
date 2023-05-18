@@ -1,4 +1,4 @@
-import { Box, Card, Tab, Tabs, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import type { ReactNode } from 'react';
 
 export interface DetailedVehicleOverviewViewAttributes {
