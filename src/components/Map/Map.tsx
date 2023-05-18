@@ -1,4 +1,4 @@
-import { useMemo, useRef } from 'react';
+import { useEffect, useMemo, useRef } from 'react';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import type { CSSProperties, ReactNode } from 'react';
 
@@ -12,6 +12,7 @@ export interface MapArguments {
   noLabels?: boolean;
   gestureHandling?: boolean;
   onZoomChanged?: (zoom: number) => void;
+  fitBounds?: google.maps.LatLngLiteral[];
   children?: ReactNode | ReactNode[] | undefined;
 }
 
@@ -30,6 +31,7 @@ export function Map({
   noLabels = false,
   gestureHandling = true,
   onZoomChanged,
+  fitBounds,
   children,
 }: MapArguments) {
   const { isLoaded } = useJsApiLoader(mapOptions);
@@ -65,6 +67,14 @@ export function Map({
     }),
     [noControls, styles],
   );
+
+  useEffect(() => {
+    if (mapRef.current && Array.isArray(fitBounds) && fitBounds.length > 0) {
+      const bounds = new google.maps.LatLngBounds();
+      fitBounds.forEach((bound) => bounds.extend(bound));
+      mapRef.current?.fitBounds(bounds);
+    }
+  }, [fitBounds, mapRef.current]);
 
   const map = () => (
     <GoogleMap
