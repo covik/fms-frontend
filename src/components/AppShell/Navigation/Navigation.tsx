@@ -18,19 +18,17 @@ export function Navigation() {
   const currentTab = getCurrentTab(currentPath);
 
   return (
-    <>
-      <StyledTabs variant="fullWidth" value={currentTab ?? false}>
-        {items.map(({ title, icon, href }) => (
-          <RouterTab
-            key={href}
-            value={href}
-            to={href}
-            label={title}
-            icon={icon}
-          />
-        ))}
-      </StyledTabs>
-    </>
+    <StyledTabs variant="fullWidth" value={currentTab ?? false}>
+      {items.map(({ title, icon, href }) => (
+        <RouterTab
+          key={href}
+          value={href}
+          to={href}
+          label={title}
+          icon={icon}
+        />
+      ))}
+    </StyledTabs>
   );
 }
 
