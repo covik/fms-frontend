@@ -3,16 +3,14 @@ import { Navigation } from '../Navigation';
 import logo from '../../../assets/logo.svg';
 import type { ReactNode } from 'react';
 
-export interface LeftNavigationLayoutAttributes {
+export interface DesktopLayoutAttributes {
   children: ReactNode;
 }
 
 const drawerWidth = 90;
 const logoSize = 35;
 
-export function LeftNavigationLayout({
-  children,
-}: LeftNavigationLayoutAttributes) {
+export function DesktopLayout({ children }: DesktopLayoutAttributes) {
   return (
     <>
       <Box

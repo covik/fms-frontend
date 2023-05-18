@@ -2,13 +2,11 @@ import { Box, Paper } from '@mui/material';
 import { ReactNode } from 'react';
 import { Navigation } from '../Navigation';
 
-export interface BottomNavigationAttributes {
+export interface MobileLayoutAttributes {
   children: ReactNode;
 }
 
-export function BottomNavigationLayout({
-  children,
-}: BottomNavigationAttributes) {
+export function MobileLayout({ children }: MobileLayoutAttributes) {
   const navigationHeight = 9;
 
   return (

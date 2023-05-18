@@ -1,2 +1,2 @@
-export { BottomNavigationLayout } from './BottomNavigationLayout';
-export { LeftNavigationLayout } from './LeftNavigationLayout';
+export { MobileLayout } from './MobileLayout';
+export { DesktopLayout } from './DesktopLayout';
