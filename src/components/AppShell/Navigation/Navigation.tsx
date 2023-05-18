@@ -12,13 +12,30 @@ const StyledTabs = styled(Tabs)(({ theme }) => ({
   },
 }));
 
-export function Navigation() {
+const verticalStyles = {
+  '.MuiTab-root': {
+    minHeight: '80px',
+  },
+};
+
+export interface NavigationAttributes {
+  vertical?: boolean;
+}
+
+export function Navigation({ vertical = false }: NavigationAttributes) {
   const router = useRouter();
   const currentPath = router.state.currentLocation.pathname;
   const currentTab = getCurrentTab(currentPath);
 
   return (
-    <StyledTabs variant="fullWidth" value={currentTab ?? false}>
+    <StyledTabs
+      orientation={vertical ? 'vertical' : 'horizontal'}
+      variant="fullWidth"
+      value={currentTab ?? false}
+      sx={{
+        ...(vertical ? verticalStyles : {}),
+      }}
+    >
       {items.map(({ title, icon, href }) => (
         <RouterTab
           key={href}
