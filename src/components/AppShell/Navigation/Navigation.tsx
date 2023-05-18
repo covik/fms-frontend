@@ -1,7 +1,13 @@
-import { Tabs } from '@mui/material';
+import { styled, Tabs } from '@mui/material';
 import { useRouter } from '@tanstack/router';
 import { RouterTab } from '../../RouterTab';
 import { all as items } from './items';
+
+const StyledTabs = styled(Tabs)(({ theme }) => ({
+  '.MuiTab-root:not(.Mui-selected)': {
+    color: theme.palette.text.primary,
+  },
+}));
 
 export function Navigation() {
   const router = useRouter();
@@ -10,7 +16,7 @@ export function Navigation() {
 
   return (
     <>
-      <Tabs variant="fullWidth" value={currentTab ?? false}>
+      <StyledTabs variant="fullWidth" value={currentTab ?? false}>
         {items.map(({ title, icon, href }) => (
           <RouterTab
             key={href}
@@ -20,7 +26,7 @@ export function Navigation() {
             icon={icon}
           />
         ))}
-      </Tabs>
+      </StyledTabs>
     </>
   );
 }
