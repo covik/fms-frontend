@@ -11,13 +11,6 @@ import {
   SpeedometerSlow,
   WifiStrength4,
 } from 'mdi-material-ui';
-import type { ReactNode } from 'react';
-
-export function LatestInformation({ children }: { children: ReactNode }) {
-  return (
-    <Box sx={{ '> *:not(:first-child)': { marginTop: 1.5 } }}>{children}</Box>
-  );
-}
 
 export interface StateDetailsAttributes {
   inMotion: boolean;

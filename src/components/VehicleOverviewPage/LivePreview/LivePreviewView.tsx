@@ -1,8 +1,7 @@
-import { Box, Card } from '@mui/material';
+import { Box, Card as MuiCard, styled } from '@mui/material';
 import { Map } from '../../Map';
 import {
   ConnectionDetails,
-  LatestInformation,
   SpatialDetails,
   StateDetails,
 } from './LatestInformation';
@@ -18,6 +17,12 @@ import { convert } from '../../../lib/MeasurementUnit/Speed';
 export interface LivePreviewViewAttributes {
   vehicle: LocatedVehicle;
 }
+
+const Card = styled(MuiCard)(({ theme }) => ({
+  '&:not(:first-of-type)': {
+    marginTop: theme.spacing(1.5),
+  },
+}));
 
 export function LivePreviewView({ vehicle }: LivePreviewViewAttributes) {
   const { distanceToNowStrictWithSuffix } = useDateTime();
@@ -39,7 +44,7 @@ export function LivePreviewView({ vehicle }: LivePreviewViewAttributes) {
 
   return (
     <Box>
-      <Card sx={{ height: '40vh', minHeight: '200px', marginBottom: 1.5 }}>
+      <Card sx={{ height: '40vh', minHeight: '200px' }}>
         <Map
           x={coordinates.latitude()}
           y={coordinates.longitude()}
@@ -63,26 +68,26 @@ export function LivePreviewView({ vehicle }: LivePreviewViewAttributes) {
         </Map>
       </Card>
 
-      <LatestInformation>
-        <Card>
-          <StateDetails
-            inMotion={vehicle.isInMotion()}
-            hasIgnition={vehicle.hasIgnitionTurnedOn()}
-            speed={formattedSpeed}
-            lastFixTime={formattedFixTime}
-          />
-        </Card>
-        <Card>
-          <ConnectionDetails isActive={vehicle.isOnline()} />
-        </Card>
-        <Card>
-          <SpatialDetails
-            coordinates={coordinates.toString()}
-            course={formattedCourse}
-            altitude={formattedAltitude}
-          />
-        </Card>
-      </LatestInformation>
+      <Card>
+        <StateDetails
+          inMotion={vehicle.isInMotion()}
+          hasIgnition={vehicle.hasIgnitionTurnedOn()}
+          speed={formattedSpeed}
+          lastFixTime={formattedFixTime}
+        />
+      </Card>
+
+      <Card>
+        <ConnectionDetails isActive={vehicle.isOnline()} />
+      </Card>
+
+      <Card>
+        <SpatialDetails
+          coordinates={coordinates.toString()}
+          course={formattedCourse}
+          altitude={formattedAltitude}
+        />
+      </Card>
     </Box>
   );
 }
