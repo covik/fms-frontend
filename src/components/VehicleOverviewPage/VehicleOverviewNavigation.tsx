@@ -41,12 +41,14 @@ export function VehicleOverviewNavigation({
         to={'/vehicles/$vehicleId'}
         params={{ vehicleId }}
         label={'Uživo'}
+        replace={true}
       />
       <RouterTab
         value={`/vehicles/${vehicleId}/trips`}
         to={'/vehicles/$vehicleId/trips'}
         params={{ vehicleId }}
         label={'Povijest'}
+        replace={true}
       />
     </StyledTabs>
   );
