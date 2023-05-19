@@ -27,6 +27,7 @@ export function VehicleOverviewNavigation({
   const currentPath = router.state.currentLocation.pathname;
   const items = [
     { href: `/vehicles/${vehicleId}/trips` },
+    { href: `/vehicles/${vehicleId}/today` },
     { href: `/vehicles/${vehicleId}` },
   ];
   const currentTab = getCurrentTab(items, currentPath);
@@ -41,6 +42,13 @@ export function VehicleOverviewNavigation({
         to={'/vehicles/$vehicleId'}
         params={{ vehicleId }}
         label={'Uživo'}
+        replace={true}
+      />
+      <RouterTab
+        value={`/vehicles/${vehicleId}/today`}
+        to={'/vehicles/$vehicleId/today'}
+        params={{ vehicleId }}
+        label={'Danas'}
         replace={true}
       />
       <RouterTab

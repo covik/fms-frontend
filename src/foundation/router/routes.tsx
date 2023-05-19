@@ -39,6 +39,12 @@ const vehicleLivePreviewRoute = new Route({
   component: lazy(() => import('../../pages/VehicleLivePreviewPage')),
 });
 
+const vehicleTodayRoute = new Route({
+  getParentRoute: () => vehicleRoute,
+  path: '/today',
+  component: lazy(() => import('../../pages/VehicleTodayRoutePage')),
+});
+
 const vehicleTripsRoute = new Route({
   getParentRoute: () => vehicleRoute,
   path: 'trips',
@@ -74,6 +80,7 @@ export const routeTree = rootRoute.addChildren([
     vehiclesIndexRoute,
     vehicleRoute.addChildren([
       vehicleLivePreviewRoute,
+      vehicleTodayRoute,
       vehicleTripsRoute.addChildren([
         vehicleTripsRedirect,
         vehicleTripViewerRoute,
