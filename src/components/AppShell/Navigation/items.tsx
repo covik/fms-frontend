@@ -16,4 +16,4 @@ export const all = [
     title: 'Račun',
     icon: <Account />,
   },
-];
+] as const;
