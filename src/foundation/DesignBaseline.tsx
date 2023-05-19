@@ -12,6 +12,9 @@ const theme = createTheme({
     fontFamily: 'FiraGO, sans-serif',
   },
   palette: {
+    primary: {
+      main: '#027BE3',
+    },
     background: {
       default: '#edeff0',
     },
