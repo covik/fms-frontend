@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Vehicle } from '../../lib/VehicleService';
 import { VehicleOverviewView } from './VehicleOverviewView';
 import { LocatedVehicle } from '../../models/Vehicle';
+import { VehicleOverviewNavigation } from './VehicleOverviewNavigation';
 
 export function VehicleOverviewPage() {
   const { vehicleId } = useParams({ from: '/vehicles/$vehicleId' });
@@ -28,7 +29,10 @@ export function VehicleOverviewPage() {
   return (
     <VehicleOverviewView title={vehicle.name()}>
       {vehicle instanceof LocatedVehicle ? (
-        <Outlet />
+        <>
+          <VehicleOverviewNavigation vehicleId={vehicleId} />
+          <Outlet />
+        </>
       ) : (
         <div>Vozilo nema poziciju</div>
       )}
