@@ -7,8 +7,8 @@ export interface DesktopLayoutAttributes {
   children: ReactNode;
 }
 
-const drawerWidth = 90;
-const logoSize = 35;
+const drawerWidth = 70;
+const logoSize = 32;
 
 export function DesktopLayout({ children }: DesktopLayoutAttributes) {
   return (

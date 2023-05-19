@@ -14,7 +14,8 @@ const StyledTabs = styled(Tabs)(({ theme }) => ({
 
 const verticalStyles = {
   '.MuiTab-root': {
-    minHeight: '80px',
+    minHeight: '76px',
+    minWidth: 'auto',
   },
 };
 
