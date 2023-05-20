@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { Marker } from '@react-google-maps/api';
-import { FinishIcon } from './Icons';
+import { FinishIcon, padding, size } from './Icons';
 import { Coordinates } from '../../lib/Dimension';
 import { startFinishMarkerIndex } from './ZIndex';
 import { jsxToSVGDataURI } from '../../utils/react';
@@ -8,8 +8,8 @@ import { jsxToSVGDataURI } from '../../utils/react';
 const icon: google.maps.Icon = {
   url: jsxToSVGDataURI(<FinishIcon />),
   anchor: {
-    x: 16,
-    y: 32,
+    x: size / 2,
+    y: size - padding,
   } as google.maps.Point,
 };
 

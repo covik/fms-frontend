@@ -1,6 +1,7 @@
 import type { CSSProperties, ReactNode } from 'react';
 
-const size = 32;
+export const size = 32;
+export const padding = 3;
 
 interface IconBackgroundAttributes {
   color: CSSProperties['color'];
