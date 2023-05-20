@@ -38,10 +38,13 @@ export function TodayRoutePage() {
 
   return (
     <Grid container direction="row" flex={1} spacing={spacing}>
-      <Grid item xs={12} md={3} position={'relative'}>
+      <Grid item xs={12} md={4} lg={3} xl={2} position={'relative'}>
         <Box
           sx={(theme) => ({
-            position: 'absolute',
+            position: {
+              md: 'absolute',
+              xs: 'static',
+            },
             top: theme.spacing(spacing),
             bottom: 0,
             left: theme.spacing(spacing),
@@ -62,8 +65,14 @@ export function TodayRoutePage() {
           </Stack>
         </Box>
       </Grid>
-      <Grid item xs={12} md={9}>
-        <Card sx={{ height: '100%', padding: 1 }}>
+      <Grid item xs={12} md={8} lg={9} xl={10}>
+        <Card
+          sx={{
+            height: '100%',
+            padding: 1,
+            minHeight: { xs: '40vmax', lg: 'auto' },
+          }}
+        >
           <Map width={'100%'} height={'100%'} x={45} y={12} z={8} />
         </Card>
       </Grid>
