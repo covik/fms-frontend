@@ -71,7 +71,7 @@ const vehicleTripViewerRoute = new Route({
 const accountRoute = new Route({
   getParentRoute: () => rootRoute,
   path: '/account',
-  component: AccountPage,
+  component: lazy(() => import('../../pages/AccountPage')),
 });
 
 export const routeTree = rootRoute.addChildren([
