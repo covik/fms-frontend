@@ -220,6 +220,32 @@ describe('SessionService', () => {
       });
     });
   });
+
+  describe('destroy()', () => {
+    it('should resolve if request returns 204 status code', () => {
+      cy.intercept('DELETE', '/api/session', { statusCode: 204 }).as(
+        'delete-session',
+      );
+      cy.then(Session.destroy);
+      cy.get('@delete-session')
+        .its('response')
+        .should('have.property', 'statusCode', 204);
+    });
+
+    it(`should throw ${Http.ServerException.name} if response code is not 204`, () => {
+      cy.intercept('DELETE', '/api/session', { statusCode: 500 });
+      cy.testException(Session.destroy).then((theError) => {
+        theError().should('be.instanceOf', Http.ServerException);
+      });
+    });
+
+    it(`should throw ${Http.NetworkException.name} if network error occurs`, () => {
+      cy.intercept('DELETE', '/api/session', { forceNetworkError: true });
+      cy.testException(Session.destroy).then((theError) => {
+        theError().should('be.instanceOf', Http.NetworkException);
+      });
+    });
+  });
 });
 
 function constructInvalidSessionRequest(

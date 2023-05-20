@@ -51,6 +51,10 @@ export async function obtain(signal?: AbortSignal): Promise<BaseUser> {
   }
 }
 
+export async function destroy(signal?: AbortSignal): Promise<void> {
+  await Http.request('/api/session', { method: 'DELETE', signal });
+}
+
 export async function create(credentials: SessionCredentials): Promise<void> {
   const { email, password } = credentials;
   const { isEmailInvalid, isPasswordInvalid } =

@@ -2,6 +2,7 @@ import {
   check,
   cookie,
   create,
+  destroy,
   obtain,
   rememberForOneYear,
 } from './SessionService';
@@ -15,6 +16,7 @@ export const Session = {
   cookie,
   check,
   create,
+  destroy,
   obtain,
   ValidationException,
   WrongCredentialsException,
