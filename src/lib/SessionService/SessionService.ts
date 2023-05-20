@@ -16,18 +16,6 @@ import { TraccarUser } from '../Traccar';
 
 export const cookie = 'JSESSIONID';
 
-export async function check(): Promise<boolean> {
-  try {
-    await Http.request('/api/session');
-    return true;
-  } catch (e) {
-    if (e instanceof Http.ServerException && e.response.status === 404) {
-      return false;
-    }
-    throw e;
-  }
-}
-
 export async function obtain(signal?: AbortSignal): Promise<BaseUser> {
   try {
     const response = await Http.request('/api/session', { signal });

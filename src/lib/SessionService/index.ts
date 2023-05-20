@@ -1,5 +1,4 @@
 import {
-  check,
   cookie,
   create,
   destroy,
@@ -14,7 +13,6 @@ import {
 
 export const Session = {
   cookie,
-  check,
   create,
   destroy,
   obtain,

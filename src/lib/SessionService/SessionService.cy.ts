@@ -3,32 +3,6 @@ import { Http } from '../HttpClient';
 import { Administrator, DisabledUser, StandardUser } from '../../models/User';
 
 describe('SessionService', () => {
-  describe('check()', () => {
-    it('should return false if request returns 404 status code', () => {
-      cy.intercept('GET', '/api/session', { statusCode: 404 });
-      cy.then(Session.check).should('equal', false);
-    });
-
-    it('should return true if request returns 200 status code', () => {
-      cy.intercept('GET', '/api/session', { statusCode: 200 });
-      cy.then(Session.check).should('equal', true);
-    });
-
-    it(`should throw ${Http.ServerException.name} if response code is not 200 nor 404`, () => {
-      cy.intercept('GET', '/api/session', { statusCode: 500 });
-      cy.testException(Session.check).then((theError) => {
-        theError().should('be.instanceOf', Http.ServerException);
-      });
-    });
-
-    it(`should throw ${Http.NetworkException.name} if network error occurs`, () => {
-      cy.intercept('GET', '/api/session', { forceNetworkError: true });
-      cy.testException(Session.check).then((theError) => {
-        theError().should('be.instanceOf', Http.NetworkException);
-      });
-    });
-  });
-
   describe('obtain()', () => {
     it(`should throw ${Session.UserNotAuthenticatedException.name} if response code is 404`, () => {
       cy.intercept('GET', '/api/session', { statusCode: 404 });
