@@ -1,13 +1,15 @@
+import { useMemo, useState } from 'react';
+import { renderToString } from 'react-dom/server';
+import { intervalToDuration } from 'date-fns';
+import { Marker, Polyline } from '@react-google-maps/api';
 import { Map } from '../../../Map';
 import { Coordinates } from '../../../../lib/Dimension';
-import {
+import { FinishMarker, StartMarker, StopMarker } from '../../../VehicleRoute';
+import type { ReactElement } from 'react';
+import type {
   TraccarTripStopInterface,
   TraccarTripWithPositionsInterface,
 } from '../../../../lib/Traccar';
-import { Marker, Polyline } from '@react-google-maps/api';
-import { ReactElement, ReactNode, useMemo, useState } from 'react';
-import { renderToString } from 'react-dom/server';
-import { intervalToDuration } from 'date-fns';
 
 const CROATIA = {
   coordinates: new Coordinates(44.698832, 16.373162),
@@ -80,6 +82,15 @@ function Trip({ trip, color, showCheckpoints }: TripAttributes) {
   const firstPosition = trip.positions[0];
   const lastPosition = trip.positions[trip.positions.length - 1];
 
+  const firstCoordinates = new Coordinates(
+    firstPosition.latitude,
+    firstPosition.longitude,
+  );
+  const lastCoordinates = new Coordinates(
+    lastPosition.latitude,
+    lastPosition.longitude,
+  );
+
   const checkpoints = trip.positions.map((tripCheckpoint) => ({
     id: tripCheckpoint.id,
     position: {
@@ -89,44 +100,6 @@ function Trip({ trip, color, showCheckpoints }: TripAttributes) {
     stationary: !tripCheckpoint.attributes.motion,
     rotation: tripCheckpoint.course,
   }));
-
-  const StartMarker = () => {
-    const position = {
-      lat: firstPosition.latitude,
-      lng: firstPosition.longitude,
-    };
-
-    return (
-      <IconStart position={position}>
-        <IconBackground>
-          <path
-            transform={'translate(4,3)'}
-            fill={'#666'}
-            d="M6,3A1,1 0 0,1 7,4V4.88C8.06,4.44 9.5,4 11,4C14,4 14,6 16,6C19,6 20,4 20,4V12C20,12 19,14 16,14C13,14 13,12 11,12C8,12 7,14 7,14V21H5V4A1,1 0 0,1 6,3M7,7.25V11.5C7,11.5 9,10 11,10C13,10 14,12 16,12C18,12 18,11 18,11V7.5C18,7.5 17,8 16,8C14,8 13,6 11,6C9,6 7,7.25 7,7.25Z"
-          />
-        </IconBackground>
-      </IconStart>
-    );
-  };
-
-  const EndMarker = () => {
-    const position = {
-      lat: lastPosition.latitude,
-      lng: lastPosition.longitude,
-    };
-
-    return (
-      <IconStart position={position}>
-        <IconBackground>
-          <path
-            transform={'translate(4,3)'}
-            fill={'#666'}
-            d="M14.4,6H20V16H13L12.6,14H7V21H5V4H14L14.4,6M14,14H16V12H18V10H16V8H14V10L13,8V6H11V8H9V6H7V8H9V10H7V12H9V10H11V12H13V10L14,12V14M11,10V8H13V10H11M14,10H16V12H14V10Z"
-          />
-        </IconBackground>
-      </IconStart>
-    );
-  };
 
   const ArrowMarker = ({
     position,
@@ -185,60 +158,16 @@ function Trip({ trip, color, showCheckpoints }: TripAttributes) {
             />
           ))
         : null}
-      <EndMarker />
-      <StartMarker />
+      <FinishMarker coordinates={lastCoordinates} />
+      <StartMarker coordinates={firstCoordinates} />
     </>
   );
 }
 
-function IconBackground({
-  children,
-  rotation = 0,
-}: {
-  children: ReactNode;
-  rotation?: number;
-}) {
-  const size = 32;
-  const radius = size / 2;
-  const centerX = radius;
-  const centerY = radius;
-
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox={`0 0 ${size} ${size}`}
-      width={size}
-      height={size}
-    >
-      <g transform={`rotate(${rotation} ${radius} ${radius})`}>
-        <circle cx={centerX} cy={centerY} r={radius} fill="#aaaaaa" />
-        <circle cx={centerX} cy={centerY} r={radius - 1} fill="#ebebeb" />
-        {children}
-      </g>
-    </svg>
-  );
-}
-
-interface IconStartAttributes {
+interface IconCheckpointAttributes {
   position: google.maps.LatLngLiteral;
   children: ReactElement;
 }
-
-function IconStart({ position, children }: IconStartAttributes) {
-  const iconContentFromSvg = renderToString(children);
-  const urlEncodedIconContent = encodeURIComponent(iconContentFromSvg);
-  const icon: google.maps.Icon = {
-    url: `data:image/svg+xml,${urlEncodedIconContent}`,
-    anchor: {
-      x: 16,
-      y: 16,
-    } as google.maps.Point,
-  };
-
-  return <Marker position={position} icon={icon} zIndex={1} />;
-}
-
-interface IconCheckpointAttributes extends IconStartAttributes {}
 
 function IconCheckpoint({ position, children }: IconCheckpointAttributes) {
   const iconContentFromSvg = renderToString(children);
@@ -279,61 +208,14 @@ function IconStationary({ color }: { color: string }) {
 function Stop({ stop }: { stop: TraccarTripStopInterface }) {
   const latitude = stop.latitude;
   const longitude = stop.longitude;
+
   const duration = formatDuration(stop.duration);
-
-  const label: google.maps.MarkerLabel = {
-    text: duration,
-    fontFamily: 'FiraGO',
-    fontWeight: '400',
-    color: 'white',
-    fontSize: '12px',
-    className: 'trip-stop-marker-label',
-  };
-
-  const iconContentFromSvg = renderToString(<StopIcon />);
-  const urlEncodedIconContent = encodeURIComponent(iconContentFromSvg);
-  const icon: google.maps.Icon = {
-    url: `data:image/svg+xml,${urlEncodedIconContent}`,
-    anchor: {
-      x: 16,
-      y: 16,
-    } as google.maps.Point,
-    labelOrigin: {
-      x: 16,
-      y: 42,
-    } as google.maps.Point,
-  };
-
-  return (
-    <Marker
-      position={{ lat: latitude, lng: longitude }}
-      icon={icon}
-      label={label}
-      zIndex={2}
-    />
+  const coordinates = useMemo(
+    () => new Coordinates(latitude, longitude),
+    [latitude, longitude],
   );
-}
 
-function StopIcon() {
-  const size = 32;
-  const radius = size / 2;
-  const center = radius;
-
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox={`0 0 ${size} ${size}`}
-      width={size}
-      height={size}
-    >
-      <circle cx={center} cy={center} r={radius} fill="#ed6c02" />
-      <path
-        transform={'translate(5,4)'}
-        fill={'#ffffff'}
-        d="M13.2,11H10V7H13.2A2,2 0 0,1 15.2,9A2,2 0 0,1 13.2,11M13,3H6V21H10V15H13A6,6 0 0,0 19,9C19,5.68 16.31,3 13,3Z"
-      />
-    </svg>
-  );
+  return <StopMarker coordinates={coordinates} duration={duration} />;
 }
 
 function formatDuration(durationInSeconds: number) {
