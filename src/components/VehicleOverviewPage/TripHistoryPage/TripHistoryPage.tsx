@@ -18,12 +18,12 @@ import {
   TraccarTripWithPositionsInterface,
 } from '../../../lib/Traccar';
 import { TripMap } from './TripMap';
-import { formatDateForURL } from '../../../utils/date';
 import { DatePicker } from '@mui/x-date-pickers';
 import { TripsTable } from './TripResults/TripsTable';
 import { useEffect, useState } from 'react';
 import { Vehicle } from '../../../lib/VehicleService';
 import { RoutePosition } from '../../../models/Position';
+import { endOfDay, startOfDay } from 'date-fns';
 
 const tripsRoute = '/vehicles/$vehicleId/trips/$date';
 
@@ -35,9 +35,8 @@ export function TripHistoryPage() {
   const theme = useTheme();
   const [hiddenTripsAndStops, setHiddenTripsAndStops] = useState<string[]>([]);
 
-  const formattedDate = formatDateForURL(date);
-  const startTime = `${formattedDate}T00:00:00Z`;
-  const endTime = `${formattedDate}T23:59:59Z`;
+  const startTime = startOfDay(date);
+  const endTime = endOfDay(date);
 
   function replaceDateURL(date: Date) {
     void navigate({
@@ -48,10 +47,10 @@ export function TripHistoryPage() {
   }
 
   const query = useQuery({
-    queryKey: ['vehicle', vehicleId, 'trips', formattedDate],
+    queryKey: ['vehicle', vehicleId, 'trips', startTime, endTime],
     queryFn: async () => {
       const tripsResponse = await Http.request(
-        `/api/reports/trips?deviceId=${vehicleId}&from=${startTime}&to=${endTime}`,
+        `/api/reports/trips?deviceId=${vehicleId}&from=${startTime.toISOString()}&to=${endTime.toISOString()}`,
       );
       const tripsJson = await tripsResponse.json();
       const trips = z.array(TraccarTrip).parse(tripsJson);
@@ -72,10 +71,10 @@ export function TripHistoryPage() {
   });
 
   const stopsQuery = useQuery({
-    queryKey: ['vehicle', vehicleId, 'stops', formattedDate],
+    queryKey: ['vehicle', vehicleId, 'stops', startTime, endTime],
     queryFn: async () => {
       const stopsResponse = await Http.request(
-        `/api/reports/stops?deviceId=${vehicleId}&from=${startTime}&to=${endTime}`,
+        `/api/reports/stops?deviceId=${vehicleId}&from=${startTime.toISOString()}&to=${endTime.toISOString()}`,
       );
       const stopsJson = await stopsResponse.json();
       return z.array(TraccarTripStop).parse(stopsJson);
