@@ -1,6 +1,7 @@
-import { InvalidPositionAttribute, Position, PositionTimestamps } from './';
-import type { PositionAttributes } from './';
+import { ZodError } from 'zod';
+import { Position, PositionTimestamps } from './';
 import { Coordinates } from '../../lib/Dimension';
+import type { PositionAttributes } from './';
 
 describe(Position.name, () => {
   const id = '1234';
@@ -16,7 +17,6 @@ describe(Position.name, () => {
     {
       title: 'no property is provided',
       construct: () => new Position({} as PositionAttributes),
-      expectedMessage: 'Zero properties passed to constructor.',
     },
     {
       title: 'id is missing',
@@ -26,19 +26,16 @@ describe(Position.name, () => {
           altitude,
           timestamps,
         } as PositionAttributes),
-      expectedMessage: 'Property "id" is not passed to constructor.',
     },
     {
       title: 'coordinates is missing',
       construct: () =>
         new Position({ id, altitude, timestamps } as PositionAttributes),
-      expectedMessage: 'Property "coordinates" is not passed to constructor.',
     },
     {
       title: 'altitude is missing',
       construct: () =>
         new Position({ id, coordinates, timestamps } as PositionAttributes),
-      expectedMessage: 'Property "altitude" is not passed to constructor.',
     },
     {
       title: 'timestamps is missing',
@@ -48,7 +45,6 @@ describe(Position.name, () => {
           coordinates,
           altitude,
         } as PositionAttributes),
-      expectedMessage: 'Property "timestamps" is not passed to constructor.',
     },
     {
       title: 'id is empty',
@@ -59,7 +55,6 @@ describe(Position.name, () => {
           altitude,
           timestamps,
         } as PositionAttributes),
-      expectedMessage: 'Property "id" must not be empty string.',
     },
     {
       title: 'coordinates is not Coordinates object',
@@ -70,8 +65,6 @@ describe(Position.name, () => {
           altitude,
           timestamps,
         } as unknown as PositionAttributes),
-      expectedMessage:
-        'Property "coordinates" must be Coordinates object. Got string.',
     },
     {
       title: 'timestamps is not PositionTimestamps object',
@@ -82,20 +75,13 @@ describe(Position.name, () => {
           altitude,
           timestamps: 'aaa',
         } as unknown as PositionAttributes),
-      expectedMessage:
-        'Property "timestamps" must be PositionTimestamps object. Got string.',
     },
   ];
 
   problematicSituations.forEach((situation) => {
     it(`should throw exception if - ${situation.title}`, () => {
       cy.testException(async () => situation.construct()).then((exception) => {
-        exception().should('be.instanceOf', InvalidPositionAttribute);
-        exception().should(
-          'have.property',
-          'message',
-          situation.expectedMessage,
-        );
+        exception().should('be.instanceOf', ZodError);
       });
     });
   });

@@ -1,5 +1,4 @@
 export { Position } from './Position';
-export { InvalidPositionAttribute } from './Exception';
 export {
   PositionTimestamps,
   InvalidPositionTimestampException,

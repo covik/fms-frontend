@@ -1,67 +1,21 @@
-import { InvalidPositionAttribute } from './Exception';
+import { z } from 'zod';
 import { Coordinates } from '../../lib/Dimension';
 import { PositionTimestamps } from './PositionTimestamps';
 
-export interface PositionAttributes {
-  id: string;
-  coordinates: Coordinates;
-  altitude: number;
-  timestamps: PositionTimestamps;
-}
+export const PositionAttributesValidation = z.object({
+  id: z.string().trim().min(1),
+  coordinates: z.instanceof(Coordinates),
+  altitude: z.number(),
+  timestamps: z.instanceof(PositionTimestamps),
+});
+
+export type PositionAttributes = z.infer<typeof PositionAttributesValidation>;
 
 export class Position {
   private _attributes: PositionAttributes;
 
   public constructor(attributes: PositionAttributes) {
-    if (Object.keys(attributes).length === 0) {
-      throw new InvalidPositionAttribute(
-        'Zero properties passed to constructor.',
-      );
-    }
-
-    if (!Object.prototype.hasOwnProperty.call(attributes, 'id')) {
-      throw new InvalidPositionAttribute(
-        'Property "id" is not passed to constructor.',
-      );
-    }
-
-    if (!Object.prototype.hasOwnProperty.call(attributes, 'coordinates')) {
-      throw new InvalidPositionAttribute(
-        'Property "coordinates" is not passed to constructor.',
-      );
-    }
-
-    if (!Object.prototype.hasOwnProperty.call(attributes, 'altitude')) {
-      throw new InvalidPositionAttribute(
-        'Property "altitude" is not passed to constructor.',
-      );
-    }
-
-    if (!Object.prototype.hasOwnProperty.call(attributes, 'timestamps')) {
-      throw new InvalidPositionAttribute(
-        'Property "timestamps" is not passed to constructor.',
-      );
-    }
-
-    if (attributes.id.trim() === '') {
-      throw new InvalidPositionAttribute(
-        'Property "id" must not be empty string.',
-      );
-    }
-
-    if (!(attributes.coordinates instanceof Coordinates)) {
-      throw new InvalidPositionAttribute(
-        `Property "coordinates" must be Coordinates object. Got ${typeof attributes.coordinates}.`,
-      );
-    }
-
-    if (!(attributes.timestamps instanceof PositionTimestamps)) {
-      throw new InvalidPositionAttribute(
-        `Property "timestamps" must be PositionTimestamps object. Got ${typeof attributes.timestamps}.`,
-      );
-    }
-
-    this._attributes = attributes;
+    this._attributes = PositionAttributesValidation.parse(attributes);
   }
 
   public id(): string {
