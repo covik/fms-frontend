@@ -1,13 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate, useParams } from '@tanstack/router';
-import {
-  Box,
-  CircularProgress,
-  Grid,
-  Paper,
-  Typography,
-  useTheme,
-} from '@mui/material';
+import { Box, CircularProgress, Grid, Paper, Typography } from '@mui/material';
 import { Http } from '../../../lib/HttpClient';
 import { z } from 'zod';
 import {
@@ -29,10 +22,7 @@ const tripsRoute = '/vehicles/$vehicleId/trips/$date';
 
 export function TripHistoryPage() {
   const navigate = useNavigate({ from: tripsRoute });
-  const { vehicleId, date } = useParams({
-    from: tripsRoute,
-  });
-  const theme = useTheme();
+  const { vehicleId, date } = useParams({ from: tripsRoute });
   const [hiddenTripsAndStops, setHiddenTripsAndStops] = useState<string[]>([]);
 
   const startTime = startOfDay(date);
@@ -127,7 +117,7 @@ export function TripHistoryPage() {
       >
         <Grid item xs={12} md={5} lg={4} position={'relative'}>
           <Paper
-            sx={{
+            sx={(theme) => ({
               position: 'absolute',
               top: theme.spacing(rowSpacing),
               bottom: 0,
@@ -135,7 +125,7 @@ export function TripHistoryPage() {
               right: 0,
               overflow: 'auto',
               padding: 1,
-            }}
+            })}
           >
             <TripPicker targetDate={date} onChange={replaceDateURL} />
 
