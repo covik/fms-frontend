@@ -11,8 +11,6 @@ import {
 import { Http } from '../../../lib/HttpClient';
 import { z } from 'zod';
 import {
-  TraccarPosition,
-  TraccarPositionInterface,
   TraccarTrip,
   TraccarTripInterface,
   TraccarTripStop,
@@ -24,6 +22,8 @@ import { formatDateForURL } from '../../../utils/date';
 import { DatePicker } from '@mui/x-date-pickers';
 import { TripsTable } from './TripResults/TripsTable';
 import { useEffect, useState } from 'react';
+import { Vehicle } from '../../../lib/VehicleService';
+import { RoutePosition } from '../../../models/Position';
 
 const tripsRoute = '/vehicles/$vehicleId/trips/$date';
 
@@ -60,11 +60,11 @@ export function TripHistoryPage() {
 
       const positionsStartTime = new Date(trips[0].startTime);
       const positionsEndTime = new Date(trips[trips.length - 1].endTime);
-      const positions = await fetchPositions(
+      const positions = await Vehicle.Route.fetchInRange({
         vehicleId,
-        positionsStartTime,
-        positionsEndTime,
-      );
+        from: positionsStartTime,
+        to: positionsEndTime,
+      });
       const tripsWithPositions = attachPositionsToTrips(positions, trips);
       return z.array(TraccarTripWithPositions).parse(tripsWithPositions);
     },
@@ -207,31 +207,19 @@ function NoData() {
   );
 }
 
-async function fetchPositions(
-  vehicleId: string,
-  start: Date,
-  end: Date,
-): Promise<TraccarPositionInterface[]> {
-  const positionsResponse = await Http.request(
-    `/api/positions?deviceId=${vehicleId}&from=${start.toISOString()}&to=${end.toISOString()}`,
-  );
-  const positionsJson = await positionsResponse.json();
-  return z.array(TraccarPosition).parse(positionsJson);
-}
-
 function attachPositionsToTrips(
-  positions: TraccarPositionInterface[],
+  positions: RoutePosition[],
   trips: TraccarTripInterface[],
 ): TraccarTripWithPositionsInterface[] {
   return trips.map((trip) => {
-    const startPositionId = trip.startPositionId;
-    const endPositionId = trip.endPositionId;
+    const startTime = new Date(trip.startTime);
+    const endTime = new Date(trip.endTime);
 
-    const positionsInRange =
-      positions.filter(
-        (position) =>
-          position.id >= startPositionId && position.id <= endPositionId,
-      ) ?? [];
+    const positionsInRange = positions.filter(
+      (position) =>
+        position.timestamp().fixationTime() >= startTime &&
+        position.timestamp().fixationTime() <= endTime,
+    );
     return {
       ...trip,
       positions: positionsInRange,

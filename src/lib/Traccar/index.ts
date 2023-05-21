@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { RoutePosition } from '../../models/Position';
 
 const id = z.number().gte(1);
 const datetime = z.string().datetime({ offset: true });
@@ -86,7 +87,7 @@ export const TraccarTripStop = z.object({
 });
 
 export const TraccarTripWithPositions = TraccarTrip.extend({
-  positions: z.array(TraccarPosition),
+  positions: z.array(z.instanceof(RoutePosition)),
 });
 
 export type TraccarUserInterface = z.infer<typeof TraccarUser>;
