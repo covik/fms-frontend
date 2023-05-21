@@ -12,7 +12,7 @@ export const PositionAttributesValidation = z.object({
 export type PositionAttributes = z.infer<typeof PositionAttributesValidation>;
 
 export class Position {
-  private _attributes: PositionAttributes;
+  protected _attributes: PositionAttributes;
 
   public constructor(attributes: PositionAttributes) {
     this._attributes = PositionAttributesValidation.parse(attributes);
