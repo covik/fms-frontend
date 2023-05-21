@@ -51,6 +51,9 @@ export const TraccarPosition = z.object({
   attributes: z.object({
     motion: z.boolean(),
     ignition: z.boolean(),
+    power: z.number().nonnegative(),
+    totalDistance: z.number().nonnegative(),
+    distance: z.number().nonnegative(),
   }),
 });
 
