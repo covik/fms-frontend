@@ -1,4 +1,5 @@
 export { VehicleRoute } from './VehicleRoute';
+export { VehicleRouteStops } from './VehicleRouteStops';
 export { RouteLine } from './RouteLine';
 export { FinishMarker } from './FinishMarker';
 export { StartMarker } from './StartMarker';
@@ -9,6 +10,7 @@ export {
   CheckpointStationaryIcon,
 } from './CheckpointIcons';
 export type { VehicleRouteAttributes } from './VehicleRoute';
+export type { VehicleRouteStopsAttributes } from './VehicleRouteStops';
 export type { RouteLineAttributes } from './RouteLine';
 export type { FinishMarkerAttributes } from './FinishMarker';
 export type { StartMarkerAttributes } from './StartMarker';
