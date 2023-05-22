@@ -19,7 +19,7 @@ interface DateTimeOptions {
 const defaultOptions: DateTimeOptions = {
   locale: hr,
   dateFormat: 'dd.MM.yyyy.',
-  timeFormat: 'hh:mm',
+  timeFormat: 'HH:mm',
 };
 
 const DateTimeContext = createContext<DateTimeOptions>(defaultOptions);
