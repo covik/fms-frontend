@@ -1,9 +1,9 @@
 import { useMemo, useState } from 'react';
-import { intervalToDuration } from 'date-fns';
 import { Map } from '../../../Map';
 import { Coordinates } from '../../../../lib/Dimension';
 import { StopMarker, VehicleRoute } from '../../../VehicleRoute';
 import { RouteStop } from '../../../../models/RouteStop';
+import { formatDuration } from '../../../../utils/date';
 import type { TraccarTripWithPositionsInterface } from '../../../../lib/Traccar';
 
 const CROATIA = {
@@ -65,19 +65,6 @@ export function TripMap({
 function Stop({ stop }: { stop: RouteStop }) {
   const duration = formatDuration(stop.duration());
   return <StopMarker coordinates={stop.coordinates()} duration={duration} />;
-}
-
-function formatDuration(durationInSeconds: number) {
-  if (durationInSeconds < 60) return `${durationInSeconds}s`;
-
-  const duration = intervalToDuration({ start: 0, end: durationInSeconds });
-  const [hours, minutes] = [duration.hours ?? 0, duration.minutes ?? 0];
-
-  const valuesWithSymbol = [];
-  if (hours > 0) valuesWithSymbol.push(`${hours}h`);
-  if (minutes > 0) valuesWithSymbol.push(`${minutes}m`);
-
-  return valuesWithSymbol.join(' ');
 }
 
 function calculateMapBounds(

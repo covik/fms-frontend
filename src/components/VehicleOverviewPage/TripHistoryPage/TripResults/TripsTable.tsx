@@ -1,7 +1,3 @@
-import {
-  TraccarTripInterface,
-  TraccarTripStopInterface,
-} from '../../../../lib/Traccar';
 import { useMemo } from 'react';
 import {
   Avatar,
@@ -13,7 +9,7 @@ import {
   TableRow,
   useTheme,
 } from '@mui/material';
-import { format, intervalToDuration } from 'date-fns';
+import { format } from 'date-fns';
 import {
   EyeOffOutline as EyeOff,
   EyeOutline as Eye,
@@ -21,6 +17,8 @@ import {
   Parking,
 } from 'mdi-material-ui';
 import { RouteStop } from '../../../../models/RouteStop';
+import { formatDuration } from '../../../../utils/date';
+import type { TraccarTripInterface } from '../../../../lib/Traccar';
 
 const formatTime = (date: Date) => format(date, 'HH:mm');
 
@@ -150,19 +148,6 @@ export function TripsTable({
       </TableBody>
     </Table>
   );
-}
-
-function formatDuration(durationInSeconds: number) {
-  if (durationInSeconds < 60) return `${durationInSeconds}s`;
-
-  const duration = intervalToDuration({ start: 0, end: durationInSeconds });
-  const [hours, minutes] = [duration.hours ?? 0, duration.minutes ?? 0];
-
-  const valuesWithSymbol = [];
-  if (hours > 0) valuesWithSymbol.push(`${hours}h`);
-  if (minutes > 0) valuesWithSymbol.push(`${minutes}m`);
-
-  return valuesWithSymbol.join(' ');
 }
 
 function formatDistance(distanceInMeters: number) {
