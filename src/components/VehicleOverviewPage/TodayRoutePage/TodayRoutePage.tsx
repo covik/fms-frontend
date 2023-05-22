@@ -32,10 +32,35 @@ import {
   SpeedometerMedium,
 } from 'mdi-material-ui';
 import type { ReactNode } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { endOfDay, startOfDay } from 'date-fns';
+import { useParams } from '@tanstack/router';
+import { Vehicle } from '../../../lib/VehicleService';
+import { VehicleRoute } from '../../VehicleRoute';
+
+const routeColor = '#BA68C8';
+const today = new Date();
+const from = startOfDay(today);
+const to = endOfDay(today);
 
 export function TodayRoutePage() {
-  const spacing = 1;
+  const { vehicleId } = useParams({ from: '/vehicles/$vehicleId/today' });
+  const routeQuery = useQuery({
+    queryKey: [
+      'vehicles',
+      vehicleId,
+      'routes',
+      from.toISOString(),
+      to.toISOString(),
+    ],
+    queryFn: ({ signal }) =>
+      Vehicle.Route.fetchInRange({ vehicleId, from, to }, signal),
+  });
+  const [checkpointsVisible, showCheckpoints] = useState(false);
 
+  const routes = routeQuery.data ?? [];
+
+  const spacing = 1;
   return (
     <Grid container direction="row" flex={1} spacing={spacing}>
       <Grid item xs={12} md={4} lg={3} xl={2} position={'relative'}>
@@ -73,7 +98,22 @@ export function TodayRoutePage() {
             minHeight: { xs: '40vmax', lg: 'auto' },
           }}
         >
-          <Map width={'100%'} height={'100%'} x={45} y={12} z={8} />
+          <Map
+            width={'100%'}
+            height={'100%'}
+            x={45}
+            y={12}
+            z={8}
+            onZoomChanged={(zoom) => {
+              showCheckpoints(zoom >= 15);
+            }}
+          >
+            <VehicleRoute
+              positions={routes}
+              color={routeColor}
+              showCheckpoints={checkpointsVisible}
+            />
+          </Map>
         </Card>
       </Grid>
     </Grid>
