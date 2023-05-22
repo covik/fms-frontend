@@ -22,7 +22,6 @@
     "@emotion/styled": "^11.10.5",
     "@fontsource/firago": "^4.5.3",
     "@mui/base": "^5.0.0-alpha.128",
-    "@mui/lab": "^5.0.0-alpha.129",
     "@mui/material": "^5.11.5",
     "@mui/system": "^5.11.5",
     "@mui/x-date-pickers": "^6.4.0",
