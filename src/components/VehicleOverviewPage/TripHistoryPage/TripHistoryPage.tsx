@@ -6,7 +6,6 @@ import { z } from 'zod';
 import {
   TraccarTrip,
   TraccarTripInterface,
-  TraccarTripStop,
   TraccarTripWithPositions,
   TraccarTripWithPositionsInterface,
 } from '../../../lib/Traccar';
@@ -62,13 +61,15 @@ export function TripHistoryPage() {
 
   const stopsQuery = useQuery({
     queryKey: ['vehicle', vehicleId, 'stops', startTime, endTime],
-    queryFn: async () => {
-      const stopsResponse = await Http.request(
-        `/api/reports/stops?deviceId=${vehicleId}&from=${startTime.toISOString()}&to=${endTime.toISOString()}`,
-      );
-      const stopsJson = await stopsResponse.json();
-      return z.array(TraccarTripStop).parse(stopsJson);
-    },
+    queryFn: ({ signal }) =>
+      Vehicle.Route.fetchStopsInRange(
+        {
+          vehicleId,
+          from: startTime,
+          to: endTime,
+        },
+        signal,
+      ),
     staleTime: Infinity,
   });
 
@@ -98,7 +99,7 @@ export function TripHistoryPage() {
   function hideAllTripsAndStops() {
     setHiddenTripsAndStops([
       ...trips.map((trip) => trip.startTime),
-      ...stops.map((stop) => stop.startTime),
+      ...stops.map((stop) => stop.id()),
     ]);
   }
 

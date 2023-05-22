@@ -20,6 +20,7 @@ import {
   Navigation,
   Parking,
 } from 'mdi-material-ui';
+import { RouteStop } from '../../../../models/RouteStop';
 
 const formatTime = (date: Date) => format(date, 'HH:mm');
 
@@ -32,7 +33,7 @@ export function TripsTable({
   onShowAll,
 }: {
   trips: TraccarTripInterface[];
-  stops: TraccarTripStopInterface[];
+  stops: RouteStop[];
   hiddenTripsAndStops: string[];
   onVisibilityToggle: (id: string) => void;
   onHideAll: () => void;
@@ -43,7 +44,13 @@ export function TripsTable({
   const items = [...trips, ...stops];
   const sortedByStartTime = useMemo(() => {
     const copy = items.slice();
-    copy.sort((a, b) => (a.startTime > b.startTime ? 1 : -1));
+    copy.sort((a, b) => {
+      const firstStartTime =
+        a instanceof RouteStop ? a.startTime() : new Date(a.startTime);
+      const secondStartTime =
+        b instanceof RouteStop ? b.startTime() : new Date(b.startTime);
+      return firstStartTime > secondStartTime ? 1 : -1;
+    });
     return copy;
   }, [items]);
 
@@ -87,12 +94,18 @@ export function TripsTable({
 
       <TableBody sx={{ '& .MuiTableCell-root': { color: 'text.primary' } }}>
         {sortedByStartTime.map((row, i) => {
-          const formattedStartTime = formatTime(new Date(row.startTime));
-          const formattedEndTime = formatTime(new Date(row.endTime));
-          const duration = formatDuration(row.duration);
-          const distance = formatDistance(row.distance ?? 0);
-          const isStop = row.distance === 0;
-          const isHidden = hiddenTripsAndStops.includes(row.startTime);
+          const isStop = row instanceof RouteStop;
+          const id = isStop ? row.id() : row.startTime;
+          const startTime = isStop ? row.startTime() : new Date(row.startTime);
+          const endTime = isStop ? row.endTime() : new Date(row.endTime);
+          const duration = isStop ? row.duration() : row.duration;
+          const distance = isStop ? 0 : row.distance;
+
+          const formattedStartTime = formatTime(startTime);
+          const formattedEndTime = formatTime(endTime);
+          const formattedDuration = formatDuration(duration);
+          const formattedDistance = formatDistance(distance);
+          const isHidden = hiddenTripsAndStops.includes(id);
 
           const Icon = isStop ? Parking : Navigation;
           const iconColor = isStop
@@ -101,7 +114,7 @@ export function TripsTable({
 
           return (
             <TableRow
-              key={row.startTime}
+              key={id}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell>{i + 1}</TableCell>
@@ -121,12 +134,12 @@ export function TripsTable({
                 <br />
                 {formattedEndTime}
               </TableCell>
-              <TableCell>{duration}</TableCell>
-              <TableCell>{isStop ? '' : distance}</TableCell>
+              <TableCell>{formattedDuration}</TableCell>
+              <TableCell>{isStop ? '' : formattedDistance}</TableCell>
               <TableCell align={'center'}>
                 <IconButton
                   size={'small'}
-                  onClick={() => onVisibilityToggle(row.startTime)}
+                  onClick={() => onVisibilityToggle(id)}
                 >
                   {isHidden ? <EyeOff /> : <Eye />}
                 </IconButton>

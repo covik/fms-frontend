@@ -3,10 +3,8 @@ import { intervalToDuration } from 'date-fns';
 import { Map } from '../../../Map';
 import { Coordinates } from '../../../../lib/Dimension';
 import { StopMarker, VehicleRoute } from '../../../VehicleRoute';
-import type {
-  TraccarTripStopInterface,
-  TraccarTripWithPositionsInterface,
-} from '../../../../lib/Traccar';
+import { RouteStop } from '../../../../models/RouteStop';
+import type { TraccarTripWithPositionsInterface } from '../../../../lib/Traccar';
 
 const CROATIA = {
   coordinates: new Coordinates(44.698832, 16.373162),
@@ -17,7 +15,7 @@ const color = '#BA68C8';
 
 export interface TripMapAttributes {
   trips: TraccarTripWithPositionsInterface[];
-  stops: TraccarTripStopInterface[];
+  stops: RouteStop[];
   hiddenTripsAndStops: string[];
 }
 
@@ -56,25 +54,17 @@ export function TripMap({
           />
         ))}
       {stops
-        .filter((stop) => !hiddenTripsAndStops.includes(stop.startTime))
+        .filter((stop) => !hiddenTripsAndStops.includes(stop.id()))
         .map((stop) => (
-          <Stop stop={stop} key={stop.startTime} />
+          <Stop stop={stop} key={stop.id()} />
         ))}
     </Map>
   );
 }
 
-function Stop({ stop }: { stop: TraccarTripStopInterface }) {
-  const latitude = stop.latitude;
-  const longitude = stop.longitude;
-
-  const duration = formatDuration(stop.duration);
-  const coordinates = useMemo(
-    () => new Coordinates(latitude, longitude),
-    [latitude, longitude],
-  );
-
-  return <StopMarker coordinates={coordinates} duration={duration} />;
+function Stop({ stop }: { stop: RouteStop }) {
+  const duration = formatDuration(stop.duration());
+  return <StopMarker coordinates={stop.coordinates()} duration={duration} />;
 }
 
 function formatDuration(durationInSeconds: number) {
@@ -92,7 +82,7 @@ function formatDuration(durationInSeconds: number) {
 
 function calculateMapBounds(
   trips: TraccarTripWithPositionsInterface[],
-  stops: TraccarTripStopInterface[],
+  stops: RouteStop[],
 ): google.maps.LatLngLiteral[] {
   const tripsBounds = trips.reduce(
     (acc: google.maps.LatLngLiteral[], currentTrip) => {
@@ -106,8 +96,8 @@ function calculateMapBounds(
   );
 
   const stopsBounds = stops.map((stop) => ({
-    lat: stop.latitude,
-    lng: stop.longitude,
+    lat: stop.coordinates().latitude(),
+    lng: stop.coordinates().longitude(),
   }));
 
   return [...tripsBounds, ...stopsBounds];
