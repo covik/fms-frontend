@@ -36,7 +36,7 @@ import { useQuery } from '@tanstack/react-query';
 import { endOfDay, startOfDay } from 'date-fns';
 import { useParams } from '@tanstack/router';
 import { Vehicle } from '../../../lib/VehicleService';
-import { VehicleRoute } from '../../VehicleRoute';
+import { VehicleRoute, VehicleRouteStops } from '../../VehicleRoute';
 
 const routeColor = '#BA68C8';
 const today = new Date();
@@ -56,9 +56,21 @@ export function TodayRoutePage() {
     queryFn: ({ signal }) =>
       Vehicle.Route.fetchInRange({ vehicleId, from, to }, signal),
   });
+  const stopsQuery = useQuery({
+    queryKey: [
+      'vehicles',
+      vehicleId,
+      'stops',
+      from.toISOString(),
+      to.toISOString(),
+    ],
+    queryFn: ({ signal }) =>
+      Vehicle.Route.fetchStopsInRange({ vehicleId, from, to }, signal),
+  });
   const [checkpointsVisible, showCheckpoints] = useState(false);
 
   const routes = routeQuery.data ?? [];
+  const stops = stopsQuery.data ?? [];
 
   const spacing = 1;
   return (
@@ -113,6 +125,7 @@ export function TodayRoutePage() {
               color={routeColor}
               showCheckpoints={checkpointsVisible}
             />
+            <VehicleRouteStops stops={stops} />
           </Map>
         </Card>
       </Grid>
