@@ -3,12 +3,14 @@ import { hr } from 'date-fns/locale';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { format, formatDistanceToNowStrict } from 'date-fns';
+import { formatDuration } from '../../utils/date';
 import type { Locale } from 'date-fns';
 import type { ReactNode } from 'react';
 
 export interface FormatAPI {
   distanceToNowStrictWithSuffix(date: Date): string;
   formatTime(date: Date): string;
+  formatDuration(durationInSeconds: number): string;
 }
 
 interface DateTimeOptions {
@@ -76,5 +78,6 @@ export function useDateTime(): FormatAPI {
   return {
     distanceToNowStrictWithSuffix,
     formatTime,
+    formatDuration,
   };
 }
