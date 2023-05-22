@@ -1,9 +1,10 @@
 import { z } from 'zod';
 import { PositionTimestamps, RoutePosition } from '../../models/Position';
 import { Http } from '../HttpClient';
-import { TraccarPosition } from '../Traccar';
+import { TraccarPosition, TraccarTripStop } from '../Traccar';
 import { Coordinates } from '../Dimension';
 import { Angle, Length, Speed } from '../MeasurementUnit';
+import { RouteStop } from '../../models/RouteStop';
 
 const RangeParameters = z.object({
   vehicleId: z.string().trim().min(1),
@@ -17,14 +18,7 @@ export async function fetchInRange(
   options: RangeAttributes,
   signal?: AbortSignal,
 ): Promise<RoutePosition[]> {
-  const { vehicleId, from, to } = RangeParameters.parse(options);
-  const fromAsIsoString = from.toISOString();
-  const toAsIsoString = to.toISOString();
-  const params = new URLSearchParams({
-    deviceId: vehicleId,
-    from: fromAsIsoString,
-    to: toAsIsoString,
-  });
+  const params = constructURLParams(options);
 
   const response = await Http.request(`/api/positions?${params.toString()}`, {
     signal,
@@ -51,4 +45,40 @@ export async function fetchInRange(
         distance: new Length.Meter(position.attributes.distance),
       }),
   );
+}
+
+export async function fetchStopsInRange(
+  options: RangeAttributes,
+  signal?: AbortSignal,
+): Promise<RouteStop[]> {
+  const params = constructURLParams(options);
+
+  const response = await Http.request(
+    `/api/reports/stops?${params.toString()}`,
+    { signal },
+  );
+  const responseJson = await response.json();
+
+  const stops = z.array(TraccarTripStop).parse(responseJson);
+  return stops.map(
+    (stop) =>
+      new RouteStop({
+        id: stop.startTime,
+        coordinates: new Coordinates(stop.latitude, stop.longitude),
+        startTime: new Date(stop.startTime),
+        endTime: new Date(stop.endTime),
+        duration: stop.duration,
+      }),
+  );
+}
+
+function constructURLParams(options: RangeAttributes): URLSearchParams {
+  const { vehicleId, from, to } = RangeParameters.parse(options);
+  const fromAsIsoString = from.toISOString();
+  const toAsIsoString = to.toISOString();
+  return new URLSearchParams({
+    deviceId: vehicleId,
+    from: fromAsIsoString,
+    to: toAsIsoString,
+  });
 }

@@ -1,10 +1,11 @@
 import { fetchAll } from './VehicleService';
 import { takeOnlyOperational, takeOnlyTimedOut } from './Filter';
 import { NotFoundException } from './Exception';
-import { fetchInRange } from './RouteService';
+import { fetchInRange, fetchStopsInRange } from './RouteService';
 
 const Route = {
   fetchInRange,
+  fetchStopsInRange,
 };
 
 export const Vehicle = {
