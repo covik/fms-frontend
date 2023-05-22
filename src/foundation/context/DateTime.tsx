@@ -2,12 +2,13 @@ import { createContext, useCallback, useContext, useMemo } from 'react';
 import { hr } from 'date-fns/locale';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { formatDistanceToNowStrict } from 'date-fns';
+import { format, formatDistanceToNowStrict } from 'date-fns';
 import type { Locale } from 'date-fns';
 import type { ReactNode } from 'react';
 
 export interface FormatAPI {
   distanceToNowStrictWithSuffix(date: Date): string;
+  formatTime(date: Date): string;
 }
 
 interface DateTimeOptions {
@@ -67,7 +68,13 @@ export function useDateTime(): FormatAPI {
     [context.locale],
   );
 
+  const formatTime = useCallback(
+    (date: Date) => format(date, context.timeFormat),
+    [context.timeFormat],
+  );
+
   return {
     distanceToNowStrictWithSuffix,
+    formatTime,
   };
 }
