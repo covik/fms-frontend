@@ -1,1 +1,1 @@
-export { formatDateForURL } from './Format';
+export { formatDateForURL, formatDuration } from './Format';
