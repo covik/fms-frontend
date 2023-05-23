@@ -88,9 +88,17 @@ export function TodayRoutePage() {
       from.toISOString(),
       to.toISOString(),
     ],
-    queryFn: ({ signal }) =>
-      Vehicle.Route.fetchSummaryInRange({ vehicleId, from, to }, signal),
-    retry: (failureCount, error) => !(error instanceof Vehicle.NoRouteSummary),
+    queryFn: async ({ signal }) => {
+      try {
+        return await Vehicle.Route.fetchSummaryInRange(
+          { vehicleId, from, to },
+          signal,
+        );
+      } catch (e) {
+        if (e instanceof Vehicle.NoRouteSummary) return new NoSummary();
+        throw e;
+      }
+    },
   });
   const [checkpointsVisible, showCheckpoints] = useState(false);
 
@@ -98,8 +106,7 @@ export function TodayRoutePage() {
   const stops = stopsQuery.data ?? [];
 
   const summaryData: FullSummary | NoSummary | undefined = useMemo(() => {
-    if (summaryQuery.error instanceof Vehicle.NoRouteSummary)
-      return new NoSummary();
+    if (summaryQuery.data instanceof NoSummary) return summaryQuery.data;
 
     if (summaryQuery.data === undefined || stopsQuery.data === undefined)
       return undefined;
