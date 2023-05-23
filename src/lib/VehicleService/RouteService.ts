@@ -1,10 +1,16 @@
 import { z } from 'zod';
 import { PositionTimestamps, RoutePosition } from '../../models/Position';
 import { Http } from '../HttpClient';
-import { TraccarPosition, TraccarTripStop } from '../Traccar';
+import {
+  TraccarPosition,
+  TraccarRouteSummary,
+  TraccarTripStop,
+} from '../Traccar';
 import { Coordinates } from '../Dimension';
 import { Angle, Length, Speed } from '../MeasurementUnit';
 import { RouteStop } from '../../models/RouteStop';
+import { RouteSummary } from '../../models/RouteSummary';
+import { NoRouteSummary } from './Exception';
 
 const RangeParameters = z.object({
   vehicleId: z.string().trim().min(1),
@@ -70,6 +76,43 @@ export async function fetchStopsInRange(
         duration: stop.duration / 1000,
       }),
   );
+}
+
+export async function fetchSummaryInRange(
+  options: RangeAttributes,
+  signal?: AbortSignal,
+): Promise<RouteSummary> {
+  const params = constructURLParams(options);
+  const headers = {
+    Accept: 'application/json',
+  };
+
+  const response = await Http.request(
+    `/api/reports/summary?${params.toString()}`,
+    { signal, headers },
+  );
+  const responseJson = await response.json();
+  const summaryList = z
+    .array(TraccarRouteSummary)
+    .length(1)
+    .parse(responseJson);
+
+  const summary = summaryList[0];
+
+  if (summary.startTime === null || summary.endTime === null) {
+    throw new NoRouteSummary();
+  }
+
+  return new RouteSummary({
+    startTime: new Date(summary.startTime),
+    endTime: new Date(summary.endTime),
+    startOdometer: new Length.Meter(summary.startOdometer),
+    endOdometer: new Length.Meter(summary.endOdometer),
+    distance: new Length.Meter(summary.distance),
+    engineSeconds: summary.engineHours / 1000,
+    averageSpeed: new Speed.Knots(summary.averageSpeed),
+    maxSpeed: new Speed.Knots(summary.maxSpeed),
+  });
 }
 
 function constructURLParams(options: RangeAttributes): URLSearchParams {

@@ -90,6 +90,17 @@ export const TraccarTripWithPositions = TraccarTrip.extend({
   positions: z.array(z.instanceof(RoutePosition)),
 });
 
+export const TraccarRouteSummary = z.object({
+  maxSpeed: speed,
+  averageSpeed: speed,
+  distance: z.number().nonnegative(),
+  engineHours: z.number().nonnegative(), // engineHours is actually engine milliseconds
+  startTime: datetime.nullable(),
+  endTime: datetime.nullable(),
+  startOdometer: z.number().nonnegative(),
+  endOdometer: z.number().nonnegative(),
+});
+
 export type TraccarUserInterface = z.infer<typeof TraccarUser>;
 export type TraccarDeviceInterface = z.infer<typeof TraccarDevice>;
 export type TraccarPositionInterface = z.infer<typeof TraccarPosition>;
@@ -98,3 +109,4 @@ export type TraccarTripStopInterface = z.infer<typeof TraccarTripStop>;
 export type TraccarTripWithPositionsInterface = z.infer<
   typeof TraccarTripWithPositions
 >;
+export type TraccarRouteSummaryInterface = z.infer<typeof TraccarRouteSummary>;
