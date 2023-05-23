@@ -1,1 +1,1 @@
-export { CombinedTimeline } from './TripsTimeline';
+export { TripsTable } from './TripsTable';

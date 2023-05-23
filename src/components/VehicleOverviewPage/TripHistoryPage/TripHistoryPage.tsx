@@ -11,7 +11,7 @@ import {
 } from '../../../lib/Traccar';
 import { TripMap } from './TripMap';
 import { DatePicker } from '@mui/x-date-pickers';
-import { TripsTable } from './TripResults/TripsTable';
+import { TripsTable } from './TripResults';
 import { useEffect, useState } from 'react';
 import { Vehicle } from '../../../lib/VehicleService';
 import { RoutePosition } from '../../../models/Position';
