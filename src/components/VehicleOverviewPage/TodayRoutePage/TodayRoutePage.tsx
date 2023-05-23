@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import {
   Box,
   Card,
@@ -28,6 +28,7 @@ import {
   ChevronDown,
   ChevronUp,
   ClockOutline,
+  Counter,
   MapMarkerDistance,
   Speedometer,
   SpeedometerMedium,
@@ -40,6 +41,8 @@ import { Vehicle } from '../../../lib/VehicleService';
 import { VehicleRoute, VehicleRouteStops } from '../../VehicleRoute';
 import { RouteStop } from '../../../models/RouteStop';
 import { useDateTime } from '../../../foundation';
+import { Length, Speed } from '../../../lib/MeasurementUnit';
+import { RouteSummary } from '../../../models/RouteSummary';
 
 const routeColor = '#BA68C8';
 const today = new Date();
@@ -70,10 +73,32 @@ export function TodayRoutePage() {
     queryFn: ({ signal }) =>
       Vehicle.Route.fetchStopsInRange({ vehicleId, from, to }, signal),
   });
+  const summaryQuery = useQuery({
+    queryKey: [
+      'vehicles',
+      vehicleId,
+      'summary',
+      from.toISOString(),
+      to.toISOString(),
+    ],
+    queryFn: ({ signal }) =>
+      Vehicle.Route.fetchSummaryInRange({ vehicleId, from, to }, signal),
+    retry: (failureCount, error) => !(error instanceof Vehicle.NoRouteSummary),
+  });
   const [checkpointsVisible, showCheckpoints] = useState(false);
 
   const routes = routeQuery.data ?? [];
   const stops = stopsQuery.data ?? [];
+
+  const summaryData: FullSummary | NoSummary | undefined = useMemo(() => {
+    if (summaryQuery.error instanceof Vehicle.NoRouteSummary)
+      return new NoSummary();
+
+    if (summaryQuery.data === undefined || stopsQuery.data === undefined)
+      return undefined;
+
+    return calculateFullSummary(summaryQuery.data, stops);
+  }, [summaryQuery.error, summaryQuery.data, stopsQuery.data]);
 
   const spacing = 1;
   return (
@@ -95,7 +120,13 @@ export function TodayRoutePage() {
         >
           <Stack spacing={2}>
             <Tile label={'Sažetak'}>
-              <Summary />
+              {summaryData instanceof NoSummary ? (
+                <CardContent>
+                  <Typography variant={'body2'}>Nema informacija</Typography>
+                </CardContent>
+              ) : (
+                <Summary details={summaryData} />
+              )}
             </Tile>
             <Tile label={'Zaustavljanje'}>
               <CardContent>
@@ -157,17 +188,33 @@ function Tile({ label, children }: TileAttributes) {
   );
 }
 
-function Summary() {
+interface SummaryAttributes {
+  details: FullSummary | undefined;
+}
+
+function Summary({ details }: SummaryAttributes) {
+  const { formatDuration } = useDateTime();
   const [timeDetailsOpen, setTimeDetailsOpen] = useState(false);
+  const [odometerDetailsOpen, setOdometerDetailsOpen] = useState(false);
   const [speedDetailsOpen, setSpeedDetailsOpen] = useState(false);
 
   function toggleTimeDetails() {
     setTimeDetailsOpen(!timeDetailsOpen);
   }
 
+  function toggleOdometerDetails() {
+    setOdometerDetailsOpen(!odometerDetailsOpen);
+  }
+
   function toggleSpeedDetails() {
     setSpeedDetailsOpen(!speedDetailsOpen);
   }
+
+  const skeleton = (
+    <>
+      <Skeleton variant={'text'} width={'50px'} />
+    </>
+  );
 
   return (
     <>
@@ -176,7 +223,14 @@ function Summary() {
           <ListItemIcon>
             <ClockOutline />
           </ListItemIcon>
-          <ListItemText primary="Trajanje" secondary="9h 45m" />
+          <ListItemText
+            primary="Trajanje"
+            secondary={
+              details === undefined
+                ? skeleton
+                : formatDuration(details.totalDuration)
+            }
+          />
           {timeDetailsOpen ? <ChevronUp /> : <ChevronDown />}
         </ListItemButton>
 
@@ -186,13 +240,27 @@ function Summary() {
               <ListItemIcon>
                 <CarClock />
               </ListItemIcon>
-              <ListItemText primary="Vožnja" secondary="9h" />
+              <ListItemText
+                primary="Vožnja"
+                secondary={
+                  details === undefined
+                    ? skeleton
+                    : formatDuration(details.drivingDuration)
+                }
+              />
             </ListItem>
             <ListItem>
               <ListItemIcon>
                 <BedClock />
               </ListItemIcon>
-              <ListItemText primary="Stajanje" secondary="45min" />
+              <ListItemText
+                primary="Stajanje"
+                secondary={
+                  details === undefined
+                    ? skeleton
+                    : formatDuration(details.stopDuration)
+                }
+              />
             </ListItem>
           </List>
         </Collapse>
@@ -201,12 +269,51 @@ function Summary() {
       <Divider />
 
       <List disablePadding dense>
-        <ListItem>
+        <ListItemButton onClick={toggleOdometerDetails}>
           <ListItemIcon>
             <MapMarkerDistance />
           </ListItemIcon>
-          <ListItemText primary="Prijeđena udaljenost" secondary="270 km" />
-        </ListItem>
+          <ListItemText
+            primary="Prijeđena udaljenost"
+            secondary={
+              details === undefined
+                ? skeleton
+                : formatDistance(details.distance.value())
+            }
+          />
+          {odometerDetailsOpen ? <ChevronUp /> : <ChevronDown />}
+        </ListItemButton>
+
+        <Collapse in={odometerDetailsOpen} timeout="auto" unmountOnExit>
+          <List component="div" disablePadding dense>
+            <ListItem>
+              <ListItemIcon>
+                <Counter />
+              </ListItemIcon>
+              <ListItemText
+                primary="Početni brojčanik"
+                secondary={
+                  details === undefined
+                    ? skeleton
+                    : formatDistance(details.startOdometer.value())
+                }
+              />
+            </ListItem>
+            <ListItem>
+              <ListItemIcon>
+                <Counter />
+              </ListItemIcon>
+              <ListItemText
+                primary="Završni brojčanik"
+                secondary={
+                  details === undefined
+                    ? skeleton
+                    : formatDistance(details.endOdometer.value())
+                }
+              />
+            </ListItem>
+          </List>
+        </Collapse>
       </List>
 
       <Divider />
@@ -216,7 +323,14 @@ function Summary() {
           <ListItemIcon>
             <Speedometer />
           </ListItemIcon>
-          <ListItemText primary="Najveća brzina" secondary="92 km/h" />
+          <ListItemText
+            primary="Najveća brzina"
+            secondary={
+              details === undefined
+                ? skeleton
+                : formatSpeed(Speed.convert(details.maxSpeed).toKph())
+            }
+          />
           {timeDetailsOpen ? <ChevronUp /> : <ChevronDown />}
         </ListItemButton>
 
@@ -226,7 +340,14 @@ function Summary() {
               <ListItemIcon>
                 <SpeedometerMedium />
               </ListItemIcon>
-              <ListItemText primary="Prosječna brzina" secondary="80 km/h" />
+              <ListItemText
+                primary="Prosječna brzina"
+                secondary={
+                  details === undefined
+                    ? skeleton
+                    : formatSpeed(Speed.convert(details.averageSpeed).toKph())
+                }
+              />
             </ListItem>
           </List>
         </Collapse>
@@ -319,3 +440,52 @@ function StopsTable({ stops }: { stops: RouteStop[] | undefined }) {
     </Table>
   );
 }
+
+interface FullSummary {
+  totalDuration: number;
+  drivingDuration: number;
+  stopDuration: number;
+  distance: Length.BaseLength;
+  startOdometer: Length.BaseLength;
+  endOdometer: Length.BaseLength;
+  averageSpeed: Speed.BaseSpeed;
+  maxSpeed: Speed.BaseSpeed;
+}
+
+function calculateFullSummary(
+  summary: RouteSummary,
+  stops: RouteStop[],
+): FullSummary {
+  const totalDuration = summary.durationInSeconds();
+  const { drivingDuration, stopDuration } =
+    summary.drivingAndStopDuration(stops);
+  const distance = summary.distance();
+  const startOdometer = summary.startOdometer();
+  const endOdometer = summary.endOdometer();
+  const averageSpeed = summary.averageSpeed();
+  const maxSpeed = summary.maxSpeed();
+
+  return {
+    totalDuration,
+    drivingDuration,
+    stopDuration,
+    distance,
+    startOdometer,
+    endOdometer,
+    averageSpeed,
+    maxSpeed,
+  };
+}
+
+function formatDistance(distanceInMeters: number) {
+  if (distanceInMeters < 1000) return `${distanceInMeters}m`;
+
+  const inKilometers = distanceInMeters / 1000;
+  return `${inKilometers.toFixed(1)} km`;
+}
+
+function formatSpeed(speed: Speed.KPH) {
+  return `${Math.round(speed.value())} ${speed.symbol()}`;
+}
+
+class NoSummary {}
