@@ -114,6 +114,11 @@ export function TodayRoutePage() {
     return calculateFullSummary(summaryQuery.data, stops);
   }, [summaryQuery.error, summaryQuery.data, stopsQuery.data]);
 
+  const bounds = useMemo(
+    () => calculateMapBounds(routes, stops),
+    [routes, stops],
+  );
+
   const spacing = 1;
   return (
     <Grid container direction="row" flex={1} spacing={spacing}>
@@ -167,7 +172,7 @@ export function TodayRoutePage() {
             onZoomChanged={(zoom) => {
               showCheckpoints(zoom >= 15);
             }}
-            fitBounds={calculateMapBounds(routes, stops)}
+            fitBounds={bounds}
           >
             <VehicleRoute
               positions={routes}
