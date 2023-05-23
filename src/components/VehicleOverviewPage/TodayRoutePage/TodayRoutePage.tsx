@@ -43,6 +43,7 @@ import { RouteStop } from '../../../models/RouteStop';
 import { useDateTime } from '../../../foundation';
 import { Length, Speed } from '../../../lib/MeasurementUnit';
 import { RouteSummary } from '../../../models/RouteSummary';
+import { RoutePosition } from '../../../models/Position';
 
 const routeColor = '#BA68C8';
 const today = new Date();
@@ -153,6 +154,7 @@ export function TodayRoutePage() {
             onZoomChanged={(zoom) => {
               showCheckpoints(zoom >= 15);
             }}
+            fitBounds={calculateMapBounds(routes, stops)}
           >
             <VehicleRoute
               positions={routes}
@@ -489,3 +491,20 @@ function formatSpeed(speed: Speed.KPH) {
 }
 
 class NoSummary {}
+
+function calculateMapBounds(
+  positions: RoutePosition[],
+  stops: RouteStop[],
+): google.maps.LatLngLiteral[] {
+  const positionsLatLngLiterals = positions.map((position) => ({
+    lat: position.latitude(),
+    lng: position.longitude(),
+  }));
+
+  const stopLatLngLiterals = stops.map((stop) => ({
+    lat: stop.coordinates().latitude(),
+    lng: stop.coordinates().longitude(),
+  }));
+
+  return [...positionsLatLngLiterals, ...stopLatLngLiterals];
+}
