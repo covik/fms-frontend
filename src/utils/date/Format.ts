@@ -9,7 +9,10 @@ export function formatDateForURL(date: Date) {
 export function formatDuration(durationInSeconds: number) {
   if (durationInSeconds < 60) return `${durationInSeconds}s`;
 
-  const duration = intervalToDuration({ start: 0, end: durationInSeconds });
+  const duration = intervalToDuration({
+    start: 0,
+    end: durationInSeconds * 1000,
+  });
   const [hours, minutes] = [duration.hours ?? 0, duration.minutes ?? 0];
 
   const valuesWithSymbol = [];

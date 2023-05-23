@@ -67,7 +67,7 @@ export async function fetchStopsInRange(
         coordinates: new Coordinates(stop.latitude, stop.longitude),
         startTime: new Date(stop.startTime),
         endTime: new Date(stop.endTime),
-        duration: stop.duration,
+        duration: stop.duration / 1000,
       }),
   );
 }

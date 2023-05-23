@@ -96,7 +96,7 @@ export function TripsTable({
           const id = isStop ? row.id() : row.startTime;
           const startTime = isStop ? row.startTime() : new Date(row.startTime);
           const endTime = isStop ? row.endTime() : new Date(row.endTime);
-          const duration = isStop ? row.duration() : row.duration;
+          const duration = isStop ? row.duration() : row.duration / 1000;
           const distance = isStop ? 0 : row.distance;
 
           const formattedStartTime = formatTime(startTime);
