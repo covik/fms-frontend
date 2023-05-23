@@ -44,6 +44,12 @@ import { useDateTime } from '../../../foundation';
 import { Length, Speed } from '../../../lib/MeasurementUnit';
 import { RouteSummary } from '../../../models/RouteSummary';
 import { RoutePosition } from '../../../models/Position';
+import { Coordinates } from '../../../lib/Dimension';
+
+const CROATIA = {
+  coordinates: new Coordinates(44.698832, 16.373162),
+  zoom: 7,
+};
 
 const routeColor = '#BA68C8';
 const today = new Date();
@@ -146,11 +152,11 @@ export function TodayRoutePage() {
           }}
         >
           <Map
+            x={CROATIA.coordinates.latitude()}
+            y={CROATIA.coordinates.longitude()}
+            z={CROATIA.zoom}
             width={'100%'}
             height={'100%'}
-            x={45}
-            y={12}
-            z={8}
             onZoomChanged={(zoom) => {
               showCheckpoints(zoom >= 15);
             }}
