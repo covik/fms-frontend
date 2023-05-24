@@ -35,7 +35,11 @@ export async function fetchAll(signal?: AbortSignal): Promise<BaseVehicle[]> {
   );
 
   return traccarDevices.map((device) => {
-    if (device.positionId === null)
+    if (
+      device.positionId === null ||
+      device.positionId === 0 ||
+      device.lastUpdate === null
+    )
       return new NoPositionVehicle({
         id: String(device.id),
         name: device.name,
@@ -103,17 +107,15 @@ function pickVehicleConstructor(
   device: TraccarDeviceInterface,
 ): typeof OperationalVehicle | typeof DisabledVehicle | typeof TimedOutVehicle {
   if (device.disabled) return DisabledVehicle;
-  else if (isLastUpdateAfterTooMuchTime(device)) return TimedOutVehicle;
+  else if (isLastUpdateAfterTooMuchTime(new Date(device.lastUpdate as string)))
+    return TimedOutVehicle;
 
   return OperationalVehicle;
 }
 
-function isLastUpdateAfterTooMuchTime(device: TraccarDeviceInterface): boolean {
+function isLastUpdateAfterTooMuchTime(lastUpdate: Date): boolean {
   const MINUTE = 60;
   const TOO_MUCH_SECONDS = 65 * MINUTE;
 
-  return (
-    differenceInSeconds(new Date(), new Date(device.lastUpdate)) >=
-    TOO_MUCH_SECONDS
-  );
+  return differenceInSeconds(new Date(), lastUpdate) >= TOO_MUCH_SECONDS;
 }
