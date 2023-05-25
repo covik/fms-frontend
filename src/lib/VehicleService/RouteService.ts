@@ -20,6 +20,10 @@ const RangeParameters = z.object({
 
 type RangeAttributes = z.infer<typeof RangeParameters>;
 
+const headers = {
+  Accept: 'application/json',
+};
+
 export async function fetchInRange(
   options: RangeAttributes,
   signal?: AbortSignal,
@@ -28,6 +32,7 @@ export async function fetchInRange(
 
   const response = await Http.request(`/api/positions?${params.toString()}`, {
     signal,
+    headers,
   });
   const responseJson = await response.json();
 
@@ -61,7 +66,7 @@ export async function fetchStopsInRange(
 
   const response = await Http.request(
     `/api/reports/stops?${params.toString()}`,
-    { signal },
+    { signal, headers },
   );
   const responseJson = await response.json();
 
@@ -83,19 +88,17 @@ export async function fetchSummaryInRange(
   signal?: AbortSignal,
 ): Promise<RouteSummary> {
   const params = constructURLParams(options);
-  const headers = {
-    Accept: 'application/json',
-  };
 
   const response = await Http.request(
     `/api/reports/summary?${params.toString()}`,
     { signal, headers },
   );
   const responseJson = await response.json();
-  const summaryList = z
-    .array(TraccarRouteSummary)
-    .length(1)
-    .parse(responseJson);
+  const summaryList = z.array(TraccarRouteSummary).max(1).parse(responseJson);
+
+  if (summaryList.length === 0) {
+    throw new NoRouteSummary();
+  }
 
   const summary = summaryList[0];
 

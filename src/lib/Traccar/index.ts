@@ -23,12 +23,12 @@ export const TraccarDevice = z.object({
   disabled: z.boolean(),
   lastUpdate: datetime.nullable(),
   positionId: z.number().gte(0).nullable(),
-  groupId: z.number().gte(0),
-  phone: z.string(),
-  model: z.string(),
-  contact: z.string(),
+  groupId: z.number().gte(0).nullable(),
+  phone: z.string().nullable(),
+  model: z.string().nullable(),
+  contact: z.string().nullable(),
   category: z.string().nullable(),
-  geofenceIds: z.array(z.number().gte(1)),
+  geofenceIds: z.array(z.number().gte(1)).nullable(),
   attributes: z.record(z.string(), z.string()),
 });
 

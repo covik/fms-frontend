@@ -37,9 +37,13 @@ export function TripHistoryPage() {
 
   const query = useQuery({
     queryKey: ['vehicle', vehicleId, 'trips', startTime, endTime],
-    queryFn: async () => {
+    queryFn: async ({ signal }) => {
+      const headers = {
+        Accept: 'application/json',
+      };
       const tripsResponse = await Http.request(
         `/api/reports/trips?deviceId=${vehicleId}&from=${startTime.toISOString()}&to=${endTime.toISOString()}`,
+        { signal, headers },
       );
       const tripsJson = await tripsResponse.json();
       const trips = z.array(TraccarTrip).parse(tripsJson);
