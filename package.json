@@ -11,8 +11,8 @@
     "cy:dev": "cypress open --component --browser chrome",
     "cy:ct:chrome": "cypress run --component --browser chrome",
     "cy:ct:firefox": "cypress run --component --browser firefox",
-    "prepare": "husky install",
     "dev": "vite",
+    "prepare": "husky install",
     "sb:dev": "storybook dev -p 6006",
     "sb:build": "storybook build",
     "type-check": "tsc -p tsconfig.json && tsc -p tsconfig.spec.json"
