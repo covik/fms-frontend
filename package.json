@@ -12,6 +12,8 @@
     "cy:ct:chrome": "cypress run --component --browser chrome",
     "cy:ct:firefox": "cypress run --component --browser firefox",
     "dev": "vite",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "prepare": "husky install",
     "sb:dev": "storybook dev -p 6006",
     "sb:build": "storybook build",
