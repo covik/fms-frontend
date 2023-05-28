@@ -8,7 +8,7 @@ export interface DesktopLayoutAttributes {
 }
 
 const drawerWidth = 70;
-const logoSize = 32;
+const logoSize = 38;
 
 export function DesktopLayout({ children }: DesktopLayoutAttributes) {
   return (

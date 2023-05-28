@@ -76,7 +76,7 @@ export function LoginView({
               marginBottom: 2,
             }}
           >
-            <Logo size={36} />
+            <Logo size={40} />
             <Typography
               component="h1"
               variant="h5"
