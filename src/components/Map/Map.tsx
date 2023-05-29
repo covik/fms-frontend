@@ -21,7 +21,7 @@ export interface MapArguments {
 
 const mapOptions = {
   googleMapsApiKey: 'AIzaSyCRzHH5N9W0FWKvY5qhRbk9H-AHm-vs8rw',
-  version: '3.51',
+  version: '3.53',
 };
 
 export function Map({
