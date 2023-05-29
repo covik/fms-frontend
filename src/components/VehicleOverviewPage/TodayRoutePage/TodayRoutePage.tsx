@@ -1,9 +1,6 @@
 import { useMemo, useState } from 'react';
 import {
   Box,
-  Card,
-  CardContent,
-  CardHeader,
   Collapse,
   Divider,
   Grid,
@@ -19,7 +16,6 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Typography,
 } from '@mui/material';
 import { AppMap } from '../../Map';
 import {
@@ -33,7 +29,6 @@ import {
   Speedometer,
   SpeedometerMedium,
 } from 'mdi-material-ui';
-import type { ReactNode } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { endOfDay, startOfDay } from 'date-fns';
 import { useParams } from '@tanstack/router';
@@ -45,6 +40,7 @@ import { Length, Speed } from '../../../lib/MeasurementUnit';
 import { RouteSummary } from '../../../models/RouteSummary';
 import { RoutePosition } from '../../../models/Position';
 import { Coordinates } from '../../../lib/Dimension';
+import { NoContent, Tile, TileContent } from '../../Tile';
 
 const CROATIA = {
   coordinates: new Coordinates(44.698832, 16.373162),
@@ -140,17 +136,17 @@ export function TodayRoutePage() {
           <Stack spacing={2}>
             <Tile label={'Sažetak'}>
               {summaryData instanceof NoSummary ? (
-                <CardContent>
-                  <Typography variant={'body2'}>Nema informacija</Typography>
-                </CardContent>
+                <TileContent>
+                  <NoContent>Nema informacija</NoContent>
+                </TileContent>
               ) : (
                 <Summary details={summaryData} />
               )}
             </Tile>
             <Tile label={'Zaustavljanje'}>
-              <CardContent>
+              <TileContent>
                 <StopsTable stops={stopsQuery.data} />
-              </CardContent>
+              </TileContent>
             </Tile>
           </Stack>
         </Box>
@@ -178,27 +174,6 @@ export function TodayRoutePage() {
         </AppMap>
       </Grid>
     </Grid>
-  );
-}
-
-export interface TileAttributes {
-  label: string;
-  children: ReactNode;
-}
-
-function Tile({ label, children }: TileAttributes) {
-  return (
-    <Card>
-      <CardHeader
-        title={label}
-        titleTypographyProps={{
-          variant: 'body1',
-          fontWeight: 500,
-        }}
-        sx={{ paddingBottom: 0 }}
-      />
-      {children}
-    </Card>
   );
 }
 
@@ -374,7 +349,7 @@ function StopsTable({ stops }: { stops: RouteStop[] | undefined }) {
   const { formatTime, formatDuration } = useDateTime();
 
   if (stops && stops.length === 0) {
-    return <Typography variant={'body2'}>Nema zaustavljanja</Typography>;
+    return <NoContent>Nema zaustavljanja</NoContent>;
   }
 
   const indexWidth = '30px';
