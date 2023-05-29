@@ -12,10 +12,10 @@ import {
 import { TripMap } from './TripMap';
 import { DateCalendar } from '@mui/x-date-pickers';
 import { TripsTable } from './TripResults';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Vehicle } from '../../../lib/VehicleService';
 import { RoutePosition } from '../../../models/Position';
-import { endOfDay, startOfDay } from 'date-fns';
+import { endOfDay, isEqual, startOfDay } from 'date-fns';
 import { NoContent, Tile, TileContent } from '../../Tile';
 
 const tripsRoute = '/vehicles/$vehicleId/trips/$date';
@@ -27,14 +27,6 @@ export function TripHistoryPage() {
 
   const startTime = startOfDay(date);
   const endTime = endOfDay(date);
-
-  function replaceDateURL(date: Date) {
-    void navigate({
-      to: tripsRoute,
-      params: { vehicleId, date },
-      replace: true,
-    });
-  }
 
   const query = useQuery({
     queryKey: ['vehicle', vehicleId, 'trips', startTime, endTime],
@@ -84,10 +76,6 @@ export function TripHistoryPage() {
   const stops = stopsQuery.data ?? [];
   const noData = trips.length === 0 && stops.length === 0;
 
-  useEffect(() => {
-    showAllTripsAndStops();
-  }, [trips, stops]);
-
   function toggleTripVisibility(startTime: string) {
     setHiddenTripsAndStops((alreadyHidden) => {
       if (alreadyHidden.includes(startTime)) {
@@ -107,6 +95,19 @@ export function TripHistoryPage() {
 
   function showAllTripsAndStops() {
     setHiddenTripsAndStops([]);
+  }
+
+  function replaceDateURL(date: Date) {
+    void navigate({
+      to: tripsRoute,
+      params: { vehicleId, date },
+      replace: true,
+    });
+  }
+
+  function handleDateChange(date: Date) {
+    showAllTripsAndStops();
+    replaceDateURL(date);
   }
 
   const spacing = 1;
@@ -129,7 +130,7 @@ export function TripHistoryPage() {
         >
           <Stack spacing={2}>
             <Card sx={{ maxWidth: 'fit-content' }}>
-              <TripPicker targetDate={date} onChange={replaceDateURL} />
+              <TripPicker targetDate={date} onChange={handleDateChange} />
             </Card>
 
             <Tile label={'Putovanja'}>
@@ -179,7 +180,7 @@ function TripPicker({
   return (
     <DateCalendar
       value={targetDate}
-      onChange={(v) => v && onChange(v)}
+      onChange={(v) => v && !isEqual(v, targetDate) && onChange(v)}
       disableFuture={true}
     />
   );
