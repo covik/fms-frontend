@@ -1,9 +1,7 @@
-import { useMemo } from 'react';
-import { Marker } from '@react-google-maps/api';
-import { Coordinates } from '../../lib/Dimension';
-import { jsxToSVGDataURI } from '../../utils/react';
+import { MapMarker } from '../Map';
 import { checkpointMarkerIndex } from './ZIndex';
 import type { ReactElement } from 'react';
+import type { Coordinates } from '../../lib/Dimension';
 
 export interface CheckpointMarkerAttributes {
   coordinates: Coordinates;
@@ -14,23 +12,14 @@ export function CheckpointMarker({
   coordinates,
   children,
 }: CheckpointMarkerAttributes) {
-  const lat = coordinates.latitude();
-  const lng = coordinates.longitude();
-  const latLng = useMemo(() => ({ lat: lat, lng: lng }), [lat, lng]);
-
-  const svgDataURI = jsxToSVGDataURI(children);
-  const icon: google.maps.Icon = useMemo(
-    () => ({
-      url: svgDataURI,
-      anchor: {
-        x: 16,
-        y: 16,
-      } as google.maps.Point,
-    }),
-    [svgDataURI],
-  );
-
   return (
-    <Marker position={latLng} icon={icon} zIndex={checkpointMarkerIndex} />
+    <MapMarker
+      position={coordinates}
+      iconAnchorX={16}
+      iconAnchorY={16}
+      zIndex={checkpointMarkerIndex}
+    >
+      {children}
+    </MapMarker>
   );
 }

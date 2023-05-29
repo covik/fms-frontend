@@ -3,21 +3,21 @@ import {
   VehicleMapIconMoving,
   VehicleMapIconStationary,
 } from '../VehicleMapIcon';
-import { Map } from '../Map';
+import { AppMap, MapSettingsProvider } from '../Map';
+import { Coordinates } from '../../lib/Dimension';
 import type { Meta, StoryObj } from '@storybook/react';
 
-const center = {
-  lat: 44.111175964131334,
-  lng: 15.247462805177106,
-};
+const center = new Coordinates(44.111175964131334, 15.247462805177106);
 
 export default {
   component: VehicleMapMarker,
   decorators: [
     (Story) => (
-      <Map x={center.lat} y={center.lng} z={18} width={400} height={400}>
-        <Story />
-      </Map>
+      <MapSettingsProvider center={center} zoom={18}>
+        <AppMap sx={{ width: '400px', height: '400px' }}>
+          <Story />
+        </AppMap>
+      </MapSettingsProvider>
     ),
   ],
 } satisfies Meta<typeof VehicleMapMarker>;

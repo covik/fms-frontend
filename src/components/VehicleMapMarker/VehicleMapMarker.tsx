@@ -1,10 +1,9 @@
-import { Marker } from '@react-google-maps/api';
-import { renderToString } from 'react-dom/server';
-import type { MarkerProps } from '@react-google-maps/api';
+import { MapMarker } from '../Map';
 import type { ReactElement } from 'react';
+import type { Coordinates } from '../../lib/Dimension';
 
 export interface VehicleMapMarkerAttributes {
-  position: MarkerProps['position'];
+  position: Coordinates;
   name: string;
   children: ReactElement;
 }
@@ -14,27 +13,19 @@ export function VehicleMapMarker({
   name,
   children,
 }: VehicleMapMarkerAttributes) {
-  const iconContentFromSvg = renderToString(children);
-  const urlEncodedIconContent = encodeURIComponent(iconContentFromSvg);
-  const icon: google.maps.Icon = {
-    url: `data:image/svg+xml,${urlEncodedIconContent}`,
-    anchor: {
-      x: 16,
-      y: 16,
-    } as google.maps.Point,
-    labelOrigin: {
-      x: 16,
-      y: 45,
-    } as google.maps.Point,
-  };
-
-  const label: google.maps.MarkerLabel = {
-    text: name,
-    className: 'vehicle-marker-label',
-    color: '#444',
-    fontWeight: '500',
-    fontFamily: 'FiraGO',
-  };
-
-  return <Marker position={position} icon={icon} label={label} />;
+  return (
+    <MapMarker
+      position={position}
+      iconAnchorX={16}
+      iconAnchorY={16}
+      label={name}
+      labelClass={'vehicle-marker-label'}
+      labelColor={'#444'}
+      labelFontWeight={'500'}
+      labelOriginX={16}
+      labelOriginY={45}
+    >
+      {children}
+    </MapMarker>
+  );
 }

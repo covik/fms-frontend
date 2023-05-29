@@ -21,10 +21,6 @@ export interface LivePreviewViewAttributes {
 export function LivePreviewView({ vehicle }: LivePreviewViewAttributes) {
   const { distanceToNowStrictWithSuffix } = useDateTime();
   const coordinates = vehicle.position().coordinates();
-  const pos = {
-    lat: coordinates.latitude(),
-    lng: coordinates.longitude(),
-  };
   const speedInKph = convert(vehicle.speed()).toKph();
   const roundedSpeed = Math.round(speedInKph.value());
   const formattedSpeed = `${roundedSpeed} ${speedInKph.symbol()}`;
@@ -43,7 +39,7 @@ export function LivePreviewView({ vehicle }: LivePreviewViewAttributes) {
           gestureHandling={false}
           sx={{ height: '40vh', minHeight: '200px' }}
         >
-          <VehicleMapMarker position={pos} name={vehicle.name()}>
+          <VehicleMapMarker position={coordinates} name={vehicle.name()}>
             {vehicle.isInMotion() ? (
               <VehicleMapIconMoving
                 active={vehicle.hasIgnitionTurnedOn()}

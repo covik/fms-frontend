@@ -26,10 +26,7 @@ export function LiveTracking() {
         {operationalVehicles.map((vehicle) => (
           <VehicleMapMarker
             key={vehicle.id()}
-            position={{
-              lat: vehicle.position().latitude(),
-              lng: vehicle.position().longitude(),
-            }}
+            position={vehicle.position().coordinates()}
             name={vehicle.name()}
           >
             {vehicle.isInMotion() ? (

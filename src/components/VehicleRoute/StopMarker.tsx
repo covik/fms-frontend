@@ -1,21 +1,7 @@
-import { useMemo } from 'react';
-import { Marker } from '@react-google-maps/api';
+import { MapMarker } from '../Map';
 import { padding, size, StopIcon } from './Icons';
-import { Coordinates } from '../../lib/Dimension';
 import { stopMarkerIndex } from './ZIndex';
-import { jsxToSVGDataURI } from '../../utils/react';
-
-const icon: google.maps.Icon = {
-  url: jsxToSVGDataURI(<StopIcon />),
-  anchor: {
-    x: size / 2,
-    y: size - padding,
-  } as google.maps.Point,
-  labelOrigin: {
-    x: size / 2,
-    y: -11,
-  } as google.maps.Point,
-};
+import type { Coordinates } from '../../lib/Dimension';
 
 export interface StopMarkerAttributes {
   coordinates: Coordinates;
@@ -23,31 +9,21 @@ export interface StopMarkerAttributes {
 }
 
 export function StopMarker({ coordinates, duration }: StopMarkerAttributes) {
-  const latitude = coordinates.latitude();
-  const longitude = coordinates.longitude();
-  const position = useMemo(
-    () => ({ lat: latitude, lng: longitude }),
-    [latitude, longitude],
-  );
-
-  const label: google.maps.MarkerLabel = useMemo(
-    () => ({
-      text: duration,
-      fontFamily: 'FiraGO',
-      fontWeight: '400',
-      color: 'white',
-      fontSize: '12px',
-      className: 'trip-stop-marker-label',
-    }),
-    [duration],
-  );
-
   return (
-    <Marker
-      position={position}
-      icon={icon}
-      label={label}
+    <MapMarker
+      position={coordinates}
+      iconAnchorX={size / 2}
+      iconAnchorY={size - padding}
+      label={duration}
+      labelOriginX={size / 2}
+      labelOriginY={-11}
+      labelColor={'white'}
+      labelFontSize={'12px'}
+      labelFontWeight={'400'}
+      labelClass={'trip-stop-marker-label'}
       zIndex={stopMarkerIndex}
-    />
+    >
+      <StopIcon />
+    </MapMarker>
   );
 }
