@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import { Card, Skeleton, styled } from '@mui/material';
+import { useMapSettings } from './MapSettings';
 import type { SxProps } from '@mui/material';
 import type { CSSProperties, ReactNode } from 'react';
 
@@ -104,7 +105,10 @@ export function Map({
 
 const defaultPadding = 1;
 
-type AppMapAttributes = Omit<MapArguments, 'width' | 'height'> & {
+type AppMapAttributes = Omit<
+  MapArguments,
+  'x' | 'y' | 'z' | 'width' | 'height'
+> & {
   sx: SxProps;
 };
 
@@ -117,11 +121,22 @@ const MapContainer = styled('div')({
 
 export function AppMap(props: AppMapAttributes) {
   const { sx, ...mapProps } = props;
+  const { center, zoom } = useMapSettings();
+
+  const latitude = useMemo(() => center.latitude(), [center.latitude()]);
+  const longitude = useMemo(() => center.longitude(), [center.longitude()]);
 
   return (
     <Card sx={{ padding: defaultPadding, ...sx }}>
       <MapContainer>
-        <Map {...mapProps} width={'100%'} height={'100%'} />
+        <Map
+          {...mapProps}
+          x={latitude}
+          y={longitude}
+          z={zoom}
+          width={'100%'}
+          height={'100%'}
+        />
       </MapContainer>
     </Card>
   );

@@ -1,7 +1,6 @@
 import { Box, CircularProgress, Paper } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { Vehicle } from '../../lib/VehicleService';
-import { Coordinates } from '../../lib/Dimension';
 import { AppMap } from '../Map';
 import { VehicleMapMarker } from '../VehicleMapMarker';
 import {
@@ -9,11 +8,6 @@ import {
   VehicleMapIconStationary,
 } from '../VehicleMapIcon';
 import type { ReactNode } from 'react';
-
-const CROATIA = {
-  coordinates: new Coordinates(44.698832, 16.373162),
-  zoom: 7,
-};
 
 export function LiveTracking() {
   const query = useQuery({
@@ -27,12 +21,7 @@ export function LiveTracking() {
 
   return (
     <PageContainer>
-      <AppMap
-        x={CROATIA.coordinates.latitude()}
-        y={CROATIA.coordinates.longitude()}
-        z={CROATIA.zoom}
-        sx={{ height: 'auto', width: '100%' }}
-      >
+      <AppMap sx={{ height: 'auto', width: '100%' }}>
         {query.isFetching ? <FetchIndicator /> : null}
         {operationalVehicles.map((vehicle) => (
           <VehicleMapMarker

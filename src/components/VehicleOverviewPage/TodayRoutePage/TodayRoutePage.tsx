@@ -20,15 +20,9 @@ import { RouteStop } from '../../../models/RouteStop';
 import { useDateTime } from '../../../foundation';
 import { RouteSummary } from '../../../models/RouteSummary';
 import { RoutePosition } from '../../../models/Position';
-import { Coordinates } from '../../../lib/Dimension';
 import { NoContent, Tile, TileContent } from '../../Tile';
 import { RouteSummary as Summary } from '../RouteSummary';
 import type { SummaryData } from '../RouteSummary';
-
-const CROATIA = {
-  coordinates: new Coordinates(44.698832, 16.373162),
-  zoom: 7,
-};
 
 const routeColor = '#BA68C8';
 const today = new Date();
@@ -136,9 +130,6 @@ export function TodayRoutePage() {
       </Grid>
       <Grid item xs={12} md={8} lg={9} xl={10}>
         <AppMap
-          x={CROATIA.coordinates.latitude()}
-          y={CROATIA.coordinates.longitude()}
-          z={CROATIA.zoom}
           onZoomChanged={(zoom) => {
             showCheckpoints(zoom >= 15);
           }}

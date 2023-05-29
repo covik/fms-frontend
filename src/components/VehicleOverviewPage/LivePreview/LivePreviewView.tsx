@@ -1,5 +1,5 @@
 import { Card, Stack } from '@mui/material';
-import { AppMap } from '../../Map';
+import { AppMap, MapSettingsProvider } from '../../Map';
 import {
   ConnectionDetails,
   SpatialDetails,
@@ -38,24 +38,25 @@ export function LivePreviewView({ vehicle }: LivePreviewViewAttributes) {
 
   return (
     <Stack spacing={1}>
-      <AppMap
-        x={coordinates.latitude()}
-        y={coordinates.longitude()}
-        z={8}
-        gestureHandling={false}
-        sx={{ height: '40vh', minHeight: '200px' }}
-      >
-        <VehicleMapMarker position={pos} name={vehicle.name()}>
-          {vehicle.isInMotion() ? (
-            <VehicleMapIconMoving
-              active={vehicle.hasIgnitionTurnedOn()}
-              angle={vehicle.course().value()}
-            />
-          ) : (
-            <VehicleMapIconStationary active={vehicle.hasIgnitionTurnedOn()} />
-          )}
-        </VehicleMapMarker>
-      </AppMap>
+      <MapSettingsProvider center={coordinates} zoom={8}>
+        <AppMap
+          gestureHandling={false}
+          sx={{ height: '40vh', minHeight: '200px' }}
+        >
+          <VehicleMapMarker position={pos} name={vehicle.name()}>
+            {vehicle.isInMotion() ? (
+              <VehicleMapIconMoving
+                active={vehicle.hasIgnitionTurnedOn()}
+                angle={vehicle.course().value()}
+              />
+            ) : (
+              <VehicleMapIconStationary
+                active={vehicle.hasIgnitionTurnedOn()}
+              />
+            )}
+          </VehicleMapMarker>
+        </AppMap>
+      </MapSettingsProvider>
 
       <Card>
         <StateDetails

@@ -1,16 +1,10 @@
 import { useMemo, useState } from 'react';
 import { AppMap } from '../../../Map';
-import { Coordinates } from '../../../../lib/Dimension';
 import { StopMarker, VehicleRoute } from '../../../VehicleRoute';
 import { RouteStop } from '../../../../models/RouteStop';
 import { formatDuration } from '../../../../utils/date';
 import type { TraccarTripWithPositionsInterface } from '../../../../lib/Traccar';
 import type { SxProps } from '@mui/material';
-
-const CROATIA = {
-  coordinates: new Coordinates(44.698832, 16.373162),
-  zoom: 7,
-};
 
 const color = '#BA68C8';
 
@@ -36,9 +30,6 @@ export function TripMap({
 
   return (
     <AppMap
-      x={CROATIA.coordinates.latitude()}
-      y={CROATIA.coordinates.longitude()}
-      z={CROATIA.zoom}
       onZoomChanged={(zoom) => {
         showCheckpoints(zoom >= 15);
       }}
