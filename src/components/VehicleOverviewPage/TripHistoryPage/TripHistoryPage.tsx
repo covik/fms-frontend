@@ -113,7 +113,7 @@ export function TripHistoryPage() {
   const spacing = 1;
   return (
     <Grid container direction="row" flex={1} spacing={spacing}>
-      <Grid item xs={12} md={5} lg={4} position={'relative'}>
+      <Grid item xs={12} md={6} lg={4} position={'relative'}>
         <Box
           sx={(theme) => ({
             position: {
@@ -155,7 +155,7 @@ export function TripHistoryPage() {
         </Box>
       </Grid>
 
-      <Grid item xs={12} md={7} lg={8}>
+      <Grid item xs={12} md={6} lg={8}>
         <TripMap
           trips={trips}
           stops={stops}
