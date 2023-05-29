@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useRef } from 'react';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import { Card, Skeleton, styled } from '@mui/material';
+import type { SxProps } from '@mui/material';
 import type { CSSProperties, ReactNode } from 'react';
 
 export interface MapArguments {
@@ -97,5 +99,62 @@ export function Map({
     </GoogleMap>
   );
 
-  return isLoaded ? map() : <div>Učitvanje mape...</div>;
+  return isLoaded ? map() : <MapSkeleton />;
+}
+
+const defaultPadding = 1;
+
+type AppMapAttributes = Omit<MapArguments, 'width' | 'height'> & {
+  sx: SxProps;
+};
+
+const MapContainer = styled('div')({
+  width: '100%',
+  height: '100%',
+  position: 'relative',
+  overflow: 'hidden',
+});
+
+export function AppMap(props: AppMapAttributes) {
+  const { sx, ...mapProps } = props;
+
+  return (
+    <Card sx={{ padding: defaultPadding, ...sx }}>
+      <MapContainer>
+        <Map {...mapProps} width={'100%'} height={'100%'} />
+      </MapContainer>
+    </Card>
+  );
+}
+
+function MapSkeleton() {
+  const mapControlsPadding = 10;
+  const paddingPx = `${mapControlsPadding}px`;
+
+  return (
+    <>
+      <Skeleton variant={'rectangular'} width={'100%'} height={'100%'} />
+      <Skeleton
+        variant={'rectangular'}
+        width={150}
+        height={40}
+        sx={{ position: 'absolute', top: paddingPx, left: paddingPx }}
+        animation={false}
+      />
+      <Skeleton
+        variant={'rectangular'}
+        width={40}
+        height={40}
+        sx={{ position: 'absolute', top: paddingPx, right: paddingPx }}
+        animation={false}
+      />
+      <Skeleton
+        variant={'rectangular'}
+        width={40}
+        height={80}
+        sx={{ position: 'absolute', bottom: paddingPx, right: paddingPx }}
+        animation={'wave'}
+      />
+    </>
+  );
 }

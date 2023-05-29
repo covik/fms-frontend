@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { Map } from '../../../Map';
+import { AppMap } from '../../../Map';
 import { Coordinates } from '../../../../lib/Dimension';
 import { StopMarker, VehicleRoute } from '../../../VehicleRoute';
 import { RouteStop } from '../../../../models/RouteStop';
@@ -32,16 +32,15 @@ export function TripMap({
   const [checkpointsVisibility, showCheckpoints] = useState(false);
 
   return (
-    <Map
+    <AppMap
       x={CROATIA.coordinates.latitude()}
       y={CROATIA.coordinates.longitude()}
       z={CROATIA.zoom}
-      width={'100%'}
-      height={'100%'}
       onZoomChanged={(zoom) => {
         showCheckpoints(zoom >= 15);
       }}
       fitBounds={bounds}
+      sx={{ height: '100%' }}
     >
       {trips
         .filter((trip) => !hiddenTripsAndStops.includes(trip.startTime))
@@ -58,7 +57,7 @@ export function TripMap({
         .map((stop) => (
           <Stop stop={stop} key={stop.id()} />
         ))}
-    </Map>
+    </AppMap>
   );
 }
 

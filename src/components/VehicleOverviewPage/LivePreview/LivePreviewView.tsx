@@ -1,5 +1,5 @@
-import { Box, Card as MuiCard, styled } from '@mui/material';
-import { Map } from '../../Map';
+import { Card, Stack } from '@mui/material';
+import { AppMap } from '../../Map';
 import {
   ConnectionDetails,
   SpatialDetails,
@@ -17,12 +17,6 @@ import { convert } from '../../../lib/MeasurementUnit/Speed';
 export interface LivePreviewViewAttributes {
   vehicle: LocatedVehicle;
 }
-
-const Card = styled(MuiCard)(({ theme }) => ({
-  '&:not(:first-of-type)': {
-    marginTop: theme.spacing(1.5),
-  },
-}));
 
 export function LivePreviewView({ vehicle }: LivePreviewViewAttributes) {
   const { distanceToNowStrictWithSuffix } = useDateTime();
@@ -43,30 +37,25 @@ export function LivePreviewView({ vehicle }: LivePreviewViewAttributes) {
   const formattedAltitude = `${vehicle.position().altitude()}m`;
 
   return (
-    <Box>
-      <Card sx={{ height: '40vh', minHeight: '200px' }}>
-        <Map
-          x={coordinates.latitude()}
-          y={coordinates.longitude()}
-          z={8}
-          width="100%"
-          height="100%"
-          gestureHandling={false}
-        >
-          <VehicleMapMarker position={pos} name={vehicle.name()}>
-            {vehicle.isInMotion() ? (
-              <VehicleMapIconMoving
-                active={vehicle.hasIgnitionTurnedOn()}
-                angle={vehicle.course().value()}
-              />
-            ) : (
-              <VehicleMapIconStationary
-                active={vehicle.hasIgnitionTurnedOn()}
-              />
-            )}
-          </VehicleMapMarker>
-        </Map>
-      </Card>
+    <Stack spacing={1}>
+      <AppMap
+        x={coordinates.latitude()}
+        y={coordinates.longitude()}
+        z={8}
+        gestureHandling={false}
+        sx={{ height: '40vh', minHeight: '200px' }}
+      >
+        <VehicleMapMarker position={pos} name={vehicle.name()}>
+          {vehicle.isInMotion() ? (
+            <VehicleMapIconMoving
+              active={vehicle.hasIgnitionTurnedOn()}
+              angle={vehicle.course().value()}
+            />
+          ) : (
+            <VehicleMapIconStationary active={vehicle.hasIgnitionTurnedOn()} />
+          )}
+        </VehicleMapMarker>
+      </AppMap>
 
       <Card>
         <StateDetails
@@ -88,6 +77,6 @@ export function LivePreviewView({ vehicle }: LivePreviewViewAttributes) {
           altitude={formattedAltitude}
         />
       </Card>
-    </Box>
+    </Stack>
   );
 }

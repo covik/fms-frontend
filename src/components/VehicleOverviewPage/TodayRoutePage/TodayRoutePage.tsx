@@ -21,7 +21,7 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
-import { Map } from '../../Map';
+import { AppMap } from '../../Map';
 import {
   BedClock,
   CarClock,
@@ -156,32 +156,26 @@ export function TodayRoutePage() {
         </Box>
       </Grid>
       <Grid item xs={12} md={8} lg={9} xl={10}>
-        <Card
+        <AppMap
+          x={CROATIA.coordinates.latitude()}
+          y={CROATIA.coordinates.longitude()}
+          z={CROATIA.zoom}
+          onZoomChanged={(zoom) => {
+            showCheckpoints(zoom >= 15);
+          }}
+          fitBounds={bounds}
           sx={{
             height: '100%',
-            padding: 1,
             minHeight: { xs: '40vmax', lg: 'auto' },
           }}
         >
-          <Map
-            x={CROATIA.coordinates.latitude()}
-            y={CROATIA.coordinates.longitude()}
-            z={CROATIA.zoom}
-            width={'100%'}
-            height={'100%'}
-            onZoomChanged={(zoom) => {
-              showCheckpoints(zoom >= 15);
-            }}
-            fitBounds={bounds}
-          >
-            <VehicleRoute
-              positions={routes}
-              color={routeColor}
-              showCheckpoints={checkpointsVisible}
-            />
-            <VehicleRouteStops stops={stops} />
-          </Map>
-        </Card>
+          <VehicleRoute
+            positions={routes}
+            color={routeColor}
+            showCheckpoints={checkpointsVisible}
+          />
+          <VehicleRouteStops stops={stops} />
+        </AppMap>
       </Grid>
     </Grid>
   );

@@ -1,8 +1,8 @@
-import { Box, CircularProgress, Paper, Skeleton } from '@mui/material';
+import { Box, CircularProgress, Paper } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { Vehicle } from '../../lib/VehicleService';
 import { Coordinates } from '../../lib/Dimension';
-import { Map } from '../Map';
+import { AppMap } from '../Map';
 import { VehicleMapMarker } from '../VehicleMapMarker';
 import {
   VehicleMapIconMoving,
@@ -23,24 +23,18 @@ export function LiveTracking() {
     refetchInterval: 2000,
   });
 
-  if (query.data === undefined)
-    return (
-      <PageContainer>
-        <MapSkeleton />
-      </PageContainer>
-    );
+  const operationalVehicles = query.data ?? [];
 
   return (
     <PageContainer>
-      {query.isFetching ? <FetchIndicator /> : null}
-      <Map
+      <AppMap
         x={CROATIA.coordinates.latitude()}
         y={CROATIA.coordinates.longitude()}
         z={CROATIA.zoom}
-        height={'auto'}
-        width={'100%'}
+        sx={{ height: 'auto', width: '100%' }}
       >
-        {query.data.map((vehicle) => (
+        {query.isFetching ? <FetchIndicator /> : null}
+        {operationalVehicles.map((vehicle) => (
           <VehicleMapMarker
             key={vehicle.id()}
             position={{
@@ -61,7 +55,7 @@ export function LiveTracking() {
             )}
           </VehicleMapMarker>
         ))}
-      </Map>
+      </AppMap>
     </PageContainer>
   );
 }
@@ -72,7 +66,7 @@ function PageContainer({ children }: { children: ReactNode | ReactNode[] }) {
       sx={{
         flex: 1,
         display: 'flex',
-        position: 'relative',
+        padding: 1,
       }}
     >
       {children}
@@ -99,41 +93,5 @@ function FetchIndicator() {
         size={20}
       />
     </Paper>
-  );
-}
-
-function MapSkeleton() {
-  return (
-    <>
-      <Skeleton variant={'rectangular'} width={'100%'} height={'100%'} />
-      <Skeleton
-        variant={'rectangular'}
-        width={150}
-        height={40}
-        sx={{ position: 'absolute', top: '10px', left: '10px' }}
-        animation={false}
-      />
-      <Skeleton
-        variant={'rectangular'}
-        width={40}
-        height={40}
-        sx={{ position: 'absolute', top: '10px', right: '10px' }}
-        animation={false}
-      />
-      <Skeleton
-        variant={'rectangular'}
-        width={40}
-        height={80}
-        sx={{ position: 'absolute', bottom: '10px', right: '10px' }}
-        animation={'wave'}
-      />
-      <Skeleton
-        variant={'rectangular'}
-        width={40}
-        height={40}
-        sx={{ position: 'absolute', bottom: '110px', right: '10px' }}
-        animation={'wave'}
-      />
-    </>
   );
 }
