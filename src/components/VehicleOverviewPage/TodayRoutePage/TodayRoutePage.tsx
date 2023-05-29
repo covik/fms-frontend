@@ -1,14 +1,7 @@
 import { useMemo, useState } from 'react';
 import {
   Box,
-  Collapse,
-  Divider,
   Grid,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemIcon,
-  ListItemText,
   Skeleton,
   Stack,
   Table,
@@ -18,17 +11,6 @@ import {
   TableRow,
 } from '@mui/material';
 import { AppMap } from '../../Map';
-import {
-  BedClock,
-  CarClock,
-  ChevronDown,
-  ChevronUp,
-  ClockOutline,
-  Counter,
-  MapMarkerDistance,
-  Speedometer,
-  SpeedometerMedium,
-} from 'mdi-material-ui';
 import { useQuery } from '@tanstack/react-query';
 import { endOfDay, startOfDay } from 'date-fns';
 import { useParams } from '@tanstack/router';
@@ -36,11 +18,12 @@ import { Vehicle } from '../../../lib/VehicleService';
 import { VehicleRoute, VehicleRouteStops } from '../../VehicleRoute';
 import { RouteStop } from '../../../models/RouteStop';
 import { useDateTime } from '../../../foundation';
-import { Length, Speed } from '../../../lib/MeasurementUnit';
 import { RouteSummary } from '../../../models/RouteSummary';
 import { RoutePosition } from '../../../models/Position';
 import { Coordinates } from '../../../lib/Dimension';
 import { NoContent, Tile, TileContent } from '../../Tile';
+import { RouteSummary as Summary } from '../RouteSummary';
+import type { SummaryData } from '../RouteSummary';
 
 const CROATIA = {
   coordinates: new Coordinates(44.698832, 16.373162),
@@ -101,7 +84,7 @@ export function TodayRoutePage() {
   const routes = routeQuery.data ?? [];
   const stops = stopsQuery.data ?? [];
 
-  const summaryData: FullSummary | NoSummary | undefined = useMemo(() => {
+  const summaryData: SummaryData | NoSummary | undefined = useMemo(() => {
     if (summaryQuery.data instanceof NoSummary) return summaryQuery.data;
 
     if (summaryQuery.data === undefined || stopsQuery.data === undefined)
@@ -174,174 +157,6 @@ export function TodayRoutePage() {
         </AppMap>
       </Grid>
     </Grid>
-  );
-}
-
-interface SummaryAttributes {
-  details: FullSummary | undefined;
-}
-
-function Summary({ details }: SummaryAttributes) {
-  const { formatDuration } = useDateTime();
-  const [timeDetailsOpen, setTimeDetailsOpen] = useState(false);
-  const [odometerDetailsOpen, setOdometerDetailsOpen] = useState(false);
-  const [speedDetailsOpen, setSpeedDetailsOpen] = useState(false);
-
-  function toggleTimeDetails() {
-    setTimeDetailsOpen(!timeDetailsOpen);
-  }
-
-  function toggleOdometerDetails() {
-    setOdometerDetailsOpen(!odometerDetailsOpen);
-  }
-
-  function toggleSpeedDetails() {
-    setSpeedDetailsOpen(!speedDetailsOpen);
-  }
-
-  const skeleton = (
-    <>
-      <Skeleton variant={'text'} width={'50px'} />
-    </>
-  );
-
-  return (
-    <>
-      <List disablePadding dense>
-        <ListItemButton onClick={toggleTimeDetails}>
-          <ListItemIcon>
-            <ClockOutline />
-          </ListItemIcon>
-          <ListItemText
-            primary="Trajanje"
-            secondary={
-              details === undefined
-                ? skeleton
-                : formatDuration(details.totalDuration)
-            }
-          />
-          {timeDetailsOpen ? <ChevronUp /> : <ChevronDown />}
-        </ListItemButton>
-
-        <Collapse in={timeDetailsOpen} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding dense>
-            <ListItem>
-              <ListItemIcon>
-                <CarClock />
-              </ListItemIcon>
-              <ListItemText
-                primary="Vožnja"
-                secondary={
-                  details === undefined
-                    ? skeleton
-                    : formatDuration(details.drivingDuration)
-                }
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <BedClock />
-              </ListItemIcon>
-              <ListItemText
-                primary="Stajanje"
-                secondary={
-                  details === undefined
-                    ? skeleton
-                    : formatDuration(details.stopDuration)
-                }
-              />
-            </ListItem>
-          </List>
-        </Collapse>
-      </List>
-
-      <Divider />
-
-      <List disablePadding dense>
-        <ListItemButton onClick={toggleOdometerDetails}>
-          <ListItemIcon>
-            <MapMarkerDistance />
-          </ListItemIcon>
-          <ListItemText
-            primary="Prijeđena udaljenost"
-            secondary={
-              details === undefined
-                ? skeleton
-                : formatDistance(details.distance.value())
-            }
-          />
-          {odometerDetailsOpen ? <ChevronUp /> : <ChevronDown />}
-        </ListItemButton>
-
-        <Collapse in={odometerDetailsOpen} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding dense>
-            <ListItem>
-              <ListItemIcon>
-                <Counter />
-              </ListItemIcon>
-              <ListItemText
-                primary="Početni brojčanik"
-                secondary={
-                  details === undefined
-                    ? skeleton
-                    : formatDistance(details.startOdometer.value())
-                }
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <Counter />
-              </ListItemIcon>
-              <ListItemText
-                primary="Završni brojčanik"
-                secondary={
-                  details === undefined
-                    ? skeleton
-                    : formatDistance(details.endOdometer.value())
-                }
-              />
-            </ListItem>
-          </List>
-        </Collapse>
-      </List>
-
-      <Divider />
-
-      <List disablePadding dense>
-        <ListItemButton onClick={toggleSpeedDetails}>
-          <ListItemIcon>
-            <Speedometer />
-          </ListItemIcon>
-          <ListItemText
-            primary="Najveća brzina"
-            secondary={
-              details === undefined
-                ? skeleton
-                : formatSpeed(Speed.convert(details.maxSpeed).toKph())
-            }
-          />
-          {timeDetailsOpen ? <ChevronUp /> : <ChevronDown />}
-        </ListItemButton>
-
-        <Collapse in={speedDetailsOpen} timeout="auto" unmountOnExit>
-          <List component="div" disablePadding dense>
-            <ListItem>
-              <ListItemIcon>
-                <SpeedometerMedium />
-              </ListItemIcon>
-              <ListItemText
-                primary="Prosječna brzina"
-                secondary={
-                  details === undefined
-                    ? skeleton
-                    : formatSpeed(Speed.convert(details.averageSpeed).toKph())
-                }
-              />
-            </ListItem>
-          </List>
-        </Collapse>
-      </List>
-    </>
   );
 }
 
@@ -430,21 +245,10 @@ function StopsTable({ stops }: { stops: RouteStop[] | undefined }) {
   );
 }
 
-interface FullSummary {
-  totalDuration: number;
-  drivingDuration: number;
-  stopDuration: number;
-  distance: Length.BaseLength;
-  startOdometer: Length.BaseLength;
-  endOdometer: Length.BaseLength;
-  averageSpeed: Speed.BaseSpeed;
-  maxSpeed: Speed.BaseSpeed;
-}
-
 function calculateFullSummary(
   summary: RouteSummary,
   stops: RouteStop[],
-): FullSummary {
+): SummaryData {
   const totalDuration = summary.durationInSeconds();
   const { drivingDuration, stopDuration } =
     summary.drivingAndStopDuration(stops);
@@ -464,17 +268,6 @@ function calculateFullSummary(
     averageSpeed,
     maxSpeed,
   };
-}
-
-function formatDistance(distanceInMeters: number) {
-  if (distanceInMeters < 1000) return `${distanceInMeters}m`;
-
-  const inKilometers = distanceInMeters / 1000;
-  return `${inKilometers.toFixed(1)} km`;
-}
-
-function formatSpeed(speed: Speed.KPH) {
-  return `${Math.round(speed.value())} ${speed.symbol()}`;
 }
 
 class NoSummary {}
