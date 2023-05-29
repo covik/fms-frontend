@@ -5,6 +5,7 @@ import { StopMarker, VehicleRoute } from '../../../VehicleRoute';
 import { RouteStop } from '../../../../models/RouteStop';
 import { formatDuration } from '../../../../utils/date';
 import type { TraccarTripWithPositionsInterface } from '../../../../lib/Traccar';
+import type { SxProps } from '@mui/material';
 
 const CROATIA = {
   coordinates: new Coordinates(44.698832, 16.373162),
@@ -17,12 +18,14 @@ export interface TripMapAttributes {
   trips: TraccarTripWithPositionsInterface[];
   stops: RouteStop[];
   hiddenTripsAndStops: string[];
+  sx: SxProps;
 }
 
 export function TripMap({
   trips,
   stops,
   hiddenTripsAndStops,
+  sx,
 }: TripMapAttributes) {
   const bounds = useMemo(
     () => calculateMapBounds(trips, stops),
@@ -40,7 +43,7 @@ export function TripMap({
         showCheckpoints(zoom >= 15);
       }}
       fitBounds={bounds}
-      sx={{ height: '100%' }}
+      sx={sx}
     >
       {trips
         .filter((trip) => !hiddenTripsAndStops.includes(trip.startTime))

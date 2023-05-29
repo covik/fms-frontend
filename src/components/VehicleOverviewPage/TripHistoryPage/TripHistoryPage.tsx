@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate, useParams } from '@tanstack/router';
-import { Box, CircularProgress, Grid, Paper, Typography } from '@mui/material';
+import { Box, Card, CircularProgress, Grid, Stack } from '@mui/material';
 import { Http } from '../../../lib/HttpClient';
 import { z } from 'zod';
 import {
@@ -10,12 +10,13 @@ import {
   TraccarTripWithPositionsInterface,
 } from '../../../lib/Traccar';
 import { TripMap } from './TripMap';
-import { DatePicker } from '@mui/x-date-pickers';
+import { DateCalendar } from '@mui/x-date-pickers';
 import { TripsTable } from './TripResults';
 import { useEffect, useState } from 'react';
 import { Vehicle } from '../../../lib/VehicleService';
 import { RoutePosition } from '../../../models/Position';
 import { endOfDay, startOfDay } from 'date-fns';
+import { NoContent, Tile, TileContent } from '../../Tile';
 
 const tripsRoute = '/vehicles/$vehicleId/trips/$date';
 
@@ -83,9 +84,6 @@ export function TripHistoryPage() {
   const stops = stopsQuery.data ?? [];
   const noData = trips.length === 0 && stops.length === 0;
 
-  const rowSpacing = 1;
-  const columnSpacing = 1;
-
   useEffect(() => {
     showAllTripsAndStops();
   }, [trips, stops]);
@@ -111,55 +109,63 @@ export function TripHistoryPage() {
     setHiddenTripsAndStops([]);
   }
 
+  const spacing = 1;
   return (
-    <>
-      <Grid
-        container
-        direction="row"
-        flex={1}
-        rowSpacing={rowSpacing}
-        columnSpacing={columnSpacing}
-      >
-        <Grid item xs={12} md={5} lg={4} position={'relative'}>
-          <Paper
-            sx={(theme) => ({
-              position: 'absolute',
-              top: theme.spacing(rowSpacing),
-              bottom: 0,
-              left: theme.spacing(columnSpacing),
-              right: 0,
-              overflow: 'auto',
-              padding: 1,
-            })}
-          >
-            <TripPicker targetDate={date} onChange={replaceDateURL} />
+    <Grid container direction="row" flex={1} spacing={spacing}>
+      <Grid item xs={12} md={5} lg={4} position={'relative'}>
+        <Box
+          sx={(theme) => ({
+            position: {
+              md: 'absolute',
+              xs: 'static',
+            },
+            top: theme.spacing(spacing),
+            bottom: 0,
+            left: theme.spacing(spacing),
+            right: 0,
+            overflow: 'auto',
+            paddingBottom: '2px', // otherwise card box shadow is invisible
+          })}
+        >
+          <Stack spacing={2}>
+            <Card sx={{ maxWidth: 'fit-content' }}>
+              <TripPicker targetDate={date} onChange={replaceDateURL} />
+            </Card>
 
-            {isLoading ? (
-              <LoadingSpinner />
-            ) : noData ? (
-              <NoData />
-            ) : (
-              <TripsTable
-                trips={trips}
-                stops={stops}
-                hiddenTripsAndStops={hiddenTripsAndStops}
-                onVisibilityToggle={toggleTripVisibility}
-                onHideAll={hideAllTripsAndStops}
-                onShowAll={showAllTripsAndStops}
-              />
-            )}
-          </Paper>
-        </Grid>
-
-        <Grid item xs={12} md={7} lg={8}>
-          <TripMap
-            trips={trips}
-            stops={stops}
-            hiddenTripsAndStops={hiddenTripsAndStops}
-          />
-        </Grid>
+            <Tile label={'Putovanja'}>
+              <TileContent>
+                {isLoading ? (
+                  <LoadingSpinner />
+                ) : noData ? (
+                  <NoContent>Nema podataka</NoContent>
+                ) : (
+                  <TripsTable
+                    trips={trips}
+                    stops={stops}
+                    hiddenTripsAndStops={hiddenTripsAndStops}
+                    onVisibilityToggle={toggleTripVisibility}
+                    onHideAll={hideAllTripsAndStops}
+                    onShowAll={showAllTripsAndStops}
+                  />
+                )}
+              </TileContent>
+            </Tile>
+          </Stack>
+        </Box>
       </Grid>
-    </>
+
+      <Grid item xs={12} md={7} lg={8}>
+        <TripMap
+          trips={trips}
+          stops={stops}
+          hiddenTripsAndStops={hiddenTripsAndStops}
+          sx={{
+            height: '100%',
+            minHeight: { xs: '40vmax', lg: 'auto' },
+          }}
+        />
+      </Grid>
+    </Grid>
   );
 }
 
@@ -171,7 +177,7 @@ function TripPicker({
   onChange: (date: Date) => void;
 }) {
   return (
-    <DatePicker
+    <DateCalendar
       value={targetDate}
       onChange={(v) => v && onChange(v)}
       disableFuture={true}
@@ -184,20 +190,6 @@ function LoadingSpinner() {
     <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 2 }}>
       <CircularProgress />
     </Box>
-  );
-}
-
-function NoData() {
-  return (
-    <Typography
-      component={'h1'}
-      variant={'subtitle2'}
-      textAlign={'center'}
-      width={'100%'}
-      marginTop={1}
-    >
-      Nema podataka
-    </Typography>
   );
 }
 
