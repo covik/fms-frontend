@@ -16,6 +16,7 @@ export interface MapArguments {
   gestureHandling?: boolean;
   onZoomChanged?: (zoom: number) => void;
   fitBounds?: google.maps.LatLngLiteral[];
+  clickablePoi?: boolean;
   children?: ReactNode | ReactNode[] | undefined;
 }
 
@@ -35,6 +36,7 @@ export function Map({
   gestureHandling = true,
   onZoomChanged,
   fitBounds,
+  clickablePoi = true,
   children,
 }: MapArguments) {
   const { isLoaded } = useJsApiLoader(mapOptions);
@@ -67,8 +69,9 @@ export function Map({
       styles,
       streetViewControl: false,
       gestureHandling: gestureHandling ? 'auto' : 'none',
+      clickableIcons: clickablePoi,
     }),
-    [noControls, styles],
+    [noControls, styles, clickablePoi],
   );
 
   useEffect(() => {

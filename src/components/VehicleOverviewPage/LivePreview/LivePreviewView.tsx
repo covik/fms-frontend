@@ -37,6 +37,7 @@ export function LivePreviewView({ vehicle }: LivePreviewViewAttributes) {
       <MapSettingsProvider center={coordinates} zoom={8}>
         <AppMap
           gestureHandling={false}
+          clickablePoi={false}
           sx={{ height: '40vh', minHeight: '200px' }}
         >
           <VehicleMapMarker position={coordinates} name={vehicle.name()}>
