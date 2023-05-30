@@ -1,6 +1,7 @@
 import { useUser } from '../../foundation';
 import { AccountView } from './AccountView';
 import { Administrator } from '../../models/User';
+import { Logout } from './Logout';
 
 export function AccountPage() {
   const user = useUser();
@@ -11,7 +12,7 @@ export function AccountPage() {
       email={user.email()}
       isAdmin={user instanceof Administrator}
     >
-      {''}
+      <Logout />
     </AccountView>
   );
 }
