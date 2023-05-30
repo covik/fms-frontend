@@ -11,15 +11,12 @@ import { useAuth } from './context/Auth';
 import type { ReactNode } from 'react';
 
 export function App({ children }: { children: ReactNode }) {
-  const { user, hasToSubmitCredentials, hasFailed, finishLogin, retry } =
-    useAuth();
+  const { user, isFetching, hasFailed, finishLogin, retry } = useAuth();
 
-  if (hasToSubmitCredentials)
-    return <LoginPage onSuccessfulAttempt={finishLogin} />;
-
+  if (isFetching) return <FullPageSpinner />;
   if (hasFailed) return <SessionFailureView onRetryRequest={retry} />;
-
-  if (user === undefined) return <FullPageSpinner />;
+  if (user === undefined)
+    return <LoginPage onSuccessfulAttempt={finishLogin} />;
 
   return <>{children}</>;
 }

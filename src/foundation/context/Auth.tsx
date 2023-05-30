@@ -10,8 +10,8 @@ import type { ReactNode } from 'react';
 
 export interface AuthAPI {
   user: BaseUser | undefined;
+  isFetching: boolean;
   hasFailed: boolean;
-  hasToSubmitCredentials: boolean;
   retry: () => void;
   finishLogin: () => void;
   finishLogout: () => void;
@@ -28,23 +28,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     ...fetchIfOffline(),
   });
 
-  const isError = !!query.error;
-  const hasToSubmitCredentials =
-    query.error instanceof Session.UserNotAuthenticatedException;
-  const hasFailed = isError && !hasToSubmitCredentials;
-  const user = query.data;
+  const user = query.status === 'success' ? query.data : undefined;
+  const isFetching = query.isFetching;
+  const hasFailed =
+    !!query.error &&
+    !(query.error instanceof Session.UserNotAuthenticatedException);
   const retry = useCallback(() => void query.refetch(), [query]);
 
   const api = useMemo(
     () => ({
       user,
+      isFetching,
       hasFailed,
-      hasToSubmitCredentials,
       retry,
       finishLogin: retry,
       finishLogout: retry,
     }),
-    [user, hasFailed, hasToSubmitCredentials, retry],
+    [user, hasFailed, isFetching, retry],
   );
 
   return <AuthContext.Provider value={api}>{children}</AuthContext.Provider>;
