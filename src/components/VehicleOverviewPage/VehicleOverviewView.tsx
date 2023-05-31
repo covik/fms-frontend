@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Typography } from '@mui/material';
+import { Alert, Box, CircularProgress, Typography } from '@mui/material';
 import { PageTitle } from '../PageTitle';
 import type { ReactNode } from 'react';
 
@@ -37,5 +37,13 @@ export function VehicleLoadingIndicator() {
         Učitavanje vozila
       </Typography>
     </Box>
+  );
+}
+
+export function WarningVehicleAwaitingInstallation() {
+  return (
+    <Alert severity={'info'}>
+      Informacije nedostupne. Vozilo još nema ugrađen GPS uređaj.
+    </Alert>
   );
 }

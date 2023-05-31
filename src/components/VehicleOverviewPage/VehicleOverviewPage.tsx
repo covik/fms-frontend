@@ -4,6 +4,7 @@ import { Vehicle } from '../../lib/VehicleService';
 import {
   VehicleOverviewView,
   VehicleLoadingIndicator,
+  WarningVehicleAwaitingInstallation,
 } from './VehicleOverviewView';
 import { LocatedVehicle } from '../../models/Vehicle';
 import { VehicleOverviewNavigation } from './VehicleOverviewNavigation';
@@ -37,7 +38,7 @@ export function VehicleOverviewPage() {
           <Outlet />
         </>
       ) : (
-        <div>Vozilo nema poziciju</div>
+        <WarningVehicleAwaitingInstallation />
       )}
     </VehicleOverviewView>
   );

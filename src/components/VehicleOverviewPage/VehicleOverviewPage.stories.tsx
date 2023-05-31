@@ -1,4 +1,7 @@
-import { VehicleOverviewView } from './VehicleOverviewView';
+import {
+  VehicleOverviewView,
+  WarningVehicleAwaitingInstallation,
+} from './VehicleOverviewView';
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {
@@ -24,5 +27,12 @@ export const LiveUpdates: Story = {
 export const Routes: Story = {
   args: {
     title,
+  },
+};
+
+export const WarningAwaitingInstallation: Story = {
+  args: {
+    title,
+    children: <WarningVehicleAwaitingInstallation />,
   },
 };
