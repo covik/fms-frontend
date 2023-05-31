@@ -2,6 +2,7 @@ import {
   VehicleOverviewView,
   WarningOutdatedPositionData,
   WarningVehicleAwaitingInstallation,
+  WarningVehicleDisabled,
 } from './VehicleOverviewView';
 import type { Meta, StoryObj } from '@storybook/react';
 
@@ -42,5 +43,12 @@ export const WarningOutdatedInformation: Story = {
   args: {
     title,
     children: <WarningOutdatedPositionData />,
+  },
+};
+
+export const WarningDisabledVehicle: Story = {
+  args: {
+    title,
+    children: <WarningVehicleDisabled />,
   },
 };

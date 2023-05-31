@@ -7,8 +7,13 @@ import {
   VehicleLoadingIndicator,
   WarningVehicleAwaitingInstallation,
   WarningOutdatedPositionData,
+  WarningVehicleDisabled,
 } from './VehicleOverviewView';
-import { LocatedVehicle, TimedOutVehicle } from '../../models/Vehicle';
+import {
+  DisabledVehicle,
+  LocatedVehicle,
+  TimedOutVehicle,
+} from '../../models/Vehicle';
 import { VehicleOverviewNavigation } from './VehicleOverviewNavigation';
 
 export function VehicleOverviewPage() {
@@ -48,11 +53,21 @@ export function VehicleOverviewPage() {
 }
 
 function renderWarning(vehicle: LocatedVehicle) {
+  const sx = { marginBottom: 1 };
+
   if (vehicle instanceof TimedOutVehicle)
     return (
-      <Box sx={{ marginBottom: 1 }}>
+      <Box sx={sx}>
         <WarningOutdatedPositionData />
       </Box>
     );
+
+  if (vehicle instanceof DisabledVehicle)
+    return (
+      <Box sx={sx}>
+        <WarningVehicleDisabled />
+      </Box>
+    );
+
   return null;
 }
