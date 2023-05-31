@@ -13,6 +13,13 @@ export default defineConfig({
       },
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks,
+      },
+    },
+  },
 });
 
 function pwa() {
@@ -41,4 +48,8 @@ function pwa() {
       ],
     },
   });
+}
+
+function manualChunks(id: string) {
+  if (id.includes('@mui')) return 'mui';
 }
