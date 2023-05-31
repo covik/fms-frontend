@@ -4,6 +4,7 @@ import { VehicleRoute, VehicleRouteStops } from '../../../VehicleRoute';
 import { RouteStop } from '../../../../models/RouteStop';
 import type { TraccarTripWithPositionsInterface } from '../../../../lib/Traccar';
 import type { SxProps } from '@mui/material';
+import type { Coordinates } from '../../../../lib/Dimension';
 
 const color = '#BA68C8';
 
@@ -58,22 +59,15 @@ export function TripMap({
 function calculateMapBounds(
   trips: TraccarTripWithPositionsInterface[],
   stops: RouteStop[],
-): google.maps.LatLngLiteral[] {
-  const tripsBounds = trips.reduce(
-    (acc: google.maps.LatLngLiteral[], currentTrip) => {
-      const tripBoundary = currentTrip.positions.map((position) => ({
-        lat: position.latitude(),
-        lng: position.longitude(),
-      }));
-      return [...acc, ...tripBoundary];
-    },
-    [],
-  );
+): Coordinates[] {
+  const tripsBounds = trips.reduce((acc: Coordinates[], currentTrip) => {
+    const tripBoundary = currentTrip.positions.map((position) =>
+      position.coordinates(),
+    );
+    return acc.concat(tripBoundary);
+  }, []);
 
-  const stopsBounds = stops.map((stop) => ({
-    lat: stop.coordinates().latitude(),
-    lng: stop.coordinates().longitude(),
-  }));
+  const stopsBounds = stops.map((stop) => stop.coordinates());
 
   return [...tripsBounds, ...stopsBounds];
 }

@@ -23,6 +23,7 @@ import { RoutePosition } from '../../../models/Position';
 import { NoContent, Tile, TileContent } from '../../Tile';
 import { RouteSummary as Summary } from '../RouteSummary';
 import type { SummaryData } from '../RouteSummary';
+import type { Coordinates } from '../../../lib/Dimension';
 
 const routeColor = '#BA68C8';
 const today = new Date();
@@ -266,16 +267,11 @@ class NoSummary {}
 function calculateMapBounds(
   positions: RoutePosition[],
   stops: RouteStop[],
-): google.maps.LatLngLiteral[] {
-  const positionsLatLngLiterals = positions.map((position) => ({
-    lat: position.latitude(),
-    lng: position.longitude(),
-  }));
+): Coordinates[] {
+  const positionCoordinates = positions.map((position) =>
+    position.coordinates(),
+  );
+  const stopCoordinates = stops.map((stop) => stop.coordinates());
 
-  const stopLatLngLiterals = stops.map((stop) => ({
-    lat: stop.coordinates().latitude(),
-    lng: stop.coordinates().longitude(),
-  }));
-
-  return [...positionsLatLngLiterals, ...stopLatLngLiterals];
+  return positionCoordinates.concat(stopCoordinates);
 }
