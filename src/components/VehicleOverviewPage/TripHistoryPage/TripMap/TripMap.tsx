@@ -1,8 +1,7 @@
 import { useMemo, useState } from 'react';
 import { AppMap } from '../../../Map';
-import { StopMarker, VehicleRoute } from '../../../VehicleRoute';
+import { VehicleRoute, VehicleRouteStops } from '../../../VehicleRoute';
 import { RouteStop } from '../../../../models/RouteStop';
-import { formatDuration } from '../../../../utils/date';
 import type { TraccarTripWithPositionsInterface } from '../../../../lib/Traccar';
 import type { SxProps } from '@mui/material';
 
@@ -26,6 +25,11 @@ export function TripMap({
     [trips, stops],
   );
 
+  const visibleStops = useMemo(
+    () => stops.filter((stop) => !hiddenTripsAndStops.includes(stop.id())),
+    [stops, hiddenTripsAndStops],
+  );
+
   const [checkpointsVisibility, showCheckpoints] = useState(false);
 
   return (
@@ -46,18 +50,9 @@ export function TripMap({
             showCheckpoints={checkpointsVisibility}
           />
         ))}
-      {stops
-        .filter((stop) => !hiddenTripsAndStops.includes(stop.id()))
-        .map((stop) => (
-          <Stop stop={stop} key={stop.id()} />
-        ))}
+      <VehicleRouteStops stops={visibleStops} />
     </AppMap>
   );
-}
-
-function Stop({ stop }: { stop: RouteStop }) {
-  const duration = formatDuration(stop.duration());
-  return <StopMarker coordinates={stop.coordinates()} duration={duration} />;
 }
 
 function calculateMapBounds(
