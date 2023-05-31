@@ -52,5 +52,4 @@ function pwa() {
 
 function manualChunks(id: string) {
   if (id.includes('@mui')) return 'mui';
-  if (id.includes('mdi-material-ui')) return 'icons';
 }
