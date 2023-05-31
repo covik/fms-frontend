@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import { Outlet, useParams } from '@tanstack/router';
 import { useQuery } from '@tanstack/react-query';
 import { Vehicle } from '../../lib/VehicleService';
@@ -5,8 +6,9 @@ import {
   VehicleOverviewView,
   VehicleLoadingIndicator,
   WarningVehicleAwaitingInstallation,
+  WarningOutdatedPositionData,
 } from './VehicleOverviewView';
-import { LocatedVehicle } from '../../models/Vehicle';
+import { LocatedVehicle, TimedOutVehicle } from '../../models/Vehicle';
 import { VehicleOverviewNavigation } from './VehicleOverviewNavigation';
 
 export function VehicleOverviewPage() {
@@ -35,6 +37,7 @@ export function VehicleOverviewPage() {
       {vehicle instanceof LocatedVehicle ? (
         <>
           <VehicleOverviewNavigation vehicleId={vehicleId} />
+          {renderWarning(vehicle)}
           <Outlet />
         </>
       ) : (
@@ -42,4 +45,14 @@ export function VehicleOverviewPage() {
       )}
     </VehicleOverviewView>
   );
+}
+
+function renderWarning(vehicle: LocatedVehicle) {
+  if (vehicle instanceof TimedOutVehicle)
+    return (
+      <Box sx={{ marginBottom: 1 }}>
+        <WarningOutdatedPositionData />
+      </Box>
+    );
+  return null;
 }

@@ -1,5 +1,6 @@
 import {
   VehicleOverviewView,
+  WarningOutdatedPositionData,
   WarningVehicleAwaitingInstallation,
 } from './VehicleOverviewView';
 import type { Meta, StoryObj } from '@storybook/react';
@@ -34,5 +35,12 @@ export const WarningAwaitingInstallation: Story = {
   args: {
     title,
     children: <WarningVehicleAwaitingInstallation />,
+  },
+};
+
+export const WarningOutdatedInformation: Story = {
+  args: {
+    title,
+    children: <WarningOutdatedPositionData />,
   },
 };

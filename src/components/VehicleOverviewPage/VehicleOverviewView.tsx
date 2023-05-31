@@ -1,4 +1,5 @@
 import { Alert, Box, CircularProgress, Typography } from '@mui/material';
+import { TimerAlertOutline } from 'mdi-material-ui';
 import { PageTitle } from '../PageTitle';
 import type { ReactNode } from 'react';
 
@@ -44,6 +45,19 @@ export function WarningVehicleAwaitingInstallation() {
   return (
     <Alert severity={'info'}>
       Informacije nedostupne. Vozilo još nema ugrađen GPS uređaj.
+    </Alert>
+  );
+}
+
+export function WarningOutdatedPositionData() {
+  return (
+    <Alert
+      icon={<TimerAlertOutline />}
+      severity={'warning'}
+      sx={{ alignItems: 'center' }}
+    >
+      Ovo vozilo nije javilo poziciju više od 65 minuta. Prikazano stanje vozila
+      možda nije u skladu sa stvarnim stanjem.
     </Alert>
   );
 }
