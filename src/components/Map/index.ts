@@ -1,3 +1,3 @@
-export { AppMap, Map } from './Map';
+export { AppMap } from './Map';
 export { MapSettingsProvider, useMapSettings } from './MapSettings';
 export { MapMarker } from './MapMarker';

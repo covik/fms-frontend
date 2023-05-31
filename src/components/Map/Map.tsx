@@ -1,121 +1,21 @@
-import { useEffect, useMemo, useRef } from 'react';
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import { useMemo } from 'react';
 import { Card, Skeleton, styled } from '@mui/material';
 import { useMapSettings } from './MapSettings';
+import { Map as GoogleMap } from './GoogleMap';
 import type { SxProps } from '@mui/material';
-import type { CSSProperties, ReactNode } from 'react';
+import type { ReactNode } from 'react';
 import type { Coordinates } from '../../lib/Dimension';
 
-export interface MapArguments {
-  x: number;
-  y: number;
-  z: number;
-  width: CSSProperties['width'];
-  height: CSSProperties['height'];
+export interface AppMapAttributes {
+  sx: SxProps;
   noControls?: boolean;
   noLabels?: boolean;
   gestureHandling?: boolean;
   onZoomChanged?: (zoom: number) => void;
-  fitBounds?: google.maps.LatLngLiteral[];
   clickablePoi?: boolean;
+  fitBounds?: Coordinates[];
   children?: ReactNode | ReactNode[] | undefined;
 }
-
-const mapOptions = {
-  googleMapsApiKey: 'AIzaSyCRzHH5N9W0FWKvY5qhRbk9H-AHm-vs8rw',
-  version: '3.53',
-};
-
-export function Map({
-  x,
-  y,
-  z,
-  width,
-  height,
-  noControls = false,
-  noLabels = false,
-  gestureHandling = true,
-  onZoomChanged,
-  fitBounds,
-  clickablePoi = true,
-  children,
-}: MapArguments) {
-  const { isLoaded } = useJsApiLoader(mapOptions);
-  const mapRef = useRef<google.maps.Map>();
-
-  const center = useMemo(
-    () => ({
-      lat: x,
-      lng: y,
-    }),
-    [x, y],
-  );
-
-  const mapCss = useMemo(() => ({ width, height }), [width, height]);
-
-  const styles = useMemo(
-    () => [
-      {
-        featureType: 'all',
-        elementType: 'labels',
-        stylers: [{ visibility: noLabels ? 'off' : 'on' }],
-      },
-    ],
-    [noLabels],
-  );
-
-  const options: google.maps.MapOptions = useMemo(
-    () => ({
-      disableDefaultUI: noControls,
-      styles,
-      streetViewControl: false,
-      gestureHandling: gestureHandling ? 'auto' : 'none',
-      clickableIcons: clickablePoi,
-    }),
-    [noControls, styles, clickablePoi],
-  );
-
-  useEffect(() => {
-    if (mapRef.current && Array.isArray(fitBounds) && fitBounds.length > 0) {
-      const bounds = new google.maps.LatLngBounds();
-      fitBounds.forEach((bound) => bounds.extend(bound));
-      mapRef.current?.fitBounds(bounds);
-    }
-  }, [fitBounds, mapRef.current]);
-
-  const map = () => (
-    <GoogleMap
-      center={center}
-      zoom={z}
-      mapContainerStyle={mapCss}
-      mapContainerClassName="google-map-root"
-      options={options}
-      onZoomChanged={() => {
-        if (mapRef.current === undefined) return;
-        const currentZoom = mapRef.current?.getZoom();
-        if (currentZoom && typeof onZoomChanged === 'function')
-          onZoomChanged(currentZoom);
-      }}
-      onLoad={(map) => {
-        mapRef.current = map;
-      }}
-    >
-      {children}
-    </GoogleMap>
-  );
-
-  return isLoaded ? map() : <MapSkeleton />;
-}
-
-const defaultPadding = 1;
-
-type AppMapAttributes = Omit<
-  MapArguments,
-  'x' | 'y' | 'z' | 'width' | 'height' | 'fitBounds'
-> & {
-  fitBounds?: Coordinates[];
-  sx: SxProps;
-};
 
 const MapContainer = styled('div')({
   width: '100%',
@@ -123,6 +23,8 @@ const MapContainer = styled('div')({
   position: 'relative',
   overflow: 'hidden',
 });
+
+const defaultPadding = 1;
 
 export function AppMap(props: AppMapAttributes) {
   const { sx, fitBounds, ...mapProps } = props;
@@ -144,13 +46,14 @@ export function AppMap(props: AppMapAttributes) {
   return (
     <Card sx={{ padding: defaultPadding, ...sx }}>
       <MapContainer>
-        <Map
+        <GoogleMap
           {...mapProps}
           x={latitude}
           y={longitude}
           z={zoom}
           width={'100%'}
           height={'100%'}
+          loadingElement={<MapSkeleton />}
           fitBounds={coordinateBoundsToMapBounds}
         />
       </MapContainer>
