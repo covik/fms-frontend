@@ -1,7 +1,10 @@
 import { Outlet, useParams } from '@tanstack/router';
 import { useQuery } from '@tanstack/react-query';
 import { Vehicle } from '../../lib/VehicleService';
-import { VehicleOverviewView } from './VehicleOverviewView';
+import {
+  VehicleOverviewView,
+  VehicleLoadingIndicator,
+} from './VehicleOverviewView';
 import { LocatedVehicle } from '../../models/Vehicle';
 import { VehicleOverviewNavigation } from './VehicleOverviewNavigation';
 
@@ -24,7 +27,7 @@ export function VehicleOverviewPage() {
 
   if (error instanceof Vehicle.NotFoundException)
     return <div>Vozilo nije pronađeno</div>;
-  if (vehicle === undefined) return <div>Učitavanje podataka</div>;
+  if (vehicle === undefined) return <VehicleLoadingIndicator />;
 
   return (
     <VehicleOverviewView title={vehicle.name()}>
