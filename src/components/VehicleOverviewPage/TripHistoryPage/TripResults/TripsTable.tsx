@@ -151,7 +151,7 @@ export function TripsTable({
 }
 
 function formatDistance(distanceInMeters: number) {
-  if (distanceInMeters < 1000) return `${distanceInMeters}m`;
+  if (distanceInMeters < 1000) return `${distanceInMeters.toFixed(1)}m`;
 
   const inKilometers = distanceInMeters / 1000;
   return `${inKilometers.toFixed(1)} km`;
