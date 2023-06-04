@@ -10,7 +10,7 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
-import { AppMap } from '../../Map';
+import { AppMap, MapBounds } from '../../Map';
 import { useQuery } from '@tanstack/react-query';
 import { endOfDay, startOfDay } from 'date-fns';
 import { useParams } from '@tanstack/router';
@@ -134,12 +134,12 @@ export function TodayRoutePage() {
           onZoomChanged={(zoom) => {
             showCheckpoints(zoom >= 15);
           }}
-          fitBounds={bounds}
           sx={{
             height: '100%',
             minHeight: { xs: '40vmax', lg: 'auto' },
           }}
         >
+          <MapBounds coordinates={bounds} />
           <VehicleRoute
             positions={routes}
             color={routeColor}

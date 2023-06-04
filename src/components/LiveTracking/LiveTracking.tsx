@@ -1,8 +1,8 @@
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { Box, CircularProgress, Paper } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { Vehicle } from '../../lib/VehicleService';
-import { AppMap } from '../Map';
+import { AppMap, MapBounds } from '../Map';
 import { VehicleMapMarker } from '../VehicleMapMarker';
 import {
   VehicleMapIconMoving,
@@ -11,29 +11,26 @@ import {
 import type { ReactNode } from 'react';
 
 export function LiveTracking() {
-  const [boundsConfigured, setBoundsConfigured] = useState(false);
   const query = useQuery({
     queryKey: ['vehicles'],
     queryFn: ({ signal }) => Vehicle.fetchAll(signal),
     select: Vehicle.takeOnlyOperational,
     refetchInterval: 2000,
-    onSuccess: () => setBoundsConfigured(true),
   });
 
   const operationalVehicles = query.data ?? [];
 
   const bounds = useMemo(
     () =>
-      !boundsConfigured
-        ? operationalVehicles.map((vehicle) => vehicle.position().coordinates())
-        : undefined,
-    [operationalVehicles, boundsConfigured],
+      operationalVehicles.map((vehicle) => vehicle.position().coordinates()),
+    [operationalVehicles],
   );
 
   return (
     <PageContainer>
-      <AppMap sx={{ height: 'auto', width: '100%' }} fitBounds={bounds}>
+      <AppMap sx={{ height: 'auto', width: '100%' }}>
         {query.isFetching ? <FetchIndicator /> : null}
+        <MapBounds coordinates={bounds} once />
         {operationalVehicles.map((vehicle) => (
           <VehicleMapMarker
             key={vehicle.id()}

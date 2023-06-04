@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { AppMap } from '../../../Map';
+import { AppMap, MapBounds } from '../../../Map';
 import { VehicleRoute, VehicleRouteStops } from '../../../VehicleRoute';
 import { RouteStop } from '../../../../models/RouteStop';
 import type { TraccarTripWithPositionsInterface } from '../../../../lib/Traccar';
@@ -38,9 +38,9 @@ export function TripMap({
       onZoomChanged={(zoom) => {
         showCheckpoints(zoom >= 15);
       }}
-      fitBounds={bounds}
       sx={sx}
     >
+      <MapBounds coordinates={bounds} />
       {trips
         .filter((trip) => !hiddenTripsAndStops.includes(trip.startTime))
         .map((trip) => (
