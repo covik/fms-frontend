@@ -1,7 +1,6 @@
 import { lazy } from 'react';
 import { RootRoute, Route } from '@tanstack/router';
 import { AppShell } from '../../components/AppShell';
-import { AccountPage } from '../../components/AccountPage';
 import { MissingTripDatePage } from '../../components/VehicleOverviewPage';
 import { z } from 'zod';
 import { formatDateForURL } from '../../utils/date';
