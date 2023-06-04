@@ -1,4 +1,4 @@
-FROM node:19.8.1-slim@sha256:b3a668a854fb5bde0d6bedb9ac43a292e021789bbbc8d23db69e77b09b2b7c07 AS node-environment
+FROM node:20.2.0-slim@sha256:cecab40b439142634a5dda7f261684aae9683d3ae80b731173fc77ee2d1ef66e AS node-environment
 
 FROM node-environment AS app-dependencies
 WORKDIR /deps
