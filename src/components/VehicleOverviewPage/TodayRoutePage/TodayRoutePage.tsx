@@ -86,7 +86,7 @@ export function TodayRoutePage() {
       return undefined;
 
     return calculateFullSummary(summaryQuery.data, stops);
-  }, [summaryQuery.error, summaryQuery.data, stopsQuery.data]);
+  }, [summaryQuery.data, stopsQuery.data]);
 
   const bounds = useMemo(
     () => calculateMapBounds(routes, stops),
