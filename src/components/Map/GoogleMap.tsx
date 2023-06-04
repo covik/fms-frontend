@@ -1,5 +1,9 @@
-import { useEffect, useMemo, useRef } from 'react';
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import {
+  GoogleMap,
+  useJsApiLoader,
+  useGoogleMap,
+} from '@react-google-maps/api';
 import type { CSSProperties, ReactElement, ReactNode } from 'react';
 
 export interface MapArguments {
@@ -103,4 +107,31 @@ export function Map({
   );
 
   return isLoaded ? map() : loadingElement;
+}
+
+export interface MapBoundsArguments {
+  coordinates: google.maps.LatLngLiteral[];
+  once?: boolean;
+}
+
+export function MapBounds({
+  coordinates,
+  once = false,
+}: MapBoundsArguments): null {
+  const map = useGoogleMap();
+  const [boundsApplied, setBoundsApplied] = useState(false);
+
+  useEffect(() => {
+    if (!map) return;
+    if (once && boundsApplied) return;
+    if (!coordinates || !Array.isArray(coordinates) || coordinates.length === 0)
+      return;
+
+    const bounds = new google.maps.LatLngBounds();
+    coordinates.forEach((coordinate) => bounds.extend(coordinate));
+    map.fitBounds(bounds);
+    setBoundsApplied(true);
+  }, [map, coordinates, once, boundsApplied]);
+
+  return null;
 }
