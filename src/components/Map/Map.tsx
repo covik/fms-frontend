@@ -4,7 +4,6 @@ import { useMapSettings } from './MapSettings';
 import { Map as GoogleMap } from './GoogleMap';
 import type { SxProps } from '@mui/material';
 import type { ReactNode } from 'react';
-import type { Coordinates } from '../../lib/Dimension';
 
 export interface AppMapAttributes {
   sx: SxProps;
@@ -13,7 +12,6 @@ export interface AppMapAttributes {
   gestureHandling?: boolean;
   onZoomChanged?: (zoom: number) => void;
   clickablePoi?: boolean;
-  fitBounds?: Coordinates[];
   children?: ReactNode | ReactNode[] | undefined;
 }
 
@@ -27,21 +25,11 @@ const MapContainer = styled('div')({
 const defaultPadding = 1;
 
 export function AppMap(props: AppMapAttributes) {
-  const { sx, fitBounds, ...mapProps } = props;
+  const { sx, ...mapProps } = props;
   const { center, zoom } = useMapSettings();
 
   const latitude = useMemo(() => center.latitude(), [center.latitude()]);
   const longitude = useMemo(() => center.longitude(), [center.longitude()]);
-
-  const coordinateBoundsToMapBounds = useMemo(() => {
-    if (!fitBounds || !Array.isArray(fitBounds) || fitBounds.length === 0)
-      return undefined;
-
-    return fitBounds.map((coordinate) => ({
-      lat: coordinate.latitude(),
-      lng: coordinate.longitude(),
-    }));
-  }, [fitBounds]);
 
   return (
     <Card sx={{ padding: defaultPadding, ...sx }}>
@@ -54,7 +42,6 @@ export function AppMap(props: AppMapAttributes) {
           width={'100%'}
           height={'100%'}
           loadingElement={<MapSkeleton />}
-          fitBounds={coordinateBoundsToMapBounds}
         />
       </MapContainer>
     </Card>

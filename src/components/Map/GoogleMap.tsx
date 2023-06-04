@@ -17,7 +17,6 @@ export interface MapArguments {
   noLabels?: boolean;
   gestureHandling?: boolean;
   onZoomChanged?: (zoom: number) => void;
-  fitBounds?: google.maps.LatLngLiteral[];
   clickablePoi?: boolean;
   children?: ReactNode | ReactNode[] | undefined;
 }
@@ -38,7 +37,6 @@ export function Map({
   noLabels = false,
   gestureHandling = true,
   onZoomChanged,
-  fitBounds,
   clickablePoi = true,
   children,
 }: MapArguments) {
@@ -76,14 +74,6 @@ export function Map({
     }),
     [noControls, styles, clickablePoi],
   );
-
-  useEffect(() => {
-    if (mapRef.current && Array.isArray(fitBounds) && fitBounds.length > 0) {
-      const bounds = new google.maps.LatLngBounds();
-      fitBounds.forEach((bound) => bounds.extend(bound));
-      mapRef.current?.fitBounds(bounds);
-    }
-  }, [fitBounds, mapRef.current]);
 
   const map = () => (
     <GoogleMap
