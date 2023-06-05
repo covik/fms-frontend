@@ -1,1 +1,1 @@
-export { PageTitle } from './PageTitle';
+export { PageTitle, PageTitleSkeleton } from './PageTitle';

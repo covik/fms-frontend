@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { Skeleton, Typography, useTheme } from '@mui/material';
 
 export function PageTitle({ children }: { children: string }) {
   return (
@@ -10,5 +10,16 @@ export function PageTitle({ children }: { children: string }) {
     >
       {children}
     </Typography>
+  );
+}
+
+export function PageTitleSkeleton() {
+  const theme = useTheme();
+  return (
+    <Skeleton
+      variant={'text'}
+      width={'150px'}
+      height={theme.typography.h3.fontSize}
+    />
   );
 }
