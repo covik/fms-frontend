@@ -1,14 +1,12 @@
-import { VehiclesDigestView, PageContainer } from './VehiclesDigestView';
-import { VehiclesDigestSkeleton } from './VehiclesDigestSkeleton';
-import { Vehicle } from '../../lib/VehicleService';
-import { BaseVehicle, LocatedVehicle } from '../../models/Vehicle';
-import { Truck, TruckFast } from 'mdi-material-ui';
-import { useQuery } from '@tanstack/react-query';
-import { useMemo, useState } from 'react';
-import { WebShare } from '../../lib/WebShare';
+import { useCallback, useMemo, useState } from 'react';
 import { Snackbar } from '@mui/material';
+import { Link } from '@tanstack/router';
+import { useQuery } from '@tanstack/react-query';
+import { VehiclesDigestView } from './Views';
+import { Vehicle } from '../../lib/VehicleService';
+import { WebShare } from '../../lib/WebShare';
 import { testingSelectors as cardSelectors } from '../VehicleCard';
-import { Speed } from '../../lib/MeasurementUnit';
+import type { VehicleRenderer, ShareHandler } from './Views';
 
 export function VehiclesDigestPage() {
   const query = useQuery({
@@ -17,24 +15,8 @@ export function VehiclesDigestPage() {
     refetchInterval: 2000,
   });
 
-  if (query.data === undefined)
-    return (
-      <PageContainer>
-        <VehiclesDigestSkeleton />
-      </PageContainer>
-    );
-
-  return <VehicleView vehicles={query.data} />;
-}
-
-export const testingSelectors = {
-  toast: 'vehicles-digest-page-toast',
-  ...cardSelectors,
-};
-
-function VehicleView({ vehicles }: { vehicles: BaseVehicle[] }) {
-  const [toastMessage, setToastMessage] = useState('');
-  const [showToast, setShowToast] = useState(false);
+  const rawData = query.data;
+  const vehicles = rawData ?? [];
 
   const sortedVehicles = useMemo(
     () => Vehicle.sortAscendingByName(vehicles),
@@ -51,21 +33,13 @@ function VehicleView({ vehicles }: { vehicles: BaseVehicle[] }) {
     [sortedVehicles],
   );
 
-  const adaptVehiclesToView = (vehicles: LocatedVehicle[]) =>
-    vehicles.map((vehicle) => adaptLocatedVehicleToView(vehicle));
+  const [toastMessage, setToastMessage] = useState('');
+  const [showToast, setShowToast] = useState(false);
 
-  const operationalVehiclesAdaptedToView = useMemo(
-    () => adaptVehiclesToView(operationalVehicles),
-    [operationalVehicles],
-  );
-
-  const timesOutVehiclesAdaptedToView = useMemo(
-    () => adaptVehiclesToView(timedOutVehicles),
-    [timedOutVehicles],
-  );
-
-  async function handleShare(title: string, url: string) {
+  const shareGoogleMapsLink = useCallback<ShareHandler>(async (vehicle) => {
     try {
+      const title = vehicle.name();
+      const url = vehicle.position().coordinates().toGoogleMapsUrl();
       const usedStrategy = await WebShare.shareUrl(url, title);
       if (usedStrategy === 'clipboard') {
         setToastMessage(
@@ -83,7 +57,21 @@ function VehicleView({ vehicles }: { vehicles: BaseVehicle[] }) {
       );
       setShowToast(true);
     }
-  }
+  }, []);
+
+  const linkToVehicleOverviewPage = useCallback<VehicleRenderer>(
+    (Component, vehicle) => (
+      <Link
+        to={'/vehicles/$vehicleId'}
+        params={{ vehicleId: vehicle.id() }}
+        style={{ display: 'block', textDecoration: 'none' }}
+        key={vehicle.id()}
+      >
+        {Component}
+      </Link>
+    ),
+    [],
+  );
 
   return (
     <>
@@ -96,24 +84,17 @@ function VehicleView({ vehicles }: { vehicles: BaseVehicle[] }) {
         data-testid={testingSelectors.toast}
       />
       <VehiclesDigestView
-        operationalVehicles={operationalVehiclesAdaptedToView}
-        timedOutVehicles={timesOutVehiclesAdaptedToView}
-        onShareRequest={handleShare}
+        loading={rawData === undefined}
+        operationalVehicles={operationalVehicles}
+        timedOutVehicles={timedOutVehicles}
+        onShareRequest={shareGoogleMapsLink}
+        vehicleRenderer={linkToVehicleOverviewPage}
       />
     </>
   );
 }
 
-function adaptLocatedVehicleToView(vehicle: LocatedVehicle) {
-  const speed = Speed.convert(vehicle.speed()).toKph();
-  const formattedSpeed = `${speed.value().toFixed(0)} ${speed.symbol()}`;
-
-  return {
-    id: vehicle.id(),
-    title: vehicle.name(),
-    color: vehicle.hasIgnitionTurnedOn() ? 'green' : 'orange',
-    icon: vehicle.isInMotion() ? TruckFast : Truck,
-    meta: [formattedSpeed],
-    shareUrl: vehicle.position().coordinates().toGoogleMapsUrl(),
-  };
-}
+export const testingSelectors = {
+  toast: 'vehicles-digest-page-toast',
+  ...cardSelectors,
+};

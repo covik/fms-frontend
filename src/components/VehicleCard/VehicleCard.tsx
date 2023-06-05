@@ -59,7 +59,10 @@ export function VehicleCard(props: CardAttributes) {
               clickable={false}
               size={'small'}
               label={value}
-              sx={(theme) => ({ color: theme.palette.text.secondary })}
+              sx={(theme) => ({
+                color: theme.palette.text.secondary,
+                cursor: 'inherit',
+              })}
             />
           ))}
         </Stack>
