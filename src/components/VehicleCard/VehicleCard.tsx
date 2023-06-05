@@ -55,6 +55,7 @@ export function VehicleCard(props: CardAttributes) {
         <Stack direction={'row'} spacing={'6px'}>
           {meta.map((value) => (
             <Chip
+              key={value}
               clickable={false}
               size={'small'}
               label={value}
