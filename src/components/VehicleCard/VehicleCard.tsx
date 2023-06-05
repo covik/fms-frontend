@@ -1,18 +1,26 @@
-import { Card, CardHeader, Icon, IconButton } from '@mui/material';
+import {
+  Box,
+  Card,
+  CardHeader,
+  Chip,
+  Icon,
+  IconButton,
+  Stack,
+} from '@mui/material';
 import { ShareVariant } from 'mdi-material-ui';
 import type { SvgIcon } from '@mui/material';
 import type { CSSProperties, MouseEvent } from 'react';
 
 export interface CardAttributes {
   title: string;
-  subtitle: string;
   icon: typeof SvgIcon;
   color: CSSProperties['color'];
+  meta: string[];
   onShare?: (event: MouseEvent) => void;
 }
 
 export function VehicleCard(props: CardAttributes) {
-  const { title, subtitle, icon: Icon, color: headerColor, onShare } = props;
+  const { title, icon: Icon, color: headerColor, meta, onShare } = props;
 
   return (
     <Card data-testid={testingSelectors.cardRoot}>
@@ -24,7 +32,6 @@ export function VehicleCard(props: CardAttributes) {
           variant: 'h6',
           component: 'h1',
         }}
-        subheader={subtitle}
         action={
           typeof onShare === 'function' ? (
             <IconButton
@@ -36,12 +43,26 @@ export function VehicleCard(props: CardAttributes) {
           ) : null
         }
         sx={{
-          'padding': 1.5,
+          'padding': 1.2,
+          'paddingTop': 1,
+          'paddingBottom': 0,
           '.MuiCardHeader-action': {
             alignSelf: 'center',
           },
         }}
       />
+      <Box sx={{ padding: 1.2, paddingTop: '4px', paddingBottom: 1 }}>
+        <Stack direction={'row'} spacing={'6px'}>
+          {meta.map((value) => (
+            <Chip
+              clickable={false}
+              size={'small'}
+              label={value}
+              sx={(theme) => ({ color: theme.palette.text.secondary })}
+            />
+          ))}
+        </Stack>
+      </Box>
     </Card>
   );
 }

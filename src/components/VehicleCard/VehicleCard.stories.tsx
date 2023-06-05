@@ -22,36 +22,36 @@ const title = 'ZD000AA';
 export const Moving: Story = {
   args: {
     title,
-    subtitle: 'prije manje od minute',
     icon: TruckFast,
     color: 'green',
+    meta: ['90 km/h', '28.2 V', '351 453 km'],
   },
 };
 
 export const Stationary: Story = {
   args: {
     title,
-    subtitle: 'prije 55 minuta',
     icon: Truck,
     color: 'orange',
+    meta: ['0 km/h', '12.2 V', '351 453 km'],
   },
 };
 
 export const Stopped: Story = {
   args: {
     title,
-    subtitle: 'prije 5 minuta',
     icon: Truck,
     color: 'green',
+    meta: ['0 km/h', '28.2 V', '351 453 km'],
   },
 };
 
 export const Towed: Story = {
   args: {
     title,
-    subtitle: 'prije manje od minute',
     icon: TruckFast,
     color: 'orange',
+    meta: ['65 km/h', '12.2 V', '351 453 km'],
   },
 };
 

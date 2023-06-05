@@ -101,9 +101,9 @@ function LocatedVehicleCard({
     >
       <VehicleCard
         title={vehicle.title}
-        subtitle={vehicle.subtitle}
         icon={vehicle.icon}
         color={vehicle.color}
+        meta={vehicle.meta}
         onShare={(e) => {
           e.preventDefault();
           handleShare(vehicle.title, vehicle.shareUrl);

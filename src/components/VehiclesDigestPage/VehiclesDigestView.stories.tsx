@@ -14,16 +14,16 @@ const operationalVehicles = [
     title: 'ZD002AB',
     color: 'orange',
     icon: Truck,
-    subtitle: 'prije 15 minuta',
     shareUrl: 'http://example.com',
+    meta: ['0 km/h'],
   },
   {
     id: '2',
     title: 'ZD003CD',
     color: 'green',
     icon: TruckFast,
-    subtitle: 'prije 30 sekundi',
     shareUrl: 'http://example.com',
+    meta: ['30 km/h'],
   },
 ];
 
@@ -33,16 +33,16 @@ const timedOutVehicles = [
     title: 'ZD003EF',
     color: 'orange',
     icon: Truck,
-    subtitle: 'prije 2 sata',
     shareUrl: 'http://example.com',
+    meta: ['0 km/h'],
   },
   {
     id: '4',
     title: 'ZD004GH',
     color: 'green',
     icon: TruckFast,
-    subtitle: 'prije 13 sati',
     shareUrl: 'http://example.com',
+    meta: ['70 km/h'],
   },
 ];
 

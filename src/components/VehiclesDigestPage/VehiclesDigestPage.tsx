@@ -8,7 +8,7 @@ import { useMemo, useState } from 'react';
 import { WebShare } from '../../lib/WebShare';
 import { Snackbar } from '@mui/material';
 import { testingSelectors as cardSelectors } from '../VehicleCard';
-import { useDateTime } from '../../foundation';
+import { Speed } from '../../lib/MeasurementUnit';
 
 export function VehiclesDigestPage() {
   const query = useQuery({
@@ -33,8 +33,6 @@ export const testingSelectors = {
 };
 
 function VehicleView({ vehicles }: { vehicles: BaseVehicle[] }) {
-  const { distanceToNowStrictWithSuffix } = useDateTime();
-
   const [toastMessage, setToastMessage] = useState('');
   const [showToast, setShowToast] = useState(false);
 
@@ -57,9 +55,7 @@ function VehicleView({ vehicles }: { vehicles: BaseVehicle[] }) {
   );
 
   const adaptVehiclesToView = (vehicles: LocatedVehicle[]) =>
-    vehicles.map((vehicle) =>
-      adaptLocatedVehicleToView(vehicle, distanceToNowStrictWithSuffix),
-    );
+    vehicles.map((vehicle) => adaptLocatedVehicleToView(vehicle));
 
   const operationalVehiclesAdaptedToView = useMemo(
     () => adaptVehiclesToView(operationalVehicles),
@@ -111,16 +107,16 @@ function VehicleView({ vehicles }: { vehicles: BaseVehicle[] }) {
   );
 }
 
-function adaptLocatedVehicleToView(
-  vehicle: LocatedVehicle,
-  lastUpdateFormatterFunction: (date: Date) => string,
-) {
+function adaptLocatedVehicleToView(vehicle: LocatedVehicle) {
+  const speed = Speed.convert(vehicle.speed()).toKph();
+  const formattedSpeed = `${speed.value().toFixed(0)} ${speed.symbol()}`;
+
   return {
     id: vehicle.id(),
     title: vehicle.name(),
     color: vehicle.hasIgnitionTurnedOn() ? 'green' : 'orange',
     icon: vehicle.isInMotion() ? TruckFast : Truck,
-    subtitle: lastUpdateFormatterFunction(vehicle.lastUpdatedAt()),
+    meta: [formattedSpeed],
     shareUrl: vehicle.position().coordinates().toGoogleMapsUrl(),
   };
 }
