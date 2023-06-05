@@ -36,13 +36,10 @@ function VehicleView({ vehicles }: { vehicles: BaseVehicle[] }) {
   const [toastMessage, setToastMessage] = useState('');
   const [showToast, setShowToast] = useState(false);
 
-  const sortedVehicles = useMemo(() => {
-    const vehicleCopy = vehicles.slice();
-    vehicleCopy.sort((vehicleA, vehicleB) =>
-      vehicleA.name() > vehicleB.name() ? 1 : -1,
-    );
-    return vehicleCopy;
-  }, [vehicles]);
+  const sortedVehicles = useMemo(
+    () => Vehicle.sortAscendingByName(vehicles),
+    [vehicles],
+  );
 
   const operationalVehicles = useMemo(
     () => Vehicle.takeOnlyOperational(sortedVehicles),

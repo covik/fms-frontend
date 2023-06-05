@@ -6,6 +6,7 @@ import {
   fetchStopsInRange,
   fetchSummaryInRange,
 } from './RouteService';
+import { sortAscendingByName } from './Sort';
 
 const Route = {
   fetchInRange,
@@ -20,4 +21,5 @@ export const Vehicle = {
   NotFoundException,
   NoRouteSummary,
   Route,
+  sortAscendingByName,
 };
