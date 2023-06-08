@@ -18,6 +18,7 @@ import {
 } from 'mdi-material-ui';
 import { RouteStop } from '../../../../models/RouteStop';
 import { formatDuration } from '../../../../utils/date';
+import { Length } from '../../../../lib/MeasurementUnit';
 import type { TraccarTripInterface } from '../../../../lib/Traccar';
 
 const formatTime = (date: Date) => format(date, 'HH:mm');
@@ -97,12 +98,12 @@ export function TripsTable({
           const startTime = isStop ? row.startTime() : new Date(row.startTime);
           const endTime = isStop ? row.endTime() : new Date(row.endTime);
           const duration = isStop ? row.duration() : row.duration / 1000;
-          const distance = isStop ? 0 : row.distance;
+          const distance = new Length.Meter(isStop ? 0 : row.distance);
 
           const formattedStartTime = formatTime(startTime);
           const formattedEndTime = formatTime(endTime);
           const formattedDuration = formatDuration(duration);
-          const formattedDistance = formatDistance(distance);
+          const formattedDistance = Length.adaptiveFormat(distance, 1);
           const isHidden = hiddenTripsAndStops.includes(id);
 
           const Icon = isStop ? Parking : Navigation;
@@ -148,11 +149,4 @@ export function TripsTable({
       </TableBody>
     </Table>
   );
-}
-
-function formatDistance(distanceInMeters: number) {
-  if (distanceInMeters < 1000) return `${distanceInMeters.toFixed(1)}m`;
-
-  const inKilometers = distanceInMeters / 1000;
-  return `${inKilometers.toFixed(1)} km`;
 }

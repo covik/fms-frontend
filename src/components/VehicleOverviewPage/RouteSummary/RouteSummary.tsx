@@ -120,7 +120,7 @@ export function RouteSummary({ details }: RouteSummaryAttributes) {
             secondary={
               details === undefined
                 ? skeleton
-                : formatDistance(details.distance.value())
+                : Length.adaptiveFormat(details.distance, 1)
             }
           />
           {odometerDetailsOpen ? <ChevronUp /> : <ChevronDown />}
@@ -137,7 +137,7 @@ export function RouteSummary({ details }: RouteSummaryAttributes) {
                 secondary={
                   details === undefined
                     ? skeleton
-                    : formatDistance(details.startOdometer.value())
+                    : Length.adaptiveFormat(details.startOdometer, 1)
                 }
               />
             </ListItem>
@@ -150,7 +150,7 @@ export function RouteSummary({ details }: RouteSummaryAttributes) {
                 secondary={
                   details === undefined
                     ? skeleton
-                    : formatDistance(details.endOdometer.value())
+                    : Length.adaptiveFormat(details.endOdometer, 1)
                 }
               />
             </ListItem>
@@ -170,7 +170,7 @@ export function RouteSummary({ details }: RouteSummaryAttributes) {
             secondary={
               details === undefined
                 ? skeleton
-                : Speed.format(Speed.convert(details.maxSpeed).toKph())
+                : formatSpeed(Speed.convert(details.maxSpeed).toKph())
             }
           />
           {timeDetailsOpen ? <ChevronUp /> : <ChevronDown />}
@@ -187,7 +187,7 @@ export function RouteSummary({ details }: RouteSummaryAttributes) {
                 secondary={
                   details === undefined
                     ? skeleton
-                    : Speed.format(Speed.convert(details.averageSpeed).toKph())
+                    : formatSpeed(Speed.convert(details.averageSpeed).toKph())
                 }
               />
             </ListItem>
@@ -196,13 +196,6 @@ export function RouteSummary({ details }: RouteSummaryAttributes) {
       </List>
     </>
   );
-}
-
-function formatDistance(distanceInMeters: number) {
-  if (distanceInMeters < 1000) return `${distanceInMeters.toFixed(1)}m`;
-
-  const inKilometers = distanceInMeters / 1000;
-  return `${inKilometers.toFixed(1)} km`;
 }
 
 function formatSpeed(value: Speed.KPH) {
