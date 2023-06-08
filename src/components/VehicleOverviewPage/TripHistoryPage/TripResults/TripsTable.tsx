@@ -9,7 +9,6 @@ import {
   TableRow,
   useTheme,
 } from '@mui/material';
-import { format } from 'date-fns';
 import {
   EyeOffOutline as EyeOff,
   EyeOutline as Eye,
@@ -19,9 +18,8 @@ import {
 import { RouteStop } from '../../../../models/RouteStop';
 import { formatDuration } from '../../../../utils/date';
 import { Length } from '../../../../lib/MeasurementUnit';
+import { useDateTime } from '../../../../foundation';
 import type { TraccarTripInterface } from '../../../../lib/Traccar';
-
-const formatTime = (date: Date) => format(date, 'HH:mm');
 
 export function TripsTable({
   trips,
@@ -38,6 +36,7 @@ export function TripsTable({
   onHideAll: () => void;
   onShowAll: () => void;
 }) {
+  const { formatTime } = useDateTime();
   const theme = useTheme();
 
   const items = [...trips, ...stops];
