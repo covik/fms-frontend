@@ -170,7 +170,7 @@ export function RouteSummary({ details }: RouteSummaryAttributes) {
             secondary={
               details === undefined
                 ? skeleton
-                : formatSpeed(Speed.convert(details.maxSpeed).toKph())
+                : Speed.format(Speed.convert(details.maxSpeed).toKph())
             }
           />
           {timeDetailsOpen ? <ChevronUp /> : <ChevronDown />}
@@ -187,7 +187,7 @@ export function RouteSummary({ details }: RouteSummaryAttributes) {
                 secondary={
                   details === undefined
                     ? skeleton
-                    : formatSpeed(Speed.convert(details.averageSpeed).toKph())
+                    : Speed.format(Speed.convert(details.averageSpeed).toKph())
                 }
               />
             </ListItem>
@@ -196,8 +196,4 @@ export function RouteSummary({ details }: RouteSummaryAttributes) {
       </List>
     </>
   );
-}
-
-function formatSpeed(value: Speed.KPH) {
-  return Speed.format(value);
 }
