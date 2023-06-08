@@ -187,6 +187,18 @@ describe(OperationalVehicle.name, () => {
       expectedMessage: 'Property "inMotion" not passed to constructor.',
     },
     {
+      title: 'mileage is missing',
+      construct: () => {
+        const { mileage, ...attributesWithoutMileage } =
+          locatedVehicleAttributes;
+
+        return new OperationalVehicle(
+          attributesWithoutMileage as unknown as LocatedVehicleAttributes,
+        );
+      },
+      expectedMessage: 'Property "mileage" not passed to constructor.',
+    },
+    {
       title: 'position is not Position object',
       construct: () => {
         const attributesWithIncorrectPosition = {
@@ -272,6 +284,21 @@ describe(OperationalVehicle.name, () => {
       },
       expectedMessage: 'Property "inMotion" must be boolean. Got undefined.',
     },
+    {
+      title: 'mileage is not BaseLength object',
+      construct: () => {
+        const attributesWithIncorrectMileage = {
+          ...locatedVehicleAttributes,
+          mileage: 'I reject being BaseLength object',
+        };
+
+        return new OperationalVehicle(
+          attributesWithIncorrectMileage as unknown as LocatedVehicleAttributes,
+        );
+      },
+      expectedMessage:
+        'Property "mileage" must be BaseLength object. Got string.',
+    },
   ];
 
   problematicSituations.forEach((situation) => {
@@ -302,6 +329,7 @@ describe(OperationalVehicle.name, () => {
     expect(validVehicle.lastUpdatedAt()).to.equal(
       locatedVehicleAttributes.position.timestamp().fixationTime(),
     );
+    expect(validVehicle.mileage()).to.equal(locatedVehicleAttributes.mileage);
   });
 });
 

@@ -1,5 +1,5 @@
 import { BaseVehicle } from './BaseVehicle';
-import { Speed, Angle } from '../../lib/MeasurementUnit';
+import { Speed, Angle, Length } from '../../lib/MeasurementUnit';
 import { Position } from '../Position';
 import { InvalidVehicleAttribute } from './Exception';
 import type { BaseVehicleAttributes } from './BaseVehicle';
@@ -11,6 +11,7 @@ export interface LocatedVehicleAttributes extends BaseVehicleAttributes {
   online: boolean;
   ignitionOn: boolean;
   inMotion: boolean;
+  mileage: Length.BaseLength;
 }
 
 export abstract class LocatedVehicle extends BaseVehicle {
@@ -22,6 +23,7 @@ export abstract class LocatedVehicle extends BaseVehicle {
       'online',
       'ignitionOn',
       'inMotion',
+      'mileage',
     ];
 
     requiredAttributes.forEach((attribute) => {
@@ -68,6 +70,12 @@ export abstract class LocatedVehicle extends BaseVehicle {
       );
     }
 
+    if (!(attributes.mileage instanceof Length.BaseLength)) {
+      throw new InvalidVehicleAttribute(
+        `Property "mileage" must be BaseLength object. Got ${typeof attributes.mileage}.`,
+      );
+    }
+
     super(attributes);
   }
 
@@ -97,5 +105,9 @@ export abstract class LocatedVehicle extends BaseVehicle {
 
   public lastUpdatedAt(): Date {
     return this.position().timestamp().fixationTime();
+  }
+
+  public mileage(): Length.BaseLength {
+    return this.attributes.mileage;
   }
 }

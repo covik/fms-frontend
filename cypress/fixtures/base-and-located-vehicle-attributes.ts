@@ -1,6 +1,6 @@
 import { Position, PositionTimestamps } from '../../src/models/Position';
 import { Coordinates } from '../../src/lib/Dimension';
-import { Angle, Speed } from '../../src/lib/MeasurementUnit';
+import { Angle, Length, Speed } from '../../src/lib/MeasurementUnit';
 
 export const baseVehicleAttrs = { id: '1234', name: 'Test', imei: '4321' };
 
@@ -21,4 +21,5 @@ export const locatedVehicleAttributes = {
   online: false,
   ignitionOn: false,
   inMotion: false,
+  mileage: new Length.Kilometer(16500),
 };
