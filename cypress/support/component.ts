@@ -13,12 +13,7 @@
 // https://on.cypress.io/configuration
 // ***********************************************************
 
-// Import commands.js using ES2015 syntax:
 import './commands';
-
-// Alternatively you can use CommonJS syntax:
-// require('./commands')
-
 import { mount as reactMount, MountOptions } from 'cypress/react18';
 import { DesignBaseline } from '../../src/foundation';
 import * as React from 'react';
@@ -37,7 +32,6 @@ declare global {
 }
 
 Cypress.Commands.add('mount', mount);
-
 function mount(
   jsx: React.ReactNode,
   options?: MountOptions,
@@ -50,11 +44,7 @@ function mount(
   );
 }
 
-// Example use:
-// cy.mount(<MyComponent />)
-
 Cypress.Commands.add('testException', testException);
-
 function testException(func: () => Promise<unknown> | unknown) {
   return cy
     .then(async () => {
