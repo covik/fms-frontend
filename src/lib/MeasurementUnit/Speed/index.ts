@@ -1,3 +1,2 @@
-export { BaseSpeed } from './BaseSpeed';
-export * from './Unit';
+export * from './Speed';
 export * from './Converter';

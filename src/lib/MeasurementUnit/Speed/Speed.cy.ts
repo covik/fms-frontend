@@ -1,4 +1,4 @@
-import { KPH, MPH, Knots, convert } from './';
+import { convert, Knots, KPH, MPH } from '.';
 
 describe('Speed', () => {
   specify('validate unit symbols', () => {
