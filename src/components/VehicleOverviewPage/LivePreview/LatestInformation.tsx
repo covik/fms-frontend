@@ -3,6 +3,7 @@ import {
   Battery,
   CarBattery,
   ClockOutline,
+  Counter,
   DirectionsFork,
   ImageFilterHdr,
   LightningBolt,
@@ -137,6 +138,23 @@ export function BatteryLevels({
           primary="Baterija GPS uređaja"
           secondary={gpsDeviceLevel}
         />
+      </ListItem>
+    </List>
+  );
+}
+
+export interface MileageDetailsAttributes {
+  mileage: string;
+}
+
+export function MileageDetails({ mileage }: MileageDetailsAttributes) {
+  return (
+    <List disablePadding dense>
+      <ListItem>
+        <ListItemIcon>
+          <Counter />
+        </ListItemIcon>
+        <ListItemText primary="Kilometraža" secondary={mileage} />
       </ListItem>
     </List>
   );

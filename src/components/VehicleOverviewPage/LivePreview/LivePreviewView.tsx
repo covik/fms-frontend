@@ -2,6 +2,7 @@ import { Card, Stack } from '@mui/material';
 import { AppMap, MapSettingsProvider } from '../../Map';
 import {
   ConnectionDetails,
+  MileageDetails,
   SpatialDetails,
   StateDetails,
 } from './LatestInformation';
@@ -12,7 +13,7 @@ import {
   VehicleMapIconStationary,
 } from '../../VehicleMapIcon';
 import { useDateTime } from '../../../foundation';
-import { Speed } from '../../../lib/MeasurementUnit';
+import { Length, Speed } from '../../../lib/MeasurementUnit';
 
 export interface LivePreviewViewAttributes {
   vehicle: LocatedVehicle;
@@ -30,6 +31,7 @@ export function LivePreviewView({ vehicle }: LivePreviewViewAttributes) {
     .course()
     .symbol()}`;
   const formattedAltitude = `${vehicle.position().altitude()}m`;
+  const formattedMileage = Length.adaptiveFormat(vehicle.mileage(), 1);
 
   return (
     <Stack spacing={1}>
@@ -61,6 +63,10 @@ export function LivePreviewView({ vehicle }: LivePreviewViewAttributes) {
           speed={formattedSpeed}
           lastFixTime={formattedFixTime}
         />
+      </Card>
+
+      <Card>
+        <MileageDetails mileage={formattedMileage}></MileageDetails>
       </Card>
 
       <Card>
