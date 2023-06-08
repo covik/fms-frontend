@@ -90,9 +90,8 @@ interface VehicleItemAttributes {
 }
 
 function VehicleItem({ vehicle, shareHandler }: VehicleItemAttributes) {
-  const speed = Speed.convert(vehicle.speed()).toKph();
-  const roundedSpeed = speed.value().toFixed(0);
-  const formattedSpeed = `${roundedSpeed} ${speed.symbol()}`;
+  const speedInKph = Speed.convert(vehicle.speed()).toKph();
+  const formattedSpeed = Speed.format(speedInKph);
 
   return (
     <VehicleCard

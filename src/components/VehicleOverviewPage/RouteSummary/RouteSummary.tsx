@@ -205,6 +205,6 @@ function formatDistance(distanceInMeters: number) {
   return `${inKilometers.toFixed(1)} km`;
 }
 
-function formatSpeed(speed: Speed.KPH) {
-  return `${Math.round(speed.value())} ${speed.symbol()}`;
+function formatSpeed(value: Speed.KPH) {
+  return Speed.format(value);
 }
