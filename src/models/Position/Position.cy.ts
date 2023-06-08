@@ -80,7 +80,7 @@ describe(Position.name, () => {
 
   problematicSituations.forEach((situation) => {
     it(`should throw exception if - ${situation.title}`, () => {
-      cy.testException(async () => situation.construct()).then((exception) => {
+      cy.testException(() => situation.construct()).then((exception) => {
         exception().should('be.instanceOf', ZodError);
       });
     });

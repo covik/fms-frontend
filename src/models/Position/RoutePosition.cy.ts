@@ -131,7 +131,7 @@ describe(RoutePosition.name, () => {
 
   problematicSituations.forEach(([title, attributes]) => {
     it(`should throw exception if - ${title}`, () => {
-      cy.testException(async () => factory(attributes())).then((error) => {
+      cy.testException(() => factory(attributes())).then((error) => {
         error().should('be.instanceOf', ZodError);
       });
     });

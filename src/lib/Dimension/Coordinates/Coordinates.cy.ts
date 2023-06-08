@@ -13,7 +13,7 @@ const validLongitudeRange = [-180, 180];
 describe(Coordinates.name, () => {
   specify('latitude and longitude should be numbers', () => {
     cy.testException(
-      async () => new Coordinates({} as unknown as number, validCoordinate),
+      () => new Coordinates({} as unknown as number, validCoordinate),
     ).then((exception) => {
       exception().should('be.instanceOf', InvalidLatitudeException);
       exception().should(
@@ -24,7 +24,7 @@ describe(Coordinates.name, () => {
     });
 
     cy.testException(
-      async () => new Coordinates(validCoordinate, {} as unknown as number),
+      () => new Coordinates(validCoordinate, {} as unknown as number),
     ).then((exception) => {
       exception().should('be.instanceOf', InvalidLongitudeException);
       exception().should(
@@ -37,7 +37,7 @@ describe(Coordinates.name, () => {
 
   specify('latitude and longitude should not coerce string to number', () => {
     cy.testException(
-      async () => new Coordinates('15' as unknown as number, validCoordinate),
+      () => new Coordinates('15' as unknown as number, validCoordinate),
     ).then((exception) => {
       exception().should('be.instanceOf', InvalidLatitudeException);
       exception().should(
@@ -48,7 +48,7 @@ describe(Coordinates.name, () => {
     });
 
     cy.testException(
-      async () => new Coordinates(validCoordinate, '15' as unknown as number),
+      () => new Coordinates(validCoordinate, '15' as unknown as number),
     ).then((exception) => {
       exception().should('be.instanceOf', InvalidLongitudeException);
       exception().should(
@@ -61,47 +61,47 @@ describe(Coordinates.name, () => {
 
   specify('latitude should be between -90 and 90', () => {
     invalidLatitudeRange.forEach((value) => {
-      cy.testException(
-        async () => new Coordinates(value, validCoordinate),
-      ).then((exception) => {
-        exception().should('be.instanceOf', InvalidLatitudeException);
-        exception().should(
-          'have.property',
-          'message',
-          `Latitude must be between -90 and 90. Got ${value}.`,
-        );
-      });
+      cy.testException(() => new Coordinates(value, validCoordinate)).then(
+        (exception) => {
+          exception().should('be.instanceOf', InvalidLatitudeException);
+          exception().should(
+            'have.property',
+            'message',
+            `Latitude must be between -90 and 90. Got ${value}.`,
+          );
+        },
+      );
     });
 
     validLatitudeRange.forEach((value) => {
-      cy.testException(
-        async () => new Coordinates(value, validCoordinate),
-      ).then((exception) => {
-        exception().should('be.undefined');
-      });
+      cy.testException(() => new Coordinates(value, validCoordinate)).then(
+        (exception) => {
+          exception().should('be.undefined');
+        },
+      );
     });
   });
 
   specify('longitude should be between -180 and 180', () => {
     invalidLongitudeRange.forEach((value) => {
-      cy.testException(
-        async () => new Coordinates(validCoordinate, value),
-      ).then((exception) => {
-        exception().should('be.instanceOf', InvalidLongitudeException);
-        exception().should(
-          'have.property',
-          'message',
-          `Longitude must be between -180 and 180. Got ${value}.`,
-        );
-      });
+      cy.testException(() => new Coordinates(validCoordinate, value)).then(
+        (exception) => {
+          exception().should('be.instanceOf', InvalidLongitudeException);
+          exception().should(
+            'have.property',
+            'message',
+            `Longitude must be between -180 and 180. Got ${value}.`,
+          );
+        },
+      );
     });
 
     validLongitudeRange.forEach((value) => {
-      cy.testException(
-        async () => new Coordinates(validCoordinate, value),
-      ).then((exception) => {
-        exception().should('be.undefined');
-      });
+      cy.testException(() => new Coordinates(validCoordinate, value)).then(
+        (exception) => {
+          exception().should('be.undefined');
+        },
+      );
     });
   });
 

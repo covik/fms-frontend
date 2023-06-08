@@ -29,7 +29,7 @@ describe('SessionService', () => {
     });
 
     it(`should throw ${Http.ClientException.name} if request gets aborted`, () => {
-      cy.testException(async () => {
+      cy.testException(() => {
         const controller = new AbortController();
         const signal = controller.signal;
         const request = Session.obtain(signal);

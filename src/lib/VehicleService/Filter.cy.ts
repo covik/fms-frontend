@@ -39,7 +39,7 @@ const timedOutVehicles = [
 
 describe(Vehicle.takeOnlyOperational.name, () => {
   it(`should throw ${TypeError.name} if passed argument is not array`, () => {
-    cy.testException(async () => Vehicle.takeOnlyOperational('foobar')).then(
+    cy.testException(() => Vehicle.takeOnlyOperational('foobar')).then(
       (exception) => {
         exception().should('be.instanceOf', TypeError);
         exception().should(
@@ -50,16 +50,16 @@ describe(Vehicle.takeOnlyOperational.name, () => {
       },
     );
 
-    cy.testException(async () =>
-      Vehicle.takeOnlyOperational({ foo: 'bar' }),
-    ).then((exception) => {
-      exception().should('be.instanceOf', TypeError);
-      exception().should(
-        'have.property',
-        'message',
-        'Argument "data" should be array, received: object.',
-      );
-    });
+    cy.testException(() => Vehicle.takeOnlyOperational({ foo: 'bar' })).then(
+      (exception) => {
+        exception().should('be.instanceOf', TypeError);
+        exception().should(
+          'have.property',
+          'message',
+          'Argument "data" should be array, received: object.',
+        );
+      },
+    );
   });
 
   specify('given empty array it should return empty array', () => {
@@ -96,7 +96,7 @@ describe(Vehicle.takeOnlyOperational.name, () => {
 
 describe(Vehicle.takeOnlyOperational.name, () => {
   it(`should throw ${TypeError.name} if passed argument is not array`, () => {
-    cy.testException(async () => Vehicle.takeOnlyTimedOut('foobar')).then(
+    cy.testException(() => Vehicle.takeOnlyTimedOut('foobar')).then(
       (exception) => {
         exception().should('be.instanceOf', TypeError);
         exception().should(
@@ -107,7 +107,7 @@ describe(Vehicle.takeOnlyOperational.name, () => {
       },
     );
 
-    cy.testException(async () => Vehicle.takeOnlyTimedOut({ foo: 'bar' })).then(
+    cy.testException(() => Vehicle.takeOnlyTimedOut({ foo: 'bar' })).then(
       (exception) => {
         exception().should('be.instanceOf', TypeError);
         exception().should(

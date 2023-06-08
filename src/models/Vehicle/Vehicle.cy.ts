@@ -95,7 +95,7 @@ describe(BaseVehicle.name, () => {
 
   problematicSituations.forEach((situation) => {
     it(`should throw exception if - ${situation.title}`, () => {
-      cy.testException(async () => situation.construct()).then((error) => {
+      cy.testException(() => situation.construct()).then((error) => {
         error().should('be.instanceOf', InvalidVehicleAttribute);
         error().should('have.a.property', 'message', situation.expectedMessage);
       });
@@ -303,7 +303,7 @@ describe(OperationalVehicle.name, () => {
 
   problematicSituations.forEach((situation) => {
     it(`should throw exception if - ${situation.title}`, () => {
-      cy.testException(async () => situation.construct()).then((error) => {
+      cy.testException(() => situation.construct()).then((error) => {
         error().should('be.instanceOf', InvalidVehicleAttribute);
         error().should('have.a.property', 'message', situation.expectedMessage);
       });

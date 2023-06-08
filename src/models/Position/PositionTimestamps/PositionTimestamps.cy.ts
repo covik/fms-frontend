@@ -43,7 +43,7 @@ describe(PositionTimestamps.name, () => {
 
   invalidAttributeSituations.forEach((situation) => {
     it(`should throw exception if ${situation.attribute} is not instance of Date`, () => {
-      cy.testException(async () => situation.construct()).then((exception) => {
+      cy.testException(() => situation.construct()).then((exception) => {
         exception().should('be.instanceOf', InvalidPositionTimestampException);
         exception().should(
           'have.property',

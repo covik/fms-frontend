@@ -55,7 +55,7 @@ function mount(
 
 Cypress.Commands.add('testException', testException);
 
-function testException(func: () => Promise<unknown>) {
+function testException(func: () => Promise<unknown> | unknown) {
   return cy
     .then(async () => {
       try {
