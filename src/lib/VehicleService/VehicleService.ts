@@ -8,7 +8,7 @@ import {
 import { Http } from '../HttpClient';
 import { Position, PositionTimestamps } from '../../models/Position';
 import { Coordinates } from '../Dimension';
-import { Angle, Speed } from '../MeasurementUnit';
+import { Angle, Length, Speed } from '../MeasurementUnit';
 import { TraccarPosition, TraccarDevice } from '../Traccar';
 import type {
   TraccarDeviceInterface,
@@ -74,7 +74,7 @@ function convertTraccarDeviceToVehicle(
     fixTime,
     deviceTime,
     serverTime,
-    attributes: { ignition, motion },
+    attributes: { ignition, motion, totalDistance },
   } = position;
 
   const positionObject = new Position({
@@ -100,6 +100,7 @@ function convertTraccarDeviceToVehicle(
     course: new Angle.Degree(course),
     ignitionOn: ignition === true,
     inMotion: motion === true,
+    mileage: new Length.Meter(totalDistance),
   });
 }
 
