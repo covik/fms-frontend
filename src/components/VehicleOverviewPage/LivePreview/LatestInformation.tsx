@@ -1,6 +1,5 @@
-import { Box, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import {
-  Battery,
   CarBattery,
   ClockOutline,
   Counter,
@@ -9,28 +8,42 @@ import {
   LightningBolt,
   MapMarker,
   Navigation,
-  SpeedometerSlow,
+  Timer,
   WifiStrength4,
 } from 'mdi-material-ui';
+import type { ReactNode } from 'react';
+
+export interface InformationContainerAttributes {
+  children: ReactNode;
+}
+
+export function InformationContainer({
+  children,
+}: InformationContainerAttributes) {
+  return (
+    <List disablePadding dense>
+      {children}
+    </List>
+  );
+}
 
 export interface StateDetailsAttributes {
   inMotion: boolean;
   hasIgnition: boolean;
   speed: string;
-  lastFixTime: string;
 }
 
 export function StateDetails({
   inMotion,
   hasIgnition,
   speed,
-  lastFixTime,
 }: StateDetailsAttributes) {
-  const movementText = inMotion ? 'U pokretu' : 'Zaustavljen';
+  const movementStateText = inMotion ? 'U pokretu' : 'Zaustavljen';
+  const movementText = `${movementStateText} (${speed})`;
   const ignitionText = hasIgnition ? 'Uključen' : 'Isključen';
 
   return (
-    <List disablePadding dense>
+    <>
       <ListItem>
         <ListItemIcon>
           <Navigation />
@@ -43,38 +56,36 @@ export function StateDetails({
         </ListItemIcon>
         <ListItemText primary="Kontakt" secondary={ignitionText} />
       </ListItem>
-      <ListItem>
-        <ListItemIcon>
-          <SpeedometerSlow />
-        </ListItemIcon>
-        <ListItemText primary="Brzina" secondary={speed} />
-      </ListItem>
-      <ListItem>
-        <ListItemIcon>
-          <ClockOutline />
-        </ListItemIcon>
-        <ListItemText primary="Posljednja pozicija" secondary={lastFixTime} />
-      </ListItem>
-    </List>
+    </>
   );
 }
 
 export interface ConnectionDetailsAttributes {
   isActive: boolean;
+  latency: string;
 }
 
-export function ConnectionDetails({ isActive }: ConnectionDetailsAttributes) {
+export function ConnectionDetails({
+  isActive,
+  latency,
+}: ConnectionDetailsAttributes) {
   const statusText = isActive ? 'Aktivna' : 'Prekinuta';
 
   return (
-    <List disablePadding dense>
+    <>
       <ListItem>
         <ListItemIcon>
           <WifiStrength4 />
         </ListItemIcon>
         <ListItemText primary="Veza sa serverom" secondary={statusText} />
       </ListItem>
-    </List>
+      <ListItem>
+        <ListItemIcon>
+          <Timer />
+        </ListItemIcon>
+        <ListItemText primary="Kašnjenje" secondary={latency} />
+      </ListItem>
+    </>
   );
 }
 
@@ -82,20 +93,28 @@ export interface SpatialDetailsAttributes {
   coordinates: string;
   course: string;
   altitude: string;
+  lastFixTime: string;
 }
 
 export function SpatialDetails({
   coordinates,
   course,
   altitude,
+  lastFixTime,
 }: SpatialDetailsAttributes) {
   return (
-    <List disablePadding dense>
+    <>
       <ListItem>
         <ListItemIcon>
           <MapMarker />
         </ListItemIcon>
         <ListItemText primary="Koordinate" secondary={coordinates} />
+      </ListItem>
+      <ListItem>
+        <ListItemIcon>
+          <ClockOutline />
+        </ListItemIcon>
+        <ListItemText primary="Ažurirana" secondary={lastFixTime} />
       </ListItem>
       <ListItem>
         <ListItemIcon>
@@ -109,37 +128,22 @@ export function SpatialDetails({
         </ListItemIcon>
         <ListItemText primary="Nadmorska visina" secondary={altitude} />
       </ListItem>
-    </List>
+    </>
   );
 }
 
-export interface BatteryLevelsAttributes {
-  vehicleLevel: string;
-  gpsDeviceLevel: string;
+export interface BatteryStateAttributes {
+  voltage: string;
 }
 
-export function BatteryLevels({
-  vehicleLevel,
-  gpsDeviceLevel,
-}: BatteryLevelsAttributes) {
+export function BatteryState({ voltage }: BatteryStateAttributes) {
   return (
-    <List disablePadding dense>
-      <ListItem>
-        <ListItemIcon>
-          <CarBattery />
-        </ListItemIcon>
-        <ListItemText primary="Baterija" secondary={vehicleLevel} />
-      </ListItem>
-      <ListItem>
-        <ListItemIcon>
-          <Battery />
-        </ListItemIcon>
-        <ListItemText
-          primary="Baterija GPS uređaja"
-          secondary={gpsDeviceLevel}
-        />
-      </ListItem>
-    </List>
+    <ListItem>
+      <ListItemIcon>
+        <CarBattery />
+      </ListItemIcon>
+      <ListItemText primary="Napon" secondary={voltage} />
+    </ListItem>
   );
 }
 
@@ -149,13 +153,13 @@ export interface MileageDetailsAttributes {
 
 export function MileageDetails({ mileage }: MileageDetailsAttributes) {
   return (
-    <List disablePadding dense>
+    <>
       <ListItem>
         <ListItemIcon>
           <Counter />
         </ListItemIcon>
         <ListItemText primary="Kilometraža" secondary={mileage} />
       </ListItem>
-    </List>
+    </>
   );
 }

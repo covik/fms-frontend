@@ -1,7 +1,9 @@
-import { Card, Stack } from '@mui/material';
+import { Box, Grid, Stack } from '@mui/material';
 import { AppMap, MapSettingsProvider } from '../../Map';
 import {
+  BatteryState,
   ConnectionDetails,
+  InformationContainer,
   MileageDetails,
   SpatialDetails,
   StateDetails,
@@ -14,6 +16,8 @@ import {
 } from '../../VehicleMapIcon';
 import { useDateTime } from '../../../foundation';
 import { Length, Speed } from '../../../lib/MeasurementUnit';
+import { Tile } from '../../Tile';
+import { formatDuration } from '../../../utils/date';
 
 export interface LivePreviewViewAttributes {
   vehicle: LocatedVehicle;
@@ -32,54 +36,93 @@ export function LivePreviewView({ vehicle }: LivePreviewViewAttributes) {
     .symbol()}`;
   const formattedAltitude = `${vehicle.position().altitude()}m`;
   const formattedMileage = Length.adaptiveFormat(vehicle.mileage(), 1);
+  const formattedLatency = formatDuration(
+    vehicle.position().timestamp().latencyInSeconds(),
+  );
 
+  const spacing = 1;
   return (
-    <Stack spacing={1}>
-      <MapSettingsProvider center={coordinates} zoom={8}>
-        <AppMap
-          gestureHandling={false}
-          clickablePoi={false}
-          sx={{ height: '40vh', minHeight: '200px' }}
+    <Grid container spacing={spacing} flex={1}>
+      <Grid
+        item
+        xs={12}
+        md={4}
+        lg={3}
+        order={{ xs: 1, md: 0 }}
+        position={'relative'}
+      >
+        <Box
+          sx={(theme) => ({
+            position: {
+              md: 'absolute',
+              xs: 'static',
+            },
+            top: theme.spacing(spacing),
+            bottom: 0,
+            left: theme.spacing(spacing),
+            right: 0,
+            overflow: { md: 'auto', xs: 'unset' },
+            padding: '2px', // otherwise card box shadow is invisible
+            margin: '-2px',
+          })}
         >
-          <VehicleMapMarker position={coordinates} name={vehicle.name()}>
-            {vehicle.isInMotion() ? (
-              <VehicleMapIconMoving
-                active={vehicle.hasIgnitionTurnedOn()}
-                angle={vehicle.course().value()}
-              />
-            ) : (
-              <VehicleMapIconStationary
-                active={vehicle.hasIgnitionTurnedOn()}
-              />
-            )}
-          </VehicleMapMarker>
-        </AppMap>
-      </MapSettingsProvider>
+          <Stack spacing={spacing}>
+            <Tile label={'Vozilo'}>
+              <InformationContainer>
+                <StateDetails
+                  inMotion={vehicle.isInMotion()}
+                  hasIgnition={vehicle.hasIgnitionTurnedOn()}
+                  speed={formattedSpeed}
+                />
+                <BatteryState voltage={'N/A'} />
+                <MileageDetails mileage={formattedMileage} />
+              </InformationContainer>
+            </Tile>
 
-      <Card>
-        <StateDetails
-          inMotion={vehicle.isInMotion()}
-          hasIgnition={vehicle.hasIgnitionTurnedOn()}
-          speed={formattedSpeed}
-          lastFixTime={formattedFixTime}
-        />
-      </Card>
+            <Tile label={'Lokacija'}>
+              <InformationContainer>
+                <SpatialDetails
+                  coordinates={coordinates.toString()}
+                  lastFixTime={formattedFixTime}
+                  course={formattedCourse}
+                  altitude={formattedAltitude}
+                />
+              </InformationContainer>
+            </Tile>
 
-      <Card>
-        <MileageDetails mileage={formattedMileage}></MileageDetails>
-      </Card>
-
-      <Card>
-        <ConnectionDetails isActive={vehicle.isOnline()} />
-      </Card>
-
-      <Card>
-        <SpatialDetails
-          coordinates={coordinates.toString()}
-          course={formattedCourse}
-          altitude={formattedAltitude}
-        />
-      </Card>
-    </Stack>
+            <Tile label={'Mreža'}>
+              <InformationContainer>
+                <ConnectionDetails
+                  isActive={vehicle.isOnline()}
+                  latency={formattedLatency}
+                />
+              </InformationContainer>
+            </Tile>
+          </Stack>
+        </Box>
+      </Grid>
+      <Grid item xs={12} md={8} lg={9} flex={1} display={'flex'}>
+        <MapSettingsProvider center={coordinates} zoom={8}>
+          <AppMap
+            gestureHandling={false}
+            clickablePoi={false}
+            sx={{ minHeight: '40vmax', flex: 1 }}
+          >
+            <VehicleMapMarker position={coordinates} name={vehicle.name()}>
+              {vehicle.isInMotion() ? (
+                <VehicleMapIconMoving
+                  active={vehicle.hasIgnitionTurnedOn()}
+                  angle={vehicle.course().value()}
+                />
+              ) : (
+                <VehicleMapIconStationary
+                  active={vehicle.hasIgnitionTurnedOn()}
+                />
+              )}
+            </VehicleMapMarker>
+          </AppMap>
+        </MapSettingsProvider>
+      </Grid>
+    </Grid>
   );
 }
