@@ -28,7 +28,6 @@ export const TraccarDevice = z.object({
   model: z.string().nullable(),
   contact: z.string().nullable(),
   category: z.string().nullable(),
-  geofenceIds: z.array(z.number().gte(1)).nullable(),
   attributes: z.record(z.string(), z.string()),
 });
 
