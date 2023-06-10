@@ -1,6 +1,6 @@
 import { LoginView, testingSelectors } from './';
 import { composeStories } from '@storybook/react';
-import * as stories from './LoginView.stories';
+import * as stories from '../LoginPage.stories';
 
 const {
   Initial,
