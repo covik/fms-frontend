@@ -170,13 +170,12 @@ export function TripHistoryPage() {
   );
 }
 
-function TripPicker({
-  targetDate,
-  onChange,
-}: {
+interface TripPickerAttributes {
   targetDate: Date;
   onChange: (date: Date) => void;
-}) {
+}
+
+function TripPicker({ targetDate, onChange }: TripPickerAttributes) {
   return (
     <DateCalendar
       value={targetDate}

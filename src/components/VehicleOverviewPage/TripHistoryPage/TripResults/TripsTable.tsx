@@ -21,6 +21,15 @@ import { Length } from '../../../../lib/MeasurementUnit';
 import { useDateTime } from '../../../../foundation';
 import type { TraccarTripInterface } from '../../../../lib/Traccar';
 
+interface TripsTableAttributes {
+  trips: TraccarTripInterface[];
+  stops: RouteStop[];
+  hiddenTripsAndStops: string[];
+  onVisibilityToggle: (id: string) => void;
+  onHideAll: () => void;
+  onShowAll: () => void;
+}
+
 export function TripsTable({
   trips,
   stops,
@@ -28,14 +37,7 @@ export function TripsTable({
   onVisibilityToggle,
   onHideAll,
   onShowAll,
-}: {
-  trips: TraccarTripInterface[];
-  stops: RouteStop[];
-  hiddenTripsAndStops: string[];
-  onVisibilityToggle: (id: string) => void;
-  onHideAll: () => void;
-  onShowAll: () => void;
-}) {
+}: TripsTableAttributes) {
   const { formatTime } = useDateTime();
   const theme = useTheme();
 
