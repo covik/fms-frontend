@@ -1,4 +1,4 @@
-export * from './BaseVehicle';
+export { BaseVehicle } from './BaseVehicle';
 export { LocatedVehicle } from './LocatedVehicle';
 export {
   OperationalVehicle,
@@ -15,5 +15,3 @@ export {
   isTimedOutVehicle,
   isVehicleWithoutPosition,
 } from './Checker';
-
-export type { LocatedVehicleAttributes } from './LocatedVehicle';
