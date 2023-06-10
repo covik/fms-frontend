@@ -1,6 +1,6 @@
-import type { Meta } from '@storybook/react';
 import { VersionProvider } from '../../foundation';
 import { UpdateReadyBanner } from './UpdateReadyBanner';
+import type { Meta } from '@storybook/react';
 
 const mockApplyUpdate = () => {
   console.log('apply update clicked (mock)');
