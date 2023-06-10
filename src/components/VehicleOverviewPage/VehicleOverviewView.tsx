@@ -3,7 +3,7 @@ import { CloseCircleOutline, TimerAlertOutline } from 'mdi-material-ui';
 import { PageTitle } from '../PageTitle';
 import type { ReactNode } from 'react';
 
-export interface DetailedVehicleOverviewViewAttributes {
+export interface VehicleOverviewViewAttributes {
   title: string;
   children: ReactNode;
 }
@@ -11,7 +11,7 @@ export interface DetailedVehicleOverviewViewAttributes {
 export function VehicleOverviewView({
   title,
   children,
-}: DetailedVehicleOverviewViewAttributes) {
+}: VehicleOverviewViewAttributes) {
   return (
     <Box padding={1} flex={1} display={'flex'} flexDirection={'column'}>
       <PageTitle>{title}</PageTitle>
