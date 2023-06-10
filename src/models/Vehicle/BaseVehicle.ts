@@ -10,7 +10,7 @@ export type BaseVehicleAttributes = z.infer<
   typeof BaseVehicleAttributesValidation
 >;
 
-export class BaseVehicle {
+export abstract class BaseVehicle {
   private readonly _id: string;
   private readonly _name: string;
   private readonly _imei: string;

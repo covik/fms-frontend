@@ -14,14 +14,12 @@ import {
 const garbageData = [null, 'foobar', 1234, {}, false, undefined];
 
 const vehiclesWithoutOperationalVehicles = [
-  new BaseVehicle(baseVehicleAttrs),
   new TimedOutVehicle(locatedVehicleAttributes),
   new DisabledVehicle(locatedVehicleAttributes),
   new NoPositionVehicle(baseVehicleAttrs),
 ];
 
 const vehiclesWithoutTimedOutVehicles = [
-  new BaseVehicle(baseVehicleAttrs),
   new OperationalVehicle(locatedVehicleAttributes),
   new DisabledVehicle(locatedVehicleAttributes),
   new NoPositionVehicle(baseVehicleAttrs),

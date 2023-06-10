@@ -15,13 +15,15 @@ import {
   locatedVehicleAttributes,
 } from '../../../cypress/fixtures/base-and-located-vehicle-attributes';
 
+class MockBaseVehicle extends BaseVehicle {}
+
 describe(isBaseVehicle.name, () => {
   specify('given null it should return false', () => {
     expect(isBaseVehicle(null)).to.equal(false);
   });
 
   specify(`given ${BaseVehicle.name} it should return true`, () => {
-    const vehicle = new BaseVehicle(baseVehicleAttrs);
+    const vehicle = new MockBaseVehicle(baseVehicleAttrs);
     expect(isBaseVehicle(vehicle)).to.equal(true);
   });
 
@@ -52,7 +54,7 @@ describe(isOperationalVehicle.name, () => {
   });
 
   specify(`given ${BaseVehicle.name} it should return false`, () => {
-    const vehicle = new BaseVehicle(baseVehicleAttrs);
+    const vehicle = new MockBaseVehicle(baseVehicleAttrs);
     expect(isOperationalVehicle(vehicle)).to.equal(false);
   });
 
@@ -83,7 +85,7 @@ describe(isTimedOutVehicle.name, () => {
   });
 
   specify(`given ${BaseVehicle.name} it should return false`, () => {
-    const vehicle = new BaseVehicle(baseVehicleAttrs);
+    const vehicle = new MockBaseVehicle(baseVehicleAttrs);
     expect(isTimedOutVehicle(vehicle)).to.equal(false);
   });
 
@@ -114,7 +116,7 @@ describe(isDisabledVehicle.name, () => {
   });
 
   specify(`given ${BaseVehicle.name} it should return false`, () => {
-    const vehicle = new BaseVehicle(baseVehicleAttrs);
+    const vehicle = new MockBaseVehicle(baseVehicleAttrs);
     expect(isDisabledVehicle(vehicle)).to.equal(false);
   });
 
@@ -145,7 +147,7 @@ describe(isVehicleWithoutPosition.name, () => {
   });
 
   specify(`given ${BaseVehicle.name} it should return false`, () => {
-    const vehicle = new BaseVehicle(baseVehicleAttrs);
+    const vehicle = new MockBaseVehicle(baseVehicleAttrs);
     expect(isVehicleWithoutPosition(vehicle)).to.equal(false);
   });
 

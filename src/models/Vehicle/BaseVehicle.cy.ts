@@ -8,17 +8,17 @@ const name = 'Test';
 const imei = '4321';
 const emptyValue = '  ';
 
-const validVehicle = new BaseVehicle(baseVehicleAttrs);
+class MockBaseVehicle extends BaseVehicle {}
 
 const problematicSituations = [
   {
     title: 'no property is provided',
-    construct: () => new BaseVehicle({} as BaseVehicleAttributes),
+    construct: () => new MockBaseVehicle({} as BaseVehicleAttributes),
   },
   {
     title: 'id is missing',
     construct: () =>
-      new BaseVehicle({
+      new MockBaseVehicle({
         imei,
         name,
       } as BaseVehicleAttributes),
@@ -26,7 +26,7 @@ const problematicSituations = [
   {
     title: 'name is missing',
     construct: () =>
-      new BaseVehicle({
+      new MockBaseVehicle({
         id,
         imei,
       } as BaseVehicleAttributes),
@@ -34,7 +34,7 @@ const problematicSituations = [
   {
     title: 'imei is missing',
     construct: () =>
-      new BaseVehicle({
+      new MockBaseVehicle({
         id,
         name,
       } as BaseVehicleAttributes),
@@ -42,7 +42,7 @@ const problematicSituations = [
   {
     title: 'id is empty',
     construct: () =>
-      new BaseVehicle({
+      new MockBaseVehicle({
         id: emptyValue,
         name,
         imei,
@@ -51,7 +51,7 @@ const problematicSituations = [
   {
     title: 'name is empty',
     construct: () =>
-      new BaseVehicle({
+      new MockBaseVehicle({
         id,
         name: emptyValue,
         imei,
@@ -60,7 +60,7 @@ const problematicSituations = [
   {
     title: 'imei is empty',
     construct: () =>
-      new BaseVehicle({
+      new MockBaseVehicle({
         id,
         name,
         imei: emptyValue,
@@ -77,6 +77,8 @@ problematicSituations.forEach((situation) => {
 });
 
 it('should return passed arguments through getters', () => {
+  const validVehicle = new MockBaseVehicle(baseVehicleAttrs);
+
   expect(validVehicle.id()).to.equal(id);
   expect(validVehicle.name()).to.equal(name);
   expect(validVehicle.imei()).to.equal(imei);
