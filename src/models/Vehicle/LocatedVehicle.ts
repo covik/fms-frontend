@@ -19,38 +19,59 @@ export type LocatedVehicleAttributes = z.infer<
 >;
 
 export abstract class LocatedVehicle extends BaseVehicle {
-  protected readonly attributes: LocatedVehicleAttributes;
+  private readonly _position: Position;
+  private readonly _course: Angle.BaseAngle;
+  private readonly _speed: Speed.BaseSpeed;
+  private readonly _online: boolean;
+  private readonly _ignitionOn: boolean;
+  private readonly _inMotion: boolean;
+  private readonly _mileage: Length.BaseLength;
 
   public constructor(attributes: LocatedVehicleAttributes) {
-    const validatedAttributes =
-      LocatedVehicleAttributesValidation.parse(attributes);
+    const {
+      position,
+      course,
+      speed,
+      online,
+      ignitionOn,
+      inMotion,
+      mileage,
+      ...baseAttributes
+    } = LocatedVehicleAttributesValidation.parse(attributes);
 
-    super(validatedAttributes);
-    this.attributes = validatedAttributes;
+    super(baseAttributes);
+
+    this._position = position;
+    this._course = course;
+    this._speed = speed;
+    this._online = online;
+    this._ignitionOn = ignitionOn;
+    this._inMotion = inMotion;
+    this._mileage = mileage;
   }
 
   public position(): Position {
-    return this.attributes.position;
+    return this._position;
   }
 
   public course(): Angle.BaseAngle {
-    return this.attributes.course;
+    return this._course;
   }
 
   public speed(): Speed.BaseSpeed {
-    return this.attributes.speed;
+    return this._speed;
   }
 
   public isOnline(): boolean {
-    return this.attributes.online;
+    return this._online;
   }
 
   public hasIgnitionTurnedOn(): boolean {
-    return this.attributes.ignitionOn;
+    return this._ignitionOn;
   }
 
   public isInMotion(): boolean {
-    return this.attributes.inMotion;
+    return this._inMotion;
   }
 
   public lastUpdatedAt(): Date {
@@ -58,6 +79,6 @@ export abstract class LocatedVehicle extends BaseVehicle {
   }
 
   public mileage(): Length.BaseLength {
-    return this.attributes.mileage;
+    return this._mileage;
   }
 }

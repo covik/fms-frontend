@@ -11,23 +11,27 @@ export type BaseVehicleAttributes = z.infer<
 >;
 
 export class BaseVehicle {
-  protected readonly attributes: BaseVehicleAttributes;
+  private readonly _id: string;
+  private readonly _name: string;
+  private readonly _imei: string;
 
   public constructor(attributes: BaseVehicleAttributes) {
-    const validatedAttributes =
+    const { id, name, imei } =
       BaseVehicleAttributesValidation.parse(attributes);
-    this.attributes = validatedAttributes;
+    this._id = id;
+    this._name = name;
+    this._imei = imei;
   }
 
   public id(): string {
-    return this.attributes.id;
+    return this._id;
   }
 
   public name(): string {
-    return this.attributes.name;
+    return this._name;
   }
 
   public imei(): string {
-    return this.attributes.imei;
+    return this._imei;
   }
 }
