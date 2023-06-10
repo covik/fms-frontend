@@ -1,82 +1,32 @@
-import { BaseVehicle } from './BaseVehicle';
+import { z } from 'zod';
+import { BaseVehicle, BaseVehicleAttributesValidation } from './BaseVehicle';
 import { Speed, Angle, Length } from '../../lib/MeasurementUnit';
 import { Position } from '../Position';
-import { InvalidVehicleAttribute } from './Exception';
-import type { BaseVehicleAttributes } from './BaseVehicle';
 
-export interface LocatedVehicleAttributes extends BaseVehicleAttributes {
-  position: Position;
-  course: Angle.BaseAngle;
-  speed: Speed.BaseSpeed;
-  online: boolean;
-  ignitionOn: boolean;
-  inMotion: boolean;
-  mileage: Length.BaseLength;
-}
+export const LocatedVehicleAttributesValidation =
+  BaseVehicleAttributesValidation.extend({
+    position: z.instanceof(Position),
+    course: z.instanceof(Angle.BaseAngle),
+    speed: z.instanceof(Speed.BaseSpeed),
+    online: z.boolean(),
+    ignitionOn: z.boolean(),
+    inMotion: z.boolean(),
+    mileage: z.instanceof(Length.BaseLength),
+  });
+
+export type LocatedVehicleAttributes = z.infer<
+  typeof LocatedVehicleAttributesValidation
+>;
 
 export abstract class LocatedVehicle extends BaseVehicle {
-  public constructor(protected attributes: LocatedVehicleAttributes) {
-    const requiredAttributes = [
-      'position',
-      'course',
-      'speed',
-      'online',
-      'ignitionOn',
-      'inMotion',
-      'mileage',
-    ];
+  protected readonly attributes: LocatedVehicleAttributes;
 
-    requiredAttributes.forEach((attribute) => {
-      if (!Object.prototype.hasOwnProperty.call(attributes, attribute)) {
-        throw new InvalidVehicleAttribute(
-          `Property "${attribute}" not passed to constructor.`,
-        );
-      }
-    });
+  public constructor(attributes: LocatedVehicleAttributes) {
+    const validatedAttributes =
+      LocatedVehicleAttributesValidation.parse(attributes);
 
-    if (!(attributes.position instanceof Position)) {
-      throw new InvalidVehicleAttribute(
-        `Property "position" must be Position object. Got ${typeof attributes.position}.`,
-      );
-    }
-
-    if (!(attributes.course instanceof Angle.BaseAngle)) {
-      throw new InvalidVehicleAttribute(
-        `Property "course" must be BaseAngle object. Got ${typeof attributes.course}.`,
-      );
-    }
-
-    if (!(attributes.speed instanceof Speed.BaseSpeed)) {
-      throw new InvalidVehicleAttribute(
-        `Property "speed" must be BaseSpeed object. Got ${typeof attributes.speed}.`,
-      );
-    }
-
-    if (typeof attributes.online !== 'boolean') {
-      throw new InvalidVehicleAttribute(
-        `Property "online" must be boolean. Got ${typeof attributes.online}.`,
-      );
-    }
-
-    if (typeof attributes.ignitionOn !== 'boolean') {
-      throw new InvalidVehicleAttribute(
-        `Property "ignitionOn" must be boolean. Got ${typeof attributes.ignitionOn}.`,
-      );
-    }
-
-    if (typeof attributes.inMotion !== 'boolean') {
-      throw new InvalidVehicleAttribute(
-        `Property "inMotion" must be boolean. Got ${typeof attributes.inMotion}.`,
-      );
-    }
-
-    if (!(attributes.mileage instanceof Length.BaseLength)) {
-      throw new InvalidVehicleAttribute(
-        `Property "mileage" must be BaseLength object. Got ${typeof attributes.mileage}.`,
-      );
-    }
-
-    super(attributes);
+    super(validatedAttributes);
+    this.attributes = validatedAttributes;
   }
 
   public position(): Position {

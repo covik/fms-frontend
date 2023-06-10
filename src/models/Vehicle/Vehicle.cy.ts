@@ -1,7 +1,7 @@
+import { ZodError } from 'zod';
 import {
   BaseVehicle,
   DisabledVehicle,
-  InvalidVehicleAttribute,
   isBaseVehicle,
   isDisabledVehicle,
   isOperationalVehicle,
@@ -32,7 +32,6 @@ describe(BaseVehicle.name, () => {
     {
       title: 'no property is provided',
       construct: () => new BaseVehicle({} as BaseVehicleAttributes),
-      expectedMessage: `Zero properties passed to constructor.`,
     },
     {
       title: 'id is missing',
@@ -41,7 +40,6 @@ describe(BaseVehicle.name, () => {
           imei,
           name,
         } as BaseVehicleAttributes),
-      expectedMessage: `Property "id" not passed to constructor.`,
     },
     {
       title: 'name is missing',
@@ -50,7 +48,6 @@ describe(BaseVehicle.name, () => {
           id,
           imei,
         } as BaseVehicleAttributes),
-      expectedMessage: `Property "name" not passed to constructor.`,
     },
     {
       title: 'imei is missing',
@@ -59,7 +56,6 @@ describe(BaseVehicle.name, () => {
           id,
           name,
         } as BaseVehicleAttributes),
-      expectedMessage: `Property "imei" not passed to constructor.`,
     },
     {
       title: 'id is empty',
@@ -69,7 +65,6 @@ describe(BaseVehicle.name, () => {
           name,
           imei,
         } as BaseVehicleAttributes),
-      expectedMessage: `Property "id" must not be empty string.`,
     },
     {
       title: 'name is empty',
@@ -79,7 +74,6 @@ describe(BaseVehicle.name, () => {
           name: emptyValue,
           imei,
         } as BaseVehicleAttributes),
-      expectedMessage: `Property "name" must not be empty string.`,
     },
     {
       title: 'imei is empty',
@@ -89,15 +83,13 @@ describe(BaseVehicle.name, () => {
           name,
           imei: emptyValue,
         } as BaseVehicleAttributes),
-      expectedMessage: `Property "imei" must not be empty string.`,
     },
   ];
 
   problematicSituations.forEach((situation) => {
     it(`should throw exception if - ${situation.title}`, () => {
       cy.testException(() => situation.construct()).then((error) => {
-        error().should('be.instanceOf', InvalidVehicleAttribute);
-        error().should('have.a.property', 'message', situation.expectedMessage);
+        error().should('be.instanceOf', ZodError);
       });
     });
   });
@@ -127,7 +119,6 @@ describe(OperationalVehicle.name, () => {
           attributesWithoutPosition as unknown as LocatedVehicleAttributes,
         );
       },
-      expectedMessage: 'Property "position" not passed to constructor.',
     },
     {
       title: 'course is missing',
@@ -138,7 +129,6 @@ describe(OperationalVehicle.name, () => {
           attributesWithoutCourse as unknown as LocatedVehicleAttributes,
         );
       },
-      expectedMessage: 'Property "course" not passed to constructor.',
     },
     {
       title: 'speed is missing',
@@ -149,7 +139,6 @@ describe(OperationalVehicle.name, () => {
           attributesWithoutSpeed as unknown as LocatedVehicleAttributes,
         );
       },
-      expectedMessage: 'Property "speed" not passed to constructor.',
     },
     {
       title: 'online is missing',
@@ -160,7 +149,6 @@ describe(OperationalVehicle.name, () => {
           attributesWithoutOnline as unknown as LocatedVehicleAttributes,
         );
       },
-      expectedMessage: 'Property "online" not passed to constructor.',
     },
     {
       title: 'ignitionOn is missing',
@@ -172,7 +160,6 @@ describe(OperationalVehicle.name, () => {
           attributesWithoutIgnitionOn as unknown as LocatedVehicleAttributes,
         );
       },
-      expectedMessage: 'Property "ignitionOn" not passed to constructor.',
     },
     {
       title: 'inMotion is missing',
@@ -184,7 +171,6 @@ describe(OperationalVehicle.name, () => {
           attributesWithoutInMotion as unknown as LocatedVehicleAttributes,
         );
       },
-      expectedMessage: 'Property "inMotion" not passed to constructor.',
     },
     {
       title: 'mileage is missing',
@@ -196,7 +182,6 @@ describe(OperationalVehicle.name, () => {
           attributesWithoutMileage as unknown as LocatedVehicleAttributes,
         );
       },
-      expectedMessage: 'Property "mileage" not passed to constructor.',
     },
     {
       title: 'position is not Position object',
@@ -210,8 +195,6 @@ describe(OperationalVehicle.name, () => {
           attributesWithIncorrectPosition as unknown as LocatedVehicleAttributes,
         );
       },
-      expectedMessage:
-        'Property "position" must be Position object. Got string.',
     },
     {
       title: 'course is not BaseAngle object',
@@ -225,8 +208,6 @@ describe(OperationalVehicle.name, () => {
           attributesWithIncorrectCourse as unknown as LocatedVehicleAttributes,
         );
       },
-      expectedMessage:
-        'Property "course" must be BaseAngle object. Got string.',
     },
     {
       title: 'speed is not BaseSpeed object',
@@ -240,7 +221,6 @@ describe(OperationalVehicle.name, () => {
           attributesWithIncorrectSpeed as unknown as LocatedVehicleAttributes,
         );
       },
-      expectedMessage: 'Property "speed" must be BaseSpeed object. Got string.',
     },
     {
       title: 'online is not boolean',
@@ -254,7 +234,6 @@ describe(OperationalVehicle.name, () => {
           attributesWithIncorrectOnline as unknown as LocatedVehicleAttributes,
         );
       },
-      expectedMessage: 'Property "online" must be boolean. Got undefined.',
     },
     {
       title: 'ignitionOn is not boolean',
@@ -268,7 +247,6 @@ describe(OperationalVehicle.name, () => {
           attributesWithIncorrectIgnitionOn as unknown as LocatedVehicleAttributes,
         );
       },
-      expectedMessage: 'Property "ignitionOn" must be boolean. Got undefined.',
     },
     {
       title: 'inMotion is not boolean',
@@ -282,7 +260,6 @@ describe(OperationalVehicle.name, () => {
           attributesWithIncorrectInMotion as unknown as LocatedVehicleAttributes,
         );
       },
-      expectedMessage: 'Property "inMotion" must be boolean. Got undefined.',
     },
     {
       title: 'mileage is not BaseLength object',
@@ -296,16 +273,13 @@ describe(OperationalVehicle.name, () => {
           attributesWithIncorrectMileage as unknown as LocatedVehicleAttributes,
         );
       },
-      expectedMessage:
-        'Property "mileage" must be BaseLength object. Got string.',
     },
   ];
 
   problematicSituations.forEach((situation) => {
     it(`should throw exception if - ${situation.title}`, () => {
       cy.testException(() => situation.construct()).then((error) => {
-        error().should('be.instanceOf', InvalidVehicleAttribute);
-        error().should('have.a.property', 'message', situation.expectedMessage);
+        error().should('be.instanceOf', ZodError);
       });
     });
   });

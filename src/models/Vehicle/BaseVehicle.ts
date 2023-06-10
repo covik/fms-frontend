@@ -1,34 +1,22 @@
-import { InvalidVehicleAttribute } from './Exception';
+import { z } from 'zod';
 
-export interface BaseVehicleAttributes {
-  id: string;
-  name: string;
-  imei: string;
-}
+export const BaseVehicleAttributesValidation = z.object({
+  id: z.string().trim().min(1),
+  name: z.string().trim().min(1),
+  imei: z.string().trim().min(1),
+});
 
-const possibleAttributes = ['id', 'name', 'imei'];
+export type BaseVehicleAttributes = z.infer<
+  typeof BaseVehicleAttributesValidation
+>;
 
 export class BaseVehicle {
-  public constructor(protected readonly attributes: BaseVehicleAttributes) {
-    if (Object.keys(attributes).length === 0)
-      throw new InvalidVehicleAttribute(
-        'Zero properties passed to constructor.',
-      );
+  protected readonly attributes: BaseVehicleAttributes;
 
-    possibleAttributes.forEach((property) => {
-      if (!Object.prototype.hasOwnProperty.call(attributes, property)) {
-        throw new InvalidVehicleAttribute(
-          `Property "${property}" not passed to constructor.`,
-        );
-      }
-    });
-
-    for (const [property, value] of Object.entries(attributes)) {
-      if (String(value).trim() === '')
-        throw new InvalidVehicleAttribute(
-          `Property "${property}" must not be empty string.`,
-        );
-    }
+  public constructor(attributes: BaseVehicleAttributes) {
+    const validatedAttributes =
+      BaseVehicleAttributesValidation.parse(attributes);
+    this.attributes = validatedAttributes;
   }
 
   public id(): string {
