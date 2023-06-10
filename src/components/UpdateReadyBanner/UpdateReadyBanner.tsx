@@ -3,9 +3,12 @@ import { Update } from 'mdi-material-ui';
 import { Alert, Button, styled } from '@mui/material';
 
 const StyledAlert = styled(Alert)({
-  width: '100%',
-  alignItems: 'center',
-  borderRadius: 0,
+  'width': '100%',
+  'alignItems': 'center',
+  'borderRadius': 0,
+  '.MuiAlert-action': {
+    paddingTop: 0,
+  },
 });
 
 export function UpdateReadyBanner() {
