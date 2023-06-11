@@ -17,7 +17,7 @@ const operationalVehicles = [
   new OperationalVehicle(locatedVehicleAttributes),
 ];
 
-const timedOutVehicles = [
+const unavailableVehicles = [
   new UnavailableVehicle(locatedVehicleAttributes),
   new UnavailableVehicle(locatedVehicleAttributes),
 ];
@@ -25,7 +25,7 @@ const timedOutVehicles = [
 export const All: Story = {
   args: {
     operationalVehicles,
-    timedOutVehicles,
+    unavailableVehicles,
   },
 };
 
@@ -38,20 +38,20 @@ export const Loading: Story = {
 export const Empty: Story = {
   args: {
     operationalVehicles: [],
-    timedOutVehicles: [],
+    unavailableVehicles: [],
   },
 };
 
 export const OnlyOperationalVehicles: Story = {
   args: {
     operationalVehicles,
-    timedOutVehicles: [],
+    unavailableVehicles: [],
   },
 };
 
-export const OnlyTimedOutVehicles: Story = {
+export const OnlyUnavailableVehicles: Story = {
   args: {
     operationalVehicles: [],
-    timedOutVehicles,
+    unavailableVehicles,
   },
 };

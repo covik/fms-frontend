@@ -28,7 +28,7 @@ export function VehiclesDigestPage() {
     [sortedVehicles],
   );
 
-  const timedOutVehicles = useMemo(
+  const unavailableVehicles = useMemo(
     () => Vehicle.takeOnlyUnavailable(sortedVehicles),
     [sortedVehicles],
   );
@@ -86,7 +86,7 @@ export function VehiclesDigestPage() {
       <VehiclesDigestView
         loading={rawData === undefined}
         operationalVehicles={operationalVehicles}
-        timedOutVehicles={timedOutVehicles}
+        unavailableVehicles={unavailableVehicles}
         onShareRequest={shareGoogleMapsLink}
         vehicleRenderer={linkToVehicleOverviewPage}
       />

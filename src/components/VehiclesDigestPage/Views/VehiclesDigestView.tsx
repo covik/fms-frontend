@@ -25,7 +25,7 @@ const defaultVehicleRenderer: VehicleRenderer = (Component, vehicle) => (
 
 export interface VehiclesDigestViewAttributes {
   operationalVehicles: OperationalVehicle[];
-  timedOutVehicles: UnavailableVehicle[];
+  unavailableVehicles: UnavailableVehicle[];
   onShareRequest?: ShareHandler;
   vehicleRenderer?: VehicleRenderer;
   loading?: boolean;
@@ -39,7 +39,7 @@ export type VehicleRenderer = (
 
 export function VehiclesDigestView({
   operationalVehicles = [],
-  timedOutVehicles = [],
+  unavailableVehicles = [],
   onShareRequest = defaultShareHandler,
   vehicleRenderer = defaultVehicleRenderer,
   loading = false,
@@ -60,7 +60,7 @@ export function VehiclesDigestView({
       </PageContainer>
     );
 
-  if (operationalVehicles.length === 0 && timedOutVehicles.length === 0)
+  if (operationalVehicles.length === 0 && unavailableVehicles.length === 0)
     return <NoVehiclesView />;
 
   return (
@@ -73,7 +73,7 @@ export function VehiclesDigestView({
         </SectionOperationalVehicles>
 
         <SectionTimedOutVehicles>
-          {renderVehicles(timedOutVehicles)}
+          {renderVehicles(unavailableVehicles)}
         </SectionTimedOutVehicles>
       </VehicleSections>
     </PageContainer>

@@ -19,7 +19,7 @@ const vehiclesWithoutOperationalVehicles = [
   new NoPositionVehicle(baseVehicleAttrs),
 ];
 
-const vehiclesWithoutTimedOutVehicles = [
+const vehiclesWithoutUnavailableVehicles = [
   new OperationalVehicle(locatedVehicleAttributes),
   new DisabledVehicle(locatedVehicleAttributes),
   new NoPositionVehicle(baseVehicleAttrs),
@@ -30,7 +30,7 @@ const operationalVehicles = [
   new OperationalVehicle(locatedVehicleAttributes),
 ];
 
-const timedOutVehicles = [
+const unavailableVehicles = [
   new UnavailableVehicle(locatedVehicleAttributes),
   new UnavailableVehicle(locatedVehicleAttributes),
 ];
@@ -129,7 +129,7 @@ describe(Vehicle.takeOnlyOperational.name, () => {
     `given different subclasses of ${BaseVehicle.name} but no ${UnavailableVehicle.name} it should return empty array`,
     () => {
       expect(
-        Vehicle.takeOnlyUnavailable(vehiclesWithoutTimedOutVehicles),
+        Vehicle.takeOnlyUnavailable(vehiclesWithoutUnavailableVehicles),
       ).to.deep.equal([]);
     },
   );
@@ -139,12 +139,12 @@ describe(Vehicle.takeOnlyOperational.name, () => {
     () => {
       expect(
         Vehicle.takeOnlyUnavailable([
-          ...vehiclesWithoutTimedOutVehicles,
-          ...timedOutVehicles,
+          ...vehiclesWithoutUnavailableVehicles,
+          ...unavailableVehicles,
           undefined,
           false,
         ]),
-      ).to.deep.equal(timedOutVehicles);
+      ).to.deep.equal(unavailableVehicles);
     },
   );
 });
