@@ -5,7 +5,7 @@ import { VehiclesLoadingView } from './VehiclesLoadingView';
 import { NoVehiclesView } from './NoVehiclesView';
 import {
   SectionOperationalVehicles,
-  SectionTimedOutVehicles,
+  SectionUnavailableVehicles,
   VehicleSections,
 } from '../Sections';
 import { VehicleCard } from '../../VehicleCard';
@@ -72,9 +72,9 @@ export function VehiclesDigestView({
           {renderVehicles(operationalVehicles)}
         </SectionOperationalVehicles>
 
-        <SectionTimedOutVehicles>
+        <SectionUnavailableVehicles>
           {renderVehicles(unavailableVehicles)}
-        </SectionTimedOutVehicles>
+        </SectionUnavailableVehicles>
       </VehicleSections>
     </PageContainer>
   );
