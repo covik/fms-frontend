@@ -16,7 +16,7 @@ export function isOperationalVehicle(
   return vehicle instanceof OperationalVehicle;
 }
 
-export function isTimedOutVehicle(
+export function isUnavailableVehicle(
   vehicle: unknown,
 ): vehicle is UnavailableVehicle {
   return vehicle instanceof UnavailableVehicle;

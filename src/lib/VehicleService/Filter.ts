@@ -1,6 +1,6 @@
 import {
   isOperationalVehicle,
-  isTimedOutVehicle,
+  isUnavailableVehicle,
   OperationalVehicle,
   UnavailableVehicle,
 } from '../../models/Vehicle';
@@ -22,5 +22,5 @@ export function takeOnlyTimedOut(data: unknown): UnavailableVehicle[] {
     );
   }
 
-  return data.filter(isTimedOutVehicle);
+  return data.filter(isUnavailableVehicle);
 }
