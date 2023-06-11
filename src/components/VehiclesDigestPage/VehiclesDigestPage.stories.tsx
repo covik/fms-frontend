@@ -6,7 +6,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 export default {
   component: VehiclesDigestView,
   parameters: {
-    layout: 'fullscren',
+    layout: 'fullscreen',
   },
 } satisfies Meta<typeof VehiclesDigestView>;
 
