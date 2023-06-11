@@ -3,7 +3,7 @@ import {
   DisabledVehicle,
   NoPositionVehicle,
   OperationalVehicle,
-  TimedOutVehicle,
+  UnavailableVehicle,
 } from '../../models/Vehicle';
 import { Http } from '../HttpClient';
 import { Position, PositionTimestamps } from '../../models/Position';
@@ -106,10 +106,13 @@ function convertTraccarDeviceToVehicle(
 
 function pickVehicleConstructor(
   device: TraccarDeviceInterface,
-): typeof OperationalVehicle | typeof DisabledVehicle | typeof TimedOutVehicle {
+):
+  | typeof OperationalVehicle
+  | typeof DisabledVehicle
+  | typeof UnavailableVehicle {
   if (device.disabled) return DisabledVehicle;
   else if (isLastUpdateAfterTooMuchTime(new Date(device.lastUpdate as string)))
-    return TimedOutVehicle;
+    return UnavailableVehicle;
 
   return OperationalVehicle;
 }

@@ -15,7 +15,7 @@ import type { ReactElement, ReactNode } from 'react';
 import type {
   LocatedVehicle,
   OperationalVehicle,
-  TimedOutVehicle,
+  UnavailableVehicle,
 } from '../../../models/Vehicle';
 
 const defaultShareHandler: ShareHandler = () => {};
@@ -25,7 +25,7 @@ const defaultVehicleRenderer: VehicleRenderer = (Component, vehicle) => (
 
 export interface VehiclesDigestViewAttributes {
   operationalVehicles: OperationalVehicle[];
-  timedOutVehicles: TimedOutVehicle[];
+  timedOutVehicles: UnavailableVehicle[];
   onShareRequest?: ShareHandler;
   vehicleRenderer?: VehicleRenderer;
   loading?: boolean;

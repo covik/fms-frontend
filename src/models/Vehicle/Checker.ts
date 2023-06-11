@@ -3,7 +3,7 @@ import {
   DisabledVehicle,
   NoPositionVehicle,
   OperationalVehicle,
-  TimedOutVehicle,
+  UnavailableVehicle,
 } from './Vehicle';
 
 export function isBaseVehicle(vehicle: unknown): vehicle is BaseVehicle {
@@ -18,8 +18,8 @@ export function isOperationalVehicle(
 
 export function isTimedOutVehicle(
   vehicle: unknown,
-): vehicle is TimedOutVehicle {
-  return vehicle instanceof TimedOutVehicle;
+): vehicle is UnavailableVehicle {
+  return vehicle instanceof UnavailableVehicle;
 }
 
 export function isDisabledVehicle(

@@ -8,7 +8,7 @@ import {
   DisabledVehicle,
   NoPositionVehicle,
   OperationalVehicle,
-  TimedOutVehicle,
+  UnavailableVehicle,
 } from '.';
 import {
   baseVehicleAttrs,
@@ -32,8 +32,8 @@ describe(isBaseVehicle.name, () => {
     expect(isBaseVehicle(vehicle)).to.equal(true);
   });
 
-  specify(`given ${TimedOutVehicle.name} it should return true`, () => {
-    const vehicle = new TimedOutVehicle(locatedVehicleAttributes);
+  specify(`given ${UnavailableVehicle.name} it should return true`, () => {
+    const vehicle = new UnavailableVehicle(locatedVehicleAttributes);
     expect(isBaseVehicle(vehicle)).to.equal(true);
   });
 
@@ -58,8 +58,8 @@ describe(isOperationalVehicle.name, () => {
     expect(isOperationalVehicle(vehicle)).to.equal(false);
   });
 
-  specify(`given ${TimedOutVehicle.name} it should return false`, () => {
-    const vehicle = new TimedOutVehicle(locatedVehicleAttributes);
+  specify(`given ${UnavailableVehicle.name} it should return false`, () => {
+    const vehicle = new UnavailableVehicle(locatedVehicleAttributes);
     expect(isOperationalVehicle(vehicle)).to.equal(false);
   });
 
@@ -104,8 +104,8 @@ describe(isTimedOutVehicle.name, () => {
     expect(isTimedOutVehicle(vehicle)).to.equal(false);
   });
 
-  specify(`given ${TimedOutVehicle.name} it should return true`, () => {
-    const vehicle = new TimedOutVehicle(locatedVehicleAttributes);
+  specify(`given ${UnavailableVehicle.name} it should return true`, () => {
+    const vehicle = new UnavailableVehicle(locatedVehicleAttributes);
     expect(isTimedOutVehicle(vehicle)).to.equal(true);
   });
 });
@@ -125,8 +125,8 @@ describe(isDisabledVehicle.name, () => {
     expect(isDisabledVehicle(vehicle)).to.equal(false);
   });
 
-  specify(`given ${TimedOutVehicle.name} it should return false`, () => {
-    const vehicle = new TimedOutVehicle(locatedVehicleAttributes);
+  specify(`given ${UnavailableVehicle.name} it should return false`, () => {
+    const vehicle = new UnavailableVehicle(locatedVehicleAttributes);
     expect(isDisabledVehicle(vehicle)).to.equal(false);
   });
 
@@ -156,8 +156,8 @@ describe(isVehicleWithoutPosition.name, () => {
     expect(isVehicleWithoutPosition(vehicle)).to.equal(false);
   });
 
-  specify(`given ${TimedOutVehicle.name} it should return false`, () => {
-    const vehicle = new TimedOutVehicle(locatedVehicleAttributes);
+  specify(`given ${UnavailableVehicle.name} it should return false`, () => {
+    const vehicle = new UnavailableVehicle(locatedVehicleAttributes);
     expect(isVehicleWithoutPosition(vehicle)).to.equal(false);
   });
 

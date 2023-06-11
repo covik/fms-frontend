@@ -6,7 +6,7 @@ export {
   ProblematicLocatedVehicle,
   DisabledVehicle,
   NoPositionVehicle,
-  TimedOutVehicle,
+  UnavailableVehicle,
 } from './Vehicle';
 export {
   isBaseVehicle,

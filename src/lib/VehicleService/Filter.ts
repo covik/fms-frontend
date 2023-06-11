@@ -2,7 +2,7 @@ import {
   isOperationalVehicle,
   isTimedOutVehicle,
   OperationalVehicle,
-  TimedOutVehicle,
+  UnavailableVehicle,
 } from '../../models/Vehicle';
 
 export function takeOnlyOperational(data: unknown): OperationalVehicle[] {
@@ -15,7 +15,7 @@ export function takeOnlyOperational(data: unknown): OperationalVehicle[] {
   return data.filter(isOperationalVehicle);
 }
 
-export function takeOnlyTimedOut(data: unknown): TimedOutVehicle[] {
+export function takeOnlyTimedOut(data: unknown): UnavailableVehicle[] {
   if (!Array.isArray(data)) {
     throw new TypeError(
       `Argument "data" should be array, received: ${typeof data}.`,

@@ -1,5 +1,5 @@
 import { VehiclesDigestView } from './Views';
-import { OperationalVehicle, TimedOutVehicle } from '../../models/Vehicle';
+import { OperationalVehicle, UnavailableVehicle } from '../../models/Vehicle';
 import { locatedVehicleAttributes } from '../../../cypress/fixtures/base-and-located-vehicle-attributes';
 import type { Meta, StoryObj } from '@storybook/react';
 
@@ -18,8 +18,8 @@ const operationalVehicles = [
 ];
 
 const timedOutVehicles = [
-  new TimedOutVehicle(locatedVehicleAttributes),
-  new TimedOutVehicle(locatedVehicleAttributes),
+  new UnavailableVehicle(locatedVehicleAttributes),
+  new UnavailableVehicle(locatedVehicleAttributes),
 ];
 
 export const All: Story = {

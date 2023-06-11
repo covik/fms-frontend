@@ -4,7 +4,7 @@ import {
   DisabledVehicle,
   NoPositionVehicle,
   OperationalVehicle,
-  TimedOutVehicle,
+  UnavailableVehicle,
 } from '../../models/Vehicle';
 import {
   baseVehicleAttrs,
@@ -14,7 +14,7 @@ import {
 const garbageData = [null, 'foobar', 1234, {}, false, undefined];
 
 const vehiclesWithoutOperationalVehicles = [
-  new TimedOutVehicle(locatedVehicleAttributes),
+  new UnavailableVehicle(locatedVehicleAttributes),
   new DisabledVehicle(locatedVehicleAttributes),
   new NoPositionVehicle(baseVehicleAttrs),
 ];
@@ -31,8 +31,8 @@ const operationalVehicles = [
 ];
 
 const timedOutVehicles = [
-  new TimedOutVehicle(locatedVehicleAttributes),
-  new TimedOutVehicle(locatedVehicleAttributes),
+  new UnavailableVehicle(locatedVehicleAttributes),
+  new UnavailableVehicle(locatedVehicleAttributes),
 ];
 
 describe(Vehicle.takeOnlyOperational.name, () => {
@@ -126,7 +126,7 @@ describe(Vehicle.takeOnlyOperational.name, () => {
   });
 
   specify(
-    `given different subclasses of ${BaseVehicle.name} but no ${TimedOutVehicle.name} it should return empty array`,
+    `given different subclasses of ${BaseVehicle.name} but no ${UnavailableVehicle.name} it should return empty array`,
     () => {
       expect(
         Vehicle.takeOnlyTimedOut(vehiclesWithoutTimedOutVehicles),

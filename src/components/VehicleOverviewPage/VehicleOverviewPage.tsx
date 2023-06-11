@@ -12,7 +12,7 @@ import {
 import {
   DisabledVehicle,
   LocatedVehicle,
-  TimedOutVehicle,
+  UnavailableVehicle,
 } from '../../models/Vehicle';
 import { VehicleOverviewNavigation } from './VehicleOverviewNavigation';
 
@@ -55,7 +55,7 @@ export function VehicleOverviewPage() {
 function renderWarning(vehicle: LocatedVehicle) {
   const sx = { marginBottom: 1 };
 
-  if (vehicle instanceof TimedOutVehicle)
+  if (vehicle instanceof UnavailableVehicle)
     return (
       <Box sx={sx}>
         <WarningOutdatedPositionData />

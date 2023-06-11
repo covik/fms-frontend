@@ -5,7 +5,7 @@ import {
   OperationalVehicle,
   ProblematicLocatedVehicle,
   ProblematicVehicle,
-  TimedOutVehicle,
+  UnavailableVehicle,
 } from './';
 import {
   baseVehicleAttrs,
@@ -28,9 +28,9 @@ describe(DisabledVehicle.name, () => {
   });
 });
 
-describe(TimedOutVehicle.name, () => {
+describe(UnavailableVehicle.name, () => {
   it(`should extend ${ProblematicLocatedVehicle.name}`, () => {
-    expect(new TimedOutVehicle(locatedVehicleAttributes)).to.be.instanceOf(
+    expect(new UnavailableVehicle(locatedVehicleAttributes)).to.be.instanceOf(
       ProblematicLocatedVehicle,
     );
   });
