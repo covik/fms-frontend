@@ -18,6 +18,7 @@ module.exports = {
         'vehicle-service',
         'web-share',
         'utils',
+        'model',
       ],
     ],
   },
