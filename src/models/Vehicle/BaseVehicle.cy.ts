@@ -1,14 +1,13 @@
+import { faker } from '@faker-js/faker';
 import { ZodError } from 'zod';
 import { BaseVehicle } from '.';
-import { baseVehicleAttrs } from '../../../cypress/fixtures/base-and-located-vehicle-attributes';
+import { createBaseVehicleAttributes } from './factory';
 import type { BaseVehicleAttributes } from './BaseVehicle';
 
-const id = '1234';
-const name = 'Test';
-const imei = '4321';
-const emptyValue = '  ';
-
 class MockBaseVehicle extends BaseVehicle {}
+const baseVehicleAttrs = createBaseVehicleAttributes(faker);
+const { id, name, imei } = baseVehicleAttrs;
+const emptyValue = '  ';
 
 const problematicSituations = [
   {

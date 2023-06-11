@@ -11,11 +11,18 @@ import {
   UnavailableVehicle,
 } from '.';
 import {
-  baseVehicleAttrs,
-  locatedVehicleAttributes,
-} from '../../../cypress/fixtures/base-and-located-vehicle-attributes';
+  createBaseVehicleMock,
+  createDisabledVehicle,
+  createOperationalVehicle,
+  createUnavailableVehicle,
+  createVehicleWithoutPosition,
+} from './factory';
 
-class MockBaseVehicle extends BaseVehicle {}
+const baseVehicle = createBaseVehicleMock();
+const operationalVehicle = createOperationalVehicle();
+const unavailableVehicle = createUnavailableVehicle();
+const disabledVehicle = createDisabledVehicle();
+const noPositionVehicle = createVehicleWithoutPosition();
 
 describe(isBaseVehicle.name, () => {
   specify('given null it should return false', () => {
@@ -23,28 +30,23 @@ describe(isBaseVehicle.name, () => {
   });
 
   specify(`given ${BaseVehicle.name} it should return true`, () => {
-    const vehicle = new MockBaseVehicle(baseVehicleAttrs);
-    expect(isBaseVehicle(vehicle)).to.equal(true);
+    expect(isBaseVehicle(baseVehicle)).to.equal(true);
   });
 
   specify(`given ${OperationalVehicle.name} it should return true`, () => {
-    const vehicle = new OperationalVehicle(locatedVehicleAttributes);
-    expect(isBaseVehicle(vehicle)).to.equal(true);
+    expect(isBaseVehicle(operationalVehicle)).to.equal(true);
   });
 
   specify(`given ${UnavailableVehicle.name} it should return true`, () => {
-    const vehicle = new UnavailableVehicle(locatedVehicleAttributes);
-    expect(isBaseVehicle(vehicle)).to.equal(true);
+    expect(isBaseVehicle(unavailableVehicle)).to.equal(true);
   });
 
   specify(`given ${DisabledVehicle.name} it should return true`, () => {
-    const vehicle = new DisabledVehicle(locatedVehicleAttributes);
-    expect(isBaseVehicle(vehicle)).to.equal(true);
+    expect(isBaseVehicle(disabledVehicle)).to.equal(true);
   });
 
   specify(`given ${NoPositionVehicle.name} it should return true`, () => {
-    const vehicle = new NoPositionVehicle(baseVehicleAttrs);
-    expect(isBaseVehicle(vehicle)).to.equal(true);
+    expect(isBaseVehicle(noPositionVehicle)).to.equal(true);
   });
 });
 
@@ -54,28 +56,23 @@ describe(isOperationalVehicle.name, () => {
   });
 
   specify(`given ${BaseVehicle.name} it should return false`, () => {
-    const vehicle = new MockBaseVehicle(baseVehicleAttrs);
-    expect(isOperationalVehicle(vehicle)).to.equal(false);
+    expect(isOperationalVehicle(baseVehicle)).to.equal(false);
   });
 
   specify(`given ${UnavailableVehicle.name} it should return false`, () => {
-    const vehicle = new UnavailableVehicle(locatedVehicleAttributes);
-    expect(isOperationalVehicle(vehicle)).to.equal(false);
+    expect(isOperationalVehicle(unavailableVehicle)).to.equal(false);
   });
 
   specify(`given ${DisabledVehicle.name} it should return false`, () => {
-    const vehicle = new DisabledVehicle(locatedVehicleAttributes);
-    expect(isOperationalVehicle(vehicle)).to.equal(false);
+    expect(isOperationalVehicle(disabledVehicle)).to.equal(false);
   });
 
   specify(`given ${NoPositionVehicle.name} it should return false`, () => {
-    const vehicle = new NoPositionVehicle(baseVehicleAttrs);
-    expect(isOperationalVehicle(vehicle)).to.equal(false);
+    expect(isOperationalVehicle(noPositionVehicle)).to.equal(false);
   });
 
   specify(`given ${OperationalVehicle.name} it should return true`, () => {
-    const vehicle = new OperationalVehicle(locatedVehicleAttributes);
-    expect(isOperationalVehicle(vehicle)).to.equal(true);
+    expect(isOperationalVehicle(operationalVehicle)).to.equal(true);
   });
 });
 
@@ -85,28 +82,23 @@ describe(isUnavailableVehicle.name, () => {
   });
 
   specify(`given ${BaseVehicle.name} it should return false`, () => {
-    const vehicle = new MockBaseVehicle(baseVehicleAttrs);
-    expect(isUnavailableVehicle(vehicle)).to.equal(false);
+    expect(isUnavailableVehicle(baseVehicle)).to.equal(false);
   });
 
   specify(`given ${OperationalVehicle.name} it should return false`, () => {
-    const vehicle = new OperationalVehicle(locatedVehicleAttributes);
-    expect(isUnavailableVehicle(vehicle)).to.equal(false);
+    expect(isUnavailableVehicle(operationalVehicle)).to.equal(false);
   });
 
   specify(`given ${DisabledVehicle.name} it should return false`, () => {
-    const vehicle = new DisabledVehicle(locatedVehicleAttributes);
-    expect(isUnavailableVehicle(vehicle)).to.equal(false);
+    expect(isUnavailableVehicle(disabledVehicle)).to.equal(false);
   });
 
   specify(`given ${NoPositionVehicle.name} it should return false`, () => {
-    const vehicle = new NoPositionVehicle(baseVehicleAttrs);
-    expect(isUnavailableVehicle(vehicle)).to.equal(false);
+    expect(isUnavailableVehicle(noPositionVehicle)).to.equal(false);
   });
 
   specify(`given ${UnavailableVehicle.name} it should return true`, () => {
-    const vehicle = new UnavailableVehicle(locatedVehicleAttributes);
-    expect(isUnavailableVehicle(vehicle)).to.equal(true);
+    expect(isUnavailableVehicle(unavailableVehicle)).to.equal(true);
   });
 });
 
@@ -116,28 +108,23 @@ describe(isDisabledVehicle.name, () => {
   });
 
   specify(`given ${BaseVehicle.name} it should return false`, () => {
-    const vehicle = new MockBaseVehicle(baseVehicleAttrs);
-    expect(isDisabledVehicle(vehicle)).to.equal(false);
+    expect(isDisabledVehicle(baseVehicle)).to.equal(false);
   });
 
   specify(`given ${OperationalVehicle.name} it should return false`, () => {
-    const vehicle = new OperationalVehicle(locatedVehicleAttributes);
-    expect(isDisabledVehicle(vehicle)).to.equal(false);
+    expect(isDisabledVehicle(operationalVehicle)).to.equal(false);
   });
 
   specify(`given ${UnavailableVehicle.name} it should return false`, () => {
-    const vehicle = new UnavailableVehicle(locatedVehicleAttributes);
-    expect(isDisabledVehicle(vehicle)).to.equal(false);
+    expect(isDisabledVehicle(unavailableVehicle)).to.equal(false);
   });
 
   specify(`given ${NoPositionVehicle.name} it should return false`, () => {
-    const vehicle = new NoPositionVehicle(baseVehicleAttrs);
-    expect(isDisabledVehicle(vehicle)).to.equal(false);
+    expect(isDisabledVehicle(noPositionVehicle)).to.equal(false);
   });
 
   specify(`given ${DisabledVehicle.name} it should return true`, () => {
-    const vehicle = new DisabledVehicle(locatedVehicleAttributes);
-    expect(isDisabledVehicle(vehicle)).to.equal(true);
+    expect(isDisabledVehicle(disabledVehicle)).to.equal(true);
   });
 });
 
@@ -147,27 +134,22 @@ describe(isVehicleWithoutPosition.name, () => {
   });
 
   specify(`given ${BaseVehicle.name} it should return false`, () => {
-    const vehicle = new MockBaseVehicle(baseVehicleAttrs);
-    expect(isVehicleWithoutPosition(vehicle)).to.equal(false);
+    expect(isVehicleWithoutPosition(baseVehicle)).to.equal(false);
   });
 
   specify(`given ${OperationalVehicle.name} it should return false`, () => {
-    const vehicle = new OperationalVehicle(locatedVehicleAttributes);
-    expect(isVehicleWithoutPosition(vehicle)).to.equal(false);
+    expect(isVehicleWithoutPosition(operationalVehicle)).to.equal(false);
   });
 
   specify(`given ${UnavailableVehicle.name} it should return false`, () => {
-    const vehicle = new UnavailableVehicle(locatedVehicleAttributes);
-    expect(isVehicleWithoutPosition(vehicle)).to.equal(false);
+    expect(isVehicleWithoutPosition(unavailableVehicle)).to.equal(false);
   });
 
   specify(`given ${DisabledVehicle.name} it should return false`, () => {
-    const vehicle = new DisabledVehicle(locatedVehicleAttributes);
-    expect(isVehicleWithoutPosition(vehicle)).to.equal(false);
+    expect(isVehicleWithoutPosition(disabledVehicle)).to.equal(false);
   });
 
   specify(`given ${NoPositionVehicle.name} it should return false`, () => {
-    const vehicle = new NoPositionVehicle(baseVehicleAttrs);
-    expect(isVehicleWithoutPosition(vehicle)).to.equal(true);
+    expect(isVehicleWithoutPosition(noPositionVehicle)).to.equal(true);
   });
 });

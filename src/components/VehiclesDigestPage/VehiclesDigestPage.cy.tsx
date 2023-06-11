@@ -1,9 +1,8 @@
+import { faker } from '@faker-js/faker';
 import { VehiclesDigestPage, testingSelectors } from './VehiclesDigestPage';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { QueryClient } from '@tanstack/query-core';
 import { Vehicle } from '../../lib/VehicleService';
-import { OperationalVehicle } from '../../models/Vehicle';
-import { locatedVehicleAttributes } from '../../../cypress/fixtures/base-and-located-vehicle-attributes';
 import { WebShare } from '../../lib/WebShare';
 import {
   createMemoryHistory,
@@ -12,8 +11,10 @@ import {
   Router,
   RouterProvider,
 } from '@tanstack/router';
+import { createOperationalVehicle } from '../../models/Vehicle/factory';
 
-const operationalVehicle1 = new OperationalVehicle(locatedVehicleAttributes);
+faker.seed(1);
+const operationalVehicle = createOperationalVehicle({ faker });
 
 describe(VehiclesDigestPage.name, () => {
   specify(
@@ -77,7 +78,7 @@ describe(VehiclesDigestPage.name, () => {
       assertToastIsNotVisible();
       triggerShare();
       assertToastIsVisible().assertMessage(
-        `Poveznica lokacije vozila ${operationalVehicle1.name()} kopirana u međuspremnik.`,
+        `Poveznica lokacije vozila ${operationalVehicle.name()} kopirana u međuspremnik.`,
       );
     },
   );
@@ -85,7 +86,7 @@ describe(VehiclesDigestPage.name, () => {
 
 function stubVehicleList() {
   cy.stub(Vehicle, 'fetchAll').callsFake(() =>
-    Promise.resolve([operationalVehicle1]),
+    Promise.resolve([operationalVehicle]),
   );
 }
 

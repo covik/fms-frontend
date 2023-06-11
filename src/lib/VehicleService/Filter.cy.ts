@@ -1,38 +1,38 @@
 import { Vehicle } from './';
 import {
   BaseVehicle,
-  DisabledVehicle,
-  NoPositionVehicle,
   OperationalVehicle,
   UnavailableVehicle,
 } from '../../models/Vehicle';
 import {
-  baseVehicleAttrs,
-  locatedVehicleAttributes,
-} from '../../../cypress/fixtures/base-and-located-vehicle-attributes';
+  createDisabledVehicle,
+  createOperationalVehicle,
+  createUnavailableVehicle,
+  createVehicleWithoutPosition,
+} from '../../models/Vehicle/factory';
 
 const garbageData = [null, 'foobar', 1234, {}, false, undefined];
 
 const vehiclesWithoutOperationalVehicles = [
-  new UnavailableVehicle(locatedVehicleAttributes),
-  new DisabledVehicle(locatedVehicleAttributes),
-  new NoPositionVehicle(baseVehicleAttrs),
+  createUnavailableVehicle,
+  createDisabledVehicle(),
+  createVehicleWithoutPosition(),
 ];
 
 const vehiclesWithoutUnavailableVehicles = [
-  new OperationalVehicle(locatedVehicleAttributes),
-  new DisabledVehicle(locatedVehicleAttributes),
-  new NoPositionVehicle(baseVehicleAttrs),
+  createOperationalVehicle(),
+  createDisabledVehicle(),
+  createVehicleWithoutPosition(),
 ];
 
 const operationalVehicles = [
-  new OperationalVehicle(locatedVehicleAttributes),
-  new OperationalVehicle(locatedVehicleAttributes),
+  createOperationalVehicle(),
+  createOperationalVehicle(),
 ];
 
 const unavailableVehicles = [
-  new UnavailableVehicle(locatedVehicleAttributes),
-  new UnavailableVehicle(locatedVehicleAttributes),
+  createUnavailableVehicle(),
+  createUnavailableVehicle(),
 ];
 
 describe(Vehicle.takeOnlyOperational.name, () => {

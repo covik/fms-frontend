@@ -1,9 +1,11 @@
+import { faker } from '@faker-js/faker';
 import { ZodError } from 'zod';
-import { LocatedVehicle } from '.';
-import { locatedVehicleAttributes } from '../../../cypress/fixtures/base-and-located-vehicle-attributes';
+import { createLocatedVehicleAttributes } from './factory';
+import { LocatedVehicle } from './LocatedVehicle';
 import type { LocatedVehicleAttributes } from './LocatedVehicle';
 
 class MockLocatedVehicle extends LocatedVehicle {}
+const locatedVehicleAttributes = createLocatedVehicleAttributes(faker);
 
 const problematicSituations = [
   {

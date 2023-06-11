@@ -1,6 +1,6 @@
+import { faker } from '@faker-js/faker';
 import { LivePreviewView } from './LivePreviewView';
-import { OperationalVehicle } from '../../../models/Vehicle';
-import { locatedVehicleAttributes } from '../../../../cypress/fixtures/base-and-located-vehicle-attributes';
+import { createOperationalVehicle } from '../../../models/Vehicle/factory';
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {
@@ -14,7 +14,8 @@ export default {
 
 type Story = StoryObj<typeof LivePreviewView>;
 
-const operationalVehicle = new OperationalVehicle(locatedVehicleAttributes);
+faker.seed(2);
+const operationalVehicle = createOperationalVehicle({ faker });
 
 export const Default: Story = {
   args: {

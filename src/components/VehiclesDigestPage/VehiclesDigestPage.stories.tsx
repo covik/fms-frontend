@@ -1,6 +1,9 @@
+import { faker } from '@faker-js/faker';
 import { VehiclesDigestView } from './Views';
-import { OperationalVehicle, UnavailableVehicle } from '../../models/Vehicle';
-import { locatedVehicleAttributes } from '../../../cypress/fixtures/base-and-located-vehicle-attributes';
+import {
+  createOperationalVehicle,
+  createUnavailableVehicle,
+} from '../../models/Vehicle/factory';
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {
@@ -12,14 +15,16 @@ export default {
 
 type Story = StoryObj<typeof VehiclesDigestView>;
 
+faker.seed(7);
+
 const operationalVehicles = [
-  new OperationalVehicle(locatedVehicleAttributes),
-  new OperationalVehicle(locatedVehicleAttributes),
+  createOperationalVehicle({ faker }),
+  createOperationalVehicle({ faker }),
 ];
 
 const unavailableVehicles = [
-  new UnavailableVehicle(locatedVehicleAttributes),
-  new UnavailableVehicle(locatedVehicleAttributes),
+  createUnavailableVehicle({ faker }),
+  createUnavailableVehicle({ faker }),
 ];
 
 export const All: Story = {
