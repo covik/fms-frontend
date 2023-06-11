@@ -29,7 +29,7 @@ export function VehiclesDigestPage() {
   );
 
   const timedOutVehicles = useMemo(
-    () => Vehicle.takeOnlyTimedOut(sortedVehicles),
+    () => Vehicle.takeOnlyUnavailable(sortedVehicles),
     [sortedVehicles],
   );
 

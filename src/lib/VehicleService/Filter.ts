@@ -15,7 +15,7 @@ export function takeOnlyOperational(data: unknown): OperationalVehicle[] {
   return data.filter(isOperationalVehicle);
 }
 
-export function takeOnlyTimedOut(data: unknown): UnavailableVehicle[] {
+export function takeOnlyUnavailable(data: unknown): UnavailableVehicle[] {
   if (!Array.isArray(data)) {
     throw new TypeError(
       `Argument "data" should be array, received: ${typeof data}.`,

@@ -94,7 +94,7 @@ describe(Vehicle.takeOnlyOperational.name, () => {
 
 describe(Vehicle.takeOnlyOperational.name, () => {
   it(`should throw ${TypeError.name} if passed argument is not array`, () => {
-    cy.testException(() => Vehicle.takeOnlyTimedOut('foobar')).then(
+    cy.testException(() => Vehicle.takeOnlyUnavailable('foobar')).then(
       (exception) => {
         exception().should('be.instanceOf', TypeError);
         exception().should(
@@ -105,7 +105,7 @@ describe(Vehicle.takeOnlyOperational.name, () => {
       },
     );
 
-    cy.testException(() => Vehicle.takeOnlyTimedOut({ foo: 'bar' })).then(
+    cy.testException(() => Vehicle.takeOnlyUnavailable({ foo: 'bar' })).then(
       (exception) => {
         exception().should('be.instanceOf', TypeError);
         exception().should(
@@ -118,18 +118,18 @@ describe(Vehicle.takeOnlyOperational.name, () => {
   });
 
   specify('given empty array it should return empty array', () => {
-    expect(Vehicle.takeOnlyTimedOut([])).to.deep.equal([]);
+    expect(Vehicle.takeOnlyUnavailable([])).to.deep.equal([]);
   });
 
   specify('given garbage data it should return empty array', () => {
-    expect(Vehicle.takeOnlyTimedOut(garbageData)).to.deep.equal([]);
+    expect(Vehicle.takeOnlyUnavailable(garbageData)).to.deep.equal([]);
   });
 
   specify(
     `given different subclasses of ${BaseVehicle.name} but no ${UnavailableVehicle.name} it should return empty array`,
     () => {
       expect(
-        Vehicle.takeOnlyTimedOut(vehiclesWithoutTimedOutVehicles),
+        Vehicle.takeOnlyUnavailable(vehiclesWithoutTimedOutVehicles),
       ).to.deep.equal([]);
     },
   );
@@ -138,7 +138,7 @@ describe(Vehicle.takeOnlyOperational.name, () => {
     `given mix of valid and invalid data it should return valid data`,
     () => {
       expect(
-        Vehicle.takeOnlyTimedOut([
+        Vehicle.takeOnlyUnavailable([
           ...vehiclesWithoutTimedOutVehicles,
           ...timedOutVehicles,
           undefined,
