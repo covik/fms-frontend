@@ -6,7 +6,7 @@ import {
   OperationalVehicle,
   UnavailableVehicle,
 } from '.';
-import { Angle, Length, Speed } from '../../lib/MeasurementUnit';
+import { Angle, Length, Speed, Voltage } from '../../lib/MeasurementUnit';
 import { createPosition } from '../Position/factory';
 import type { Faker } from '@faker-js/faker';
 import type { BaseVehicleAttributes } from './BaseVehicle';
@@ -50,6 +50,9 @@ export function createLocatedVehicleAttributes(
   const speed = new Speed.KPH(
     inMotion ? faker.number.float({ min: 0, max: 140, precision: 0.1 }) : 0,
   );
+  const power = new Voltage.Volt(
+    faker.number.float({ min: 11, max: 30, precision: 0.1 }),
+  );
 
   return {
     id,
@@ -62,6 +65,7 @@ export function createLocatedVehicleAttributes(
     online,
     position,
     speed,
+    power,
   };
 }
 

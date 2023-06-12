@@ -82,6 +82,16 @@ const problematicSituations = [
     },
   },
   {
+    title: 'power is missing',
+    construct: () => {
+      const { power, ...attributesWithoutPower } = locatedVehicleAttributes;
+
+      return new MockLocatedVehicle(
+        attributesWithoutPower as unknown as LocatedVehicleAttributes,
+      );
+    },
+  },
+  {
     title: 'position is not Position object',
     construct: () => {
       const attributesWithIncorrectPosition = {
@@ -172,6 +182,19 @@ const problematicSituations = [
       );
     },
   },
+  {
+    title: 'power is not BaseVoltage object',
+    construct: () => {
+      const attributesWithIncorrectPower = {
+        ...locatedVehicleAttributes,
+        power: 'I reject being BaseVoltage object',
+      };
+
+      return new MockLocatedVehicle(
+        attributesWithIncorrectPower as unknown as LocatedVehicleAttributes,
+      );
+    },
+  },
 ];
 
 problematicSituations.forEach((situation) => {
@@ -200,4 +223,5 @@ it('should return passed arguments through getters', () => {
     locatedVehicleAttributes.position.timestamp().fixationTime(),
   );
   expect(validVehicle.mileage()).to.equal(locatedVehicleAttributes.mileage);
+  expect(validVehicle.power()).to.equal(locatedVehicleAttributes.power);
 });

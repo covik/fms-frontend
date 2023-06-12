@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { BaseVehicle, BaseVehicleAttributesValidation } from './BaseVehicle';
-import { Speed, Angle, Length } from '../../lib/MeasurementUnit';
+import { Speed, Angle, Length, Voltage } from '../../lib/MeasurementUnit';
 import { Position } from '../Position';
 
 export const LocatedVehicleAttributesValidation =
@@ -12,6 +12,7 @@ export const LocatedVehicleAttributesValidation =
     ignitionOn: z.boolean(),
     inMotion: z.boolean(),
     mileage: z.instanceof(Length.BaseLength),
+    power: z.instanceof(Voltage.BaseVoltage),
   });
 
 export type LocatedVehicleAttributes = z.infer<
@@ -26,6 +27,7 @@ export abstract class LocatedVehicle extends BaseVehicle {
   private readonly _ignitionOn: boolean;
   private readonly _inMotion: boolean;
   private readonly _mileage: Length.BaseLength;
+  private readonly _power: Voltage.BaseVoltage;
 
   public constructor(attributes: LocatedVehicleAttributes) {
     const {
@@ -36,6 +38,7 @@ export abstract class LocatedVehicle extends BaseVehicle {
       ignitionOn,
       inMotion,
       mileage,
+      power,
       ...baseAttributes
     } = LocatedVehicleAttributesValidation.parse(attributes);
 
@@ -48,6 +51,7 @@ export abstract class LocatedVehicle extends BaseVehicle {
     this._ignitionOn = ignitionOn;
     this._inMotion = inMotion;
     this._mileage = mileage;
+    this._power = power;
   }
 
   public position(): Position {
@@ -80,5 +84,9 @@ export abstract class LocatedVehicle extends BaseVehicle {
 
   public mileage(): Length.BaseLength {
     return this._mileage;
+  }
+
+  public power(): Voltage.BaseVoltage {
+    return this._power;
   }
 }
