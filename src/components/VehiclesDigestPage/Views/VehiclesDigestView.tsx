@@ -10,7 +10,7 @@ import {
 } from '../Sections';
 import { VehicleCard } from '../../VehicleCard';
 import { PageTitle } from '../../PageTitle';
-import { Length, Speed } from '../../../lib/MeasurementUnit';
+import { Length, Speed, Voltage } from '../../../lib/MeasurementUnit';
 import type { ReactElement, ReactNode } from 'react';
 import type {
   LocatedVehicle,
@@ -93,13 +93,14 @@ function VehicleItem({ vehicle, shareHandler }: VehicleItemAttributes) {
   const speedInKph = Speed.convert(vehicle.speed()).toKph();
   const formattedSpeed = Speed.format(speedInKph);
   const formattedMileage = Length.adaptiveFormat(vehicle.mileage());
+  const formattedPower = Voltage.format(vehicle.power());
 
   return (
     <VehicleCard
       title={vehicle.name()}
       icon={vehicle.isInMotion() ? TruckFast : Truck}
       color={vehicle.hasIgnitionTurnedOn() ? 'green' : 'orange'}
-      meta={[formattedSpeed, formattedMileage]}
+      meta={[formattedSpeed, formattedMileage, formattedPower]}
       onShare={(e) => {
         e.preventDefault();
         shareHandler(vehicle);
