@@ -15,7 +15,7 @@ import {
   VehicleMapIconStationary,
 } from '../../VehicleMapIcon';
 import { useDateTime } from '../../../foundation';
-import { Length, Speed } from '../../../lib/MeasurementUnit';
+import { Length, Speed, Voltage } from '../../../lib/MeasurementUnit';
 import { Tile } from '../../Tile';
 import { formatDuration } from '../../../utils/date';
 
@@ -39,6 +39,7 @@ export function LivePreviewView({ vehicle }: LivePreviewViewAttributes) {
   const formattedLatency = formatDuration(
     vehicle.position().timestamp().latencyInSeconds(),
   );
+  const formattedPower = Voltage.format(vehicle.power());
 
   const spacing = 1;
   return (
@@ -74,7 +75,7 @@ export function LivePreviewView({ vehicle }: LivePreviewViewAttributes) {
                   hasIgnition={vehicle.hasIgnitionTurnedOn()}
                   speed={formattedSpeed}
                 />
-                <BatteryState voltage={'N/A'} />
+                <BatteryState voltage={formattedPower} />
                 <MileageDetails mileage={formattedMileage} />
               </InformationContainer>
             </Tile>
