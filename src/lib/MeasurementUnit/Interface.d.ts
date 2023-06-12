@@ -10,3 +10,5 @@ export interface LengthUnit extends MeasurementUnit {}
 export interface TemperatureUnit extends MeasurementUnit {}
 
 export interface AngleUnit extends MeasurementUnit {}
+
+export interface VoltageUnit extends MeasurementUnit {}
