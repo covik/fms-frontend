@@ -11,7 +11,7 @@ import {
 } from '../../../lib/Traccar';
 import { TripMap } from './TripMap';
 import { DateCalendar } from '@mui/x-date-pickers';
-import { TripsTable } from './TripResults';
+import { TripsList } from './TripResults';
 import { useState } from 'react';
 import { Vehicle } from '../../../lib/VehicleService';
 import { RoutePosition } from '../../../models/Position';
@@ -127,7 +127,7 @@ export function TripHistoryPage() {
               ) : noData ? (
                 <NoContent>Nema podataka</NoContent>
               ) : (
-                <TripsTable
+                <TripsList
                   trips={trips}
                   stops={stops}
                   hiddenTripsAndStops={hiddenTripsAndStops}
