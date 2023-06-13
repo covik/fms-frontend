@@ -13,7 +13,7 @@ export function VehicleOverviewView({
   children,
 }: VehicleOverviewViewAttributes) {
   return (
-    <Box padding={1} flex={1} display={'flex'} flexDirection={'column'}>
+    <Box padding={1} height={'100%'} display={'flex'} flexDirection={'column'}>
       <PageTitle>{title}</PageTitle>
       {children}
     </Box>

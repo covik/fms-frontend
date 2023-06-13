@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate, useParams } from '@tanstack/router';
-import { Box, Card, CircularProgress, Grid, Stack } from '@mui/material';
+import { Box, Card, CircularProgress, Stack } from '@mui/material';
 import { Http } from '../../../lib/HttpClient';
 import { z } from 'zod';
 import {
@@ -17,6 +17,7 @@ import { Vehicle } from '../../../lib/VehicleService';
 import { RoutePosition } from '../../../models/Position';
 import { endOfDay, isEqual, startOfDay } from 'date-fns';
 import { NoContent, Tile, TileContent } from '../../Tile';
+import { Grid, GridContent, GridSidebarTiles } from '../Grid';
 
 const tripsRoute = '/vehicles/$vehicleId/trips/$date';
 
@@ -112,50 +113,35 @@ export function TripHistoryPage() {
 
   const spacing = 1;
   return (
-    <Grid container direction="row" flex={1} spacing={spacing}>
-      <Grid item xs={12} md={6} lg={4} position={'relative'}>
-        <Box
-          sx={(theme) => ({
-            position: {
-              md: 'absolute',
-              xs: 'static',
-            },
-            top: theme.spacing(spacing),
-            bottom: 0,
-            left: theme.spacing(spacing),
-            right: 0,
-            overflow: 'auto',
-            paddingBottom: '2px', // otherwise card box shadow is invisible
-          })}
-        >
-          <Stack spacing={2}>
-            <Card sx={{ maxWidth: 'fit-content' }}>
-              <TripPicker targetDate={date} onChange={handleDateChange} />
-            </Card>
+    <Grid>
+      <GridSidebarTiles>
+        <Stack spacing={spacing}>
+          <Card sx={{ maxWidth: 'fit-content' }}>
+            <TripPicker targetDate={date} onChange={handleDateChange} />
+          </Card>
 
-            <Tile label={'Putovanja'}>
-              <TileContent>
-                {isLoading ? (
-                  <LoadingSpinner />
-                ) : noData ? (
-                  <NoContent>Nema podataka</NoContent>
-                ) : (
-                  <TripsTable
-                    trips={trips}
-                    stops={stops}
-                    hiddenTripsAndStops={hiddenTripsAndStops}
-                    onVisibilityToggle={toggleTripVisibility}
-                    onHideAll={hideAllTripsAndStops}
-                    onShowAll={showAllTripsAndStops}
-                  />
-                )}
-              </TileContent>
-            </Tile>
-          </Stack>
-        </Box>
-      </Grid>
+          <Tile label={'Putovanja'}>
+            <TileContent>
+              {isLoading ? (
+                <LoadingSpinner />
+              ) : noData ? (
+                <NoContent>Nema podataka</NoContent>
+              ) : (
+                <TripsTable
+                  trips={trips}
+                  stops={stops}
+                  hiddenTripsAndStops={hiddenTripsAndStops}
+                  onVisibilityToggle={toggleTripVisibility}
+                  onHideAll={hideAllTripsAndStops}
+                  onShowAll={showAllTripsAndStops}
+                />
+              )}
+            </TileContent>
+          </Tile>
+        </Stack>
+      </GridSidebarTiles>
 
-      <Grid item xs={12} md={6} lg={8}>
+      <GridContent>
         <TripMap
           trips={trips}
           stops={stops}
@@ -165,7 +151,7 @@ export function TripHistoryPage() {
             minHeight: { xs: '40vmax', lg: 'auto' },
           }}
         />
-      </Grid>
+      </GridContent>
     </Grid>
   );
 }

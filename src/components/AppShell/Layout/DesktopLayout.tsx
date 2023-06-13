@@ -15,7 +15,7 @@ export function DesktopLayout({ children }: DesktopLayoutAttributes) {
     <>
       <Box
         sx={{
-          minHeight: '100vh',
+          height: '100vh',
           marginLeft: `${drawerWidth}px`,
           display: 'flex',
           flexDirection: 'column',

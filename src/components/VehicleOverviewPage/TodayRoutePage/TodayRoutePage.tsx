@@ -1,7 +1,5 @@
 import { useMemo, useState } from 'react';
 import {
-  Box,
-  Grid,
   Skeleton,
   Stack,
   Table,
@@ -22,6 +20,7 @@ import { RouteSummary } from '../../../models/RouteSummary';
 import { RoutePosition } from '../../../models/Position';
 import { NoContent, Tile, TileContent } from '../../Tile';
 import { RouteSummary as Summary } from '../RouteSummary';
+import { Grid, GridContent, GridSidebarTiles } from '../Grid';
 import type { SummaryData } from '../RouteSummary';
 import type { Coordinates } from '../../../lib/Dimension';
 
@@ -95,48 +94,32 @@ export function TodayRoutePage() {
 
   const spacing = 1;
   return (
-    <Grid container direction="row" flex={1} spacing={spacing}>
-      <Grid item xs={12} md={4} lg={3} xl={2} position={'relative'}>
-        <Box
-          sx={(theme) => ({
-            position: {
-              md: 'absolute',
-              xs: 'static',
-            },
-            top: theme.spacing(spacing),
-            bottom: 0,
-            left: theme.spacing(spacing),
-            right: 0,
-            overflow: 'auto',
-            paddingBottom: '2px', // otherwise card box shadow is invisible
-          })}
-        >
-          <Stack spacing={2}>
-            <Tile label={'Sažetak'}>
-              {summaryData instanceof NoSummary ? (
-                <TileContent>
-                  <NoContent>Nema informacija</NoContent>
-                </TileContent>
-              ) : (
-                <Summary details={summaryData} />
-              )}
-            </Tile>
-            <Tile label={'Zaustavljanje'}>
+    <Grid>
+      <GridSidebarTiles>
+        <Stack spacing={spacing}>
+          <Tile label={'Sažetak'}>
+            {summaryData instanceof NoSummary ? (
               <TileContent>
-                <StopsTable stops={stopsQuery.data} />
+                <NoContent>Nema informacija</NoContent>
               </TileContent>
-            </Tile>
-          </Stack>
-        </Box>
-      </Grid>
-      <Grid item xs={12} md={8} lg={9} xl={10}>
+            ) : (
+              <Summary details={summaryData} />
+            )}
+          </Tile>
+          <Tile label={'Zaustavljanje'}>
+            <TileContent>
+              <StopsTable stops={stopsQuery.data} />
+            </TileContent>
+          </Tile>
+        </Stack>
+      </GridSidebarTiles>
+      <GridContent>
         <AppMap
           onZoomChanged={(zoom) => {
             showCheckpoints(zoom >= 15);
           }}
           sx={{
             height: '100%',
-            minHeight: { xs: '40vmax', lg: 'auto' },
           }}
         >
           <MapBounds coordinates={bounds} />
@@ -147,7 +130,7 @@ export function TodayRoutePage() {
           />
           <VehicleRouteStops stops={stops} />
         </AppMap>
-      </Grid>
+      </GridContent>
     </Grid>
   );
 }

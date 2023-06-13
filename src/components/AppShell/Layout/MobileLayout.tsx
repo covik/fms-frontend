@@ -12,12 +12,12 @@ export function MobileLayout({ children }: MobileLayoutAttributes) {
   return (
     <>
       <Box
-        sx={{
-          minHeight: '100vh',
-          paddingBottom: navigationHeight,
+        sx={(theme) => ({
+          height: `calc(100vh - ${theme.spacing(navigationHeight)})`,
+          overflow: 'auto',
           display: 'flex',
           flexDirection: 'column',
-        }}
+        })}
       >
         {children}
       </Box>
