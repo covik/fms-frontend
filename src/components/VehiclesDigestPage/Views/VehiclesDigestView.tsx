@@ -9,6 +9,7 @@ import {
   VehicleSections,
 } from '../Sections';
 import { VehicleCard } from '../../VehicleCard';
+import { FluidPage } from '../../Page';
 import { PageTitle } from '../../PageTitle';
 import { Length, Speed, Voltage } from '../../../lib/MeasurementUnit';
 import type { ReactElement, ReactNode } from 'react';
@@ -55,28 +56,36 @@ export function VehiclesDigestView({
 
   if (loading)
     return (
-      <PageContainer>
-        <VehiclesLoadingView />
-      </PageContainer>
+      <FluidPage>
+        <PageContainer>
+          <VehiclesLoadingView />
+        </PageContainer>
+      </FluidPage>
     );
 
   if (operationalVehicles.length === 0 && unavailableVehicles.length === 0)
-    return <NoVehiclesView />;
+    return (
+      <FluidPage>
+        <NoVehiclesView />
+      </FluidPage>
+    );
 
   return (
-    <PageContainer>
-      <PageTitle>Vozila</PageTitle>
+    <FluidPage>
+      <PageContainer>
+        <PageTitle>Vozila</PageTitle>
 
-      <VehicleSections>
-        <SectionOperationalVehicles>
-          {renderVehicles(operationalVehicles)}
-        </SectionOperationalVehicles>
+        <VehicleSections>
+          <SectionOperationalVehicles>
+            {renderVehicles(operationalVehicles)}
+          </SectionOperationalVehicles>
 
-        <SectionUnavailableVehicles>
-          {renderVehicles(unavailableVehicles)}
-        </SectionUnavailableVehicles>
-      </VehicleSections>
-    </PageContainer>
+          <SectionUnavailableVehicles>
+            {renderVehicles(unavailableVehicles)}
+          </SectionUnavailableVehicles>
+        </VehicleSections>
+      </PageContainer>
+    </FluidPage>
   );
 }
 

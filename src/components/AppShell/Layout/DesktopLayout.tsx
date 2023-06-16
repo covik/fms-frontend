@@ -1,4 +1,5 @@
 import { Box, Drawer } from '@mui/material';
+import { LayoutProvider } from './Layout';
 import { Navigation } from '../Navigation';
 import { Logo } from '../../Logo';
 import type { ReactNode } from 'react';
@@ -7,22 +8,22 @@ export interface DesktopLayoutAttributes {
   children: ReactNode;
 }
 
-const drawerWidth = 70;
+const drawerWidth = '70px';
 const logoSize = 38;
+
+/*
+<Box
+  sx={{
+    height: '100vh',
+  }}
+>
+  {children}
+</Box>*/
 
 export function DesktopLayout({ children }: DesktopLayoutAttributes) {
   return (
     <>
-      <Box
-        sx={{
-          height: '100vh',
-          marginLeft: `${drawerWidth}px`,
-          display: 'flex',
-          flexDirection: 'column',
-        }}
-      >
-        {children}
-      </Box>
+      <LayoutProvider offsetLeft={drawerWidth}>{children}</LayoutProvider>
       <Drawer
         sx={{
           'width': drawerWidth,

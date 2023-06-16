@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { Box, CircularProgress, Paper } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { Vehicle } from '../../lib/VehicleService';
+import { FixedPage } from '../Page';
 import { AppMap, MapBounds } from '../Map';
 import { VehicleMapMarker } from '../VehicleMapMarker';
 import {
@@ -27,30 +28,32 @@ export function LiveTracking() {
   );
 
   return (
-    <PageContainer>
-      <AppMap sx={{ height: 'auto', width: '100%' }}>
-        {query.isFetching ? <FetchIndicator /> : null}
-        <MapBounds coordinates={bounds} once />
-        {operationalVehicles.map((vehicle) => (
-          <VehicleMapMarker
-            key={vehicle.id()}
-            position={vehicle.position().coordinates()}
-            name={vehicle.name()}
-          >
-            {vehicle.isInMotion() ? (
-              <VehicleMapIconMoving
-                active={vehicle.hasIgnitionTurnedOn()}
-                angle={vehicle.course().value()}
-              />
-            ) : (
-              <VehicleMapIconStationary
-                active={vehicle.hasIgnitionTurnedOn()}
-              />
-            )}
-          </VehicleMapMarker>
-        ))}
-      </AppMap>
-    </PageContainer>
+    <FixedPage>
+      <PageContainer>
+        <AppMap sx={{ height: 'auto', width: '100%' }}>
+          {query.isFetching ? <FetchIndicator /> : null}
+          <MapBounds coordinates={bounds} once />
+          {operationalVehicles.map((vehicle) => (
+            <VehicleMapMarker
+              key={vehicle.id()}
+              position={vehicle.position().coordinates()}
+              name={vehicle.name()}
+            >
+              {vehicle.isInMotion() ? (
+                <VehicleMapIconMoving
+                  active={vehicle.hasIgnitionTurnedOn()}
+                  angle={vehicle.course().value()}
+                />
+              ) : (
+                <VehicleMapIconStationary
+                  active={vehicle.hasIgnitionTurnedOn()}
+                />
+              )}
+            </VehicleMapMarker>
+          ))}
+        </AppMap>
+      </PageContainer>
+    </FixedPage>
   );
 }
 

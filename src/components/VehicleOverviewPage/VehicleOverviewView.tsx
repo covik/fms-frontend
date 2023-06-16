@@ -1,5 +1,6 @@
 import { Alert, Box, CircularProgress, Typography } from '@mui/material';
 import { CloseCircleOutline, TimerAlertOutline } from 'mdi-material-ui';
+import { FixedPage } from '../Page';
 import { PageTitle } from '../PageTitle';
 import type { ReactNode } from 'react';
 
@@ -13,10 +14,17 @@ export function VehicleOverviewView({
   children,
 }: VehicleOverviewViewAttributes) {
   return (
-    <Box padding={1} height={'100%'} display={'flex'} flexDirection={'column'}>
-      <PageTitle>{title}</PageTitle>
-      {children}
-    </Box>
+    <FixedPage>
+      <Box
+        padding={1}
+        height={'100%'}
+        display={'flex'}
+        flexDirection={'column'}
+      >
+        <PageTitle>{title}</PageTitle>
+        {children}
+      </Box>
+    </FixedPage>
   );
 }
 

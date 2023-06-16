@@ -3,6 +3,7 @@ import {
   AccountTie as UserIcon,
   ShieldAccount as AdminIcon,
 } from 'mdi-material-ui';
+import { FluidPage } from '../Page';
 import { PageTitle } from '../PageTitle';
 import type { ReactNode } from 'react';
 
@@ -22,28 +23,30 @@ export function AccountView({
   const theme = useTheme();
 
   return (
-    <PageContainer>
-      <PageTitle>Račun</PageTitle>
-      <Card>
-        <CardHeader
-          title={name}
-          subheader={email}
-          avatar={
-            <Avatar sx={{ backgroundColor: theme.palette.text.disabled }}>
-              {isAdmin ? <AdminIcon /> : <UserIcon />}
-            </Avatar>
-          }
-          titleTypographyProps={{
-            variant: 'h6',
-            fontWeight: theme.typography.fontWeightMedium,
-            color: theme.palette.text.secondary,
-          }}
-          sx={{ paddingTop: 1, paddingBottom: 1 }}
-        />
-      </Card>
+    <FluidPage>
+      <PageContainer>
+        <PageTitle>Račun</PageTitle>
+        <Card>
+          <CardHeader
+            title={name}
+            subheader={email}
+            avatar={
+              <Avatar sx={{ backgroundColor: theme.palette.text.disabled }}>
+                {isAdmin ? <AdminIcon /> : <UserIcon />}
+              </Avatar>
+            }
+            titleTypographyProps={{
+              variant: 'h6',
+              fontWeight: theme.typography.fontWeightMedium,
+              color: theme.palette.text.secondary,
+            }}
+            sx={{ paddingTop: 1, paddingBottom: 1 }}
+          />
+        </Card>
 
-      <Box sx={{ marginTop: 2 }}>{children}</Box>
-    </PageContainer>
+        <Box sx={{ marginTop: 2 }}>{children}</Box>
+      </PageContainer>
+    </FluidPage>
   );
 }
 
