@@ -85,10 +85,6 @@ export const TraccarTripStop = z.object({
   distance: z.number().min(0).max(0),
 });
 
-export const TraccarTripWithPositions = TraccarTrip.extend({
-  positions: z.array(z.instanceof(RoutePosition)),
-});
-
 export const TraccarRouteSummary = z.object({
   maxSpeed: speed,
   averageSpeed: speed,
@@ -105,7 +101,4 @@ export type TraccarDeviceInterface = z.infer<typeof TraccarDevice>;
 export type TraccarPositionInterface = z.infer<typeof TraccarPosition>;
 export type TraccarTripInterface = z.infer<typeof TraccarTrip>;
 export type TraccarTripStopInterface = z.infer<typeof TraccarTripStop>;
-export type TraccarTripWithPositionsInterface = z.infer<
-  typeof TraccarTripWithPositions
->;
 export type TraccarRouteSummaryInterface = z.infer<typeof TraccarRouteSummary>;
