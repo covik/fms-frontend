@@ -38,7 +38,7 @@ export interface RouteSummaryAttributes {
   details: SummaryData | undefined;
 }
 
-export function RouteSummary({ details }: RouteSummaryAttributes) {
+export function RouteSummaryList({ details }: RouteSummaryAttributes) {
   const { formatDuration } = useDateTime();
   const [timeDetailsOpen, setTimeDetailsOpen] = useState(false);
   const [odometerDetailsOpen, setOdometerDetailsOpen] = useState(false);
@@ -173,7 +173,7 @@ export function RouteSummary({ details }: RouteSummaryAttributes) {
                 : Speed.format(Speed.convert(details.maxSpeed).toKph())
             }
           />
-          {timeDetailsOpen ? <ChevronUp /> : <ChevronDown />}
+          {speedDetailsOpen ? <ChevronUp /> : <ChevronDown />}
         </ListItemButton>
 
         <Collapse in={speedDetailsOpen} timeout="auto" unmountOnExit>

@@ -20,7 +20,7 @@ export function StopMarker({ coordinates, duration }: StopMarkerAttributes) {
       labelColor={'white'}
       labelFontSize={'12px'}
       labelFontWeight={'400'}
-      labelClass={'trip-stop-marker-label'}
+      labelClass={'vehicle-stop-marker-label'}
       zIndex={stopMarkerIndex}
     >
       <StopIcon />
