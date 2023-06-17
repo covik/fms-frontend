@@ -1,20 +1,13 @@
-import { Box } from '@mui/material';
 import { Outlet, useParams } from '@tanstack/router';
 import { useQuery } from '@tanstack/react-query';
 import { Vehicle } from '../../lib/VehicleService';
 import {
   VehicleOverviewView,
   VehicleLoadingIndicator,
-  WarningVehicleAwaitingInstallation,
-  WarningOutdatedPositionData,
-  WarningVehicleDisabled,
 } from './VehicleOverviewView';
-import {
-  DisabledVehicle,
-  LocatedVehicle,
-  UnavailableVehicle,
-} from '../../models/Vehicle';
+import { LocatedVehicle } from '../../models/Vehicle';
 import { VehicleOverviewNavigation } from './VehicleOverviewNavigation';
+import { WarningVehicleAwaitingInstallation } from './VehicleWarning';
 
 export function VehicleOverviewPage() {
   const { vehicleId } = useParams({ from: '/vehicles/$vehicleId' });
@@ -42,7 +35,6 @@ export function VehicleOverviewPage() {
       {vehicle instanceof LocatedVehicle ? (
         <>
           <VehicleOverviewNavigation vehicleId={vehicleId} />
-          {renderWarning(vehicle)}
           <Outlet />
         </>
       ) : (
@@ -50,24 +42,4 @@ export function VehicleOverviewPage() {
       )}
     </VehicleOverviewView>
   );
-}
-
-function renderWarning(vehicle: LocatedVehicle) {
-  const sx = { marginBottom: 1 };
-
-  if (vehicle instanceof UnavailableVehicle)
-    return (
-      <Box sx={sx}>
-        <WarningOutdatedPositionData />
-      </Box>
-    );
-
-  if (vehicle instanceof DisabledVehicle)
-    return (
-      <Box sx={sx}>
-        <WarningVehicleDisabled />
-      </Box>
-    );
-
-  return null;
 }

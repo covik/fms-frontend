@@ -1,9 +1,5 @@
-import {
-  VehicleOverviewView,
-  WarningOutdatedPositionData,
-  WarningVehicleAwaitingInstallation,
-  WarningVehicleDisabled,
-} from './VehicleOverviewView';
+import { VehicleOverviewView } from './VehicleOverviewView';
+import { WarningVehicleAwaitingInstallation } from './VehicleWarning';
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {
@@ -36,19 +32,5 @@ export const WarningAwaitingInstallation: Story = {
   args: {
     title,
     children: <WarningVehicleAwaitingInstallation />,
-  },
-};
-
-export const WarningOutdatedInformation: Story = {
-  args: {
-    title,
-    children: <WarningOutdatedPositionData />,
-  },
-};
-
-export const WarningDisabledVehicle: Story = {
-  args: {
-    title,
-    children: <WarningVehicleDisabled />,
   },
 };

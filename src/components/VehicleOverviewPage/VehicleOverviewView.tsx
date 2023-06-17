@@ -1,5 +1,4 @@
-import { Alert, Box, CircularProgress, Typography } from '@mui/material';
-import { CloseCircleOutline, TimerAlertOutline } from 'mdi-material-ui';
+import { Box, CircularProgress, Typography } from '@mui/material';
 import { FixedPage } from '../Page';
 import { PageTitle } from '../PageTitle';
 import type { ReactNode } from 'react';
@@ -46,34 +45,5 @@ export function VehicleLoadingIndicator() {
         Učitavanje vozila
       </Typography>
     </Box>
-  );
-}
-
-export function WarningVehicleAwaitingInstallation() {
-  return (
-    <Alert severity={'info'}>
-      Informacije nedostupne. Vozilo još nema ugrađen GPS uređaj.
-    </Alert>
-  );
-}
-
-export function WarningOutdatedPositionData() {
-  return (
-    <Alert
-      icon={<TimerAlertOutline />}
-      severity={'warning'}
-      sx={{ alignItems: 'center' }}
-    >
-      Ovo vozilo nije javilo poziciju više od 65 minuta. Prikazano stanje vozila
-      možda nije u skladu sa stvarnim stanjem.
-    </Alert>
-  );
-}
-
-export function WarningVehicleDisabled() {
-  return (
-    <Alert icon={<CloseCircleOutline />} severity={'error'}>
-      Vozilo je onemogućeno.
-    </Alert>
   );
 }
