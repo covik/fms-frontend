@@ -1,6 +1,6 @@
 import { Router } from '@tanstack/router';
 import { routeTree } from './routes';
-import { PageLoadingSpinner } from '../../components/PageLoadingSpinner';
+import { PageLoadingSpinner } from '../../components/Page';
 
 export const router = new Router({
   routeTree,

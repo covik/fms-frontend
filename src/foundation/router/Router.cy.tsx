@@ -6,7 +6,7 @@ import {
   RouterProvider,
 } from '@tanstack/router';
 import { lazy } from 'react';
-import { PageLoadingSpinner } from '../../components/PageLoadingSpinner';
+import { PageLoadingSpinner } from '../../components/Page';
 
 const lazyLoadText = 'Lazy load successful';
 
