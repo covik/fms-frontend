@@ -6,10 +6,10 @@ import {
   App,
   AuthProvider,
   DesignBaseline,
-  AuthenticatedApp,
   AppVersionProvider,
   DateTimeProvider,
 } from './foundation';
+import { AuthenticatedApp } from './foundation/AuthenticatedApp';
 
 const queryClient = new QueryClient();
 

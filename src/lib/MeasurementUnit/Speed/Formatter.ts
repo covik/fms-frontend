@@ -1,4 +1,4 @@
-import { BaseSpeed } from '.';
+import { BaseSpeed } from './Speed';
 
 export function format(unit: BaseSpeed) {
   const symbol = unit.symbol();

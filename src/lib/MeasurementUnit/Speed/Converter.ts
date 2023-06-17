@@ -1,4 +1,4 @@
-import { BaseSpeed, Knots, KPH, MPH } from '.';
+import { BaseSpeed, Knots, KPH, MPH } from './Speed';
 
 interface AvailableConverters {
   toKph: () => KPH;

@@ -18,6 +18,14 @@ export default defineConfig({
       output: {
         manualChunks,
       },
+      onwarn: (message) => {
+        console.info(message.code, message.cause);
+        // fail build if circular dependencies are found
+        if (message.code === 'CIRCULAR_DEPENDENCY') {
+          console.error(message);
+          process.exit(-1);
+        }
+      },
     },
   },
 });
