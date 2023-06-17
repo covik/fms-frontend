@@ -9,8 +9,7 @@ import {
   VehicleSections,
 } from '../Sections';
 import { VehicleCard } from '../../VehicleCard';
-import { FluidPage } from '../../Page';
-import { PageTitle } from '../../PageTitle';
+import { FluidPage, PageTitle } from '../../Page';
 import { Length, Speed, Voltage } from '../../../lib/MeasurementUnit';
 import type { ReactElement, ReactNode } from 'react';
 import type {

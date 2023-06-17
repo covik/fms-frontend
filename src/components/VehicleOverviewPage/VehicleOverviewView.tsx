@@ -1,6 +1,5 @@
 import { Box, CircularProgress, Typography } from '@mui/material';
-import { FixedPage } from '../Page';
-import { PageTitle } from '../PageTitle';
+import { FixedPage, PageTitle } from '../Page';
 import type { ReactNode } from 'react';
 
 export interface VehicleOverviewViewAttributes {
