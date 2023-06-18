@@ -1,6 +1,6 @@
 import { styled, Tabs } from '@mui/material';
 import { useRouter } from '@tanstack/router';
-import { RouterTab } from '../../RouterTab';
+import { RouterTab } from '../RouterTab';
 import { all as items } from './items';
 
 const StyledTabs = styled(Tabs)(({ theme }) => ({

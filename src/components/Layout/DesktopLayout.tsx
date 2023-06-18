@@ -1,7 +1,7 @@
 import { Box, Drawer } from '@mui/material';
 import { LayoutProvider } from './Layout';
 import { Navigation } from '../Navigation';
-import { Logo } from '../../Logo';
+import { Logo } from '../Logo';
 import type { ReactNode } from 'react';
 
 export interface DesktopLayoutAttributes {
@@ -10,15 +10,6 @@ export interface DesktopLayoutAttributes {
 
 const drawerWidth = '70px';
 const logoSize = 38;
-
-/*
-<Box
-  sx={{
-    height: '100vh',
-  }}
->
-  {children}
-</Box>*/
 
 export function DesktopLayout({ children }: DesktopLayoutAttributes) {
   return (

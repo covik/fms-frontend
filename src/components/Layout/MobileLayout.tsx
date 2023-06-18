@@ -1,4 +1,4 @@
-import { Box, Paper, useTheme } from '@mui/material';
+import { Paper, useTheme } from '@mui/material';
 import { LayoutProvider } from './Layout';
 import { Navigation } from '../Navigation';
 import type { ReactNode } from 'react';
@@ -6,16 +6,6 @@ import type { ReactNode } from 'react';
 export interface MobileLayoutAttributes {
   children: ReactNode;
 }
-
-/*
-<Box
-        sx={(theme) => ({
-          height: `calc(100vh - ${theme.spacing(navigationHeight)})`,
-        })}
-      >
-        {children}
-      </Box>
-*/
 
 export function MobileLayout({ children }: MobileLayoutAttributes) {
   const theme = useTheme();

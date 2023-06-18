@@ -1,6 +1,6 @@
 import { useMediaQuery, useTheme } from '@mui/material';
 import { Outlet } from '@tanstack/router';
-import { MobileLayout, DesktopLayout } from './Layout';
+import { MobileLayout, DesktopLayout } from '../Layout';
 import { UpdateReadyBanner } from '../UpdateReadyBanner';
 
 export function AppShell() {

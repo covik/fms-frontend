@@ -1,5 +1,5 @@
 import { Page } from './Page';
-import { useLayout } from '../AppShell';
+import { useLayout } from '../Layout';
 import type { ReactNode } from 'react';
 
 export interface FixedPageAttributes {
