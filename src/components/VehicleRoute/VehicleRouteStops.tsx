@@ -1,6 +1,6 @@
 import { RouteStop } from '../../models/RouteStop';
 import { StopMarker } from './StopMarker';
-import { formatDuration } from '../../utils/date';
+import { useDateTime } from '../../foundation';
 
 export interface VehicleRouteStopsAttributes {
   stops: RouteStop[];
@@ -15,8 +15,9 @@ export function VehicleRouteStops({ stops }: VehicleRouteStopsAttributes) {
     </>
   );
 }
-
 function VehicleRouteStop({ stop }: { stop: RouteStop }) {
+  const { formatDuration } = useDateTime();
   const duration = formatDuration(stop.duration());
+
   return <StopMarker coordinates={stop.coordinates()} duration={duration} />;
 }

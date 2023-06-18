@@ -16,7 +16,6 @@ import {
 import { useDateTime } from '../../../foundation';
 import { Length, Speed, Voltage } from '../../../lib/MeasurementUnit';
 import { Tile } from '../../Tile';
-import { formatDuration } from '../../../utils/date';
 import { Grid, GridContent, GridSidebarTiles } from '../Grid';
 import { DisabledVehicle, UnavailableVehicle } from '../../../models/Vehicle';
 import {
@@ -30,7 +29,8 @@ export interface LivePreviewViewAttributes {
 }
 
 export function LivePreviewView({ vehicle }: LivePreviewViewAttributes) {
-  const { distanceToNowStrictWithSuffix } = useDateTime();
+  const { distanceToNowStrictWithSuffix, formatDuration } = useDateTime();
+
   const coordinates = vehicle.position().coordinates();
   const speedInKph = Speed.convert(vehicle.speed()).toKph();
   const formattedSpeed = Speed.format(speedInKph);
