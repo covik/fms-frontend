@@ -4,14 +4,8 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { QueryClient } from '@tanstack/query-core';
 import { Vehicle } from '../../lib/VehicleService';
 import { WebShare } from '../../lib/WebShare';
-import {
-  createMemoryHistory,
-  RootRoute,
-  Route,
-  Router,
-  RouterProvider,
-} from '@tanstack/router';
 import { createOperationalVehicle } from '../../models/Vehicle/factory';
+import { TestRouterProvider } from '../../foundation/router/test-router';
 
 faker.seed(1);
 const operationalVehicle = createOperationalVehicle({ faker });
@@ -117,21 +111,11 @@ function simulateShareViaClipboard() {
 }
 
 function mountPage() {
-  const rootRoute = new RootRoute();
-  const indexRoute = new Route({
-    getParentRoute: () => rootRoute,
-    path: '/',
-    component: VehiclesDigestPage,
-  });
-  const routeTree = rootRoute.addChildren([indexRoute]);
-  const router = new Router({
-    routeTree,
-    history: createMemoryHistory({ initialEntries: ['/'] }),
-  });
-
   cy.mount(
     <QueryClientProvider client={createTestClient()}>
-      <RouterProvider router={router} />
+      <TestRouterProvider>
+        <VehiclesDigestPage />
+      </TestRouterProvider>
     </QueryClientProvider>,
   );
 }

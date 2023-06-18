@@ -2,9 +2,11 @@ import { Router } from '@tanstack/router';
 import { routeTree } from './routes';
 import { PageLoadingSpinner } from '../../components/Page';
 
+export const defaultPendingComponent = PageLoadingSpinner;
+
 export const router = new Router({
   routeTree,
-  defaultPendingComponent: PageLoadingSpinner,
+  defaultPendingComponent,
 });
 
 // Register router for maximum type safety
