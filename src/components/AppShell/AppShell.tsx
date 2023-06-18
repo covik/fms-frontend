@@ -1,11 +1,11 @@
 import { Outlet } from '@tanstack/router';
 import { AppLayout } from '../Layout';
-import { UpdateReadyBanner } from '../UpdateReadyBanner';
+import { AppUpdateReadyBanner } from '../AppUpdateReadyBanner';
 
 export function AppShell() {
   return (
     <AppLayout>
-      <UpdateReadyBanner />
+      <AppUpdateReadyBanner />
       <Outlet />
     </AppLayout>
   );

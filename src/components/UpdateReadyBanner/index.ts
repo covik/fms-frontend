@@ -1,1 +1,0 @@
-export { UpdateReadyBanner } from './UpdateReadyBanner';

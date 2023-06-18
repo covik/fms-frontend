@@ -11,7 +11,7 @@ const StyledAlert = styled(Alert)({
   },
 });
 
-export function UpdateReadyBanner() {
+export function AppUpdateReadyBanner() {
   const { isUpdateReady, applyUpdate } = useVersionManager();
   const { offsetLeft, offsetBottom } = useLayout();
 

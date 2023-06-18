@@ -1,5 +1,5 @@
 import { VersionProvider } from '../../foundation';
-import { UpdateReadyBanner } from './UpdateReadyBanner';
+import { AppUpdateReadyBanner } from './AppUpdateReadyBanner';
 import type { Meta } from '@storybook/react';
 
 const mockApplyUpdate = () => {
@@ -7,13 +7,13 @@ const mockApplyUpdate = () => {
 };
 
 export default {
-  component: UpdateReadyBanner,
-} satisfies Meta<typeof UpdateReadyBanner>;
+  component: AppUpdateReadyBanner,
+} satisfies Meta<typeof AppUpdateReadyBanner>;
 
 export const UpdateReady = {
   render: () => (
     <VersionProvider isUpdateReady={true} applyUpdate={mockApplyUpdate}>
-      <UpdateReadyBanner />
+      <AppUpdateReadyBanner />
     </VersionProvider>
   ),
 };
@@ -21,7 +21,7 @@ export const UpdateReady = {
 export const NoUpdate = {
   render: () => (
     <VersionProvider isUpdateReady={false} applyUpdate={mockApplyUpdate}>
-      <UpdateReadyBanner />
+      <AppUpdateReadyBanner />
     </VersionProvider>
   ),
 };
