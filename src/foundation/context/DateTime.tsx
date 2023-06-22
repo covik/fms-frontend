@@ -14,6 +14,7 @@ export interface FormatAPI {
   distanceToNowStrictWithSuffix(date: Date): string;
   formatTime(date: Date): string;
   formatDuration(durationInSeconds: number): string;
+  formatDateTime(date: Date): string;
 }
 
 interface DateTimeOptions {
@@ -78,10 +79,16 @@ export function useDateTime(): FormatAPI {
     [context.timeFormat],
   );
 
+  const formatDateTime = useCallback(
+    (date: Date) => format(date, `${context.dateFormat} ${context.timeFormat}`),
+    [context.dateFormat, context.timeFormat],
+  );
+
   return {
     distanceToNowStrictWithSuffix,
     formatTime,
     formatDuration,
+    formatDateTime,
   };
 }
 
