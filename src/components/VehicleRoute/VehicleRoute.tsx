@@ -1,4 +1,5 @@
-import { RoutePosition } from '../../models/Position';
+import { useEffect, useState } from 'react';
+import { flushSync } from 'react-dom';
 import { RouteLine } from './RouteLine';
 import { StartMarker } from './StartMarker';
 import { FinishMarker } from './FinishMarker';
@@ -7,7 +8,9 @@ import {
   CheckpointMovingIcon,
   CheckpointStationaryIcon,
 } from './CheckpointIcons';
+import { RoutePositionInfoWindow } from './RoutePositionInfoWindow';
 import type { CSSProperties } from 'react';
+import type { RoutePosition } from '../../models/Position';
 
 export interface VehicleRouteAttributes {
   positions: RoutePosition[];
@@ -20,6 +23,13 @@ export function VehicleRoute({
   color,
   showCheckpoints,
 }: VehicleRouteAttributes) {
+  const { selectedPosition, changePosition, resetPosition } =
+    usePositionSelection();
+
+  useEffect(() => {
+    if (!showCheckpoints) resetPosition();
+  }, [showCheckpoints]);
+
   if (positions.length < 2) return null;
 
   const firstPosition = positions[0];
@@ -39,6 +49,7 @@ export function VehicleRoute({
             <CheckpointMarker
               key={position.id()}
               coordinates={position.coordinates()}
+              onClick={() => changePosition(position)}
             >
               {position.inMotion() ? (
                 <CheckpointMovingIcon
@@ -51,6 +62,32 @@ export function VehicleRoute({
             </CheckpointMarker>
           ))
         : null}
+      {selectedPosition !== undefined ? (
+        <RoutePositionInfoWindow position={selectedPosition} />
+      ) : null}
     </>
   );
+}
+
+function usePositionSelection() {
+  const [selectedPosition, setSelectedPosition] = useState<
+    RoutePosition | undefined
+  >(undefined);
+
+  function resetPosition() {
+    setSelectedPosition(undefined);
+  }
+
+  function changePosition(newPosition: RoutePosition) {
+    flushSync(() => {
+      setSelectedPosition(() => undefined);
+    });
+    setSelectedPosition(() => newPosition);
+  }
+
+  return {
+    selectedPosition,
+    changePosition,
+    resetPosition,
+  };
 }
