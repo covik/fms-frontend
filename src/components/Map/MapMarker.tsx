@@ -18,6 +18,7 @@ export interface MapMarkerAttributes {
   labelFontWeight?: string;
   labelFontSize?: string;
   zIndex?: number;
+  onClick?: () => void;
 }
 
 export function MapMarker(props: MapMarkerAttributes) {
@@ -34,6 +35,7 @@ export function MapMarker(props: MapMarkerAttributes) {
     labelOriginX,
     labelOriginY,
     zIndex,
+    onClick,
   } = props;
   const latitude = position.latitude();
   const longitude = position.longitude();
@@ -83,6 +85,12 @@ export function MapMarker(props: MapMarkerAttributes) {
   }, [label, labelClass, labelColor, labelFontWeight, labelFontSize]);
 
   return (
-    <Marker position={center} icon={icon} label={labelObject} zIndex={zIndex} />
+    <Marker
+      position={center}
+      icon={icon}
+      label={labelObject}
+      zIndex={zIndex}
+      onClick={onClick}
+    />
   );
 }
