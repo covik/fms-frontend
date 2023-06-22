@@ -1,13 +1,13 @@
 import { z } from 'zod';
 import { Position, PositionAttributesValidation } from './Position';
-import { Angle, Length, Speed } from '../../lib/MeasurementUnit';
+import { Angle, Length, Speed, Voltage } from '../../lib/MeasurementUnit';
 
 export const RoutePositionAttributesValidation =
   PositionAttributesValidation.extend({
     speed: z.instanceof(Speed.BaseSpeed),
     heading: z.instanceof(Angle.BaseAngle),
     inMotion: z.boolean(),
-    power: z.number().nonnegative(),
+    power: z.instanceof(Voltage.BaseVoltage),
     mileage: z.instanceof(Length.BaseLength),
     distance: z.instanceof(Length.BaseLength),
   });
@@ -35,7 +35,7 @@ export class RoutePosition extends Position {
     return this._attributes.inMotion;
   }
 
-  public power(): number {
+  public power(): Voltage.BaseVoltage {
     return this._attributes.power;
   }
 

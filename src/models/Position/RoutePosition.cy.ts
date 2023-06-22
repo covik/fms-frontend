@@ -1,7 +1,7 @@
 import { ZodError } from 'zod';
 import { RoutePosition, Position, PositionTimestamps } from './';
 import { Coordinates } from '../../lib/Dimension';
-import { Angle, Length, Speed } from '../../lib/MeasurementUnit';
+import { Angle, Length, Speed, Voltage } from '../../lib/MeasurementUnit';
 import type { RoutePositionAttributes } from './';
 
 const id = '1234';
@@ -15,7 +15,7 @@ const timestamps = new PositionTimestamps(
 const speed = new Speed.Knots(10);
 const heading = new Angle.Degree(15);
 const inMotion = true;
-const power = 12.52;
+const power = new Voltage.Volt(12.52);
 const mileage = new Length.Meter(120258);
 const distance = new Length.Meter(1020);
 

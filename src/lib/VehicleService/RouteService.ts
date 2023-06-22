@@ -7,7 +7,7 @@ import {
   TraccarTripStop,
 } from '../Traccar';
 import { Coordinates } from '../Dimension';
-import { Angle, Length, Speed } from '../MeasurementUnit';
+import { Angle, Length, Speed, Voltage } from '../MeasurementUnit';
 import { RouteStop } from '../../models/RouteStop';
 import { RouteSummary } from '../../models/RouteSummary';
 import { NoRouteSummary } from './Exception';
@@ -51,7 +51,7 @@ export async function fetchInRange(
         speed: new Speed.Knots(position.speed),
         heading: new Angle.Degree(position.course),
         inMotion: position.attributes.motion,
-        power: position.attributes.power,
+        power: new Voltage.Volt(position.attributes.power),
         mileage: new Length.Meter(position.attributes.totalDistance),
         distance: new Length.Meter(position.attributes.distance),
       }),
