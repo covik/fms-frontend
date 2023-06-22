@@ -18,7 +18,7 @@ export function RoutePositionInfoWindow({
       date={formatDateTime(position.timestamp().fixationTime())}
       speed={Speed.format(Speed.convert(position.speed()).toKph())}
       voltage={Voltage.format(position.power())}
-      mileage={Length.adaptiveFormat(position.mileage())}
+      mileage={Length.adaptiveFormat(position.mileage(), 1)}
       ignitionColor={position.ignitionOn() ? 'green' : 'orange'}
       movementColor={position.inMotion() ? 'green' : 'orange'}
     />
