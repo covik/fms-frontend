@@ -6,6 +6,7 @@ export const RoutePositionAttributesValidation =
   PositionAttributesValidation.extend({
     speed: z.instanceof(Speed.BaseSpeed),
     heading: z.instanceof(Angle.BaseAngle),
+    ignitionOn: z.boolean(),
     inMotion: z.boolean(),
     power: z.instanceof(Voltage.BaseVoltage),
     mileage: z.instanceof(Length.BaseLength),
@@ -31,6 +32,11 @@ export class RoutePosition extends Position {
   public heading(): Angle.BaseAngle {
     return this._attributes.heading;
   }
+
+  public ignitionOn(): boolean {
+    return this._attributes.ignitionOn;
+  }
+
   public inMotion(): boolean {
     return this._attributes.inMotion;
   }

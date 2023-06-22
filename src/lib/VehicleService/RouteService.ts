@@ -50,6 +50,7 @@ export async function fetchInRange(
         ),
         speed: new Speed.Knots(position.speed),
         heading: new Angle.Degree(position.course),
+        ignitionOn: position.attributes.ignition,
         inMotion: position.attributes.motion,
         power: new Voltage.Volt(position.attributes.power),
         mileage: new Length.Meter(position.attributes.totalDistance),

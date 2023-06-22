@@ -14,6 +14,7 @@ const timestamps = new PositionTimestamps(
 );
 const speed = new Speed.Knots(10);
 const heading = new Angle.Degree(15);
+const ignitionOn = true;
 const inMotion = true;
 const power = new Voltage.Volt(12.52);
 const mileage = new Length.Meter(120258);
@@ -26,6 +27,7 @@ const routePositionAttributes = {
   timestamps,
   speed,
   heading,
+  ignitionOn,
   inMotion,
   power,
   mileage,
@@ -66,6 +68,21 @@ describe(RoutePosition.name, () => {
       () => ({
         ...routePositionAttributes,
         heading: 'I reject being BaseAngle object',
+      }),
+    ],
+    [
+      'ignitionOn is missing',
+      () => {
+        const { ignitionOn, ...attributesWithoutIgnition } =
+          routePositionAttributes;
+        return attributesWithoutIgnition;
+      },
+    ],
+    [
+      'ignitionOn is not boolean',
+      () => ({
+        ...routePositionAttributes,
+        ignitionOn: 'I reject being boolean',
       }),
     ],
     [
@@ -148,6 +165,7 @@ describe(RoutePosition.name, () => {
     expect(position.timestamp()).to.equal(timestamps);
     expect(position.speed()).to.equal(speed);
     expect(position.heading()).to.equal(heading);
+    expect(position.ignitionOn()).to.equal(ignitionOn);
     expect(position.inMotion()).to.equal(inMotion);
     expect(position.power()).to.equal(power);
     expect(position.mileage()).to.equal(mileage);
