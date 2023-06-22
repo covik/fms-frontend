@@ -30,6 +30,11 @@ export function VehicleRoute({
     if (!showCheckpoints) resetPosition();
   }, [showCheckpoints]);
 
+  useEffect(() => {
+    if (!positions.find((position) => position.id() === selectedPosition?.id()))
+      resetPosition();
+  }, [positions]);
+
   if (positions.length < 2) return null;
 
   const firstPosition = positions[0];
