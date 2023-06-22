@@ -5,11 +5,13 @@ import type { Coordinates } from '../../lib/Dimension';
 
 export interface CheckpointMarkerAttributes {
   coordinates: Coordinates;
+  onClick?: () => void;
   children: ReactElement;
 }
 
 export function CheckpointMarker({
   coordinates,
+  onClick,
   children,
 }: CheckpointMarkerAttributes) {
   return (
@@ -18,6 +20,7 @@ export function CheckpointMarker({
       iconAnchorX={16}
       iconAnchorY={16}
       zIndex={checkpointMarkerIndex}
+      onClick={onClick}
     >
       {children}
     </MapMarker>
