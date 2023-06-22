@@ -8,7 +8,7 @@ export const RoutePositionAttributesValidation =
     heading: z.instanceof(Angle.BaseAngle),
     inMotion: z.boolean(),
     power: z.number().nonnegative(),
-    odometer: z.instanceof(Length.BaseLength),
+    mileage: z.instanceof(Length.BaseLength),
     distance: z.instanceof(Length.BaseLength),
   });
 
@@ -39,8 +39,8 @@ export class RoutePosition extends Position {
     return this._attributes.power;
   }
 
-  public odometer(): Length.BaseLength {
-    return this._attributes.odometer;
+  public mileage(): Length.BaseLength {
+    return this._attributes.mileage;
   }
 
   public distance(): Length.BaseLength {

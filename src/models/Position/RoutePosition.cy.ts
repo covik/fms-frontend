@@ -16,7 +16,7 @@ const speed = new Speed.Knots(10);
 const heading = new Angle.Degree(15);
 const inMotion = true;
 const power = 12.52;
-const odometer = new Length.Meter(120258);
+const mileage = new Length.Meter(120258);
 const distance = new Length.Meter(1020);
 
 const routePositionAttributes = {
@@ -28,7 +28,7 @@ const routePositionAttributes = {
   heading,
   inMotion,
   power,
-  odometer,
+  mileage,
   distance,
 };
 
@@ -98,18 +98,18 @@ describe(RoutePosition.name, () => {
       }),
     ],
     [
-      'odometer is missing',
+      'mileage is missing',
       () => {
-        const { odometer, ...attributesWithoutOdometer } =
+        const { mileage, ...attributesWithoutOdometer } =
           routePositionAttributes;
         return attributesWithoutOdometer;
       },
     ],
     [
-      'odometer is not BaseLength',
+      'mileage is not BaseLength',
       () => ({
         ...routePositionAttributes,
-        odometer: 'I reject being BaseLength',
+        mileage: 'I reject being BaseLength',
       }),
     ],
     [
@@ -150,7 +150,7 @@ describe(RoutePosition.name, () => {
     expect(position.heading()).to.equal(heading);
     expect(position.inMotion()).to.equal(inMotion);
     expect(position.power()).to.equal(power);
-    expect(position.odometer()).to.equal(odometer);
+    expect(position.mileage()).to.equal(mileage);
     expect(position.distance()).to.equal(distance);
   });
 });

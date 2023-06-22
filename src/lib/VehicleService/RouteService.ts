@@ -52,7 +52,7 @@ export async function fetchInRange(
         heading: new Angle.Degree(position.course),
         inMotion: position.attributes.motion,
         power: position.attributes.power,
-        odometer: new Length.Meter(position.attributes.totalDistance),
+        mileage: new Length.Meter(position.attributes.totalDistance),
         distance: new Length.Meter(position.attributes.distance),
       }),
   );
