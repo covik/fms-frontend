@@ -31,29 +31,36 @@ export default defineConfig({
 });
 
 function pwa() {
+  const cacheAssets = ['**/*.{js,css,html,woff,woff2}'];
+
+  const manifest = Object.freeze({
+    name: 'Zara Fleet',
+    short_name: 'Zara Fleet',
+    description: 'Application for managing fleet of vehicles',
+    display: 'standalone',
+    orientation: 'portrait',
+    background_color: '#edeff0',
+    theme_color: '#edeff0',
+    icons: [
+      {
+        src: 'icons/android-chrome-192x192.png',
+        sizes: '192x192',
+        type: 'image/png',
+        purpose: 'any maskable',
+      },
+      {
+        src: 'icons/android-chrome-512x512.png',
+        sizes: '512x512',
+        type: 'image/png',
+        purpose: 'any maskable',
+      },
+    ],
+  });
+
   return VitePWA({
-    manifest: {
-      name: 'Zara Fleet',
-      short_name: 'Zara Fleet',
-      description: 'Application for managing fleet of vehicles',
-      display: 'standalone',
-      orientation: 'portrait',
-      background_color: '#edeff0',
-      theme_color: '#edeff0',
-      icons: [
-        {
-          src: 'icons/android-chrome-192x192.png',
-          sizes: '192x192',
-          type: 'image/png',
-          purpose: 'any maskable',
-        },
-        {
-          src: 'icons/android-chrome-512x512.png',
-          sizes: '512x512',
-          type: 'image/png',
-          purpose: 'any maskable',
-        },
-      ],
+    manifest,
+    workbox: {
+      globPatterns: cacheAssets,
     },
   });
 }
