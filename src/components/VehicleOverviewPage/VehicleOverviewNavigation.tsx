@@ -1,74 +1,31 @@
-import { styled, Tabs } from '@mui/material';
-import { RouterTab } from '../RouterTab';
-import { useRouter } from '@tanstack/router';
+import { styled } from '@mui/material';
+import { PageNavigation } from '../Page';
+import type { NavigationItems } from '../Navigation';
 
-const StyledTabs = styled(Tabs)(({ theme }) => ({
-  '.MuiTab-root': {
-    '&': {
-      padding: `${theme.spacing(1)} ${theme.spacing(2)}`,
-      minHeight: 'auto',
-      minWidth: 'auto',
+export function createItems(vehicleId: string): NavigationItems {
+  const params = { vehicleId };
+  return [
+    {
+      to: `/vehicles/$vehicleId`,
+      params,
+      label: 'Uživo',
     },
-
-    '&:not(.Mui-selected)': {
-      color: theme.palette.text.primary,
+    {
+      to: `/vehicles/$vehicleId/today`,
+      params,
+      label: 'Danas',
     },
-  },
-}));
-
-export interface VehicleOverviewNavigationAttributes {
-  vehicleId: string;
-}
-
-export function VehicleOverviewNavigation({
-  vehicleId,
-}: VehicleOverviewNavigationAttributes) {
-  const router = useRouter();
-  const currentPath = router.state.currentLocation.pathname;
-  const items = [
-    { href: `/vehicles/${vehicleId}/history` },
-    { href: `/vehicles/${vehicleId}/today` },
-    { href: `/vehicles/${vehicleId}` },
+    {
+      to: `/vehicles/$vehicleId/history`,
+      params,
+      label: 'Povijest',
+    },
   ];
-  const currentTab = getCurrentTab(items, currentPath);
-
-  return (
-    <StyledTabs
-      value={currentTab ?? false}
-      sx={{ minHeight: '34px', marginBottom: 2 }}
-    >
-      <RouterTab
-        value={`/vehicles/${vehicleId}`}
-        to={'/vehicles/$vehicleId'}
-        params={{ vehicleId }}
-        label={'Uživo'}
-        replace={true}
-      />
-      <RouterTab
-        value={`/vehicles/${vehicleId}/today`}
-        to={'/vehicles/$vehicleId/today'}
-        params={{ vehicleId }}
-        label={'Danas'}
-        replace={true}
-      />
-      <RouterTab
-        value={`/vehicles/${vehicleId}/history`}
-        to={'/vehicles/$vehicleId/history'}
-        params={{ vehicleId }}
-        label={'Povijest'}
-        replace={true}
-      />
-    </StyledTabs>
-  );
 }
 
-function getCurrentTab(
-  items: { href: string }[],
-  currentPath: string,
-): string | undefined {
-  for (const item of items) {
-    if (currentPath.startsWith(item.href)) return item.href;
-  }
-
-  return undefined;
-}
+export const VehicleOverviewNavigation = styled(PageNavigation)(
+  ({ theme }) => ({
+    marginBottom: theme.spacing(2),
+  }),
+);
+VehicleOverviewNavigation.displayName = 'VehicleOverviewNavigation';
