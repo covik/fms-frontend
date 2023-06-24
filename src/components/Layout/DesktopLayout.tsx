@@ -1,6 +1,7 @@
 import { Box, Drawer } from '@mui/material';
 import { LayoutProvider } from './Layout';
-import { Navigation } from '../Navigation';
+import { AppNavigation, DESKTOP_ITEMS } from '../AppNavigation';
+import { RouterNavigationProvider } from '../Navigation';
 import { Logo } from '../Logo';
 import type { ReactNode } from 'react';
 
@@ -38,7 +39,9 @@ export function DesktopLayout({ children }: DesktopLayoutAttributes) {
           <Logo size={logoSize} />
         </Box>
         <Box sx={{ overflow: 'auto' }}>
-          <Navigation vertical />
+          <RouterNavigationProvider items={DESKTOP_ITEMS}>
+            <AppNavigation vertical />
+          </RouterNavigationProvider>
         </Box>
       </Drawer>
     </>

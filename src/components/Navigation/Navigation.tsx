@@ -1,63 +1,36 @@
-import { styled, Tabs } from '@mui/material';
-import { useRouter } from '@tanstack/router';
-import { RouterTab } from '../RouterTab';
-import { all as items } from './items';
+import { forwardRef } from 'react';
+import { tabClasses, Tabs, tabsClasses } from '@mui/material';
+import { useNavigation } from './NavigationProvider';
+import { RouterTabRender as DefaultItemRenderer } from './ItemRenderer';
+import type { TabsProps } from '@mui/material';
+import type { ItemRenderer } from './ItemRenderer';
 
-const StyledTabs = styled(Tabs)(({ theme }) => ({
-  '.MuiTab-root:not(.Mui-selected)': {
-    color: theme.palette.text.primary,
-  },
-  '.MuiTabs-indicator': {
-    top: 0,
-  },
-}));
-
-const verticalStyles = {
-  '.MuiTab-root': {
-    minHeight: '76px',
-    minWidth: 'auto',
-  },
-};
-
-export interface NavigationAttributes {
-  vertical?: boolean;
+export interface NavigationItemRenderer {
+  itemRenderer?: ItemRenderer | undefined;
 }
 
-export function Navigation({ vertical = false }: NavigationAttributes) {
-  const router = useRouter();
-  const currentPath = router.state.currentLocation.pathname;
-  const currentTab = getCurrentTab(currentPath);
+export type NavigationAttributes = TabsProps<'nav'> & NavigationItemRenderer;
 
-  return (
-    <StyledTabs
-      orientation={vertical ? 'vertical' : 'horizontal'}
-      variant="fullWidth"
-      value={currentTab ?? false}
-      sx={{
-        ...(vertical ? verticalStyles : {}),
-      }}
-    >
-      {items.map(({ title, icon, href }) => (
-        <RouterTab
-          key={href}
-          value={href}
-          to={href}
-          label={title}
-          icon={icon}
-        />
-      ))}
-    </StyledTabs>
-  );
-}
+export const navigationClasses = tabsClasses;
+export const navigationItemClasses = tabClasses;
 
-function getCurrentTab(currentPath: string): string | undefined {
-  if (currentPath === '/') return currentPath;
+export const Navigation = forwardRef<any, NavigationAttributes>(
+  (props, ref) => {
+    const { items, activeItem } = useNavigation();
+    const { itemRenderer = DefaultItemRenderer, ...tabsProps } = props;
 
-  const itemsWithoutRootPath = items.filter((item) => item.href !== '/');
+    if (items.length === 0) return null;
 
-  for (const item of itemsWithoutRootPath) {
-    if (currentPath.startsWith(item.href)) return item.href;
-  }
-
-  return undefined;
-}
+    return (
+      <Tabs
+        ref={ref}
+        component={'nav'}
+        value={activeItem ? activeItem.to : false}
+        {...tabsProps}
+      >
+        {items.map(itemRenderer)}
+      </Tabs>
+    );
+  },
+);
+Navigation.displayName = 'Navigation';
