@@ -1,18 +1,9 @@
-import { defineConfig } from 'vite';
+import { defineConfig, mergeConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 
-// https://vitejs.dev/config/
-export default defineConfig({
+const baseConfig = defineConfig({
   plugins: [react(), pwa()],
-  server: {
-    proxy: {
-      '/api': {
-        target: 'https://app.zarafleet.com',
-        changeOrigin: true,
-      },
-    },
-  },
   build: {
     rollupOptions: {
       output: {
@@ -27,6 +18,24 @@ export default defineConfig({
         }
       },
     },
+  },
+});
+
+// https://vitejs.dev/config/
+export default mergeConfig(baseConfig, {
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://app.zarafleet.com',
+        changeOrigin: true,
+      },
+    },
+  },
+});
+
+export const cypressConfig = mergeConfig(baseConfig, {
+  server: {
+    port: 5020,
   },
 });
 
