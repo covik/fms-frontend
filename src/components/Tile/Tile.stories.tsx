@@ -7,15 +7,19 @@ import {
   ListItemText,
 } from '@mui/material';
 import { Cog, Delete, Logout } from 'mdi-material-ui';
-import type { Meta } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 export default {
   component: Tile,
 } satisfies Meta<typeof Tile>;
+type Story = StoryObj<typeof Tile>;
 
-export const ListContent = {
-  render: () => (
-    <Tile label={'Račun'}>
+export const ListContent: Story = {
+  args: {
+    label: 'Račun',
+  },
+  render: (args) => (
+    <Tile label={args.label}>
       <List disablePadding>
         <ListItem>
           <ListItemIcon>
@@ -42,9 +46,12 @@ export const ListContent = {
   ),
 };
 
-export const TextContent = {
-  render: () => (
-    <Tile label={'Sažetak'}>
+export const TextContent: Story = {
+  args: {
+    label: 'Sažetak',
+  },
+  render: (args) => (
+    <Tile label={args.label}>
       <TileContent>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce et
         aliquet lectus. Suspendisse condimentum purus at fermentum consequat.
@@ -68,9 +75,12 @@ export const TextContent = {
   ),
 };
 
-export const NoData = {
-  render: () => (
-    <Tile label={'Informacije'}>
+export const NoData: Story = {
+  args: {
+    label: 'Informacije',
+  },
+  render: (args) => (
+    <Tile label={args.label}>
       <TileContent>
         <NoContent>Nema informacija</NoContent>
       </TileContent>
