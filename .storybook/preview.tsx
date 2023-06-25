@@ -1,4 +1,3 @@
-import * as React from 'react';
 import { DesignBaseline } from '../src/foundation';
 import type { Preview } from '@storybook/react';
 
@@ -13,10 +12,11 @@ const preview: Preview = {
     },
   },
   decorators: [
-    (Story) =>
-      React.createElement(DesignBaseline, {
-        children: [React.createElement(Story)],
-      }),
+    (Story) => (
+      <DesignBaseline>
+        <Story />
+      </DesignBaseline>
+    ),
   ],
 };
 
