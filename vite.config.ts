@@ -1,9 +1,10 @@
 import { defineConfig, mergeConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 const baseConfig = defineConfig({
-  plugins: [react(), pwa()],
+  plugins: [react(), pwa(), tsconfigPaths()],
   build: {
     rollupOptions: {
       output: {
