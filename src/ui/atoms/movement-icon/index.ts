@@ -1,2 +1,1 @@
-export * from './ignition-icon';
 export * from './movement-icon';
