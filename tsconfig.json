@@ -17,7 +17,9 @@
     "jsx": "react-jsx",
 
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "#ui/*": ["src/ui/*"]
+    }
   },
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "cypress", "**/*.cy.ts", "**/*.cy.tsx"]
