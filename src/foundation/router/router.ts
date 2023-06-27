@@ -1,8 +1,8 @@
 import { Router } from '@tanstack/router';
 import { routeTree } from './routes';
-import { PageLoadingSpinner } from '../../components/Page';
+import { PageLoadingIndicator } from '#ui/atoms';
 
-export const defaultPendingComponent = PageLoadingSpinner;
+export const defaultPendingComponent = PageLoadingIndicator;
 
 export const router = new Router({
   routeTree,
