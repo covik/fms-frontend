@@ -1,11 +1,11 @@
-import { List } from '@mui/material';
 import {
   IgnitionListItem,
   MileageListItem,
   MovementListItem,
+  Tile,
+  TileListContent,
   VehicleBatteryListItem,
 } from '#ui/molecules';
-import { Tile } from '../../../components/Tile';
 
 export interface VehicleStateBlockAttributes {
   ignitionOn: boolean;
@@ -24,12 +24,12 @@ export function VehicleStateBlock({
 }: VehicleStateBlockAttributes) {
   return (
     <Tile label={'Vozilo'}>
-      <List disablePadding dense>
+      <TileListContent>
         <MovementListItem moving={moving} speed={speed} />
         <IgnitionListItem on={ignitionOn} />
         <VehicleBatteryListItem voltage={voltage} />
         <MileageListItem mileage={mileage} />
-      </List>
+      </TileListContent>
     </Tile>
   );
 }
