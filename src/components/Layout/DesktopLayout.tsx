@@ -1,8 +1,8 @@
 import { Box, Drawer } from '@mui/material';
+import { Logo } from '#ui/atoms';
 import { LayoutProvider } from './Layout';
 import { AppNavigation, DESKTOP_ITEMS } from '../AppNavigation';
 import { RouterNavigationProvider } from '../Navigation';
-import { Logo } from '../Logo';
 import type { ReactNode } from 'react';
 
 export interface DesktopLayoutAttributes {
