@@ -1,4 +1,5 @@
 export * from './altitude-list-item';
+export * from './connection-status-list-item';
 export * from './coordinates-list-item';
 export * from './course-list-item';
 export * from './ignition-list-item';
