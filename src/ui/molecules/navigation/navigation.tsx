@@ -1,12 +1,11 @@
 import { forwardRef } from 'react';
 import { tabClasses, Tabs, tabsClasses } from '@mui/material';
 import { useNavigation } from './navigation-provider';
-import { RouterTabRender as DefaultItemRenderer } from './navigation-item-renderer';
 import type { TabsProps } from '@mui/material';
-import type { NavigationItemRenderer } from './navigation-item-renderer';
+import type { NavigationItems } from './interface';
 
 export type NavigationAttributes = TabsProps<'nav'> & {
-  itemRenderer?: NavigationItemRenderer | undefined;
+  items: NavigationItems;
 };
 
 export const navigationClasses = tabsClasses;
@@ -14,8 +13,9 @@ export const navigationItemClasses = tabClasses;
 
 export const Navigation = forwardRef<any, NavigationAttributes>(
   (props, ref) => {
-    const { items, activeItem } = useNavigation();
-    const { itemRenderer = DefaultItemRenderer, ...tabsProps } = props;
+    const { resolveActiveItem, itemRenderer } = useNavigation();
+    const { items, ...tabsProps } = props;
+    const activeItem = resolveActiveItem(items);
 
     if (items.length === 0) return null;
 

@@ -20,7 +20,7 @@ const StyledNavigation = styled(Navigation)(({ theme }) => ({
 }));
 
 export interface PageNavigationAttributes
-  extends Pick<NavigationAttributes, 'itemRenderer'> {}
+  extends Pick<NavigationAttributes, 'items'> {}
 
 export const PageNavigation = forwardRef<any, PageNavigationAttributes>(
   (props, ref) => <StyledNavigation ref={ref} {...props} />,

@@ -1,5 +1,4 @@
 import { Pound } from 'mdi-material-ui';
-import { NavigationProvider, TabRender } from '#ui/molecules';
 import { PageNavigation } from '.';
 import type { Meta, StoryObj } from '@storybook/react';
 import type { NavigationItems } from '#ui/molecules';
@@ -14,34 +13,15 @@ const itemsWithIcons = items.map((item) => ({ ...item, icon: <Pound /> }));
 export default {
   title: 'Molecules/Page Navigation',
   component: PageNavigation,
-  args: {
-    itemRenderer: TabRender,
-  },
-  argTypes: {
-    itemRenderer: {
-      table: {
-        disable: true,
-      },
-    },
-  },
-  parameters: {
-    controls: { hideNoControlsWarning: true },
-  },
 } satisfies Meta<typeof PageNavigation>;
 type Story = StoryObj<typeof PageNavigation>;
 
 export const Default: Story = {
-  render: (args) => (
-    <NavigationProvider items={items} activeItem={items[3]}>
-      <PageNavigation {...args} />
-    </NavigationProvider>
-  ),
+  args: { items },
 };
 
 export const WithIcons: StoryObj = {
-  render: (args) => (
-    <NavigationProvider items={itemsWithIcons} activeItem={items[3]}>
-      <PageNavigation {...args} />
-    </NavigationProvider>
-  ),
+  args: {
+    items: itemsWithIcons,
+  },
 };

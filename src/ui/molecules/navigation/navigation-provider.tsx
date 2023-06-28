@@ -1,48 +1,37 @@
 import { createContext, useContext, useMemo } from 'react';
-import type { ReactNode, ReactElement } from 'react';
-import type { ToOptions, RegisteredRoutesInfo } from '@tanstack/router';
+import { TabRender } from './navigation-item-renderer';
+import type { NavigationAPI, NavigationProviderAttributes } from './interface';
 
-export interface NavigationItem extends ToOptions<RegisteredRoutesInfo> {
-  label: string;
-  icon?: ReactElement;
-}
-export type NavigationItems = NavigationItem[];
-export type ActiveNavigationItem = NavigationItem | undefined;
-
-interface Navigation {
-  items: NavigationItems;
-  activeItem: ActiveNavigationItem;
+function dummyActiveItemResolver() {
+  return undefined;
 }
 
-const NavigationContext = createContext<Navigation>({
-  items: [],
-  activeItem: undefined,
+const NavigationContext = createContext<NavigationAPI>({
+  itemRenderer: TabRender,
+  resolveActiveItem: dummyActiveItemResolver,
 });
 
-export function useNavigation() {
-  const context = useContext(NavigationContext);
-
-  return useMemo(
-    () => ({
-      items: context.items,
-      activeItem: context.activeItem,
-    }),
-    [context.items, context.activeItem],
-  );
-}
-
-export interface NavigationProviderAttributes extends Navigation {
-  children: ReactNode;
-}
-
 export function NavigationProvider({
-  items,
-  activeItem,
   children,
+  itemRenderer,
+  resolveActiveItem,
 }: NavigationProviderAttributes) {
-  const value = useMemo<Navigation>(
-    () => ({ items, activeItem }),
-    [items, activeItem],
+  const {
+    itemRenderer: currentItemRenderer,
+    resolveActiveItem: currentActiveItemResolver,
+  } = useNavigation();
+
+  const value = useMemo<NavigationAPI>(
+    () => ({
+      itemRenderer: itemRenderer ?? currentItemRenderer,
+      resolveActiveItem: resolveActiveItem ?? currentActiveItemResolver,
+    }),
+    [
+      itemRenderer,
+      currentItemRenderer,
+      resolveActiveItem,
+      currentActiveItemResolver,
+    ],
   );
 
   return (
@@ -50,4 +39,8 @@ export function NavigationProvider({
       {children}
     </NavigationContext.Provider>
   );
+}
+
+export function useNavigation(): NavigationAPI {
+  return useContext(NavigationContext);
 }
