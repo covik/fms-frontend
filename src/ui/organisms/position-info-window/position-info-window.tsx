@@ -7,7 +7,7 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
-import { LightningBolt, Navigation } from 'mdi-material-ui';
+import { IgnitionIcon, MovementIcon } from '#ui/atoms';
 import type { Coordinates } from '../../../lib/Dimension';
 
 export interface PositionInfoWindowAttributes {
@@ -36,8 +36,6 @@ export function PositionInfoWindow({
     [latitude, longitude],
   );
   const coordinatesText = coordinates.toString();
-  const ignitionColor = ignition ? 'green' : 'orange';
-  const movementColor = movement ? 'green' : 'orange';
 
   return (
     <InfoWindow position={position}>
@@ -65,10 +63,10 @@ export function PositionInfoWindow({
           </TableRow>
           <TableRow>
             <TableCell align={'center'}>
-              <LightningBolt htmlColor={ignitionColor} />
+              <IgnitionIcon on={ignition} />
             </TableCell>
             <TableCell align={'center'}>
-              <Navigation htmlColor={movementColor} />
+              <MovementIcon moving={movement} />
             </TableCell>
           </TableRow>
         </TableBody>
