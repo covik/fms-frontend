@@ -1,7 +1,6 @@
 import { Paper, useTheme } from '@mui/material';
+import { AppNavigation, MOBILE_ITEMS } from '#ui/molecules';
 import { LayoutProvider } from './Layout';
-import { AppNavigation, MOBILE_ITEMS } from '../AppNavigation';
-import { RouterNavigationProvider } from '../Navigation';
 import type { ReactNode } from 'react';
 
 export interface MobileLayoutAttributes {
@@ -28,9 +27,7 @@ export function MobileLayout({ children }: MobileLayoutAttributes) {
           right: 0,
         }}
       >
-        <RouterNavigationProvider items={MOBILE_ITEMS}>
-          <AppNavigation />
-        </RouterNavigationProvider>
+        <AppNavigation items={MOBILE_ITEMS} />
       </Paper>
     </>
   );
