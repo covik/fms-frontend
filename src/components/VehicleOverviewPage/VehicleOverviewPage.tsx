@@ -12,7 +12,6 @@ import {
   VehicleOverviewNavigation,
 } from './VehicleOverviewNavigation';
 import { WarningVehicleAwaitingInstallation } from './VehicleWarning';
-import { RouterNavigationProvider } from '../Navigation';
 
 export function VehicleOverviewPage() {
   const { vehicleId } = useParams({ from: '/vehicles/$vehicleId' });
@@ -41,9 +40,7 @@ export function VehicleOverviewPage() {
     <VehicleOverviewView title={vehicle.name()}>
       {vehicle instanceof LocatedVehicle ? (
         <>
-          <RouterNavigationProvider items={navigationItems}>
-            <VehicleOverviewNavigation />
-          </RouterNavigationProvider>
+          <VehicleOverviewNavigation items={navigationItems} />
           <Outlet />
         </>
       ) : (

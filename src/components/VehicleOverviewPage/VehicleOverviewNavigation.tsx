@@ -1,6 +1,6 @@
 import { styled } from '@mui/material';
-import { PageNavigation } from '../Page';
-import type { NavigationItems } from '../Navigation';
+import { PageNavigation } from '#ui/molecules';
+import type { NavigationItems } from '#ui/molecules';
 
 export function createItems(vehicleId: string): NavigationItems {
   const params = { vehicleId };
