@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { MapBounds as GoogleMapBounds } from './GoogleMap';
+import { GoogleMaps } from '#ui/organisms';
 import type { Coordinates } from '../../lib/Dimension';
 
 export interface MapBoundsAttributes {
@@ -17,5 +17,5 @@ export function MapBounds({ coordinates, once = false }: MapBoundsAttributes) {
     [coordinates],
   );
 
-  return <GoogleMapBounds coordinates={latLngArray} once={once} />;
+  return <GoogleMaps.MapBounds coordinates={latLngArray} once={once} />;
 }

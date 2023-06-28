@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Card, Skeleton, styled } from '@mui/material';
+import { GoogleMaps } from '#ui/organisms';
 import { useMapSettings } from './MapSettings';
-import { Map as GoogleMap } from './GoogleMap';
 import type { SxProps } from '@mui/material';
 import type { ReactNode } from 'react';
 
@@ -34,7 +34,7 @@ export function AppMap(props: AppMapAttributes) {
   return (
     <Card sx={{ padding: defaultPadding, ...sx }}>
       <MapContainer>
-        <GoogleMap
+        <GoogleMaps.Map
           {...mapProps}
           x={latitude}
           y={longitude}
