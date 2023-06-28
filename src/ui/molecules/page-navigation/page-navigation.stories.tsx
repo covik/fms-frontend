@@ -1,4 +1,5 @@
 import { Pound } from 'mdi-material-ui';
+import { withNavigation } from '#storybook/decorators';
 import { PageNavigation } from '.';
 import type { Meta, StoryObj } from '@storybook/react';
 import type { NavigationItems } from '#ui/molecules';
@@ -13,6 +14,7 @@ const itemsWithIcons = items.map((item) => ({ ...item, icon: <Pound /> }));
 export default {
   title: 'Molecules/Page Navigation',
   component: PageNavigation,
+  decorators: [withNavigation(0)],
 } satisfies Meta<typeof PageNavigation>;
 type Story = StoryObj<typeof PageNavigation>;
 

@@ -18,7 +18,8 @@
 
     "baseUrl": ".",
     "paths": {
-      "#ui/*": ["src/ui/*"]
+      "#ui/*": ["src/ui/*"],
+      "#storybook/*": [".storybook/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],
