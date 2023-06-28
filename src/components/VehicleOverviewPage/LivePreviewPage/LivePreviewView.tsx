@@ -1,13 +1,10 @@
 import { Box, Stack } from '@mui/material';
-import { AppMap, MapSettingsProvider } from '../../Map';
 import {
-  BatteryState,
-  ConnectionDetails,
-  InformationContainer,
-  MileageDetails,
-  SpatialDetails,
-  StateDetails,
-} from './LatestInformation';
+  NetworkStateBlock,
+  LocationStateBlock,
+  VehicleStateBlock,
+} from '#ui/organisms';
+import { AppMap, MapSettingsProvider } from '../../Map';
 import { VehicleMapMarker } from '../../VehicleMapMarker';
 import {
   VehicleMapIconMoving,
@@ -15,7 +12,6 @@ import {
 } from '../../VehicleMapIcon';
 import { useDateTime } from '../../../foundation';
 import { Length, Speed, Voltage } from '../../../lib/MeasurementUnit';
-import { Tile } from '../../Tile';
 import { Grid, GridContent, GridSidebarTiles } from '../Grid';
 import { DisabledVehicle, UnavailableVehicle } from '../../../models/Vehicle';
 import {
@@ -54,37 +50,25 @@ export function LivePreviewView({ vehicle }: LivePreviewViewAttributes) {
       <Grid>
         <GridSidebarTiles>
           <Stack spacing={spacing}>
-            <Tile label={'Vozilo'}>
-              <InformationContainer>
-                <StateDetails
-                  inMotion={vehicle.isInMotion()}
-                  hasIgnition={vehicle.hasIgnitionTurnedOn()}
-                  speed={formattedSpeed}
-                />
-                <BatteryState voltage={formattedPower} />
-                <MileageDetails mileage={formattedMileage} />
-              </InformationContainer>
-            </Tile>
+            <VehicleStateBlock
+              ignitionOn={vehicle.hasIgnitionTurnedOn()}
+              mileage={formattedMileage}
+              moving={vehicle.isInMotion()}
+              speed={formattedSpeed}
+              voltage={formattedPower}
+            />
 
-            <Tile label={'Lokacija'}>
-              <InformationContainer>
-                <SpatialDetails
-                  coordinates={coordinates.toString()}
-                  lastFixTime={formattedFixTime}
-                  course={formattedCourse}
-                  altitude={formattedAltitude}
-                />
-              </InformationContainer>
-            </Tile>
+            <LocationStateBlock
+              altitude={formattedAltitude}
+              coordinates={coordinates.toString()}
+              course={formattedCourse}
+              updatedAt={formattedFixTime}
+            />
 
-            <Tile label={'Mreža'}>
-              <InformationContainer>
-                <ConnectionDetails
-                  isActive={vehicle.isOnline()}
-                  latency={formattedLatency}
-                />
-              </InformationContainer>
-            </Tile>
+            <NetworkStateBlock
+              active={vehicle.isOnline()}
+              latency={formattedLatency}
+            />
           </Stack>
         </GridSidebarTiles>
         <GridContent>
