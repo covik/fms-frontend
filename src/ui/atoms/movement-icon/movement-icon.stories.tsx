@@ -1,4 +1,4 @@
-import { MovementIcon } from './movement-icon';
+import { MovementIcon } from '.';
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {

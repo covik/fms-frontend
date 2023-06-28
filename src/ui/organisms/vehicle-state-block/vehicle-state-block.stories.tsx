@@ -1,4 +1,4 @@
-import { VehicleStateBlock } from './vehicle-state-block';
+import { VehicleStateBlock } from '.';
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {

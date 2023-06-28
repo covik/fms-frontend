@@ -1,4 +1,4 @@
-import { MovementListItem } from './movement-list-item';
+import { MovementListItem } from '.';
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {

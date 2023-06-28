@@ -1,4 +1,4 @@
-import { VehicleBatteryListItem } from './vehicle-battery-list-item';
+import { VehicleBatteryListItem } from '.';
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {

@@ -1,5 +1,5 @@
-import { Logo } from './logo';
-import { Meta, StoryObj } from '@storybook/react';
+import { Logo } from '.';
+import type { Meta, StoryObj } from '@storybook/react';
 
 export default {
   title: 'Atoms/Logo',

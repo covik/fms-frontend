@@ -1,4 +1,4 @@
-import { PageTitle, PageTitleSkeleton } from './page-title';
+import { PageTitle, PageTitleSkeleton } from '.';
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {

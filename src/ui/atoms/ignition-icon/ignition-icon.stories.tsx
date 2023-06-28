@@ -1,4 +1,4 @@
-import { IgnitionIcon } from './ignition-icon';
+import { IgnitionIcon } from '.';
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {
