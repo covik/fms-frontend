@@ -1,7 +1,4 @@
-import { Tile } from './tile';
-import { TileListContent } from './tile-list-content';
-import { TileNoContent } from './tile-no-content';
-import { TileRawContent } from './tile-raw-content';
+import { Tile, TileListContent, TileNoContent, TileRawContent } from '.';
 import { Divider, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 import { Cog, Delete, Logout } from 'mdi-material-ui';
 import type { Meta, StoryObj } from '@storybook/react';
