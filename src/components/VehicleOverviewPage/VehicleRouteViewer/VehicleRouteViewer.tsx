@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { Stack } from '@mui/material';
+import { TileNoContent, Tile, TileRawContent } from '#ui/molecules';
 import {
   NoSummary,
   useRoutePositions,
@@ -7,7 +8,6 @@ import {
   useRouteSummary,
 } from './queries';
 import { Grid, GridContent, GridSidebarTiles } from '../Grid';
-import { NoContent, Tile, TileContent } from '../../Tile';
 import { RouteMap } from './RouteMap';
 import { RouteStopsTable } from './RouteStopsTable';
 import { RouteSummaryList } from './RouteSummaryList';
@@ -53,17 +53,19 @@ export function VehicleRouteViewer({
           {children}
           <Tile label={'Sažetak'}>
             {summaryData instanceof NoSummary ? (
-              <TileContent>
-                <NoContent>Nema informacija</NoContent>
-              </TileContent>
+              <TileNoContent>Nema informacija</TileNoContent>
             ) : (
               <RouteSummaryList details={summaryData} />
             )}
           </Tile>
           <Tile label={'Zaustavljanje'}>
-            <TileContent>
-              <RouteStopsTable stops={stopsQuery.data} />
-            </TileContent>
+            {stopsQuery.data && stopsQuery.data.length === 0 ? (
+              <TileNoContent>Nema zaustavljanja</TileNoContent>
+            ) : (
+              <TileRawContent>
+                <RouteStopsTable stops={stopsQuery.data} />
+              </TileRawContent>
+            )}
           </Tile>
         </Stack>
       </GridSidebarTiles>

@@ -7,7 +7,6 @@ import {
   TableRow,
 } from '@mui/material';
 import { useDateTime } from '../../../foundation';
-import { NoContent } from '../../Tile';
 import type { RouteStop } from '../../../models/RouteStop';
 
 export interface RouteStopsTableAttributes {
@@ -18,7 +17,7 @@ export function RouteStopsTable({ stops }: RouteStopsTableAttributes) {
   const { formatTime, formatDuration } = useDateTime();
 
   if (stops && stops.length === 0) {
-    return <NoContent>Nema zaustavljanja</NoContent>;
+    return null;
   }
 
   const indexWidth = '30px';
