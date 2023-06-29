@@ -13,3 +13,4 @@ export * from './page-navigation';
 export * from './tile';
 export * from './vehicle-battery-list-item';
 export * from './vehicle-navigation';
+export * from './vehicle-warning';
