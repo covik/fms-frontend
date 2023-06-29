@@ -1,4 +1,4 @@
-import { AltitudeListItem } from './altitude-list-item';
+import { AltitudeListItem } from '.';
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {

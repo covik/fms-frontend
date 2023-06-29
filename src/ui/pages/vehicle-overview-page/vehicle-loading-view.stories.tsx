@@ -1,4 +1,4 @@
-import { VehicleLoadingView } from './vehicle-loading-view';
+import { VehicleLoadingView } from '.';
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {
