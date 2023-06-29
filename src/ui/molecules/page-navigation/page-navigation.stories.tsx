@@ -12,7 +12,7 @@ const items = new Array(7).fill(undefined).map((_, index) => ({
 const itemsWithIcons = items.map((item) => ({ ...item, icon: <Pound /> }));
 
 export default {
-  title: 'Molecules/Page Navigation',
+  title: 'Molecules/Navigation/Page Navigation',
   component: PageNavigation,
   decorators: [withNavigation(0)],
 } satisfies Meta<typeof PageNavigation>;

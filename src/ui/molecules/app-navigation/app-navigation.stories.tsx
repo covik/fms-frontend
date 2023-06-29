@@ -3,7 +3,7 @@ import { AppNavigation, all } from '.';
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {
-  title: 'Molecules/App Navigation',
+  title: 'Molecules/Navigation/App Navigation',
   component: AppNavigation,
   args: {
     items: all,

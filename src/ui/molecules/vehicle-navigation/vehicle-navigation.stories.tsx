@@ -3,7 +3,7 @@ import { VehicleNavigation } from '.';
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {
-  title: 'Molecules/Vehicle Navigation',
+  title: 'Molecules/Navigation/Vehicle Navigation',
   component: VehicleNavigation,
   args: {
     vehicleId: 'irrelevant',
