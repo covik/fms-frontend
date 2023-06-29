@@ -3,8 +3,8 @@ import { useQuery } from '@tanstack/react-query';
 import { Vehicle } from '../../lib/VehicleService';
 import { VehicleOverviewView } from './VehicleOverviewView';
 import { LocatedVehicle } from '../../models/Vehicle';
-import { VehicleNavigation, VehicleWarning } from '#ui/molecules';
-import { VehicleLoadingView } from '#ui/pages';
+import { VehicleNavigation } from '#ui/molecules';
+import { VehicleLoadingView, VehicleWithoutPositionView } from '#ui/pages';
 
 export function VehicleOverviewPage() {
   const { vehicleId } = useParams({ from: '/vehicles/$vehicleId' });
@@ -27,16 +27,13 @@ export function VehicleOverviewPage() {
     return <div>Vozilo nije pronađeno</div>;
   if (vehicle === undefined) return <VehicleLoadingView />;
 
+  if (!(vehicle instanceof LocatedVehicle))
+    return <VehicleWithoutPositionView name={vehicle.name()} />;
+
   return (
     <VehicleOverviewView title={vehicle.name()}>
-      {vehicle instanceof LocatedVehicle ? (
-        <>
-          <VehicleNavigation vehicleId={vehicleId} />
-          <Outlet />
-        </>
-      ) : (
-        <VehicleWarning type={'no-position'} />
-      )}
+      <VehicleNavigation vehicleId={vehicleId} />
+      <Outlet />
     </VehicleOverviewView>
   );
 }
