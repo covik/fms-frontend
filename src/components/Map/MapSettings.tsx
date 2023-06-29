@@ -2,12 +2,10 @@ import { createContext, useContext, useMemo } from 'react';
 import { Coordinates } from '../../lib/Dimension';
 import type { ReactNode } from 'react';
 
-const defaultSettings = {
+const MapSettingsContext = createContext<MapSettings>({
   center: new Coordinates(44.698832, 16.373162),
   zoom: 7,
-};
-
-const MapSettingsContext = createContext<MapSettings>(defaultSettings);
+});
 
 export interface MapSettings {
   center: Coordinates;
@@ -18,16 +16,13 @@ export function useMapSettings(): MapSettings {
   return useContext(MapSettingsContext);
 }
 
-type MapSettingsAttributes = Partial<MapSettings> & {
+export interface MapSettingsAttributes extends Partial<MapSettings> {
   children: ReactNode;
-};
+}
 
 export function MapSettingsProvider(props: MapSettingsAttributes) {
-  const {
-    center = defaultSettings.center,
-    zoom = defaultSettings.zoom,
-    children,
-  } = props;
+  const { center: currentCenter, zoom: currentZoom } = useMapSettings();
+  const { center = currentCenter, zoom = currentZoom, children } = props;
 
   const value = useMemo(
     () => ({
