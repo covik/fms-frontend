@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { Outlet, useParams } from '@tanstack/router';
 import { useQuery } from '@tanstack/react-query';
 import { Vehicle } from '../../lib/VehicleService';
@@ -7,11 +6,7 @@ import {
   VehicleLoadingIndicator,
 } from './VehicleOverviewView';
 import { LocatedVehicle } from '../../models/Vehicle';
-import {
-  createItems,
-  VehicleOverviewNavigation,
-} from './VehicleOverviewNavigation';
-import { WarningVehicleAwaitingInstallation } from './VehicleWarning';
+import { VehicleNavigation, VehicleWarning } from '#ui/molecules';
 
 export function VehicleOverviewPage() {
   const { vehicleId } = useParams({ from: '/vehicles/$vehicleId' });
@@ -30,8 +25,6 @@ export function VehicleOverviewPage() {
     },
   });
 
-  const navigationItems = useMemo(() => createItems(vehicleId), [vehicleId]);
-
   if (error instanceof Vehicle.NotFoundException)
     return <div>Vozilo nije pronađeno</div>;
   if (vehicle === undefined) return <VehicleLoadingIndicator />;
@@ -40,11 +33,11 @@ export function VehicleOverviewPage() {
     <VehicleOverviewView title={vehicle.name()}>
       {vehicle instanceof LocatedVehicle ? (
         <>
-          <VehicleOverviewNavigation items={navigationItems} />
+          <VehicleNavigation vehicleId={vehicleId} />
           <Outlet />
         </>
       ) : (
-        <WarningVehicleAwaitingInstallation />
+        <VehicleWarning type={'no-position'} />
       )}
     </VehicleOverviewView>
   );

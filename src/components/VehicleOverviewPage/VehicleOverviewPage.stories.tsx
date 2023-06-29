@@ -1,5 +1,5 @@
+import { VehicleWarning } from '#ui/molecules';
 import { VehicleOverviewView } from './VehicleOverviewView';
-import { WarningVehicleAwaitingInstallation } from './VehicleWarning';
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {
@@ -31,6 +31,6 @@ export const Routes: Story = {
 export const WarningAwaitingInstallation: Story = {
   args: {
     title,
-    children: <WarningVehicleAwaitingInstallation />,
+    children: <VehicleWarning type={'no-position'} />,
   },
 };
