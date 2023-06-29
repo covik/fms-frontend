@@ -1,4 +1,4 @@
-import { Alert } from '@mui/material';
+import { Alert, styled } from '@mui/material';
 import { CloseCircleOutline, TimerAlertOutline } from 'mdi-material-ui';
 
 export type VehicleWarningType = 'unavailable' | 'disabled' | 'no-position';
@@ -14,27 +14,29 @@ export function VehicleWarning({ type }: VehicleWarningAttributes) {
   return null;
 }
 
+const StyledAlert = styled(Alert)({ alignItems: 'center' });
+
 function WarningVehicleAwaitingInstallation() {
-  return <Alert severity={'info'}>Vozilo još nema ugrađen GPS uređaj.</Alert>;
+  return (
+    <StyledAlert severity={'info'}>
+      Vozilo još nema ugrađen GPS uređaj.
+    </StyledAlert>
+  );
 }
 
 function WarningVehicleUnavailable() {
   return (
-    <Alert
-      icon={<TimerAlertOutline />}
-      severity={'warning'}
-      sx={{ alignItems: 'center' }}
-    >
+    <StyledAlert icon={<TimerAlertOutline />} severity={'warning'}>
       Ovo vozilo nije javilo poziciju više od 65 minuta. Prikazano stanje vozila
       možda nije u skladu sa stvarnim stanjem.
-    </Alert>
+    </StyledAlert>
   );
 }
 
 function WarningVehicleDisabled() {
   return (
-    <Alert icon={<CloseCircleOutline />} severity={'error'}>
+    <StyledAlert icon={<CloseCircleOutline />} severity={'error'}>
       Vozilo je onemogućeno.
-    </Alert>
+    </StyledAlert>
   );
 }
