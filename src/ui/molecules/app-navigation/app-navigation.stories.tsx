@@ -1,5 +1,5 @@
-import { AppNavigation } from './app-navigation';
-import { all } from './items';
+import { withNavigation } from '#storybook/decorators';
+import { AppNavigation, all } from '.';
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {
@@ -8,6 +8,7 @@ export default {
   args: {
     items: all,
   },
+  decorators: [withNavigation(0)],
 } satisfies Meta<typeof AppNavigation>;
 type Story = StoryObj<typeof AppNavigation>;
 
