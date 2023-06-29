@@ -1,10 +1,12 @@
 import { Outlet, useParams } from '@tanstack/router';
 import { useQuery } from '@tanstack/react-query';
 import { Vehicle } from '../../lib/VehicleService';
-import { VehicleOverviewView } from './VehicleOverviewView';
 import { LocatedVehicle } from '../../models/Vehicle';
-import { VehicleNavigation } from '#ui/molecules';
-import { VehicleLoadingView, VehicleWithoutPositionView } from '#ui/pages';
+import {
+  VehicleCommonInterface,
+  VehicleLoadingView,
+  VehicleWithoutPositionView,
+} from '#ui/pages';
 
 export function VehicleOverviewPage() {
   const { vehicleId } = useParams({ from: '/vehicles/$vehicleId' });
@@ -31,9 +33,8 @@ export function VehicleOverviewPage() {
     return <VehicleWithoutPositionView name={vehicle.name()} />;
 
   return (
-    <VehicleOverviewView title={vehicle.name()}>
-      <VehicleNavigation vehicleId={vehicleId} />
+    <VehicleCommonInterface name={vehicle.name()} id={vehicle.id()}>
       <Outlet />
-    </VehicleOverviewView>
+    </VehicleCommonInterface>
   );
 }
