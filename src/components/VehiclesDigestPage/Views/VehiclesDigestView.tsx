@@ -1,7 +1,7 @@
 import { Fragment } from 'react';
 import { Box } from '@mui/material';
 import { Truck, TruckFast } from 'mdi-material-ui';
-import { PageTitle } from '#ui/atoms';
+import { PageTitle, FluidPage } from '#ui/atoms';
 import { VehiclesLoadingView } from './VehiclesLoadingView';
 import { NoVehiclesView } from './NoVehiclesView';
 import {
@@ -10,7 +10,6 @@ import {
   VehicleSections,
 } from '../Sections';
 import { VehicleCard } from '../../VehicleCard';
-import { FluidPage } from '../../Page';
 import { Length, Speed, Voltage } from '../../../lib/MeasurementUnit';
 import type { ReactElement, ReactNode } from 'react';
 import type {

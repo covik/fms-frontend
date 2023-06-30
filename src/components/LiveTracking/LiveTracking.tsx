@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { Box, CircularProgress, Paper } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { Vehicle } from '../../lib/VehicleService';
-import { FixedPage } from '../Page';
+import { FixedPage } from '#ui/atoms';
 import { AppMap, MapBounds } from '../Map';
 import { VehicleMapMarker } from '../VehicleMapMarker';
 import {
