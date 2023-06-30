@@ -1,13 +1,13 @@
 import { Outlet } from '@tanstack/router';
 import { AppLayout } from '../Layout';
-import { AppUpdateReadyBanner } from '../AppUpdateReadyBanner';
 import { RouterNavigationProvider } from '#ui/molecules';
+import { AppUpdateNotification } from '#ui/organisms';
 
 export function AppShell() {
   return (
     <RouterNavigationProvider>
       <AppLayout>
-        <AppUpdateReadyBanner />
+        <AppUpdateNotification />
         <Outlet />
       </AppLayout>
     </RouterNavigationProvider>
