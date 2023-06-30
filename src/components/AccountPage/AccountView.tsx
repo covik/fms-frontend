@@ -3,7 +3,8 @@ import {
   AccountTie as UserIcon,
   ShieldAccount as AdminIcon,
 } from 'mdi-material-ui';
-import { FluidPage, PageTitle } from '../Page';
+import { PageTitle } from '#ui/atoms';
+import { FluidPage } from '../Page';
 import type { ReactNode } from 'react';
 
 export interface AccountViewAttributes {
