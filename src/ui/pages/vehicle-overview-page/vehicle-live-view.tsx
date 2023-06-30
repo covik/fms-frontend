@@ -1,4 +1,5 @@
 import { useMemo } from 'react';
+import { VehicleMapIcon } from '#ui/atoms';
 import { VehicleWarning } from '#ui/molecules';
 import {
   LocationStateBlock,
@@ -14,10 +15,6 @@ import {
 } from '#ui/templates/vehicle-layout';
 import { AppMap, MapSettingsProvider } from '../../../components/Map';
 import { VehicleMapMarker } from '../../../components/VehicleMapMarker';
-import {
-  VehicleMapIconMoving,
-  VehicleMapIconStationary,
-} from '../../../components/VehicleMapIcon';
 import { Coordinates } from '../../../lib/Dimension';
 import type { VehicleWarningType } from '#ui/molecules';
 
@@ -102,14 +99,11 @@ export function VehicleLiveView({
               sx={{ height: '100%' }}
             >
               <VehicleMapMarker position={coordinates} name={name}>
-                {moving ? (
-                  <VehicleMapIconMoving
-                    active={ignitionOn}
-                    angle={courseInDegrees}
-                  />
-                ) : (
-                  <VehicleMapIconStationary active={ignitionOn} />
-                )}
+                <VehicleMapIcon
+                  ignitionOn={ignitionOn}
+                  moving={moving}
+                  angleInDegrees={courseInDegrees}
+                />
               </VehicleMapMarker>
             </AppMap>
           </MapSettingsProvider>

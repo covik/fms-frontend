@@ -1,8 +1,5 @@
+import { VehicleMapIcon } from '#ui/atoms';
 import { VehicleMapMarker } from './VehicleMapMarker';
-import {
-  VehicleMapIconMoving,
-  VehicleMapIconStationary,
-} from '../VehicleMapIcon';
 import { AppMap, MapSettingsProvider } from '../Map';
 import { Coordinates } from '../../lib/Dimension';
 import type { Meta, StoryObj } from '@storybook/react';
@@ -27,7 +24,7 @@ type Story = StoryObj<typeof VehicleMapMarker>;
 export const MovingWithIgnition: Story = {
   render: () => (
     <VehicleMapMarker position={center} name={'Test'}>
-      <VehicleMapIconMoving active={true} angle={80} />
+      <VehicleMapIcon ignitionOn={true} moving={true} angleInDegrees={80} />
     </VehicleMapMarker>
   ),
 };
@@ -35,7 +32,7 @@ export const MovingWithIgnition: Story = {
 export const StationaryWithoutIgnition: Story = {
   render: () => (
     <VehicleMapMarker position={center} name={'Test'}>
-      <VehicleMapIconStationary active={false} />
+      <VehicleMapIcon ignitionOn={false} moving={false} />
     </VehicleMapMarker>
   ),
 };
@@ -43,7 +40,7 @@ export const StationaryWithoutIgnition: Story = {
 export const StationaryWithIgnition: Story = {
   render: () => (
     <VehicleMapMarker position={center} name={'Test'}>
-      <VehicleMapIconStationary active={true} />
+      <VehicleMapIcon ignitionOn={true} moving={false} />
     </VehicleMapMarker>
   ),
 };

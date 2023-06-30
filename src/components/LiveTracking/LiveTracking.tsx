@@ -2,13 +2,9 @@ import { useMemo } from 'react';
 import { Box, CircularProgress, Paper } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { Vehicle } from '../../lib/VehicleService';
-import { FixedPage } from '#ui/atoms';
+import { FixedPage, VehicleMapIcon } from '#ui/atoms';
 import { AppMap, MapBounds } from '../Map';
 import { VehicleMapMarker } from '../VehicleMapMarker';
-import {
-  VehicleMapIconMoving,
-  VehicleMapIconStationary,
-} from '../VehicleMapIcon';
 import type { ReactNode } from 'react';
 
 export function LiveTracking() {
@@ -39,16 +35,11 @@ export function LiveTracking() {
               position={vehicle.position().coordinates()}
               name={vehicle.name()}
             >
-              {vehicle.isInMotion() ? (
-                <VehicleMapIconMoving
-                  active={vehicle.hasIgnitionTurnedOn()}
-                  angle={vehicle.course().value()}
-                />
-              ) : (
-                <VehicleMapIconStationary
-                  active={vehicle.hasIgnitionTurnedOn()}
-                />
-              )}
+              <VehicleMapIcon
+                ignitionOn={vehicle.hasIgnitionTurnedOn()}
+                moving={vehicle.isInMotion()}
+                angleInDegrees={vehicle.course().value()}
+              />
             </VehicleMapMarker>
           ))}
         </AppMap>
