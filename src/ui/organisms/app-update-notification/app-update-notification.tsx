@@ -1,6 +1,6 @@
 import { Update } from 'mdi-material-ui';
 import { Alert, Button, Snackbar, styled } from '@mui/material';
-import { useVersionManager } from '../../../foundation';
+import { useVersionManager } from '#core/version';
 import { useLayout } from '../../../components/Layout';
 
 const StyledAlert = styled(Alert)({

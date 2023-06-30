@@ -1,6 +1,6 @@
 import { RouteStop } from '../../models/RouteStop';
 import { StopMarker } from './StopMarker';
-import { useDateTime } from '../../foundation';
+import { useDateTime } from '#core/time';
 
 export interface VehicleRouteStopsAttributes {
   stops: RouteStop[];

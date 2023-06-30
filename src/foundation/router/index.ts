@@ -1,2 +1,0 @@
-export { router } from './router';
-export { RouterProvider } from '@tanstack/router';

@@ -7,7 +7,7 @@ import {
   SessionFailureView,
   testingSelectors as failureSelectors,
 } from '../components/SessionFailureView';
-import { useAuth } from './context/Auth';
+import { useAuth } from '#core/auth';
 import type { ReactNode } from 'react';
 
 export function App({ children }: { children: ReactNode }) {

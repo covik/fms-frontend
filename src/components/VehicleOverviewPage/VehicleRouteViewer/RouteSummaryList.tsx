@@ -20,7 +20,7 @@ import {
   Speedometer,
   SpeedometerMedium,
 } from 'mdi-material-ui';
-import { useDateTime } from '../../../foundation';
+import { useDateTime } from '#core/time';
 import { Length, Speed } from '../../../lib/MeasurementUnit';
 
 export interface SummaryData {

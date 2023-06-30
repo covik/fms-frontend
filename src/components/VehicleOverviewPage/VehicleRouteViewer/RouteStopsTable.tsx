@@ -6,7 +6,7 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
-import { useDateTime } from '../../../foundation';
+import { useDateTime } from '#core/time';
 import type { RouteStop } from '../../../models/RouteStop';
 
 export interface RouteStopsTableAttributes {

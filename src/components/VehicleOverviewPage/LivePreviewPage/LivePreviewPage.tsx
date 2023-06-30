@@ -6,7 +6,7 @@ import {
   LocatedVehicle,
   UnavailableVehicle,
 } from '../../../models/Vehicle';
-import { useDateTime } from '../../../foundation';
+import { useDateTime } from '#core/time';
 import { Length, Speed, Voltage } from '../../../lib/MeasurementUnit';
 import { VehicleLiveView } from '#ui/pages';
 import type { VehicleLiveViewAttributes } from '#ui/pages';

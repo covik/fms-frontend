@@ -1,4 +1,4 @@
-import { router, RouterProvider } from '../router';
+import { router, RouterProvider } from '#core/router';
 
 export function AuthenticatedApp() {
   return <RouterProvider router={router} />;

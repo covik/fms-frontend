@@ -5,7 +5,7 @@ import { QueryClient } from '@tanstack/query-core';
 import { Vehicle } from '../../lib/VehicleService';
 import { WebShare } from '../../lib/WebShare';
 import { createOperationalVehicle } from '../../models/Vehicle/factory';
-import { TestRouterProvider } from '../../foundation/router/test-router';
+import { TestRouterProvider } from '../../core/router';
 
 faker.seed(1);
 const operationalVehicle = createOperationalVehicle({ faker });

@@ -1,4 +1,4 @@
-import { VersionProvider } from '../../src/foundation';
+import { VersionProvider } from '#core/version';
 import type { Decorator } from '@storybook/react';
 
 const mockApplyUpdate = () => {

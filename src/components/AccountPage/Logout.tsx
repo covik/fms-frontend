@@ -1,6 +1,6 @@
 import { Button, CircularProgress } from '@mui/material';
 import { useMutation } from '@tanstack/react-query';
-import { useAuth } from '../../foundation';
+import { useAuth } from '#core/auth';
 import { Session } from '../../lib/SessionService';
 
 export function Logout() {

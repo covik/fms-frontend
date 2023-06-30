@@ -1,4 +1,4 @@
-import { AuthProvider } from './context/Auth';
+import { AuthProvider } from '../core/auth';
 import { App, testingSelectors } from './App';
 import { Session } from '../lib/SessionService';
 import { StandardUser } from '../models/User';

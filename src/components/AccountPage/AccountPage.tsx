@@ -1,4 +1,4 @@
-import { useUser } from '../../foundation';
+import { useUser } from '#core/auth';
 import { AccountView } from './AccountView';
 import { Administrator } from '../../models/User';
 import { Logout } from './Logout';
