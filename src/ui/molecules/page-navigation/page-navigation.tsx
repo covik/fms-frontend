@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 import { styled } from '@mui/material';
-import { Navigation, navigationItemClasses } from '#ui/molecules';
-import type { NavigationAttributes } from '#ui/molecules';
+import { Navigation, navigationItemClasses } from '#ui/molecules/navigation';
+import type { NavigationAttributes } from '#ui/molecules/navigation';
 
 const StyledNavigation = styled(Navigation)(({ theme }) => ({
   minHeight: '34px',

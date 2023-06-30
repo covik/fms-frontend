@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { PageNavigation } from '#ui/molecules';
-import type { NavigationItems } from '#ui/molecules';
+import { PageNavigation } from '#ui/molecules/page-navigation';
+import type { NavigationItems } from '#ui/molecules/navigation';
 
 export interface VehicleNavigationAttributes {
   vehicleId: string;
