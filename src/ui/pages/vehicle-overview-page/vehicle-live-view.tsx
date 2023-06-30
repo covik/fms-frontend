@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { VehicleMapIcon } from '#ui/atoms';
+import { VehicleMapIcon, VehicleMapMarker } from '#ui/atoms';
 import { VehicleWarning } from '#ui/molecules';
 import {
   LocationStateBlock,
@@ -14,7 +14,6 @@ import {
   WarningContainer,
 } from '#ui/templates/vehicle-layout';
 import { AppMap, MapSettingsProvider } from '../../../components/Map';
-import { VehicleMapMarker } from '../../../components/VehicleMapMarker';
 import { Coordinates } from '../../../lib/Dimension';
 import type { VehicleWarningType } from '#ui/molecules';
 
