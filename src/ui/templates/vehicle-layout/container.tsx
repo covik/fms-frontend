@@ -1,13 +1,12 @@
 import { styled } from '@mui/material';
-import { FixedPage } from '#ui/atoms';
+import { FixedPage, PagePadding } from '#ui/atoms';
 import type { ReactNode } from 'react';
 
-const BaseContent = styled('div')(({ theme }) => ({
+const BaseContent = styled(PagePadding)({
   display: 'flex',
   flexDirection: 'column',
   height: '100%',
-  padding: theme.spacing(1),
-}));
+});
 
 const CenteredContent = styled(BaseContent)({
   alignItems: 'center',

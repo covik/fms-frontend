@@ -3,7 +3,7 @@ import {
   AccountTie as UserIcon,
   ShieldAccount as AdminIcon,
 } from 'mdi-material-ui';
-import { FluidPage, PageTitle } from '#ui/atoms';
+import { FluidPage, PagePadding, PageTitle } from '#ui/atoms';
 import type { ReactNode } from 'react';
 
 export interface AccountViewAttributes {
@@ -23,7 +23,7 @@ export function AccountView({
 
   return (
     <FluidPage>
-      <PageContainer>
+      <PagePadding>
         <PageTitle>Račun</PageTitle>
         <Card>
           <CardHeader
@@ -44,11 +44,7 @@ export function AccountView({
         </Card>
 
         <Box sx={{ marginTop: 2 }}>{children}</Box>
-      </PageContainer>
+      </PagePadding>
     </FluidPage>
   );
-}
-
-export function PageContainer({ children }: { children: ReactNode }) {
-  return <Box sx={{ width: '100%', padding: 1.4 }}>{children}</Box>;
 }

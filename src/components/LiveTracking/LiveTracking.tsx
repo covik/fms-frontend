@@ -2,7 +2,12 @@ import { useMemo } from 'react';
 import { Box, CircularProgress, Paper } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { Vehicle } from '../../lib/VehicleService';
-import { FixedPage, VehicleMapIcon, VehicleMapMarker } from '#ui/atoms';
+import {
+  FixedPage,
+  PagePadding,
+  VehicleMapIcon,
+  VehicleMapMarker,
+} from '#ui/atoms';
 import { AppMap, MapBounds } from '../Map';
 import type { ReactNode } from 'react';
 
@@ -49,15 +54,9 @@ export function LiveTracking() {
 
 function PageContainer({ children }: { children: ReactNode | ReactNode[] }) {
   return (
-    <Box
-      sx={{
-        flex: 1,
-        display: 'flex',
-        padding: 1,
-      }}
-    >
+    <PagePadding flex={1} display={'flex'}>
       {children}
-    </Box>
+    </PagePadding>
   );
 }
 

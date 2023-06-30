@@ -1,7 +1,6 @@
 import { Fragment } from 'react';
-import { Box } from '@mui/material';
 import { Truck, TruckFast } from 'mdi-material-ui';
-import { PageTitle, FluidPage } from '#ui/atoms';
+import { PageTitle, FluidPage, PagePadding } from '#ui/atoms';
 import { VehiclesLoadingView } from './VehiclesLoadingView';
 import { NoVehiclesView } from './NoVehiclesView';
 import {
@@ -11,7 +10,7 @@ import {
 } from '../Sections';
 import { VehicleCard } from '../../VehicleCard';
 import { Length, Speed, Voltage } from '../../../lib/MeasurementUnit';
-import type { ReactElement, ReactNode } from 'react';
+import type { ReactElement } from 'react';
 import type {
   LocatedVehicle,
   OperationalVehicle,
@@ -56,9 +55,9 @@ export function VehiclesDigestView({
   if (loading)
     return (
       <FluidPage>
-        <PageContainer>
+        <PagePadding>
           <VehiclesLoadingView />
-        </PageContainer>
+        </PagePadding>
       </FluidPage>
     );
 
@@ -71,7 +70,7 @@ export function VehiclesDigestView({
 
   return (
     <FluidPage>
-      <PageContainer>
+      <PagePadding>
         <PageTitle>Vozila</PageTitle>
 
         <VehicleSections>
@@ -83,13 +82,9 @@ export function VehiclesDigestView({
             {renderVehicles(unavailableVehicles)}
           </SectionUnavailableVehicles>
         </VehicleSections>
-      </PageContainer>
+      </PagePadding>
     </FluidPage>
   );
-}
-
-function PageContainer({ children }: { children: ReactNode }) {
-  return <Box sx={{ width: '100%', padding: 1 }}>{children}</Box>;
 }
 
 interface VehicleItemAttributes {
