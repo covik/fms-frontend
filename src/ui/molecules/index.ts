@@ -1,5 +1,6 @@
 export * from './altitude-list-item';
 export * from './app-navigation';
+export * from './app-update-banner';
 export * from './connection-delay-list-item';
 export * from './connection-status-list-item';
 export * from './coordinates-list-item';
