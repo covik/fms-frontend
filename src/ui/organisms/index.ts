@@ -1,3 +1,4 @@
+export * from './app-update-notification';
 export * from './google-maps';
 export * from './location-state-block';
 export * from './network-state-block';
