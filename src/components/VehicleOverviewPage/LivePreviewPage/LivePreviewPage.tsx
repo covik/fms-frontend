@@ -8,8 +8,8 @@ import {
 } from '../../../models/Vehicle';
 import { useDateTime } from '#core/time';
 import { Length, Speed, Voltage } from '../../../lib/MeasurementUnit';
-import { VehicleLiveView } from '#ui/pages';
-import type { VehicleLiveViewAttributes } from '#ui/pages';
+import { VehicleLiveView } from '#ui/pages/vehicle-overview-page';
+import type { VehicleLiveViewAttributes } from '#ui/pages/vehicle-overview-page';
 
 type WarningVariant = VehicleLiveViewAttributes['warning'];
 

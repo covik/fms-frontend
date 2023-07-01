@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { GoogleMaps } from '#ui/organisms';
+import { GoogleMaps } from '#ui/organisms/google-maps';
 import type { Coordinates } from '../../lib/Dimension';
 
 export interface MapBoundsAttributes {

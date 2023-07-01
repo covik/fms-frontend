@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react';
-import { AppMap, MapBounds } from '../../Map';
+import { AppMap, MapBounds } from '../../../core/map';
 import { VehicleRoute, VehicleRouteStops } from '../../VehicleRoute';
 import type { RoutePosition } from '../../../models/Position';
 import type { RouteStop } from '../../../models/RouteStop';

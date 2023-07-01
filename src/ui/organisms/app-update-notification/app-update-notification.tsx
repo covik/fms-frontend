@@ -1,7 +1,7 @@
 import { Update } from 'mdi-material-ui';
 import { Alert, Button, Snackbar, styled } from '@mui/material';
 import { useVersionManager } from '#core/version';
-import { useLayout } from '../../../components/Layout';
+import { useLayout } from '#core/layout';
 
 const StyledAlert = styled(Alert)({
   'alignItems': 'center',

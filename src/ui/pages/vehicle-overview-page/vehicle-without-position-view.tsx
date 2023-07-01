@@ -1,5 +1,5 @@
-import { PageTitle } from '#ui/atoms';
-import { VehicleWarning } from '#ui/molecules';
+import { PageTitle } from '#ui/atoms/page-title';
+import { VehicleWarning } from '#ui/molecules/vehicle-warning';
 import { PageContent, PageLayout } from '#ui/templates/vehicle-layout';
 
 export interface VehicleWithoutPositionViewAttributes {

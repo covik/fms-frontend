@@ -1,5 +1,5 @@
 import { Account, Map, Truck } from 'mdi-material-ui';
-import type { NavigationItems } from '#ui/molecules';
+import type { NavigationItems } from '#ui/molecules/navigation';
 
 export const all: NavigationItems = [
   {

@@ -1,6 +1,6 @@
 import { Decorator } from '@storybook/react';
-import { NavigationProvider } from '#ui/molecules';
-import type { ActiveNavigationItemResolver } from '#ui/molecules';
+import { NavigationProvider } from '#ui/molecules/navigation';
+import type { ActiveNavigationItemResolver } from '#ui/molecules/navigation';
 
 const indexBasedActiveItemResolver =
   (index: number): ActiveNavigationItemResolver =>

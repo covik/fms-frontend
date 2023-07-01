@@ -1,5 +1,5 @@
 import { styled } from '@mui/material';
-import { FixedPage } from '#ui/atoms';
+import { FixedPage } from '#ui/atoms/page';
 import type { ReactNode } from 'react';
 
 export interface PageLayoutAttributes {

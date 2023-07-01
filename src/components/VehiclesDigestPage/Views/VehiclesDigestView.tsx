@@ -1,6 +1,7 @@
 import { Fragment } from 'react';
 import { Truck, TruckFast } from 'mdi-material-ui';
-import { PageTitle, FluidPage, PagePadding } from '#ui/atoms';
+import { FluidPage, PagePadding } from '#ui/atoms/page';
+import { PageTitle } from '#ui/atoms/page-title';
 import { VehiclesLoadingView } from './VehiclesLoadingView';
 import { NoVehiclesView } from './NoVehiclesView';
 import {

@@ -1,6 +1,6 @@
 import { Router } from '@tanstack/router';
 import { routeTree } from './routes';
-import { PageLoadingIndicator } from '#ui/atoms';
+import { PageLoadingIndicator } from '#ui/atoms/page-loading-indicator';
 
 export const defaultPendingComponent = PageLoadingIndicator;
 

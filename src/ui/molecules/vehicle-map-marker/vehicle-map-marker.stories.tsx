@@ -1,7 +1,7 @@
-import { VehicleMapIcon } from '#ui/atoms';
 import { VehicleMapMarker } from '.';
+import { VehicleMapIcon } from '../vehicle-map-icon';
 import { Coordinates } from '../../../lib/Dimension';
-import { AppMap, MapSettingsProvider } from '../../../components/Map';
+import { AppMap, MapSettingsProvider } from '#core/map';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const center = new Coordinates(44.1111754, 15.2474628);

@@ -1,9 +1,6 @@
-import {
-  ConnectionDelayListItem,
-  ConnectionStatusListItem,
-  Tile,
-  TileListContent,
-} from '#ui/molecules';
+import { Tile, TileListContent } from '#ui/molecules/tile';
+import { ConnectionDelayListItem } from '#ui/molecules/connection-delay-list-item';
+import { ConnectionStatusListItem } from '#ui/molecules/connection-status-list-item';
 
 export interface NetworkStateBlockAttributes {
   active: boolean;

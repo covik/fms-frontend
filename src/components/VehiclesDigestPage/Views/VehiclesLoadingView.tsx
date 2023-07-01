@@ -1,5 +1,5 @@
 import { Skeleton, Stack } from '@mui/material';
-import { PageTitleSkeleton } from '#ui/atoms';
+import { PageTitleSkeleton } from '#ui/atoms/page-title';
 
 const vehicle = <Skeleton variant={'rounded'} height={'76px'} />;
 

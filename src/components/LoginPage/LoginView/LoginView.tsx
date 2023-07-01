@@ -7,7 +7,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import { Logo } from '#ui/atoms';
+import { Logo } from '#ui/atoms/logo';
 import type { FormEvent } from 'react';
 
 export interface LoginViewAttributes {

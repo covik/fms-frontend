@@ -1,4 +1,4 @@
-import { VehicleMapIcon } from '.';
+import { VehicleMapIcon } from './index';
 import type { StoryObj, Meta } from '@storybook/react';
 
 export default {

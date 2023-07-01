@@ -7,7 +7,8 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
-import { IgnitionIcon, MovementIcon } from '#ui/atoms';
+import { IgnitionIcon } from '#ui/atoms/ignition-icon';
+import { MovementIcon } from '#ui/atoms/movement-icon';
 import type { Coordinates } from '../../../lib/Dimension';
 
 export interface PositionInfoWindowAttributes {

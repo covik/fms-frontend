@@ -2,7 +2,7 @@ import { Pound } from 'mdi-material-ui';
 import { withNavigation } from '#storybook/decorators';
 import { PageNavigation } from '.';
 import type { Meta, StoryObj } from '@storybook/react';
-import type { NavigationItems } from '#ui/molecules';
+import type { NavigationItems } from '#ui/molecules/navigation';
 
 const items = new Array(7).fill(undefined).map((_, index) => ({
   to: `irrelevant-url-${index + 1}`,

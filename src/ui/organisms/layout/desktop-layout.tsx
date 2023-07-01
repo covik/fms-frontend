@@ -1,7 +1,7 @@
 import { Box, Drawer } from '@mui/material';
-import { Logo } from '#ui/atoms';
-import { AppNavigation, DESKTOP_ITEMS } from '#ui/molecules';
-import { LayoutProvider } from './Layout';
+import { LayoutProvider } from '#core/layout';
+import { Logo } from '#ui/atoms/logo';
+import { AppNavigation, DESKTOP_ITEMS } from '#ui/molecules/app-navigation';
 import type { ReactNode } from 'react';
 
 export interface DesktopLayoutAttributes {

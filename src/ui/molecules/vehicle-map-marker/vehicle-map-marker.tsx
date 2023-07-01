@@ -1,4 +1,4 @@
-import { MapMarker } from '../../../components/Map';
+import { MapMarker } from '#core/map';
 import type { ReactElement } from 'react';
 import type { Coordinates } from '../../../lib/Dimension';
 

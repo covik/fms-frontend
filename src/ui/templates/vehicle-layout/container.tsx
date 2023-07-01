@@ -1,5 +1,5 @@
 import { styled } from '@mui/material';
-import { FixedPage, PagePadding } from '#ui/atoms';
+import { FixedPage, PagePadding } from '#ui/atoms/page';
 import type { ReactNode } from 'react';
 
 const BaseContent = styled(PagePadding)({

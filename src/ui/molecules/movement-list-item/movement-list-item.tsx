@@ -1,5 +1,5 @@
 import { ListItem, ListItemIcon, ListItemText } from '@mui/material';
-import { MovementIcon } from '#ui/atoms';
+import { MovementIcon } from '#ui/atoms/movement-icon';
 
 export interface MovementListItemAttributes {
   moving: boolean;

@@ -5,8 +5,8 @@ import {
   TitlePlaceholder,
   SquareContentPlaceholder,
 } from '#storybook/placeholders';
-import { PageTitle } from '#ui/atoms';
-import { PageNavigation } from '#ui/molecules';
+import { PageTitle } from '#ui/atoms/page-title';
+import { PageNavigation } from '#ui/molecules/page-navigation';
 import {
   CenteredPageLayout,
   PageContent,
@@ -18,7 +18,7 @@ import {
   WarningContainer,
 } from '.';
 import type { Meta, StoryObj } from '@storybook/react';
-import type { NavigationItems } from '#ui/molecules';
+import type { NavigationItems } from '#ui/molecules/navigation';
 
 const navigationItems = [
   {

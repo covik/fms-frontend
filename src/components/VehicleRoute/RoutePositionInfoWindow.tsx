@@ -1,4 +1,4 @@
-import { PositionInfoWindow } from '#ui/organisms';
+import { PositionInfoWindow } from '#ui/organisms/position-info-window';
 import { useDateTime } from '#core/time';
 import { Length, Speed, Voltage } from '../../lib/MeasurementUnit';
 import type { RoutePosition } from '../../models/Position';

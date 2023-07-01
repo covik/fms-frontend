@@ -1,5 +1,5 @@
-import { PageTitle } from '#ui/atoms';
-import { VehicleNavigation } from '#ui/molecules';
+import { PageTitle } from '#ui/atoms/page-title';
+import { VehicleNavigation } from '#ui/molecules/vehicle-navigation';
 import { PageHeader, PageLayout } from '#ui/templates/vehicle-layout';
 import type { ReactNode } from 'react';
 

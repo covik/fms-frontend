@@ -1,7 +1,7 @@
 import { Outlet } from '@tanstack/router';
-import { AppLayout } from '../Layout';
-import { RouterNavigationProvider } from '#ui/molecules';
-import { AppUpdateNotification } from '#ui/organisms';
+import { RouterNavigationProvider } from '#ui/molecules/navigation';
+import { AppLayout } from '#ui/organisms/layout';
+import { AppUpdateNotification } from '#ui/organisms/app-update-notification';
 
 export function AppShell() {
   return (

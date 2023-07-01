@@ -6,7 +6,7 @@ import {
   VehicleCommonInterface,
   VehicleLoadingView,
   VehicleWithoutPositionView,
-} from '#ui/pages';
+} from '#ui/pages/vehicle-overview-page';
 
 export function VehicleOverviewPage() {
   const { vehicleId } = useParams({ from: '/vehicles/$vehicleId' });
