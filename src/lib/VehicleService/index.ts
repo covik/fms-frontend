@@ -1,6 +1,6 @@
 import { fetchAll } from './VehicleService';
 import { takeOnlyOperational, takeOnlyUnavailable } from './Filter';
-import { NotFoundException, NoRouteSummary } from './Exception';
+import { NoRouteSummary, NotFoundException } from './Exception';
 import {
   fetchInRange,
   fetchStopsInRange,

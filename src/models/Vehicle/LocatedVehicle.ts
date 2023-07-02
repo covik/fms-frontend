@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { BaseVehicle, BaseVehicleAttributesValidation } from './BaseVehicle';
-import { Speed, Angle, Length, Voltage } from '../../lib/MeasurementUnit';
+import { Angle, Length, Speed, Voltage } from '../../lib/MeasurementUnit';
 import { Position } from '../Position';
 
 export const LocatedVehicleAttributesValidation =

@@ -1,11 +1,11 @@
 import {
   BaseVehicle,
+  DisabledVehicle,
   isBaseVehicle,
   isDisabledVehicle,
   isOperationalVehicle,
   isUnavailableVehicle,
   isVehicleWithoutPosition,
-  DisabledVehicle,
   NoPositionVehicle,
   OperationalVehicle,
   UnavailableVehicle,

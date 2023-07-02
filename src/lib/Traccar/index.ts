@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { RoutePosition } from '../../models/Position';
 
 const id = z.number().gte(1);
 const datetime = z.string().datetime({ offset: true });

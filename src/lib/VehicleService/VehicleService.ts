@@ -1,3 +1,4 @@
+import { differenceInSeconds } from 'date-fns';
 import {
   BaseVehicle,
   DisabledVehicle,
@@ -9,12 +10,11 @@ import { Http } from '../HttpClient';
 import { Position, PositionTimestamps } from '../../models/Position';
 import { Coordinates } from '../Dimension';
 import { Angle, Length, Speed, Voltage } from '../MeasurementUnit';
-import { TraccarPosition, TraccarDevice } from '../Traccar';
+import { TraccarDevice, TraccarPosition } from '../Traccar';
 import type {
   TraccarDeviceInterface,
   TraccarPositionInterface,
 } from '../Traccar';
-import { differenceInSeconds } from 'date-fns';
 
 export async function fetchAll(signal?: AbortSignal): Promise<BaseVehicle[]> {
   const [responseVehicle, responsePositions] = await Promise.all([

@@ -1,10 +1,10 @@
 import { styled } from '@mui/material';
+import type { NavigationAttributes } from '#ui/molecules/navigation/navigation';
 import {
   Navigation,
   navigationClasses,
   navigationItemClasses,
 } from '#ui/molecules/navigation/navigation';
-import type { NavigationAttributes } from '#ui/molecules/navigation/navigation';
 
 const verticalStyles = {
   [`.${navigationItemClasses.root}`]: {

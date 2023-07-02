@@ -1,5 +1,5 @@
 import { withNavigation } from '#storybook/decorators';
-import { AppNavigation, all } from '.';
+import { all, AppNavigation } from '.';
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {

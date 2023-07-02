@@ -6,7 +6,7 @@ import { VehiclesDigestView } from './Views';
 import { Vehicle } from '../../lib/VehicleService';
 import { WebShare } from '../../lib/WebShare';
 import { testingSelectors as cardSelectors } from '../VehicleCard';
-import type { VehicleRenderer, ShareHandler } from './Views';
+import type { ShareHandler, VehicleRenderer } from './Views';
 
 export function VehiclesDigestPage() {
   const query = useQuery({

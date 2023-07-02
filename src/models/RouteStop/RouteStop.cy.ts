@@ -1,7 +1,7 @@
 import { ZodError } from 'zod';
 import { RouteStop } from './RouteStop';
-import type { RouteStopAttributes } from './RouteStop';
 import { Coordinates } from '../../lib/Dimension';
+import type { RouteStopAttributes } from './RouteStop';
 
 const id = '1234';
 const startTime = new Date();

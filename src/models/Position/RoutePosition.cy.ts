@@ -1,5 +1,5 @@
 import { ZodError } from 'zod';
-import { RoutePosition, Position, PositionTimestamps } from './';
+import { Position, PositionTimestamps, RoutePosition } from './';
 import { Coordinates } from '../../lib/Dimension';
 import { Angle, Length, Speed, Voltage } from '../../lib/MeasurementUnit';
 import type { RoutePositionAttributes } from './';

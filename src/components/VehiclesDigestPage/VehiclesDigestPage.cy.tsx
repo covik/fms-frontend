@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { VehiclesDigestPage, testingSelectors } from './VehiclesDigestPage';
+import { testingSelectors, VehiclesDigestPage } from './VehiclesDigestPage';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { QueryClient } from '@tanstack/query-core';
 import { Vehicle } from '../../lib/VehicleService';

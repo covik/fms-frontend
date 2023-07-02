@@ -1,5 +1,5 @@
 import { ListItem, ListItemIcon, ListItemText } from '@mui/material';
-import { Timer, WifiStrength4, WifiStrengthOff } from 'mdi-material-ui';
+import { Timer } from 'mdi-material-ui';
 
 export interface ConnectionDelayListItemAttributes {
   latency: string;

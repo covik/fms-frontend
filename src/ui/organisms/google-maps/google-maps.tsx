@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   GoogleMap,
-  useJsApiLoader,
   useGoogleMap,
+  useJsApiLoader,
 } from '@react-google-maps/api';
 import type { CSSProperties, ReactElement, ReactNode } from 'react';
 
