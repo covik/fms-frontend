@@ -1,5 +1,5 @@
 import { addDays, getUnixTime } from 'date-fns';
-import { LoginPage, testingSelectors } from '.';
+import { LoginPage, testingSelectors } from './login-page';
 import { Session } from '../../lib/SessionService';
 
 describe(LoginPage.name, () => {
