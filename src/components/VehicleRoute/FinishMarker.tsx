@@ -1,4 +1,4 @@
-import { MapMarker } from '../../core/map';
+import { MapMarker } from '#core/map';
 import { FinishIcon, padding, size } from './Icons';
 import { startFinishMarkerIndex } from './ZIndex';
 import type { Coordinates } from '../../lib/Dimension';

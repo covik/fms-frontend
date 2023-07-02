@@ -1,4 +1,4 @@
-import { MapMarker } from '../../core/map';
+import { MapMarker } from '#core/map';
 import { checkpointMarkerIndex } from './ZIndex';
 import type { ReactElement } from 'react';
 import type { Coordinates } from '../../lib/Dimension';

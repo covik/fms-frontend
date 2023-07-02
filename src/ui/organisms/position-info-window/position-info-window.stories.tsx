@@ -1,5 +1,5 @@
 import { PositionInfoWindow } from '.';
-import { AppMap, MapSettingsProvider } from '../../../core/map';
+import { AppMap, MapSettingsProvider } from '#core/map';
 import { Coordinates } from '../../../lib/Dimension';
 import type { Meta } from '@storybook/react';
 
