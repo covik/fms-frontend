@@ -1,13 +1,11 @@
 import {
-  LoginPage,
-  testingSelectors as loginSelectors,
-} from '../components/LoginPage';
-import {
   container,
   loadingIndicator,
+  LoginPage,
   retryButton,
   SessionErrorView,
   SessionLoadingView,
+  testingSelectors as loginSelectors,
   useAuth,
 } from '#core/auth';
 import type { ReactNode } from 'react';
