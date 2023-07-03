@@ -20,6 +20,7 @@
     "paths": {
       "#core/*": ["src/core/*"],
       "#features": ["src/features"],
+      "#foundation/*": ["src/foundation/*"],
       "#ui/*": ["src/ui/*"],
       "#storybook/*": [".storybook/*"]
     }

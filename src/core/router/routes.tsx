@@ -1,5 +1,5 @@
 import { Outlet, RootRoute } from '@tanstack/router';
-import { AuthenticatedApp } from '../../foundation/authenticated-app';
+import { AuthenticatedApp } from '#foundation/authenticated-app';
 import * as features from '#features';
 
 function RootComponent() {

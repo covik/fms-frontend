@@ -1,4 +1,4 @@
-import { DesignBaseline } from '../src/foundation';
+import { DesignBaseline } from '#foundation/design-baseline';
 import type { Preview } from '@storybook/react';
 
 const preview: Preview = {
