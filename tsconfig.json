@@ -19,6 +19,7 @@
     "baseUrl": ".",
     "paths": {
       "#core/*": ["src/core/*"],
+      "#features": ["src/features"],
       "#ui/*": ["src/ui/*"],
       "#storybook/*": [".storybook/*"]
     }
