@@ -3,7 +3,7 @@ import { AppMap, MapBounds } from '#core/map';
 import { VehicleRoute, VehicleRouteStops } from '../../VehicleRoute';
 import type { RoutePosition } from '../../../models/Position';
 import type { RouteStop } from '../../../models/RouteStop';
-import type { Coordinates } from '../../../lib/Dimension';
+import type { Coordinates } from '#lib/Dimension';
 
 const routeColor = '#BA68C8';
 

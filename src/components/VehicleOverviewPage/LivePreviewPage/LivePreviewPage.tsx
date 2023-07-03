@@ -1,6 +1,6 @@
 import { useParams } from '@tanstack/router';
 import { useQuery } from '@tanstack/react-query';
-import { Vehicle } from '../../../lib/VehicleService';
+import { Vehicle } from '#lib/VehicleService';
 import {
   DisabledVehicle,
   LocatedVehicle,

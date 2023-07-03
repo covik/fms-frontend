@@ -13,7 +13,7 @@ import {
   WarningContainer,
 } from '#ui/templates/vehicle-layout';
 import { AppMap, MapSettingsProvider } from '#core/map';
-import { Coordinates } from '../../../lib/Dimension';
+import { Coordinates } from '#lib/Dimension';
 import type { VehicleWarningType } from '#ui/molecules/vehicle-warning';
 
 type VehicleWarning =

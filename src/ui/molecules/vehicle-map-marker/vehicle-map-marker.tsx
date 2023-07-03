@@ -1,6 +1,6 @@
 import { MapMarker } from '#core/map';
 import type { ReactElement } from 'react';
-import type { Coordinates } from '../../../lib/Dimension';
+import type { Coordinates } from '#lib/Dimension';
 
 export interface VehicleMapMarkerAttributes {
   position: Coordinates;

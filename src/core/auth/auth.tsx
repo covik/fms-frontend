@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Session } from '../../lib/SessionService';
+import { Session } from '#lib/SessionService';
 import { BaseUser } from '../../models/User';
 import {
   preventAutomaticRefetch,

@@ -1,6 +1,6 @@
 import { VehicleMapMarker } from '.';
 import { VehicleMapIcon } from '../vehicle-map-icon';
-import { Coordinates } from '../../../lib/Dimension';
+import { Coordinates } from '#lib/Dimension';
 import { AppMap, MapSettingsProvider } from '#core/map';
 import type { Meta, StoryObj } from '@storybook/react';
 

@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { Vehicle } from '../../../lib/VehicleService';
+import { Vehicle } from '#lib/VehicleService';
 import type { UseQueryResult } from '@tanstack/react-query';
 import type { RoutePosition } from '../../../models/Position';
 import type { RouteStop } from '../../../models/RouteStop';

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Coordinates } from '../../lib/Dimension';
+import { Coordinates } from '#lib/Dimension';
 
 const RouteStopAttributesValidation = z.object({
   id: z.string().trim().min(1),

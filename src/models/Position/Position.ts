@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Coordinates } from '../../lib/Dimension';
+import { Coordinates } from '#lib/Dimension';
 import { PositionTimestamps } from './PositionTimestamps';
 
 export const PositionAttributesValidation = z.object({

@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { CircularProgress, Paper } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
-import { Vehicle } from '../../lib/VehicleService';
+import { Vehicle } from '#lib/VehicleService';
 import { FixedPage, PagePadding } from '#ui/atoms/page';
 import { VehicleMapIcon } from '#ui/molecules/vehicle-map-icon';
 import { VehicleMapMarker } from '#ui/molecules/vehicle-map-marker';

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { LoginView } from './ui/pages/login-view';
-import { Session } from '../../lib/SessionService';
+import { Session } from '#lib/SessionService';
 import type { LoginViewAttributes } from './ui/pages/login-view';
 
 export { testingSelectors } from './ui/pages/login-view';

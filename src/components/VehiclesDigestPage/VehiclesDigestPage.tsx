@@ -3,8 +3,8 @@ import { Snackbar } from '@mui/material';
 import { Link } from '@tanstack/router';
 import { useQuery } from '@tanstack/react-query';
 import { VehiclesDigestView } from './Views';
-import { Vehicle } from '../../lib/VehicleService';
-import { WebShare } from '../../lib/WebShare';
+import { Vehicle } from '#lib/VehicleService';
+import { WebShare } from '#lib/WebShare';
 import { testingSelectors as cardSelectors } from '../VehicleCard';
 import type { ShareHandler, VehicleRenderer } from './Views';
 

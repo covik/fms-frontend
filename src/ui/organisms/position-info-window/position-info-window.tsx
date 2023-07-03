@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { IgnitionIcon } from '#ui/atoms/ignition-icon';
 import { MovementIcon } from '#ui/atoms/movement-icon';
-import type { Coordinates } from '../../../lib/Dimension';
+import type { Coordinates } from '#lib/Dimension';
 
 export interface PositionInfoWindowAttributes {
   coordinates: Coordinates;

@@ -1,7 +1,7 @@
 import { MapMarker } from '#core/map';
 import { padding, size, StopIcon } from './Icons';
 import { stopMarkerIndex } from './ZIndex';
-import type { Coordinates } from '../../lib/Dimension';
+import type { Coordinates } from '#lib/Dimension';
 
 export interface StopMarkerAttributes {
   coordinates: Coordinates;
