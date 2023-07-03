@@ -1,7 +1,7 @@
 import { AuthProvider, SessionManager } from '#core/auth';
 import { DateTimeProvider } from '#core/time';
-import { DesignBaseline } from './DesignBaseline';
-import { AuthenticatedApp } from './AuthenticatedApp';
+import { DesignBaseline } from './design-baseline';
+import { AuthenticatedApp } from './authenticated-app';
 
 export function App() {
   return (

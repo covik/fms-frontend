@@ -1,2 +1,2 @@
-export { App } from './App';
-export { DesignBaseline } from './DesignBaseline';
+export { App } from './app';
+export { DesignBaseline } from './design-baseline';
