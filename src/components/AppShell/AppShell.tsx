@@ -1,15 +1,16 @@
-import { Outlet } from '@tanstack/router';
-import { RouterNavigationProvider } from '#ui/molecules/navigation';
 import { AppLayout } from '#ui/organisms/layout';
 import { AppUpdateNotification } from '#ui/organisms/app-update-notification';
+import type { ReactNode } from 'react';
 
-export function AppShell() {
+export interface AppShellAttributes {
+  children: ReactNode;
+}
+
+export function AppShell({ children }: AppShellAttributes) {
   return (
-    <RouterNavigationProvider>
-      <AppLayout>
-        <AppUpdateNotification />
-        <Outlet />
-      </AppLayout>
-    </RouterNavigationProvider>
+    <AppLayout>
+      <AppUpdateNotification />
+      {children}
+    </AppLayout>
   );
 }

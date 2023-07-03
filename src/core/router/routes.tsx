@@ -1,12 +1,20 @@
 import { lazy } from 'react';
-import { RootRoute, Route } from '@tanstack/router';
-import { AppShell } from '../../components/AppShell';
+import { Outlet, RootRoute, Route } from '@tanstack/router';
+import { AuthenticatedApp } from '../../foundation/authenticated-app';
 import { RouteHistoryMissingDatePage } from '../../components/VehicleOverviewPage';
 import { z } from 'zod';
 import { formatDateForURL } from '../../utils/date';
 
+function RootComponent() {
+  return (
+    <AuthenticatedApp>
+      <Outlet />
+    </AuthenticatedApp>
+  );
+}
+
 const rootRoute = new RootRoute({
-  component: AppShell,
+  component: RootComponent,
 });
 
 const indexRoute = new Route({
