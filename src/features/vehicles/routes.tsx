@@ -9,7 +9,7 @@ export function registerRoutes(rootRoute: RootRoute) {
   const indexRoute = new Route({
     getParentRoute: () => rootRoute,
     path: '/',
-    component: lazy(() => import('../../pages/LiveTrackingPage')),
+    component: lazy(() => import('./pages/LiveTrackingPage')),
   });
 
   const vehiclesRoute = new Route({
@@ -20,25 +20,25 @@ export function registerRoutes(rootRoute: RootRoute) {
   const vehiclesIndexRoute = new Route({
     getParentRoute: () => vehiclesRoute,
     path: '/',
-    component: lazy(() => import('../../pages/VehiclesDigestPage')),
+    component: lazy(() => import('./pages/VehiclesDigestPage')),
   });
 
   const vehicleRoute = new Route({
     getParentRoute: () => vehiclesRoute,
     path: '$vehicleId',
-    component: lazy(() => import('../../pages/VehicleOverviewPage')),
+    component: lazy(() => import('./pages/VehicleOverviewPage')),
   });
 
   const vehicleLivePreviewRoute = new Route({
     getParentRoute: () => vehicleRoute,
     path: '/',
-    component: lazy(() => import('../../pages/VehicleLivePreviewPage')),
+    component: lazy(() => import('./pages/VehicleLivePreviewPage')),
   });
 
   const vehicleTodayRoute = new Route({
     getParentRoute: () => vehicleRoute,
     path: '/today',
-    component: lazy(() => import('../../pages/VehicleTodayRoutePage')),
+    component: lazy(() => import('./pages/VehicleTodayRoutePage')),
   });
 
   const vehicleRouteHistoryRoute = new Route({
@@ -61,7 +61,7 @@ export function registerRoutes(rootRoute: RootRoute) {
     stringifyParams: ({ date }) => ({
       date: formatDateForURL(date),
     }),
-    component: lazy(() => import('../../pages/VehicleRouteHistoryPage')),
+    component: lazy(() => import('./pages/VehicleRouteHistoryPage')),
   });
 
   return [
