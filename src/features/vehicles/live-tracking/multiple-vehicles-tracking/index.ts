@@ -1,1 +1,1 @@
-export { LiveTrackingPage as default } from './live-tracking-page';
+export { MultipleVehiclesTrackingPage as default } from './multiple-vehicles-tracking-page';

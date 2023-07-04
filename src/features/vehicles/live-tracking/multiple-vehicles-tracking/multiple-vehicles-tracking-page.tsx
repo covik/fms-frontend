@@ -8,7 +8,7 @@ import { VehicleMapIcon } from '../../ui/molecules/vehicle-map-icon';
 import { VehicleMapMarker } from '../../ui/molecules/vehicle-map-marker';
 import type { ReactNode } from 'react';
 
-export function LiveTrackingPage() {
+export function MultipleVehiclesTrackingPage() {
   const query = useQuery({
     queryKey: ['vehicles'],
     queryFn: ({ signal }) => VehicleService.fetchAll(signal),
