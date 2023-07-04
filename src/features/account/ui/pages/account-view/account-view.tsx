@@ -1,31 +1,35 @@
-import { Avatar, Box, Card, CardHeader, useTheme } from '@mui/material';
+import { Avatar, Card, CardHeader, useTheme } from '@mui/material';
 import {
   AccountTie as UserIcon,
   ShieldAccount as AdminIcon,
 } from 'mdi-material-ui';
-import { FluidPage, PagePadding } from '#ui/atoms/page';
 import { PageTitle } from '#ui/atoms/page-title';
-import type { ReactNode } from 'react';
+import { PageContent, PageLayout } from '../../templates/account-layout';
+import { LogoutButton } from '../../atoms/logout-button';
+import type { LogoutButtonAttributes } from '../../atoms/logout-button';
 
 export interface AccountViewAttributes {
   name: string;
   email: string;
+  logoutInProgress: boolean;
+  logoutHandler: LogoutButtonAttributes['onClick'];
   isAdmin?: boolean;
-  children: ReactNode;
 }
 
 export function AccountView({
   name,
   email,
+  logoutInProgress,
+  logoutHandler,
   isAdmin = false,
-  children,
 }: AccountViewAttributes) {
   const theme = useTheme();
 
   return (
-    <FluidPage>
-      <PagePadding>
-        <PageTitle>Račun</PageTitle>
+    <PageLayout>
+      <PageTitle>Račun</PageTitle>
+
+      <PageContent>
         <Card>
           <CardHeader
             title={name}
@@ -44,8 +48,8 @@ export function AccountView({
           />
         </Card>
 
-        <Box sx={{ marginTop: 2 }}>{children}</Box>
-      </PagePadding>
-    </FluidPage>
+        <LogoutButton loading={logoutInProgress} onClick={logoutHandler} />
+      </PageContent>
+    </PageLayout>
   );
 }

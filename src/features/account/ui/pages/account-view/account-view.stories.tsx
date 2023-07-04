@@ -1,16 +1,15 @@
-import { AccountView } from './AccountView';
+import { AccountView } from './account-view';
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {
+  title: 'Pages/Account',
   component: AccountView,
   parameters: {
     layout: 'fullscreen',
   },
-  render: (args) => (
-    <AccountView {...args}>
-      <div>Rest of content</div>
-    </AccountView>
-  ),
+  args: {
+    logoutInProgress: false,
+  },
 } satisfies Meta<typeof AccountView>;
 
 type Story = StoryObj<typeof AccountView>;
@@ -27,5 +26,12 @@ export const Admin: Story = {
     name: 'Admin Doe',
     email: 'admin@example.com',
     isAdmin: true,
+  },
+};
+
+export const LogoutInProgress: Story = {
+  args: {
+    ...User.args,
+    logoutInProgress: true,
   },
 };
