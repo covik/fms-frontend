@@ -1,6 +1,6 @@
-import { useAuth } from '../auth';
-import { SessionLoadingView } from '../ui/pages/session-loading-view';
-import { SessionErrorView } from '../ui/pages/session-error-view';
+import { useAuth } from '../../hooks/auth';
+import { SessionLoadingView } from '../../ui/pages/session-loading-view';
+import { SessionErrorView } from '../../ui/pages/session-error-view';
 import { LoginPage } from '../login-page';
 import type { ReactNode } from 'react';
 

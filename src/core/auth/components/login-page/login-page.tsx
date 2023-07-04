@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import { useLogin } from './login';
-import { LoginView } from './ui/pages/login-view';
+import { useLogin } from '../../hooks/login';
+import { LoginView } from '../../ui/pages/login-view';
 import type {
   OnValidationError,
   OnWrongCredentials,
   OnUnknownError,
-} from './login';
-import type { LoginViewAttributes } from './ui/pages/login-view';
+} from '../../hooks/login';
+import type { LoginViewAttributes } from '../../ui/pages/login-view';
 
-export { testingSelectors } from './ui/pages/login-view';
+export { testingSelectors } from '../../ui/pages/login-view';
 
 export function LoginPage() {
   const [currentState, goTo] =

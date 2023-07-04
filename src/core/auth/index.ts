@@ -1,3 +1,3 @@
-export * from './auth';
-export * from './logout';
-export * from './session-manager';
+export * from './hooks/auth';
+export * from './hooks/logout';
+export * from './components/session-manager';

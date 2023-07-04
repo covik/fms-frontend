@@ -1,7 +1,7 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { SessionService } from './services';
-import { BaseUser } from '../../models/User';
-import { fetchIfOffline } from '../../utils/tanstack-query';
+import { SessionService } from '../services';
+import { BaseUser } from '../../../models/User';
+import { fetchIfOffline } from '../../../utils/tanstack-query';
 
 export interface AuthAPI {
   user: BaseUser | undefined;

@@ -1,8 +1,8 @@
 import { addDays, getUnixTime } from 'date-fns';
 import { QueryClient } from '@tanstack/query-core';
 import { QueryClientProvider } from '@tanstack/react-query';
-import { LoginPage, testingSelectors } from './login-page';
-import { SessionService } from './services';
+import { LoginPage, testingSelectors } from '.';
+import { SessionService } from '../../services';
 
 describe(LoginPage.name, () => {
   beforeEach(() => {

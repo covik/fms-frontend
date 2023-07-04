@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { useCheckSession } from './auth';
-import { SessionService } from './services';
-import type { SessionCredentials } from './services';
+import { SessionService } from '../services';
+import type { SessionCredentials } from '../services';
 
 export interface ValidationErrors {
   isEmailError: boolean;

@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { useCheckSession } from './auth';
-import { SessionService } from './services';
+import { SessionService } from '../services';
 
 export interface LogoutAPI {
   perform: () => void;
