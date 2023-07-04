@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { Vehicle } from '#lib/VehicleService';
+import { VehicleService } from '../services/vehicle-service';
 import type { UseQueryResult } from '@tanstack/react-query';
 import type { RoutePosition } from '../models/position';
 import type { RouteStop } from '../models/route-stop';
@@ -19,7 +19,7 @@ export function useRoutePositions({
   return useQuery({
     queryKey: ['vehicles', vehicleId, 'routes', from, to],
     queryFn: ({ signal }) =>
-      Vehicle.Route.fetchInRange({ vehicleId, from, to }, signal),
+      VehicleService.RouteService.fetchInRange({ vehicleId, from, to }, signal),
   });
 }
 
@@ -31,7 +31,10 @@ export function useRouteStops({
   return useQuery({
     queryKey: ['vehicles', vehicleId, 'stops', from, to],
     queryFn: ({ signal }) =>
-      Vehicle.Route.fetchStopsInRange({ vehicleId, from, to }, signal),
+      VehicleService.RouteService.fetchStopsInRange(
+        { vehicleId, from, to },
+        signal,
+      ),
   });
 }
 
@@ -44,12 +47,12 @@ export function useRouteSummary({
     queryKey: ['vehicles', vehicleId, 'summary', from, to],
     queryFn: async ({ signal }) => {
       try {
-        return await Vehicle.Route.fetchSummaryInRange(
+        return await VehicleService.RouteService.fetchSummaryInRange(
           { vehicleId, from, to },
           signal,
         );
       } catch (e) {
-        if (e instanceof Vehicle.NoRouteSummary) return new NoSummary();
+        if (e instanceof VehicleService.NoRouteSummary) return new NoSummary();
         throw e;
       }
     },

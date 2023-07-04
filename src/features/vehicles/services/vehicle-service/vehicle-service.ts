@@ -5,19 +5,16 @@ import {
   NoPositionVehicle,
   OperationalVehicle,
   UnavailableVehicle,
-} from '../../features/vehicles/models/vehicle';
-import { Http } from '../HttpClient';
-import {
-  Position,
-  PositionTimestamps,
-} from '../../features/vehicles/models/position';
-import { Coordinates } from '../Dimension';
-import { Angle, Length, Speed, Voltage } from '../MeasurementUnit';
-import { TraccarDevice, TraccarPosition } from '../Traccar';
+} from '../../models/vehicle';
+import { Position, PositionTimestamps } from '../../models/position';
+import { Http } from '#lib/HttpClient';
+import { Coordinates } from '#lib/Dimension';
+import { Angle, Length, Speed, Voltage } from '#lib/MeasurementUnit';
+import { TraccarDevice, TraccarPosition } from '#lib/Traccar';
 import type {
   TraccarDeviceInterface,
   TraccarPositionInterface,
-} from '../Traccar';
+} from '#lib/Traccar';
 
 export async function fetchAll(signal?: AbortSignal): Promise<BaseVehicle[]> {
   const [responseVehicle, responsePositions] = await Promise.all([

@@ -2,7 +2,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { Snackbar } from '@mui/material';
 import { Link } from '@tanstack/router';
 import { useQuery } from '@tanstack/react-query';
-import { Vehicle } from '#lib/VehicleService';
+import { VehicleService } from '../services/vehicle-service';
 import { WebShare } from '#lib/WebShare';
 import { VehiclesListView } from './ui/views';
 import { testingSelectors as cardSelectors } from './ui/vehicle-card';
@@ -11,7 +11,7 @@ import type { ShareHandler, VehicleRenderer } from './ui/views';
 export function BrowseVehiclesPage() {
   const query = useQuery({
     queryKey: ['vehicles'],
-    queryFn: ({ signal }) => Vehicle.fetchAll(signal),
+    queryFn: ({ signal }) => VehicleService.fetchAll(signal),
     refetchInterval: 2000,
   });
 
@@ -19,17 +19,17 @@ export function BrowseVehiclesPage() {
   const vehicles = rawData ?? [];
 
   const sortedVehicles = useMemo(
-    () => Vehicle.sortAscendingByName(vehicles),
+    () => VehicleService.sortAscendingByName(vehicles),
     [vehicles],
   );
 
   const operationalVehicles = useMemo(
-    () => Vehicle.takeOnlyOperational(sortedVehicles),
+    () => VehicleService.takeOnlyOperational(sortedVehicles),
     [sortedVehicles],
   );
 
   const unavailableVehicles = useMemo(
-    () => Vehicle.takeOnlyUnavailable(sortedVehicles),
+    () => VehicleService.takeOnlyUnavailable(sortedVehicles),
     [sortedVehicles],
   );
 

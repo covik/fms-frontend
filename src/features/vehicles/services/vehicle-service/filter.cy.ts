@@ -1,15 +1,15 @@
-import { Vehicle } from './';
+import { VehicleService } from '.';
 import {
   BaseVehicle,
   OperationalVehicle,
   UnavailableVehicle,
-} from '../../features/vehicles/models/vehicle';
+} from '../../models/vehicle';
 import {
   createDisabledVehicle,
   createOperationalVehicle,
   createUnavailableVehicle,
   createVehicleWithoutPosition,
-} from '../../features/vehicles/models/vehicle/factory';
+} from '../../models/vehicle/factory';
 
 const garbageData = [null, 'foobar', 1234, {}, false, undefined];
 
@@ -35,9 +35,9 @@ const unavailableVehicles = [
   createUnavailableVehicle(),
 ];
 
-describe(Vehicle.takeOnlyOperational.name, () => {
+describe(VehicleService.takeOnlyOperational.name, () => {
   it(`should throw ${TypeError.name} if passed argument is not array`, () => {
-    cy.testException(() => Vehicle.takeOnlyOperational('foobar')).then(
+    cy.testException(() => VehicleService.takeOnlyOperational('foobar')).then(
       (exception) => {
         exception().should('be.instanceOf', TypeError);
         exception().should(
@@ -48,31 +48,31 @@ describe(Vehicle.takeOnlyOperational.name, () => {
       },
     );
 
-    cy.testException(() => Vehicle.takeOnlyOperational({ foo: 'bar' })).then(
-      (exception) => {
-        exception().should('be.instanceOf', TypeError);
-        exception().should(
-          'have.property',
-          'message',
-          'Argument "data" should be array, received: object.',
-        );
-      },
-    );
+    cy.testException(() =>
+      VehicleService.takeOnlyOperational({ foo: 'bar' }),
+    ).then((exception) => {
+      exception().should('be.instanceOf', TypeError);
+      exception().should(
+        'have.property',
+        'message',
+        'Argument "data" should be array, received: object.',
+      );
+    });
   });
 
   specify('given empty array it should return empty array', () => {
-    expect(Vehicle.takeOnlyOperational([])).to.deep.equal([]);
+    expect(VehicleService.takeOnlyOperational([])).to.deep.equal([]);
   });
 
   specify('given garbage data it should return empty array', () => {
-    expect(Vehicle.takeOnlyOperational(garbageData)).to.deep.equal([]);
+    expect(VehicleService.takeOnlyOperational(garbageData)).to.deep.equal([]);
   });
 
   specify(
     `given different subclasses of ${BaseVehicle.name} but no ${OperationalVehicle.name} it should return empty array`,
     () => {
       expect(
-        Vehicle.takeOnlyOperational(vehiclesWithoutOperationalVehicles),
+        VehicleService.takeOnlyOperational(vehiclesWithoutOperationalVehicles),
       ).to.deep.equal([]);
     },
   );
@@ -81,7 +81,7 @@ describe(Vehicle.takeOnlyOperational.name, () => {
     `given mix of valid and invalid data it should return valid data`,
     () => {
       expect(
-        Vehicle.takeOnlyOperational([
+        VehicleService.takeOnlyOperational([
           ...vehiclesWithoutOperationalVehicles,
           ...operationalVehicles,
           undefined,
@@ -92,9 +92,9 @@ describe(Vehicle.takeOnlyOperational.name, () => {
   );
 });
 
-describe(Vehicle.takeOnlyOperational.name, () => {
+describe(VehicleService.takeOnlyOperational.name, () => {
   it(`should throw ${TypeError.name} if passed argument is not array`, () => {
-    cy.testException(() => Vehicle.takeOnlyUnavailable('foobar')).then(
+    cy.testException(() => VehicleService.takeOnlyUnavailable('foobar')).then(
       (exception) => {
         exception().should('be.instanceOf', TypeError);
         exception().should(
@@ -105,31 +105,31 @@ describe(Vehicle.takeOnlyOperational.name, () => {
       },
     );
 
-    cy.testException(() => Vehicle.takeOnlyUnavailable({ foo: 'bar' })).then(
-      (exception) => {
-        exception().should('be.instanceOf', TypeError);
-        exception().should(
-          'have.property',
-          'message',
-          'Argument "data" should be array, received: object.',
-        );
-      },
-    );
+    cy.testException(() =>
+      VehicleService.takeOnlyUnavailable({ foo: 'bar' }),
+    ).then((exception) => {
+      exception().should('be.instanceOf', TypeError);
+      exception().should(
+        'have.property',
+        'message',
+        'Argument "data" should be array, received: object.',
+      );
+    });
   });
 
   specify('given empty array it should return empty array', () => {
-    expect(Vehicle.takeOnlyUnavailable([])).to.deep.equal([]);
+    expect(VehicleService.takeOnlyUnavailable([])).to.deep.equal([]);
   });
 
   specify('given garbage data it should return empty array', () => {
-    expect(Vehicle.takeOnlyUnavailable(garbageData)).to.deep.equal([]);
+    expect(VehicleService.takeOnlyUnavailable(garbageData)).to.deep.equal([]);
   });
 
   specify(
     `given different subclasses of ${BaseVehicle.name} but no ${UnavailableVehicle.name} it should return empty array`,
     () => {
       expect(
-        Vehicle.takeOnlyUnavailable(vehiclesWithoutUnavailableVehicles),
+        VehicleService.takeOnlyUnavailable(vehiclesWithoutUnavailableVehicles),
       ).to.deep.equal([]);
     },
   );
@@ -138,7 +138,7 @@ describe(Vehicle.takeOnlyOperational.name, () => {
     `given mix of valid and invalid data it should return valid data`,
     () => {
       expect(
-        Vehicle.takeOnlyUnavailable([
+        VehicleService.takeOnlyUnavailable([
           ...vehiclesWithoutUnavailableVehicles,
           ...unavailableVehicles,
           undefined,

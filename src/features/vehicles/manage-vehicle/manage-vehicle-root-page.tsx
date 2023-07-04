@@ -1,6 +1,6 @@
 import { Outlet, useParams } from '@tanstack/router';
 import { useQuery } from '@tanstack/react-query';
-import { Vehicle } from '#lib/VehicleService';
+import { VehicleService } from '../services/vehicle-service';
 import { LocatedVehicle } from '../models/vehicle';
 import {
   VehicleCommonInterface,
@@ -13,19 +13,19 @@ export function ManageVehicleRootPage() {
 
   const { error, data: vehicle } = useQuery({
     queryKey: ['vehicles'],
-    queryFn: ({ signal }) => Vehicle.fetchAll(signal),
+    queryFn: ({ signal }) => VehicleService.fetchAll(signal),
     select: (data) => {
       const vehicle = data.find((vehicle) => vehicle.id() === vehicleId);
 
       if (vehicle === undefined) {
-        throw new Vehicle.NotFoundException();
+        throw new VehicleService.NotFoundException();
       }
 
       return vehicle;
     },
   });
 
-  if (error instanceof Vehicle.NotFoundException)
+  if (error instanceof VehicleService.NotFoundException)
     return <div>Vozilo nije pronađeno</div>;
   if (vehicle === undefined) return <VehicleLoadingView />;
 

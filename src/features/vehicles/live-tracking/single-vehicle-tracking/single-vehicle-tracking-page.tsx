@@ -2,7 +2,7 @@ import { useParams } from '@tanstack/router';
 import { useQuery } from '@tanstack/react-query';
 import { useDateTime } from '#core/time';
 import { Length, Speed, Voltage } from '#lib/MeasurementUnit';
-import { Vehicle } from '#lib/VehicleService';
+import { VehicleService } from '../../services/vehicle-service';
 import {
   DisabledVehicle,
   LocatedVehicle,
@@ -19,12 +19,12 @@ export function SingleVehicleTrackingPage() {
 
   const { data: vehicle } = useQuery({
     queryKey: ['vehicles'],
-    queryFn: ({ signal }) => Vehicle.fetchAll(signal),
+    queryFn: ({ signal }) => VehicleService.fetchAll(signal),
     select: (data) => {
       const vehicle = data.find((vehicle) => vehicle.id() === vehicleId);
 
       if (vehicle === undefined) {
-        throw new Vehicle.NotFoundException();
+        throw new VehicleService.NotFoundException();
       }
 
       return vehicle;

@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 import { testingSelectors, BrowseVehiclesPage } from './browse-vehicles-page';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { QueryClient } from '@tanstack/query-core';
-import { Vehicle } from '../../../lib/VehicleService';
+import { VehicleService } from '../services/vehicle-service';
 import { WebShare } from '../../../lib/WebShare';
 import { createOperationalVehicle } from '../models/vehicle/factory';
 import { TestRouterProvider } from '../../../core/router';
@@ -79,7 +79,7 @@ describe(BrowseVehiclesPage.name, () => {
 });
 
 function stubVehicleList() {
-  cy.stub(Vehicle, 'fetchAll').callsFake(() =>
+  cy.stub(VehicleService, 'fetchAll').callsFake(() =>
     Promise.resolve([operationalVehicle]),
   );
 }

@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import { CircularProgress, Paper } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { AppMap, MapBounds } from '#core/map';
-import { Vehicle } from '#lib/VehicleService';
+import { VehicleService } from '../../services/vehicle-service';
 import { FixedPage, PagePadding } from '#ui/atoms/page';
 import { VehicleMapIcon } from '../../ui/molecules/vehicle-map-icon';
 import { VehicleMapMarker } from '../../ui/molecules/vehicle-map-marker';
@@ -11,8 +11,8 @@ import type { ReactNode } from 'react';
 export function LiveTrackingPage() {
   const query = useQuery({
     queryKey: ['vehicles'],
-    queryFn: ({ signal }) => Vehicle.fetchAll(signal),
-    select: Vehicle.takeOnlyOperational,
+    queryFn: ({ signal }) => VehicleService.fetchAll(signal),
+    select: VehicleService.takeOnlyOperational,
     refetchInterval: 2000,
   });
 

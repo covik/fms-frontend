@@ -1,19 +1,16 @@
 import { z } from 'zod';
-import {
-  PositionTimestamps,
-  RoutePosition,
-} from '../../features/vehicles/models/position';
-import { Http } from '../HttpClient';
+import { PositionTimestamps, RoutePosition } from '../../models/position';
+import { Http } from '#lib/HttpClient';
 import {
   TraccarPosition,
   TraccarRouteSummary,
   TraccarTripStop,
-} from '../Traccar';
-import { Coordinates } from '../Dimension';
-import { Angle, Length, Speed, Voltage } from '../MeasurementUnit';
-import { RouteStop } from '../../features/vehicles/models/route-stop';
-import { RouteSummary } from '../../features/vehicles/models/route-summary';
-import { NoRouteSummary } from './Exception';
+} from '#lib/Traccar';
+import { Coordinates } from '#lib/Dimension';
+import { Angle, Length, Speed, Voltage } from '#lib/MeasurementUnit';
+import { RouteStop } from '../../models/route-stop';
+import { RouteSummary } from '../../models/route-summary';
+import { NoRouteSummary } from './exception';
 
 const RangeParameters = z.object({
   vehicleId: z.string().trim().min(1),
