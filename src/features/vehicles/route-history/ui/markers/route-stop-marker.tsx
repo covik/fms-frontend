@@ -1,0 +1,36 @@
+import { MapMarker } from '#core/map';
+import {
+  routeIconSize as size,
+  routeIconPadding as padding,
+  RouteStopIcon,
+} from '../icons';
+import { stopMarkerIndex } from '../z-index';
+import type { Coordinates } from '#lib/Dimension';
+
+export interface StopMarkerAttributes {
+  coordinates: Coordinates;
+  duration: string;
+}
+
+export function RouteStopMarker({
+  coordinates,
+  duration,
+}: StopMarkerAttributes) {
+  return (
+    <MapMarker
+      position={coordinates}
+      iconAnchorX={size / 2}
+      iconAnchorY={size - padding}
+      label={duration}
+      labelOriginX={size / 2}
+      labelOriginY={-11}
+      labelColor={'white'}
+      labelFontSize={'12px'}
+      labelFontWeight={'400'}
+      labelClass={'vehicle-stop-marker-label'}
+      zIndex={stopMarkerIndex}
+    >
+      <RouteStopIcon />
+    </MapMarker>
+  );
+}
