@@ -1,6 +1,6 @@
 import { Paper, useTheme } from '@mui/material';
 import { LayoutProvider } from '#core/layout';
-import { AppNavigation, MOBILE_ITEMS } from '#ui/molecules/app-navigation';
+import { AppNavigation, MOBILE_ITEMS } from '../app-navigation';
 import type { ReactNode } from 'react';
 
 export interface MobileLayoutAttributes {

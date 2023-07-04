@@ -1,5 +1,5 @@
-import { AppLayout } from '#ui/organisms/layout';
-import { AppUpdateNotification } from '#ui/organisms/app-update-notification';
+import { AppLayout } from '../app-layout';
+import { AppUpdateNotification } from '../app-update-notification';
 import type { ReactNode } from 'react';
 
 export interface AppShellAttributes {
