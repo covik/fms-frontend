@@ -2,17 +2,17 @@ import {
   UserNotAuthenticatedException,
   ValidationException,
   WrongCredentialsException,
-} from './Exception';
-import { Http } from '../HttpClient';
+} from './exception';
+import { Http } from '#lib/HttpClient';
 // @ts-expect-error
 import Cookies from 'js-cookie';
+import { TraccarUser } from '#lib/Traccar';
 import {
   Administrator,
   BaseUser,
   DisabledUser,
   StandardUser,
-} from '../../models/User';
-import { TraccarUser } from '../Traccar';
+} from '../../../../models/User';
 
 export const cookie = 'JSESSIONID';
 
@@ -76,7 +76,7 @@ function validateCredentials(credentials: SessionCredentials) {
   };
 }
 
-interface SessionCredentials {
+export interface SessionCredentials {
   email: string;
   password: string;
 }

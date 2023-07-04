@@ -12,3 +12,7 @@ export const preventAutomaticRefetch = {
  * 'satisfies' is required since TS infers value types as 'boolean' while React Query's
  * useQuery() method expects 'false'
  */
+
+export const fetchIfOffline = {
+  networkMode: 'always',
+} satisfies Record<string, 'always'>;

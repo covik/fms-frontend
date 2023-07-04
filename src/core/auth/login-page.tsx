@@ -1,38 +1,49 @@
 import { useState } from 'react';
+import { useLogin } from './login';
 import { LoginView } from './ui/pages/login-view';
-import { Session } from '#lib/SessionService';
+import type {
+  OnValidationError,
+  OnWrongCredentials,
+  OnUnknownError,
+} from './login';
 import type { LoginViewAttributes } from './ui/pages/login-view';
 
 export { testingSelectors } from './ui/pages/login-view';
 
-export interface LoginPageAttributes {
-  onSuccessfulAttempt: () => unknown;
-}
-
-export function LoginPage({ onSuccessfulAttempt }: LoginPageAttributes) {
+export function LoginPage() {
   const [currentState, goTo] =
     useState<LoginViewAttributes['state']>('initial');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
 
-  async function tryLogin(email: string, password: string) {
+  const login = useLogin();
+
+  const handleValidationErrors: OnValidationError = ({
+    isEmailError,
+    isPasswordError,
+  }) => {
+    goTo('validation-error');
+    if (isEmailError) setEmailError('Email je obavezan');
+    if (isPasswordError) setPasswordError('Lozinka je obavezna');
+  };
+
+  const handleWrongCredentials: OnWrongCredentials = () => {
+    goTo('wrong-credentials');
+  };
+
+  const handleUnexpectedError: OnUnknownError = () => {
+    goTo('unexpected-error');
+  };
+
+  function tryLogin(email: string, password: string) {
     goTo('submitting');
 
-    try {
-      await Session.create({ email, password });
-      Session.rememberForOneYear();
-      onSuccessfulAttempt();
-    } catch (e) {
-      if (e instanceof Session.ValidationException) {
-        goTo('validation-error');
-        !e.isEmailOk() && setEmailError('Email je obavezan');
-        !e.isPasswordOk() && setPasswordError('Lozinka je obavezna');
-      } else if (e instanceof Session.WrongCredentialsException) {
-        goTo('wrong-credentials');
-      } else {
-        goTo('unexpected-error');
-      }
-    }
+    login(
+      { email, password },
+      handleValidationErrors,
+      handleWrongCredentials,
+      handleUnexpectedError,
+    );
   }
 
   return (

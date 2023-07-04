@@ -1,15 +1,14 @@
 import { QueryClient } from '@tanstack/query-core';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { SessionManager } from '.';
-import { AuthProvider } from '../auth';
-import { Session } from '../../../lib/SessionService';
-import { StandardUser } from '../../../models/User';
+import { SessionService } from '../services';
 import { loadingIndicator } from '../ui/atoms/session-loading-indicator';
 import { testingSelectors as loginSelectors } from '../ui/pages/login-view';
 import {
   container as errorContainer,
   retryButton,
 } from '../ui/molecules/session-error';
+import { retryCount } from '../auth';
 
 const authenticatedAppSelector = 'authenticated-app';
 
@@ -52,13 +51,16 @@ describe(SessionManager.name, () => {
     cy.get(`[data-testid="${authenticatedAppSelector}"]`).should('be.visible');
   });
 
-  it('should render error view if fetching session fails', () => {
-    stubSession().simulateFailure();
+  it(`should render error view if fetching session fails for ${retryCount} times`, () => {
+    const session = stubSession().simulateFailure();
 
     mountApp();
 
     cy.get(`[data-testid="${loadingIndicator}"]`).should('not.exist');
     cy.get(`[data-testid="${errorContainer}"]`).should('be.visible');
+
+    const initialCall = 1;
+    cy.then(() => expect(session.callCount - initialCall).to.equal(retryCount));
   });
 
   specify(
@@ -80,41 +82,46 @@ describe(SessionManager.name, () => {
 });
 
 function mountApp() {
-  const queryClient = new QueryClient();
-
   cy.mount(
-    <QueryClientProvider client={queryClient}>
-      <AuthProvider>
-        <SessionManager>
-          <div data-testid={authenticatedAppSelector}>
-            Authenticated successfully!
-          </div>
-        </SessionManager>
-      </AuthProvider>
+    <QueryClientProvider client={createTestClient()}>
+      <SessionManager>
+        <div data-testid={authenticatedAppSelector}>
+          Authenticated successfully!
+        </div>
+      </SessionManager>
     </QueryClientProvider>,
   );
 }
 
+function createTestClient() {
+  return new QueryClient({
+    defaultOptions: {
+      queries: {
+        refetchOnMount: false,
+        refetchOnReconnect: false,
+        refetchOnWindowFocus: false,
+        retry: 0,
+        retryDelay: 0,
+      },
+    },
+  });
+}
+
 function stubSession() {
-  const stub = cy.stub(Session, 'obtain');
+  const stub = cy.stub(SessionService, 'obtain');
 
   const simulateFetching = () => stub.callsFake(() => new Promise(() => {}));
 
   const simulateNoActive = () =>
     stub.callsFake(() =>
-      Promise.reject(new Session.UserNotAuthenticatedException()),
+      Promise.reject(new SessionService.UserNotAuthenticatedException()),
     );
 
-  const simulateActive = () =>
-    stub.callsFake(() =>
-      Promise.resolve(
-        new StandardUser({ id: 1, email: 'the@example.com', fullName: 'Test' }),
-      ),
-    );
+  const simulateActive = () => stub.callsFake(() => Promise.resolve('1'));
 
   const simulateFailure = () =>
     stub.callsFake(() =>
-      Promise.reject(new Error('Session fetch generic failure.')),
+      Promise.reject(new Error('SessionService fetch generic failure.')),
     );
 
   return {

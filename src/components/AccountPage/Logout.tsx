@@ -1,30 +1,17 @@
 import { Button, CircularProgress } from '@mui/material';
-import { useMutation } from '@tanstack/react-query';
-import { useAuth } from '#core/auth';
-import { Session } from '#lib/SessionService';
+import { useLogout } from '#core/auth';
 
 export function Logout() {
-  const { finishLogout } = useAuth();
-
-  const logoutRequest = useMutation({
-    mutationFn: () => Session.destroy(),
-    onSuccess: () => finishLogout(),
-  });
-
-  function performLogout() {
-    logoutRequest.mutate();
-  }
-
-  const inProgress = logoutRequest.status === 'loading';
+  const logout = useLogout();
 
   return (
     <Button
       color={'primary'}
       variant={'contained'}
       fullWidth
-      onClick={performLogout}
+      onClick={logout.perform}
     >
-      {inProgress ? (
+      {logout.inProgress ? (
         <CircularProgress
           variant={'indeterminate'}
           thickness={5}

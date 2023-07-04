@@ -4,14 +4,14 @@ import {
   destroy,
   obtain,
   rememberForOneYear,
-} from './SessionService';
+} from './session-service';
 import {
   UserNotAuthenticatedException,
   ValidationException,
   WrongCredentialsException,
-} from './Exception';
+} from './exception';
 
-export const Session = {
+export const SessionService = {
   cookie,
   create,
   destroy,
@@ -21,3 +21,5 @@ export const Session = {
   rememberForOneYear,
   UserNotAuthenticatedException,
 };
+
+export type { SessionCredentials } from './session-service';
