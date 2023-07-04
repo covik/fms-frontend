@@ -1,7 +1,7 @@
 import { lazy } from 'react';
 import { Route } from '@tanstack/router';
 import { z } from 'zod';
-import { RouteHistoryMissingDatePage } from '../../components/VehicleOverviewPage';
+import { MissingRouteDateRedirect } from './route-history/missing-route-date-redirect';
 import { formatDateForURL } from '../../utils/date';
 import type { RootRoute } from '@tanstack/router';
 
@@ -9,7 +9,7 @@ export function registerRoutes(rootRoute: RootRoute) {
   const indexRoute = new Route({
     getParentRoute: () => rootRoute,
     path: '/',
-    component: lazy(() => import('./pages/LiveTrackingPage')),
+    component: lazy(() => import('./live-tracking/multiple-vehicles-tracking')),
   });
 
   const vehiclesRoute = new Route({
@@ -20,25 +20,25 @@ export function registerRoutes(rootRoute: RootRoute) {
   const vehiclesIndexRoute = new Route({
     getParentRoute: () => vehiclesRoute,
     path: '/',
-    component: lazy(() => import('./pages/VehiclesDigestPage')),
+    component: lazy(() => import('./browse-vehicles')),
   });
 
   const vehicleRoute = new Route({
     getParentRoute: () => vehiclesRoute,
     path: '$vehicleId',
-    component: lazy(() => import('./pages/VehicleOverviewPage')),
+    component: lazy(() => import('./manage-vehicle')),
   });
 
   const vehicleLivePreviewRoute = new Route({
     getParentRoute: () => vehicleRoute,
     path: '/',
-    component: lazy(() => import('./pages/VehicleLivePreviewPage')),
+    component: lazy(() => import('./live-tracking/single-vehicle-tracking')),
   });
 
   const vehicleTodayRoute = new Route({
     getParentRoute: () => vehicleRoute,
     path: '/today',
-    component: lazy(() => import('./pages/VehicleTodayRoutePage')),
+    component: lazy(() => import('./route-history/today-route-page')),
   });
 
   const vehicleRouteHistoryRoute = new Route({
@@ -49,7 +49,7 @@ export function registerRoutes(rootRoute: RootRoute) {
   const vehicleRouteHistoryRedirectRoute = new Route({
     getParentRoute: () => vehicleRouteHistoryRoute,
     path: '/',
-    component: RouteHistoryMissingDatePage,
+    component: MissingRouteDateRedirect,
   });
 
   const vehicleRouteHistoryViewerRoute = new Route({
@@ -61,7 +61,7 @@ export function registerRoutes(rootRoute: RootRoute) {
     stringifyParams: ({ date }) => ({
       date: formatDateForURL(date),
     }),
-    component: lazy(() => import('./pages/VehicleRouteHistoryPage')),
+    component: lazy(() => import('./route-history/past-route-page')),
   });
 
   return [
