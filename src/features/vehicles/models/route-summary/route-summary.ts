@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { Length, Speed } from '../../lib/MeasurementUnit';
+import { Length, Speed } from '#lib/MeasurementUnit';
 import { differenceInSeconds } from 'date-fns';
-import { RouteStop } from '../RouteStop';
+import { RouteStop } from '../route-stop';
 
 const RouteSummaryAttributesValidation = z.object({
   startTime: z.date(),

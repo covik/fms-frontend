@@ -5,9 +5,12 @@ import {
   NoPositionVehicle,
   OperationalVehicle,
   UnavailableVehicle,
-} from '../../models/Vehicle';
+} from '../../features/vehicles/models/vehicle';
 import { Http } from '../HttpClient';
-import { Position, PositionTimestamps } from '../../models/Position';
+import {
+  Position,
+  PositionTimestamps,
+} from '../../features/vehicles/models/position';
 import { Coordinates } from '../Dimension';
 import { Angle, Length, Speed, Voltage } from '../MeasurementUnit';
 import { TraccarDevice, TraccarPosition } from '../Traccar';

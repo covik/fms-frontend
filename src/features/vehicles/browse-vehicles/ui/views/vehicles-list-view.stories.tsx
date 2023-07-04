@@ -3,7 +3,7 @@ import { VehiclesListView } from '.';
 import {
   createOperationalVehicle,
   createUnavailableVehicle,
-} from '../../../../../models/Vehicle/factory';
+} from '../../../models/vehicle/factory';
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {

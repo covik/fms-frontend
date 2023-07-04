@@ -1,4 +1,4 @@
-import type { BaseVehicle } from '../../models/Vehicle';
+import type { BaseVehicle } from '../../features/vehicles/models/vehicle';
 
 export function sortAscendingByName<T extends BaseVehicle>(vehicles: T[]): T[] {
   const vehicleCopy = vehicles.slice();

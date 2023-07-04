@@ -1,11 +1,11 @@
 import { ZodError } from 'zod';
-import { RouteSummary } from './RouteSummary';
-import { Length, Speed } from '../../lib/MeasurementUnit';
+import { RouteSummary } from './route-summary';
+import { Length, Speed } from '../../../../lib/MeasurementUnit';
 import {
   stops,
   totalDuration as totalStopDuration,
-} from '../RouteStop/fixtures';
-import type { RouteSummaryAttributes } from './RouteSummary';
+} from '../route-stop/fixtures';
+import type { RouteSummaryAttributes } from './route-summary';
 
 const startTime = new Date('2000-01-01T00:00:00Z');
 const endTime = new Date('2000-01-01T06:30:00Z');

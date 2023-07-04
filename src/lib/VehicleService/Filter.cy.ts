@@ -3,13 +3,13 @@ import {
   BaseVehicle,
   OperationalVehicle,
   UnavailableVehicle,
-} from '../../models/Vehicle';
+} from '../../features/vehicles/models/vehicle';
 import {
   createDisabledVehicle,
   createOperationalVehicle,
   createUnavailableVehicle,
   createVehicleWithoutPosition,
-} from '../../models/Vehicle/factory';
+} from '../../features/vehicles/models/vehicle/factory';
 
 const garbageData = [null, 'foobar', 1234, {}, false, undefined];
 

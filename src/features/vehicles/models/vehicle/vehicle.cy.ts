@@ -6,7 +6,7 @@ import {
   ProblematicLocatedVehicle,
   ProblematicVehicle,
   UnavailableVehicle,
-} from './';
+} from '.';
 import {
   createDisabledVehicle,
   createOperationalVehicle,

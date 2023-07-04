@@ -1,7 +1,7 @@
 import { Outlet, useParams } from '@tanstack/router';
 import { useQuery } from '@tanstack/react-query';
 import { Vehicle } from '#lib/VehicleService';
-import { LocatedVehicle } from '../../../models/Vehicle';
+import { LocatedVehicle } from '../models/vehicle';
 import {
   VehicleCommonInterface,
   VehicleLoadingView,

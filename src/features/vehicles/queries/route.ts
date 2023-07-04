@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { Vehicle } from '#lib/VehicleService';
 import type { UseQueryResult } from '@tanstack/react-query';
-import type { RoutePosition } from '../../../models/Position';
-import type { RouteStop } from '../../../models/RouteStop';
-import type { RouteSummary } from '../../../models/RouteSummary';
+import type { RoutePosition } from '../models/position';
+import type { RouteStop } from '../models/route-stop';
+import type { RouteSummary } from '../models/route-summary';
 
 interface QueryParameters {
   vehicleId: string;

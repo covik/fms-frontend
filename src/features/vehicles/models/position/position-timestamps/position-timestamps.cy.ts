@@ -1,5 +1,5 @@
-import { PositionTimestamps } from './PositionTimestamps';
-import { InvalidPositionTimestampException } from './Exception';
+import { PositionTimestamps } from './position-timestamps';
+import { InvalidPositionTimestampException } from './exception';
 
 const fixTime = new Date('2000-01-01T12:12:00');
 const deviceTime = new Date('2000-01-01T12:12:01');

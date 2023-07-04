@@ -6,11 +6,11 @@ import {
   OperationalVehicle,
   UnavailableVehicle,
 } from '.';
-import { Angle, Length, Speed, Voltage } from '../../lib/MeasurementUnit';
-import { createPosition } from '../Position/factory';
+import { Angle, Length, Speed, Voltage } from '#lib/MeasurementUnit';
+import { createPosition } from '../position/factory';
 import type { Faker } from '@faker-js/faker';
-import type { BaseVehicleAttributes } from './BaseVehicle';
-import type { LocatedVehicleAttributes } from './LocatedVehicle';
+import type { BaseVehicleAttributes } from './base-vehicle';
+import type { LocatedVehicleAttributes } from './located-vehicle';
 
 const imeiLength = 16;
 class MockBaseVehicle extends BaseVehicle {}

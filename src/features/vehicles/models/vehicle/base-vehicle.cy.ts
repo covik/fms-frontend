@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker';
 import { ZodError } from 'zod';
 import { BaseVehicle } from '.';
 import { createBaseVehicleAttributes } from './factory';
-import type { BaseVehicleAttributes } from './BaseVehicle';
+import type { BaseVehicleAttributes } from './base-vehicle';
 
 class MockBaseVehicle extends BaseVehicle {}
 const baseVehicleAttrs = createBaseVehicleAttributes(faker);

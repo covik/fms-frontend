@@ -12,7 +12,7 @@ import {
   RouteCheckpointStationaryIcon,
 } from '../icons';
 import type { CSSProperties } from 'react';
-import type { RoutePosition } from '../../../../../models/Position';
+import type { RoutePosition } from '../../../models/position';
 
 export interface VehicleRouteAttributes {
   positions: RoutePosition[];

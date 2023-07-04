@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { Position } from '.';
-import { createPositionTimestamps } from './PositionTimestamps/factory';
+import { createPositionTimestamps } from './position-timestamps/factory';
 import { Coordinates } from '#lib/Dimension';
 
 export function createPosition() {

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { Coordinates } from '#lib/Dimension';
-import { PositionTimestamps } from './PositionTimestamps';
+import { PositionTimestamps } from './position-timestamps';
 
 export const PositionAttributesValidation = z.object({
   id: z.string().trim().min(1),

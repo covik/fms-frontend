@@ -16,7 +16,7 @@ import type {
   LocatedVehicle,
   OperationalVehicle,
   UnavailableVehicle,
-} from '../../../../../models/Vehicle';
+} from '../../../models/vehicle';
 
 const defaultShareHandler: ShareHandler = () => {};
 const defaultVehicleRenderer: VehicleRenderer = (Component, vehicle) => (

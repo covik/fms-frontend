@@ -16,8 +16,8 @@ import { RouteMap } from './route-map';
 import { RouteStopsTable } from './route-stops-table';
 import { RouteSummaryList } from './route-summary-list';
 import type { ReactNode } from 'react';
-import type { RouteSummary } from '../../../../../models/RouteSummary';
-import type { RouteStop } from '../../../../../models/RouteStop';
+import type { RouteSummary } from '../../../models/route-summary';
+import type { RouteStop } from '../../../models/route-stop';
 import type { SummaryData } from './route-summary-list';
 
 export interface RouteViewerAttributes {

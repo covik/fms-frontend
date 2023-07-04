@@ -3,7 +3,7 @@ import {
   isUnavailableVehicle,
   OperationalVehicle,
   UnavailableVehicle,
-} from '../../models/Vehicle';
+} from '../../features/vehicles/models/vehicle';
 
 export function takeOnlyOperational(data: unknown): OperationalVehicle[] {
   if (!Array.isArray(data)) {

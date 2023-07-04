@@ -7,7 +7,7 @@ import {
   DisabledVehicle,
   LocatedVehicle,
   UnavailableVehicle,
-} from '../../../../models/Vehicle';
+} from '../../models/vehicle';
 import { SingleVehicleTracking } from '../../ui/pages/single-vehicle-tracking';
 import type { VehicleLiveViewAttributes } from '../../ui/pages/single-vehicle-tracking';
 

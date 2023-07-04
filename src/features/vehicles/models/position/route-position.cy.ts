@@ -1,8 +1,8 @@
 import { ZodError } from 'zod';
-import { Position, PositionTimestamps, RoutePosition } from './';
-import { Coordinates } from '../../lib/Dimension';
-import { Angle, Length, Speed, Voltage } from '../../lib/MeasurementUnit';
-import type { RoutePositionAttributes } from './';
+import { Position, PositionTimestamps, RoutePosition } from '.';
+import { Coordinates } from '../../../../lib/Dimension';
+import { Angle, Length, Speed, Voltage } from '../../../../lib/MeasurementUnit';
+import type { RoutePositionAttributes } from '.';
 
 const id = '1234';
 const coordinates = new Coordinates(45, 45);

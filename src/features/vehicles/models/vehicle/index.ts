@@ -1,5 +1,5 @@
-export { BaseVehicle } from './BaseVehicle';
-export { LocatedVehicle } from './LocatedVehicle';
+export { BaseVehicle } from './base-vehicle';
+export { LocatedVehicle } from './located-vehicle';
 export {
   OperationalVehicle,
   ProblematicVehicle,
@@ -7,11 +7,11 @@ export {
   DisabledVehicle,
   NoPositionVehicle,
   UnavailableVehicle,
-} from './Vehicle';
+} from './vehicle';
 export {
   isBaseVehicle,
   isDisabledVehicle,
   isOperationalVehicle,
   isUnavailableVehicle,
   isVehicleWithoutPosition,
-} from './Checker';
+} from './checker';

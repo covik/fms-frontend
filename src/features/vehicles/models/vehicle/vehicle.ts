@@ -1,5 +1,5 @@
-import { BaseVehicle } from './BaseVehicle';
-import { LocatedVehicle } from './LocatedVehicle';
+import { BaseVehicle } from './base-vehicle';
+import { LocatedVehicle } from './located-vehicle';
 
 export abstract class ProblematicVehicle extends BaseVehicle {}
 export abstract class ProblematicLocatedVehicle extends LocatedVehicle {}

@@ -1,4 +1,4 @@
-import { RouteStop } from './RouteStop';
+import { RouteStop } from './route-stop';
 import { Coordinates } from '#lib/Dimension';
 
 const twoHours = 2 * 3600;

@@ -1,10 +1,10 @@
-import { BaseVehicle } from './BaseVehicle';
+import { BaseVehicle } from './base-vehicle';
 import {
   DisabledVehicle,
   NoPositionVehicle,
   OperationalVehicle,
   UnavailableVehicle,
-} from './Vehicle';
+} from './vehicle';
 
 export function isBaseVehicle(vehicle: unknown): vehicle is BaseVehicle {
   return vehicle instanceof BaseVehicle;

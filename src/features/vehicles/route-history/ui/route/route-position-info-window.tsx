@@ -1,7 +1,7 @@
 import { useDateTime } from '#core/time';
 import { Length, Speed, Voltage } from '#lib/MeasurementUnit';
 import { PositionInfoWindow } from '../../../ui/organisms/position-info-window';
-import type { RoutePosition } from '../../../../../models/Position';
+import type { RoutePosition } from '../../../models/position';
 
 interface RoutePositionInfoWindowAttributes {
   position: RoutePosition;

@@ -7,7 +7,7 @@ import {
   TableRow,
 } from '@mui/material';
 import { useDateTime } from '#core/time';
-import type { RouteStop } from '../../../../../models/RouteStop';
+import type { RouteStop } from '../../../models/route-stop';
 
 export interface RouteStopsTableAttributes {
   stops: RouteStop[] | undefined;

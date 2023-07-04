@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { Position, PositionAttributesValidation } from './Position';
-import { Angle, Length, Speed, Voltage } from '../../lib/MeasurementUnit';
+import { Position, PositionAttributesValidation } from './position';
+import { Angle, Length, Speed, Voltage } from '#lib/MeasurementUnit';
 
 export const RoutePositionAttributesValidation =
   PositionAttributesValidation.extend({

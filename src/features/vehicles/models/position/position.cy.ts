@@ -1,7 +1,7 @@
 import { ZodError } from 'zod';
-import { Position, PositionTimestamps } from './';
-import { Coordinates } from '../../lib/Dimension';
-import type { PositionAttributes } from './';
+import { Position, PositionTimestamps } from '.';
+import { Coordinates } from '../../../../lib/Dimension';
+import type { PositionAttributes } from '.';
 
 describe(Position.name, () => {
   const id = '1234';

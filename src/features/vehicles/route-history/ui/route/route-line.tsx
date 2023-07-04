@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Polyline } from '@react-google-maps/api';
 import type { CSSProperties } from 'react';
-import type { RoutePosition } from '../../../../../models/Position';
+import type { RoutePosition } from '../../../models/position';
 
 export interface RouteLineAttributes {
   checkpoints: RoutePosition[];

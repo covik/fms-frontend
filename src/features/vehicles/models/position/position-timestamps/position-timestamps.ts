@@ -1,5 +1,5 @@
 import { differenceInSeconds } from 'date-fns';
-import { InvalidPositionTimestampException } from './Exception';
+import { InvalidPositionTimestampException } from './exception';
 
 export class PositionTimestamps {
   private readonly _fixTime: Date;

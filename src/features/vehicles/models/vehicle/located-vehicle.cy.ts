@@ -1,8 +1,8 @@
 import { faker } from '@faker-js/faker';
 import { ZodError } from 'zod';
 import { createLocatedVehicleAttributes } from './factory';
-import { LocatedVehicle } from './LocatedVehicle';
-import type { LocatedVehicleAttributes } from './LocatedVehicle';
+import { LocatedVehicle } from './located-vehicle';
+import type { LocatedVehicleAttributes } from './located-vehicle';
 
 class MockLocatedVehicle extends LocatedVehicle {}
 const locatedVehicleAttributes = createLocatedVehicleAttributes(faker);
