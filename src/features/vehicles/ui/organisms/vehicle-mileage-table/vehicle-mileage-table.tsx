@@ -2,12 +2,11 @@ import {
   Paper,
   Table,
   TableBody,
-  TableCell,
   TableContainer,
   TableHead,
   tableCellClasses,
 } from '@mui/material';
-import { StyledRow } from '../../molecules/mileage-table-row';
+import { MileageTableHeaderRow } from '../../molecules/mileage-table-row';
 import type { ReactNode } from 'react';
 
 export interface VehicleMileageTableAttributes {
@@ -31,12 +30,7 @@ export function VehicleMileageTable({
       >
         {noHeader ? null : (
           <TableHead>
-            <StyledRow>
-              <TableCell>Vozilo</TableCell>
-              <TableCell>Kilometri</TableCell>
-              <TableCell>Brojčanik</TableCell>
-              <TableCell></TableCell>
-            </StyledRow>
+            <MileageTableHeaderRow />
           </TableHead>
         )}
         <TableBody>{children}</TableBody>

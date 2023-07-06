@@ -1,6 +1,6 @@
 import { styled } from '@mui/material';
 
-const breakpoint = 'sm';
+const breakpoint = 'md';
 
 export const ContentContainer = styled('div')(({ theme }) => ({
   display: 'grid',

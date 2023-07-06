@@ -1,4 +1,5 @@
 import {
+  MileageTableHeaderRow,
   MileageTableRow,
   MileageTableRowLoading,
   MileageTableRowNoData,
@@ -10,7 +11,7 @@ export default {
   component: MileageTableRow,
   decorators: [
     (Story) => (
-      <table>
+      <table style={{ width: '100%' }}>
         <tbody>
           <Story />
         </tbody>
@@ -41,6 +42,15 @@ export const Loading: Story = {
 
 export const NoData: Story = {
   render: () => <MileageTableRowNoData />,
+  parameters: {
+    controls: {
+      hideNoControlsWarning: true,
+    },
+  },
+};
+
+export const Header: Story = {
+  render: () => <MileageTableHeaderRow />,
   parameters: {
     controls: {
       hideNoControlsWarning: true,
