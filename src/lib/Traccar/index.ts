@@ -85,6 +85,8 @@ export const TraccarTripStop = z.object({
 });
 
 export const TraccarRouteSummary = z.object({
+  deviceId: id,
+  deviceName: z.string().min(1),
   maxSpeed: speed,
   averageSpeed: speed,
   distance: z.number().nonnegative(),
