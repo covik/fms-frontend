@@ -33,7 +33,7 @@ export function VehicleMileageTable({
           <TableHead>
             <StyledRow>
               <TableCell align={'left'}>Vozilo</TableCell>
-              <TableCell align={'right'}>Kilometara</TableCell>
+              <TableCell align={'right'}>Kilometri</TableCell>
               <TableCell></TableCell>
             </StyledRow>
           </TableHead>
