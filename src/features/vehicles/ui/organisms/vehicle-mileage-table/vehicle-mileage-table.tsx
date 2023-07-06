@@ -32,8 +32,8 @@ export function VehicleMileageTable({
         {noHeader ? null : (
           <TableHead>
             <StyledRow>
-              <TableCell align={'left'}>Vozilo</TableCell>
-              <TableCell align={'right'}>Kilometri</TableCell>
+              <TableCell>Vozilo</TableCell>
+              <TableCell>Kilometri</TableCell>
               <TableCell></TableCell>
             </StyledRow>
           </TableHead>

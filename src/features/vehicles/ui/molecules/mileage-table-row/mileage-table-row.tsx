@@ -36,11 +36,9 @@ export function MileageTableRow({
 }: MileageTableRowAttributes) {
   return (
     <StyledRow>
-      <TableCell align={'left'}>{name}</TableCell>
-      <TableCell align={'right'} sx={{ width: '10%' }}>
-        {mileage}
-      </TableCell>
-      <TableCell sx={{ width: '80%' }}>
+      <TableCell>{name}</TableCell>
+      <TableCell>{mileage}</TableCell>
+      <TableCell>
         <Bar
           sx={{
             backgroundColor: barColor,
