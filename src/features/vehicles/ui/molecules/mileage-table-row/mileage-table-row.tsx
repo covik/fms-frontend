@@ -10,20 +10,33 @@ const StyledSkeleton = styled(Skeleton)({
   margin: 'auto',
 });
 
-export const StyledRow = styled(TableRow)({
+const breakpoint = 'md';
+export const StyledRow = styled(TableRow)(({ theme }) => ({
   '&:last-child td, &:last-child th': { border: 0 },
-  '& > *:nth-of-type(1), & > *:nth-of-type(2)': {
-    width: '10%',
+  '& > *:nth-of-type(1), & > *:nth-of-type(2), & > *:nth-of-type(3)': {
     textAlign: 'center',
   },
-  '& > *:nth-of-type(3)': {
-    width: '80%',
+  [theme.breakpoints.down(breakpoint)]: {
+    '& > *:nth-of-type(4)': {
+      display: 'none',
+    },
   },
-});
+  [theme.breakpoints.up(breakpoint)]: {
+    '& > *:nth-of-type(1), & > *:nth-of-type(2), & > *:nth-of-type(3)': {
+      width: '18%',
+    },
+  },
+  [theme.breakpoints.up('xl')]: {
+    '& > *:nth-of-type(1), & > *:nth-of-type(2), & > *:nth-of-type(3)': {
+      width: '10%',
+    },
+  },
+}));
 
 export interface MileageTableRowAttributes {
   name: string;
   mileage: string;
+  odometer: string;
   barColor: CSSProperties['color'];
   barWidthPercentage: number;
 }
@@ -31,6 +44,7 @@ export interface MileageTableRowAttributes {
 export function MileageTableRow({
   name,
   mileage,
+  odometer,
   barColor,
   barWidthPercentage,
 }: MileageTableRowAttributes) {
@@ -38,6 +52,7 @@ export function MileageTableRow({
     <StyledRow>
       <TableCell>{name}</TableCell>
       <TableCell>{mileage}</TableCell>
+      <TableCell>{odometer}</TableCell>
       <TableCell>
         <Bar
           sx={{
@@ -60,6 +75,9 @@ export function MileageTableRowLoading() {
         <StyledSkeleton variant={'text'} width={'45px'} />
       </TableCell>
       <TableCell>
+        <StyledSkeleton variant={'text'} width={'45px'} />
+      </TableCell>
+      <TableCell>
         <StyledSkeleton variant={'text'} width={'100%'} />
       </TableCell>
     </StyledRow>
@@ -69,7 +87,7 @@ export function MileageTableRowLoading() {
 export function MileageTableRowNoData() {
   return (
     <StyledRow>
-      <TableCell align={'center'} width={'100%'} colSpan={3}>
+      <TableCell align={'center'} width={'100%'}>
         Nema podataka
       </TableCell>
     </StyledRow>

@@ -63,8 +63,13 @@ function adaptMileageData(
   return vehicles.map((vehicle) => ({
     id: vehicle.vehicleId(),
     name: vehicle.vehicleName(),
-    mileage: Math.round(Length.convertToKilometers(vehicle.mileage()).value()),
+    mileage: formatMileage(vehicle.mileage()),
+    odometer: formatMileage(vehicle.odometer()),
   }));
+}
+
+function formatMileage(mileage: Length.BaseLength): number {
+  return Math.round(Length.convertToKilometers(mileage).value());
 }
 
 function calculateAverageMileage(vehicles: MileageItem[]) {

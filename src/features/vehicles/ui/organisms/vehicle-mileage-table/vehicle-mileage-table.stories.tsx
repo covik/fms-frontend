@@ -23,12 +23,14 @@ export const Default: Story = {
       <MileageTableRow
         name={'Test 1'}
         mileage={'12000 km'}
+        odometer={'123000 km'}
         barColor={'green'}
         barWidthPercentage={100}
       />
       <MileageTableRow
         name={'Test 2'}
         mileage={'9000 km'}
+        odometer={'94000 km'}
         barColor={'orange'}
         barWidthPercentage={70}
       />

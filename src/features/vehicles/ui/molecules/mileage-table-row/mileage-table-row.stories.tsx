@@ -24,6 +24,7 @@ export const Default: Story = {
   args: {
     name: 'Test',
     mileage: '12000 km',
+    odometer: '123000 km',
     barWidthPercentage: 60,
     barColor: 'green',
   },

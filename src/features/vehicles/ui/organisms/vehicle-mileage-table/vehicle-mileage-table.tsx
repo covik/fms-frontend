@@ -34,6 +34,7 @@ export function VehicleMileageTable({
             <StyledRow>
               <TableCell>Vozilo</TableCell>
               <TableCell>Kilometri</TableCell>
+              <TableCell>Brojčanik</TableCell>
               <TableCell></TableCell>
             </StyledRow>
           </TableHead>

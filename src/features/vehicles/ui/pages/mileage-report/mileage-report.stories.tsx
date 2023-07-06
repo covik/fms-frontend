@@ -49,5 +49,6 @@ function generateVehicles(count: number) {
     id: faker.string.uuid(),
     name: faker.vehicle.vrm(),
     mileage: faker.number.int({ min: 9400, max: 12000 }),
+    odometer: faker.number.int({ min: 90_000, max: 3_200_000 }),
   }));
 }

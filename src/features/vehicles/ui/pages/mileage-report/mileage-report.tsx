@@ -19,6 +19,7 @@ export interface MileageItem {
   id: string;
   name: string;
   mileage: number;
+  odometer: number;
 }
 
 export interface MileageReportAttributes {
@@ -73,6 +74,7 @@ export function MileageReport({
                   key={vehicle.id}
                   name={vehicle.name}
                   mileage={`${vehicle.mileage} ${unit}`}
+                  odometer={`${vehicle.odometer} ${unit}`}
                   barColor={
                     vehicle.mileage < positiveMileage
                       ? theme.palette.warning.main
