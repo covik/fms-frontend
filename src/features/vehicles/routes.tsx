@@ -64,6 +64,12 @@ export function registerRoutes(rootRoute: RootRoute) {
     component: lazy(() => import('./route-history/past-route-page')),
   });
 
+  const mileageReportRoute = new Route({
+    getParentRoute: () => rootRoute,
+    path: '/reports/mileage',
+    component: lazy(() => import('./mileage-report/mileage-report-page')),
+  });
+
   return [
     indexRoute,
     vehiclesRoute.addChildren([
@@ -77,5 +83,6 @@ export function registerRoutes(rootRoute: RootRoute) {
         ]),
       ]),
     ]),
+    mileageReportRoute,
   ];
 }
