@@ -1,3 +1,13 @@
+const { readdirSync } = require('fs');
+const getDirectories = (source) =>
+  readdirSync(source, { withFileTypes: true })
+    .filter((dirent) => dirent.isDirectory())
+    .map((dirent) => dirent.name);
+
+const core = getDirectories('./src/core');
+const features = getDirectories('./src/features');
+const libraries = getDirectories('./src/lib');
+
 module.exports = {
   extends: ['@commitlint/config-conventional'],
   rules: {
@@ -7,23 +17,19 @@ module.exports = {
       [
         'workspace', // anything applied to whole repo
         'deps', // related to dependencies
-        'app',
         'branding',
-        'map',
-        'http-client',
-        'session-service',
-        'measurement-unit',
-        'dimension',
-        'traccar',
-        'vehicle-service',
-        'web-share',
-        'utils',
+        'foundation',
+        'service',
         'model',
+        'util',
         'ui-atom',
         'ui-molecule',
         'ui-organism',
         'ui-template',
         'ui-page',
+        ...features,
+        ...core,
+        ...libraries,
       ],
     ],
   },
