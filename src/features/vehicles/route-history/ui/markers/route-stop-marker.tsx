@@ -1,3 +1,4 @@
+import { ClassNames } from '@emotion/react';
 import { MapMarker } from '#core/map';
 import {
   routeIconSize as size,
@@ -17,20 +18,28 @@ export function RouteStopMarker({
   duration,
 }: StopMarkerAttributes) {
   return (
-    <MapMarker
-      position={coordinates}
-      iconAnchorX={size / 2}
-      iconAnchorY={size - padding}
-      label={duration}
-      labelOriginX={size / 2}
-      labelOriginY={-11}
-      labelColor={'white'}
-      labelFontSize={'12px'}
-      labelFontWeight={'400'}
-      labelClass={'vehicle-stop-marker-label'}
-      zIndex={stopMarkerIndex}
-    >
-      <RouteStopIcon />
-    </MapMarker>
+    <ClassNames>
+      {({ css }) => (
+        <MapMarker
+          position={coordinates}
+          iconAnchorX={size / 2}
+          iconAnchorY={size - padding}
+          label={duration}
+          labelOriginX={size / 2}
+          labelOriginY={-11}
+          labelColor={'white'}
+          labelFontSize={'12px'}
+          labelFontWeight={'400'}
+          labelClass={css({
+            backgroundColor: '#333',
+            padding: '1px 4px',
+            borderRadius: '5px',
+          })}
+          zIndex={stopMarkerIndex}
+        >
+          <RouteStopIcon />
+        </MapMarker>
+      )}
+    </ClassNames>
   );
 }

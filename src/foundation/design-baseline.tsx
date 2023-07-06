@@ -5,7 +5,6 @@ import '@fontsource/firago/300.css';
 import '@fontsource/firago/400.css';
 import '@fontsource/firago/500.css';
 import '@fontsource/firago/700.css';
-import './index.css';
 
 const theme = createTheme({
   typography: {
