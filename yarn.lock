@@ -2596,28 +2596,28 @@
     "@tanstack/query-core" "4.29.5"
     use-sync-external-store "^1.2.0"
 
-"@tanstack/react-store@0.0.1-beta.84":
-  version "0.0.1-beta.84"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-store/-/react-store-0.0.1-beta.84.tgz#3fde9dc31dde7c443f3957124f3218d382cfd2f6"
-  integrity sha512-NHCt8pPjcwENwMPnaXdu1ZdvpE/u6JJdZwl/5aKxX9gW4XtLvpNEXHq1KyuOMk2ZfWInW2cuDsDsK5+iZARhrg==
+"@tanstack/react-store@0.0.1-beta.90":
+  version "0.0.1-beta.90"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-store/-/react-store-0.0.1-beta.90.tgz#1b050f1f503bf67d691ab503820139ca8bfbc25b"
+  integrity sha512-JoTVt7h1agu6DhFwB3VKbxzW55oAls+A4gK6JHp1WptSWuAYOoY6ZhBcLhZjb5hEAJOQh/CwbPVrjUU0rSVo6g==
   dependencies:
-    "@tanstack/store" "0.0.1-beta.84"
+    "@tanstack/store" "0.0.1-beta.90"
     use-sync-external-store "^1.2.0"
 
-"@tanstack/router@^0.0.1-beta.84":
-  version "0.0.1-beta.84"
-  resolved "https://registry.yarnpkg.com/@tanstack/router/-/router-0.0.1-beta.84.tgz#e1f6839bc7c98e1a403f52e54aaa9f8e88fe48c6"
-  integrity sha512-H60a44hnmbIY0658xdXY5bNkf1Z9F8wEDj15ZX+4pwuvJYm2cLJ9IzLLc+S6GP9x1WudPaCPzY4CaMVF6B1GNw==
+"@tanstack/router@^0.0.1-beta.92":
+  version "0.0.1-beta.92"
+  resolved "https://registry.yarnpkg.com/@tanstack/router/-/router-0.0.1-beta.92.tgz#e3bbd04ebc7c0db759dc8ab2c93e22bf539b22a0"
+  integrity sha512-s5ilUgxxU8GaKyjdFyH8yBop+RsSh0Suman8buWd0NqRVs/j3+3idL3D1zSzZ5zKvL3gjpZpxKWmbKWeUcEiDA==
   dependencies:
     "@babel/runtime" "^7.16.7"
-    "@tanstack/react-store" "0.0.1-beta.84"
+    "@tanstack/react-store" "0.0.1-beta.90"
     tiny-invariant "^1.3.1"
     tiny-warning "^1.0.3"
 
-"@tanstack/store@0.0.1-beta.84":
-  version "0.0.1-beta.84"
-  resolved "https://registry.yarnpkg.com/@tanstack/store/-/store-0.0.1-beta.84.tgz#d5efc59f55b64ba891f0df782fd4a614d5918e85"
-  integrity sha512-sqE4U8b/bNxXLrm5uoDET7glaZvThn0FPNperVNZV+XXwkJUFcc+/KH7n1MwCi7Y/76FeMpKWLRmEx9KhZbq3A==
+"@tanstack/store@0.0.1-beta.90":
+  version "0.0.1-beta.90"
+  resolved "https://registry.yarnpkg.com/@tanstack/store/-/store-0.0.1-beta.90.tgz#8ff1bfc87845de204d0d7735769dc8823a9a6d48"
+  integrity sha512-L7ub4yiqdsANkGWOmpdY4kEkFge+v/aNeG3rGVQs68FyHr1Q5kaYKsbf+vzWBeYYc4Fo6uLMfh/uCf3C7eGhRw==
 
 "@tsconfig/node10@^1.0.7":
   version "1.0.9"

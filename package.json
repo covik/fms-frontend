@@ -29,7 +29,7 @@
     "@mui/x-date-pickers": "^6.4.0",
     "@react-google-maps/api": "^2.18.1",
     "@tanstack/react-query": "^4.29.3",
-    "@tanstack/router": "^0.0.1-beta.84",
+    "@tanstack/router": "^0.0.1-beta.92",
     "date-fns": "^2.29.3",
     "js-cookie": "^3.0.5",
     "mdi-material-ui": "^7.6.0",
