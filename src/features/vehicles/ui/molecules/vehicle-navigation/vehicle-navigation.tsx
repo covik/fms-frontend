@@ -19,16 +19,19 @@ function createItems(vehicleId: string): NavigationItems {
       to: `/vehicles/$vehicleId`,
       params,
       label: 'Uživo',
+      replace: true,
     },
     {
       to: `/vehicles/$vehicleId/today`,
       params,
       label: 'Danas',
+      replace: true,
     },
     {
       to: `/vehicles/$vehicleId/history`,
       params,
       label: 'Povijest',
+      replace: true,
     },
   ];
 }
