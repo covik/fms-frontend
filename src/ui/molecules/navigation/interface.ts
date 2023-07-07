@@ -1,7 +1,7 @@
 import { ReactElement, ReactNode } from 'react';
-import { RegisteredRoutesInfo, ToOptions } from '@tanstack/router';
+import { LinkOptions, RegisteredRoutesInfo } from '@tanstack/router';
 
-export interface NavigationItem extends ToOptions<RegisteredRoutesInfo> {
+export interface NavigationItem extends LinkOptions<RegisteredRoutesInfo> {
   label: string;
   icon?: ReactElement;
 }
