@@ -1,15 +1,18 @@
-import { forwardRef } from 'react';
 import { Link as RouterLink } from '@tanstack/router';
 import { Tab } from '@mui/material';
 import type { TabProps } from '@mui/material';
-import type { LinkPropsOptions } from '@tanstack/router';
+import type { LinkOptions, RegisteredRoutesInfo } from '@tanstack/router';
 
-export const RouterTab = forwardRef<any, LinkPropsOptions & TabProps>(
-  (props, ref) => {
-    const propsWithOverriddenComponent = {
-      ...props,
-      component: RouterLink,
-    };
-    return <Tab ref={ref} {...propsWithOverriddenComponent} />;
-  },
-);
+export const RouterTab = <
+  TFrom extends RegisteredRoutesInfo['routePaths'] = '/',
+  TTo extends string = '',
+>(
+  props: LinkOptions<RegisteredRoutesInfo, TFrom, TTo> &
+    Omit<TabProps, 'component'>,
+) => {
+  const propsWithOverriddenComponent = {
+    ...props,
+    component: RouterLink,
+  };
+  return <Tab {...propsWithOverriddenComponent} />;
+};
