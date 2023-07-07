@@ -23,7 +23,7 @@ const breakpoint = 'md';
 const ZebraRow = styled(TableRow)(({ theme }) => ({
   [`& .${tableCellClasses.root}`]: { border: 0 },
   '&:not(:last-of-type)': {
-    'border-bottom': `1px solid ${theme.palette.divider}`,
+    borderBottom: `1px solid ${theme.palette.divider}`,
   },
 }));
 
