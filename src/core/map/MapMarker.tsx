@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Marker } from '@react-google-maps/api';
 import { useTheme } from '@mui/material';
-import { Coordinates } from '#lib/Dimension';
+import { Coordinates } from '#lib/dimension';
 import { jsxToSVGDataURI } from '../../utils/react';
 import type { CSSProperties, ReactElement } from 'react';
 

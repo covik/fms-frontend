@@ -1,7 +1,7 @@
 import { MapMarker } from '#core/map';
 import { checkpointMarkerIndex } from '../z-index';
 import type { ReactElement } from 'react';
-import type { Coordinates } from '#lib/Dimension';
+import type { Coordinates } from '#lib/dimension';
 
 export interface RouteCheckpointMarkerAttributes {
   coordinates: Coordinates;

@@ -1,6 +1,6 @@
 import { withMap } from '#storybook/decorators';
 import { RouteStartMarker } from '.';
-import { Coordinates } from '#lib/Dimension';
+import { Coordinates } from '#lib/dimension';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const center = new Coordinates(44.0712546, 15.3360298);

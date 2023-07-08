@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { AppMap, MapBounds } from '#core/map';
 import { VehicleRoute, VehicleRouteStops } from '../route';
-import type { Coordinates } from '#lib/Dimension';
+import type { Coordinates } from '#lib/dimension';
 import type { RoutePosition } from '../../../models/position';
 import type { RouteStop } from '../../../models/route-stop';
 

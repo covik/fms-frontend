@@ -6,7 +6,7 @@ import {
   TraccarRouteSummary,
   TraccarTripStop,
 } from '#lib/Traccar';
-import { Coordinates } from '#lib/Dimension';
+import { Coordinates } from '#lib/dimension';
 import { Angle, Length, Speed, Voltage } from '#lib/MeasurementUnit';
 import { RouteStop } from '../../models/route-stop';
 import { RouteSummary } from '../../models/route-summary';

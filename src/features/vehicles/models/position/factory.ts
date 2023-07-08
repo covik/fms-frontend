@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { Position } from '.';
 import { createPositionTimestamps } from './position-timestamps/factory';
-import { Coordinates } from '#lib/Dimension';
+import { Coordinates } from '#lib/dimension';
 
 export function createPosition() {
   const id = faker.string.uuid();

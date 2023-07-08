@@ -13,7 +13,7 @@ import {
   WarningContainer,
 } from '../../templates/single-vehicle-tracking';
 import { AppMap, MapSettingsProvider } from '#core/map';
-import { Coordinates } from '#lib/Dimension';
+import { Coordinates } from '#lib/dimension';
 import type { VehicleWarningType } from '../../molecules/vehicle-warning';
 
 type VehicleWarning =

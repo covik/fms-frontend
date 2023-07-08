@@ -1,6 +1,6 @@
 import { ZodError } from 'zod';
 import { RouteStop } from './route-stop';
-import { Coordinates } from '../../../../lib/Dimension';
+import { Coordinates } from '../../../../lib/dimension';
 import type { RouteStopAttributes } from './route-stop';
 
 const id = '1234';

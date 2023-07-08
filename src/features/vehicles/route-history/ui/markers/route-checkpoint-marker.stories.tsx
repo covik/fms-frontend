@@ -1,6 +1,6 @@
 import { withMap } from '#storybook/decorators';
 import { RouteCheckpointMarker } from '.';
-import { Coordinates } from '#lib/Dimension';
+import { Coordinates } from '#lib/dimension';
 import {
   RouteCheckpointMovingIcon,
   RouteCheckpointStationaryIcon,

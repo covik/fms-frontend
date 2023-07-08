@@ -1,6 +1,6 @@
 import { PositionInfoWindow } from '.';
 import { AppMap, MapSettingsProvider } from '#core/map';
-import { Coordinates } from '#lib/Dimension';
+import { Coordinates } from '#lib/dimension';
 import type { Meta } from '@storybook/react';
 
 const position = new Coordinates(44.187229419, 15.4347317613);

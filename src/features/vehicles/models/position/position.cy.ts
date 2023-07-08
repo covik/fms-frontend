@@ -1,6 +1,6 @@
 import { ZodError } from 'zod';
 import { Position, PositionTimestamps } from '.';
-import { Coordinates } from '../../../../lib/Dimension';
+import { Coordinates } from '../../../../lib/dimension';
 import type { PositionAttributes } from '.';
 
 describe(Position.name, () => {

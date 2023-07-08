@@ -5,7 +5,7 @@ import {
   RouteStartIcon,
 } from '../icons';
 import { startFinishMarkerIndex } from '../z-index';
-import type { Coordinates } from '#lib/Dimension';
+import type { Coordinates } from '#lib/dimension';
 
 export interface RouteStartMarkerAttributes {
   coordinates: Coordinates;

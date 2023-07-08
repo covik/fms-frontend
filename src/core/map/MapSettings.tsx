@@ -1,5 +1,5 @@
 import { createContext, useContext, useMemo } from 'react';
-import { Coordinates } from '#lib/Dimension';
+import { Coordinates } from '#lib/dimension';
 import type { ReactNode } from 'react';
 
 const MapSettingsContext = createContext<MapSettings>({
