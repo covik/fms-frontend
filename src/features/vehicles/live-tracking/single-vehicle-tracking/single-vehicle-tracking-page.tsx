@@ -1,7 +1,7 @@
 import { useParams } from '@tanstack/router';
 import { useQuery } from '@tanstack/react-query';
 import { useDateTime } from '#core/time';
-import { Length, Speed, Voltage } from '#lib/MeasurementUnit';
+import { Length, Speed, Voltage } from '#lib/measurement-unit';
 import { VehicleService } from '../../services/vehicle-service';
 import {
   DisabledVehicle,

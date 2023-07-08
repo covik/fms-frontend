@@ -6,7 +6,7 @@ import {
   OperationalVehicle,
   UnavailableVehicle,
 } from '.';
-import { Angle, Length, Speed, Voltage } from '#lib/MeasurementUnit';
+import { Angle, Length, Speed, Voltage } from '#lib/measurement-unit';
 import { createPosition } from '../position/factory';
 import type { Faker } from '@faker-js/faker';
 import type { BaseVehicleAttributes } from './base-vehicle';

@@ -1,6 +1,6 @@
 import { ZodError } from 'zod';
 import { RouteSummary } from './route-summary';
-import { Length, Speed } from '../../../../lib/MeasurementUnit';
+import { Length, Speed } from '../../../../lib/measurement-unit';
 import {
   stops,
   totalDuration as totalStopDuration,

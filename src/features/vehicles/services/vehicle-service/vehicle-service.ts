@@ -9,7 +9,7 @@ import {
 import { Position, PositionTimestamps } from '../../models/position';
 import { Http } from '#lib/http-client';
 import { Coordinates } from '#lib/dimension';
-import { Angle, Length, Speed, Voltage } from '#lib/MeasurementUnit';
+import { Angle, Length, Speed, Voltage } from '#lib/measurement-unit';
 import { TraccarDevice, TraccarPosition } from '#lib/Traccar';
 import type {
   TraccarDeviceInterface,

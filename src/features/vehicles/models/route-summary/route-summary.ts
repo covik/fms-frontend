@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Length, Speed } from '#lib/MeasurementUnit';
+import { Length, Speed } from '#lib/measurement-unit';
 import { differenceInSeconds } from 'date-fns';
 import { RouteStop } from '../route-stop';
 

@@ -1,5 +1,5 @@
 import { useDateTime } from '#core/time';
-import { Length, Speed, Voltage } from '#lib/MeasurementUnit';
+import { Length, Speed, Voltage } from '#lib/measurement-unit';
 import { PositionInfoWindow } from '../../../ui/organisms/position-info-window';
 import type { RoutePosition } from '../../../models/position';
 

@@ -21,7 +21,7 @@ import {
   SpeedometerMedium,
 } from 'mdi-material-ui';
 import { useDateTime } from '#core/time';
-import { Length, Speed } from '#lib/MeasurementUnit';
+import { Length, Speed } from '#lib/measurement-unit';
 
 export interface SummaryData {
   totalDuration: number;

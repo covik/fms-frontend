@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Length } from '#lib/MeasurementUnit';
+import { Length } from '#lib/measurement-unit';
 
 export const MileageSummarySchema = z.object({
   vehicleId: z.string().trim().min(1),

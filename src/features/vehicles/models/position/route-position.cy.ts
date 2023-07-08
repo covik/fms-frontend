@@ -1,7 +1,12 @@
 import { ZodError } from 'zod';
 import { Position, PositionTimestamps, RoutePosition } from '.';
 import { Coordinates } from '../../../../lib/dimension';
-import { Angle, Length, Speed, Voltage } from '../../../../lib/MeasurementUnit';
+import {
+  Angle,
+  Length,
+  Speed,
+  Voltage,
+} from '../../../../lib/measurement-unit';
 import type { RoutePositionAttributes } from '.';
 
 const id = '1234';

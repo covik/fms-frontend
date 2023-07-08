@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker';
 import { ZodError } from 'zod';
 import { MileageSummary } from '.';
-import { Length } from '../../../../lib/MeasurementUnit';
+import { Length } from '../../../../lib/measurement-unit';
 import type { MileageSummaryAttributes } from '.';
 
 const vehicleId = faker.string.uuid();

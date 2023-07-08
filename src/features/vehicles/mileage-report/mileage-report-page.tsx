@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { Length } from '#lib/MeasurementUnit';
+import { Length } from '#lib/measurement-unit';
 import { VehicleService } from '../services/vehicle-service';
 import { MileageService } from '../services/mileage-service';
 import { MileageReport } from '../ui/pages/mileage-report';
