@@ -3,7 +3,7 @@ import {
   ValidationException,
   WrongCredentialsException,
 } from './exception';
-import { Http } from '#lib/HttpClient';
+import { Http } from '#lib/http-client';
 // @ts-expect-error
 import Cookies from 'js-cookie';
 import { TraccarUser } from '#lib/Traccar';

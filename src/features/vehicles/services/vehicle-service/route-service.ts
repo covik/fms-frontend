@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { PositionTimestamps, RoutePosition } from '../../models/position';
-import { Http } from '#lib/HttpClient';
+import { Http } from '#lib/http-client';
 import {
   TraccarPosition,
   TraccarRouteSummary,

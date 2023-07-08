@@ -1,5 +1,5 @@
 import { SessionService } from '.';
-import { Http } from '../../../../lib/HttpClient';
+import { Http } from '../../../../lib/http-client';
 import {
   Administrator,
   DisabledUser,

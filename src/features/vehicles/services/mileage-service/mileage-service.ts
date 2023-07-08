@@ -1,6 +1,6 @@
 import { endOfMonth, startOfMonth } from 'date-fns';
 import { z } from 'zod';
-import { Http } from '#lib/HttpClient';
+import { Http } from '#lib/http-client';
 import { Length } from '#lib/MeasurementUnit';
 import { TraccarRouteSummary } from '#lib/Traccar';
 import { MileageSummary } from '../../models/mileage-summary';
