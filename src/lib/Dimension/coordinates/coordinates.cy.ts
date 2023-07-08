@@ -2,7 +2,7 @@ import {
   Coordinates,
   InvalidLatitudeException,
   InvalidLongitudeException,
-} from './';
+} from '.';
 
 const validCoordinate = 45; // valid for both latitude and longitude
 const invalidLatitudeRange = [-90.01, 90.01];

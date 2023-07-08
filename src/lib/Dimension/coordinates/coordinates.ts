@@ -1,7 +1,7 @@
 import {
   InvalidLatitudeException,
   InvalidLongitudeException,
-} from './Exception';
+} from './exception';
 
 export class Coordinates {
   private readonly _latitude: number;

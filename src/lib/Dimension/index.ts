@@ -1,1 +1,1 @@
-export * from './Coordinates';
+export * from './coordinates';
