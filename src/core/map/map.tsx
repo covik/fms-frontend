@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Card, Skeleton, styled } from '@mui/material';
 import { GoogleMaps } from '#ui/organisms/google-maps';
-import { useMapSettings } from './MapSettings';
+import { useMapSettings } from './map-settings';
 import type { SxProps } from '@mui/material';
 import type { ReactNode } from 'react';
 

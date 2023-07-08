@@ -1,6 +1,6 @@
 import type { Decorator } from '@storybook/react';
-import type { MapSettingsAttributes } from '#core/map/MapSettings';
-import { MapSettingsProvider } from '#core/map/MapSettings';
+import type { MapSettingsAttributes } from '#core/map/map-settings';
+import { MapSettingsProvider } from '#core/map/map-settings';
 import { AppMap } from '#core/map';
 
 interface Attributes extends Omit<MapSettingsAttributes, 'children'> {}

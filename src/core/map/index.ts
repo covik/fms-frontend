@@ -1,4 +1,4 @@
-export { AppMap } from './Map';
-export { MapSettingsProvider, useMapSettings } from './MapSettings';
-export { MapMarker } from './MapMarker';
-export { MapBounds } from './MapBounds';
+export { AppMap } from './map';
+export { MapSettingsProvider, useMapSettings } from './map-settings';
+export { MapMarker } from './map-marker';
+export { MapBounds } from './map-bounds';
