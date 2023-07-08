@@ -6,7 +6,7 @@ import {
 import { Http } from '#lib/http-client';
 // @ts-expect-error
 import Cookies from 'js-cookie';
-import { TraccarUser } from '#lib/Traccar';
+import { TraccarUser } from '#lib/traccar';
 import {
   Administrator,
   BaseUser,

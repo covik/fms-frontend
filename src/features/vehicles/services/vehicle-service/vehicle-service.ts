@@ -10,11 +10,11 @@ import { Position, PositionTimestamps } from '../../models/position';
 import { Http } from '#lib/http-client';
 import { Coordinates } from '#lib/dimension';
 import { Angle, Length, Speed, Voltage } from '#lib/measurement-unit';
-import { TraccarDevice, TraccarPosition } from '#lib/Traccar';
+import { TraccarDevice, TraccarPosition } from '#lib/traccar';
 import type {
   TraccarDeviceInterface,
   TraccarPositionInterface,
-} from '#lib/Traccar';
+} from '#lib/traccar';
 
 export async function fetchAll(signal?: AbortSignal): Promise<BaseVehicle[]> {
   const [responseVehicle, responsePositions] = await Promise.all([

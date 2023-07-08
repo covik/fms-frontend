@@ -2,7 +2,7 @@ import { endOfMonth, startOfMonth } from 'date-fns';
 import { z } from 'zod';
 import { Http } from '#lib/http-client';
 import { Length } from '#lib/measurement-unit';
-import { TraccarRouteSummary } from '#lib/Traccar';
+import { TraccarRouteSummary } from '#lib/traccar';
 import { MileageSummary } from '../../models/mileage-summary';
 
 const RangeParameters = z.object({
