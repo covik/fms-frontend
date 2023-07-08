@@ -3,7 +3,7 @@ import { testingSelectors, BrowseVehiclesPage } from './browse-vehicles-page';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { QueryClient } from '@tanstack/query-core';
 import { VehicleService } from '../services/vehicle-service';
-import { WebShare } from '../../../lib/WebShare';
+import { WebShare } from '../../../lib/web-share';
 import { createOperationalVehicle } from '../models/vehicle/factory';
 import { TestRouterProvider } from '../../../core/router';
 
