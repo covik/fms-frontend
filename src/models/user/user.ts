@@ -1,7 +1,5 @@
 import { BaseUser } from './base-user';
 
-export class DisabledUser extends BaseUser {}
-
 /**
  * Class User is used to denote normal users that should have access to the application.
  * Disabled users should not be able to use the application.
@@ -12,5 +10,3 @@ export class DisabledUser extends BaseUser {}
  * It can't be used for instantiating new user, StandardUser should be used instead.
  */
 export abstract class User extends BaseUser {}
-export class Administrator extends User {}
-export class StandardUser extends User {}
