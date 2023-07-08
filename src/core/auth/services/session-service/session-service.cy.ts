@@ -4,7 +4,7 @@ import {
   Administrator,
   DisabledUser,
   StandardUser,
-} from '../../../../models/User';
+} from '../../../../models/user';
 
 describe('obtain()', () => {
   it(`should throw ${SessionService.UserNotAuthenticatedException.name} if response code is 404`, () => {
