@@ -1,4 +1,4 @@
-import { Http } from './';
+import { Http } from '.';
 
 describe('Request error', () => {
   const requestErrors = [
