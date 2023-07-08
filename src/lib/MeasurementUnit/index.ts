@@ -1,6 +1,6 @@
-import * as Angle from './Angle';
-import * as Length from './Length';
-import * as Speed from './Speed';
-import * as Voltage from './Voltage';
+import * as Angle from './angle';
+import * as Length from './length';
+import * as Speed from './speed';
+import * as Voltage from './voltage';
 
 export { Angle, Length, Speed, Voltage };

@@ -1,4 +1,4 @@
-import { LengthUnit } from '../Interface';
+import { LengthUnit } from '../interface';
 
 export abstract class BaseLength implements LengthUnit {
   private readonly _value: number;

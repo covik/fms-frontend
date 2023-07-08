@@ -1,4 +1,4 @@
-import { SpeedUnit } from '../Interface';
+import { SpeedUnit } from '../interface';
 
 export abstract class BaseSpeed implements SpeedUnit {
   private readonly _value: number;

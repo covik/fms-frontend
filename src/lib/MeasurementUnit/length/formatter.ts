@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { BaseLength, Kilometer, Meter } from './Length';
-import { convertToKilometers, convertToMeters } from './Converter';
+import { BaseLength, Kilometer, Meter } from './length';
+import { convertToKilometers, convertToMeters } from './converter';
 
 export function format(length: BaseLength, precision = 0): string {
   z.instanceof(BaseLength).parse(length);

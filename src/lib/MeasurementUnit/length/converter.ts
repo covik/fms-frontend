@@ -1,5 +1,5 @@
-import { BaseLength, Kilometer, Meter } from './Length';
-import { UnsupportedConversionUnit } from './Exception';
+import { BaseLength, Kilometer, Meter } from './length';
+import { UnsupportedConversionUnit } from './exception';
 
 export function convertToMeters(length: BaseLength): Meter {
   if (length instanceof Meter) return length;

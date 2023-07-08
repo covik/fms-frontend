@@ -1,4 +1,4 @@
-import { AngleUnit } from '../Interface';
+import { AngleUnit } from '../interface';
 
 export abstract class BaseAngle implements AngleUnit {
   private readonly _value: number;

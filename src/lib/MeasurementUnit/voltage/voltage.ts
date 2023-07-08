@@ -1,4 +1,4 @@
-import { VoltageUnit } from '../Interface';
+import { VoltageUnit } from '../interface';
 
 export abstract class BaseVoltage implements VoltageUnit {
   private readonly _value: number;
