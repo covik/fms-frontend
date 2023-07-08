@@ -1,5 +1,5 @@
 import { Tab } from '@mui/material';
-import { RouterTab } from '#core/RouterTab';
+import { RouterTab } from '#core/router/router-tab';
 import type { NavigationItemRenderer } from './interface';
 
 export const TabRender: NavigationItemRenderer = (item) => (
