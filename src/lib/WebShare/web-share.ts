@@ -1,4 +1,4 @@
-import { NoNativeSharingMechanism } from './Exception';
+import { NoNativeSharingMechanism } from './exception';
 
 type AvailableStrategies = 'webshare' | 'clipboard';
 

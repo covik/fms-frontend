@@ -1,5 +1,5 @@
-import { shareUrl } from './WebShare';
-import { NoNativeSharingMechanism } from './Exception';
+import { shareUrl } from './web-share';
+import { NoNativeSharingMechanism } from './exception';
 
 export const WebShare = {
   shareUrl,
