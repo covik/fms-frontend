@@ -1,3 +1,4 @@
+import { isToday } from 'date-fns';
 import { useQuery } from '@tanstack/react-query';
 import { VehicleService } from '../services/vehicle-service';
 import type { UseQueryResult } from '@tanstack/react-query';
@@ -20,6 +21,7 @@ export function useRoutePositions({
     queryKey: ['vehicles', vehicleId, 'routes', from, to],
     queryFn: ({ signal }) =>
       VehicleService.RouteService.fetchInRange({ vehicleId, from, to }, signal),
+    staleTime: determineStaleTime(from, to),
   });
 }
 
@@ -35,6 +37,7 @@ export function useRouteStops({
         { vehicleId, from, to },
         signal,
       ),
+    staleTime: determineStaleTime(from, to),
   });
 }
 
@@ -56,7 +59,12 @@ export function useRouteSummary({
         throw e;
       }
     },
+    staleTime: determineStaleTime(from, to),
   });
 }
 
 export class NoSummary {}
+
+function determineStaleTime(from: Date, to: Date) {
+  return isToday(from) || isToday(to) ? 60 * 1000 : Infinity;
+}
