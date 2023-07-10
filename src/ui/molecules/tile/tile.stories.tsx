@@ -1,5 +1,7 @@
-import { Tile, TileListContent, TileNoContent, TileRawContent } from '.';
 import { Divider, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { DateCalendar } from '@mui/x-date-pickers';
+import { withCalendar } from '#storybook/decorators';
+import { Tile, TileListContent, TileNoContent, TileRawContent } from '.';
 import { Cog, Delete, Logout } from 'mdi-material-ui';
 import type { Meta, StoryObj } from '@storybook/react';
 
@@ -77,6 +79,20 @@ export const TextContent: Story = {
         morbi tristique senectus et netus et malesuada fames ac turpis egestas.
         Fusce ac justo nunc. Donec egestas massa non blandit consequat.
       </TileRawContent>
+    </Tile>
+  ),
+};
+
+export const NoLabel: Story = {
+  decorators: [withCalendar()],
+  parameters: {
+    controls: {
+      hideNoControlsWarning: true,
+    },
+  },
+  render: () => (
+    <Tile>
+      <DateCalendar />
     </Tile>
   ),
 };
