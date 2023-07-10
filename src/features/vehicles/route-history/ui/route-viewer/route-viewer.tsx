@@ -1,4 +1,6 @@
 import { Stack } from '@mui/material';
+import { useDateTime } from '#core/time';
+import { Length, Speed } from '#lib/measurement-unit';
 import { Tile, TileNoContent, TileRawContent } from '#ui/molecules/tile';
 import {
   NoSummary,
@@ -12,8 +14,14 @@ import {
   GridSidebarTiles,
 } from '../../../ui/molecules/grid';
 import { RouteMap } from './route-map';
+import {
+  NoRouteSummaryData,
+  RouteDistanceSummary,
+  RouteDurationSummary,
+  RouteSpeedSummary,
+  RouteSummary,
+} from '../../../ui/organisms/route-summary';
 import { RouteStopsTable } from './route-stops-table';
-import { RouteSummaryList } from './route-summary-list';
 import type { ReactNode } from 'react';
 
 export interface RouteViewerAttributes {
@@ -29,9 +37,12 @@ export function RouteViewer({
   to,
   children = null,
 }: RouteViewerAttributes) {
+  const { formatDuration } = useDateTime();
   const routePositions = useRoutePositions({ vehicleId, from, to });
   const routeStops = useRouteStops({ vehicleId, from, to });
   const routeSummary = useRouteSummary({ vehicleId, from, to });
+
+  const summary = adaptSummary(routeSummary, formatDuration);
 
   const spacing = 1;
   return (
@@ -39,13 +50,28 @@ export function RouteViewer({
       <GridSidebarTiles>
         <Stack spacing={spacing}>
           {children}
-          <Tile label={'Sažetak'}>
-            {routeSummary instanceof NoSummary ? (
-              <TileNoContent>Nema informacija</TileNoContent>
+          <RouteSummary>
+            {summary instanceof NoSummary ? (
+              <NoRouteSummaryData />
             ) : (
-              <RouteSummaryList details={routeSummary} />
+              <>
+                <RouteDurationSummary
+                  driving={summary?.drivingDuration}
+                  stopped={summary?.stopDuration}
+                  total={summary?.totalDuration}
+                />
+                <RouteDistanceSummary
+                  total={summary?.distance}
+                  odometerStart={summary?.startOdometer}
+                  odometerEnd={summary?.endOdometer}
+                />
+                <RouteSpeedSummary
+                  average={summary?.averageSpeed}
+                  max={summary?.maxSpeed}
+                />
+              </>
             )}
-          </Tile>
+          </RouteSummary>
           <Tile label={'Zaustavljanje'}>
             {routeStops && routeStops.length === 0 ? (
               <TileNoContent>Nema zaustavljanja</TileNoContent>
@@ -62,4 +88,33 @@ export function RouteViewer({
       </GridContent>
     </Grid>
   );
+}
+
+interface AdaptedSummary {
+  totalDuration: string;
+  drivingDuration: string;
+  stopDuration: string;
+  distance: string;
+  startOdometer: string;
+  endOdometer: string;
+  maxSpeed: string;
+  averageSpeed: string;
+}
+
+function adaptSummary(
+  summary: ReturnType<typeof useRouteSummary>,
+  formatDuration: (duration: number) => string,
+): AdaptedSummary | NoSummary | undefined {
+  if (summary === undefined || summary instanceof NoSummary) return summary;
+
+  return {
+    totalDuration: formatDuration(summary.totalDuration),
+    drivingDuration: formatDuration(summary.drivingDuration),
+    stopDuration: formatDuration(summary.stopDuration),
+    distance: Length.adaptiveFormat(summary.distance, 1),
+    startOdometer: Length.adaptiveFormat(summary.startOdometer, 1),
+    endOdometer: Length.adaptiveFormat(summary.endOdometer, 1),
+    maxSpeed: Speed.format(Speed.convert(summary.maxSpeed).toKph()),
+    averageSpeed: Speed.format(Speed.convert(summary.averageSpeed).toKph()),
+  };
 }
