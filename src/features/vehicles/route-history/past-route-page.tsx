@@ -1,8 +1,8 @@
-import { useNavigate, useParams } from '@tanstack/router';
-import { Card } from '@mui/material';
 import { endOfDay, startOfDay } from 'date-fns';
+import { useNavigate, useParams } from '@tanstack/router';
+import { Tile } from '#ui/molecules/tile';
 import { RouteViewer } from './ui/route-viewer';
-import { DateSelection } from './ui/date-selection';
+import { RouteDateSelection } from '../ui/molecules/route-date-selection';
 
 const routeHistory = '/vehicles/$vehicleId/history/$date';
 
@@ -22,9 +22,9 @@ export function PastRoutePage() {
 
   return (
     <RouteViewer vehicleId={vehicleId} from={startTime} to={endTime}>
-      <Card sx={{ maxWidth: 'fit-content' }}>
-        <DateSelection targetDate={date} onChange={replaceDateURL} />
-      </Card>
+      <Tile>
+        <RouteDateSelection targetDate={date} onChange={replaceDateURL} />
+      </Tile>
     </RouteViewer>
   );
 }
