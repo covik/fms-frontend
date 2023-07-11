@@ -1,5 +1,5 @@
 import { withMap } from '#storybook/decorators';
-import { RouteCheckpointMarker } from '.';
+import { RouteCheckpointMarker } from './index';
 import { Coordinates } from '#lib/dimension';
 import {
   RouteCheckpointMovingIcon,

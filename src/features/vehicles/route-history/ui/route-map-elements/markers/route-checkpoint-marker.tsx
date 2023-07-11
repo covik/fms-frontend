@@ -1,5 +1,5 @@
 import { MapMarker } from '#core/map';
-import { checkpointMarkerIndex } from '../z-index';
+import { checkpointMarkerIndex } from './z-index';
 import type { ReactElement } from 'react';
 import type { Coordinates } from '#lib/dimension';
 

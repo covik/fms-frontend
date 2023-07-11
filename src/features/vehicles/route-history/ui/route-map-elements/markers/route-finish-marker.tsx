@@ -4,7 +4,7 @@ import {
   routeIconPadding as padding,
   RouteFinishIcon,
 } from '../icons';
-import { startFinishMarkerIndex } from '../z-index';
+import { startFinishMarkerIndex } from './z-index';
 import type { Coordinates } from '#lib/dimension';
 
 export interface FinishMarkerAttributes {

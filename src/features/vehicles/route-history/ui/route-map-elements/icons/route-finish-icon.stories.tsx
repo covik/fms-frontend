@@ -1,4 +1,4 @@
-import { RouteFinishIcon } from '.';
+import { RouteFinishIcon } from './index';
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {

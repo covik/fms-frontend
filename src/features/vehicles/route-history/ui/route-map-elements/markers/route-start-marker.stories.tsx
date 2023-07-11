@@ -1,5 +1,5 @@
 import { withMap } from '#storybook/decorators';
-import { RouteStartMarker } from '.';
+import { RouteStartMarker } from './index';
 import { Coordinates } from '#lib/dimension';
 import type { Meta, StoryObj } from '@storybook/react';
 

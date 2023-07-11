@@ -1,22 +1,24 @@
 import { useMemo } from 'react';
 import { Polyline } from '@react-google-maps/api';
 import type { CSSProperties } from 'react';
-import type { RoutePosition } from '../../../models/position';
+import type { RoutePositionData } from './interface';
 
 export interface RouteLineAttributes {
-  checkpoints: RoutePosition[];
+  points: Pick<RoutePositionData, 'latitude' | 'longitude'>[];
   color: CSSProperties['color'];
 }
 
-export function RouteLine({ checkpoints, color }: RouteLineAttributes) {
+export function RouteLine({ points, color }: RouteLineAttributes) {
   const latLngPath = useMemo(
     () =>
-      checkpoints.map((checkpoint) => ({
-        lat: checkpoint.latitude(),
-        lng: checkpoint.longitude(),
+      points?.map((checkpoint) => ({
+        lat: checkpoint.latitude,
+        lng: checkpoint.longitude,
       })),
-    [checkpoints],
+    [points],
   );
+
+  if (!points) return null;
 
   return (
     <Polyline

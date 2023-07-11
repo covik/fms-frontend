@@ -1,4 +1,4 @@
-import { RouteStopIcon } from '.';
+import { RouteStopIcon } from './index';
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {

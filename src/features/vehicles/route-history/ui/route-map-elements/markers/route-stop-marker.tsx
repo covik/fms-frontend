@@ -5,7 +5,7 @@ import {
   routeIconPadding as padding,
   RouteStopIcon,
 } from '../icons';
-import { stopMarkerIndex } from '../z-index';
+import { stopMarkerIndex } from './z-index';
 import type { Coordinates } from '#lib/dimension';
 
 export interface StopMarkerAttributes {

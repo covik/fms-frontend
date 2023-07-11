@@ -1,6 +1,7 @@
+import { useMemo } from 'react';
 import { Stack } from '@mui/material';
 import { useDateTime } from '#core/time';
-import { Length, Speed } from '#lib/measurement-unit';
+import { Length, Speed, Voltage } from '#lib/measurement-unit';
 import { Tile, TileNoContent, TileRawContent } from '#ui/molecules/tile';
 import {
   NoSummary,
@@ -22,6 +23,10 @@ import {
   RouteSummary,
 } from '../../../ui/organisms/route-summary';
 import { RouteStopsTable } from './route-stops-table';
+import {
+  adaptRoutePositionModel,
+  adaptRouteStopModel,
+} from '../route-map-elements';
 import type { ReactNode } from 'react';
 
 export interface RouteViewerAttributes {
@@ -37,12 +42,37 @@ export function RouteViewer({
   to,
   children = null,
 }: RouteViewerAttributes) {
-  const { formatDuration } = useDateTime();
+  const { formatDateTime, formatDuration } = useDateTime();
   const routePositions = useRoutePositions({ vehicleId, from, to });
   const routeStops = useRouteStops({ vehicleId, from, to });
   const routeSummary = useRouteSummary({ vehicleId, from, to });
 
   const summary = adaptSummary(routeSummary, formatDuration);
+
+  const positions = useMemo(
+    () =>
+      routePositions
+        ? routePositions.map((position) =>
+            adaptRoutePositionModel(position, {
+              formatDateTime,
+              formatMileage: formatLength,
+              formatSpeed,
+              formatVoltage,
+            }),
+          )
+        : routePositions,
+    [routePositions],
+  );
+
+  const stops = useMemo(
+    () =>
+      routeStops
+        ? routeStops.map((stop) =>
+            adaptRouteStopModel(stop, { formatDuration }),
+          )
+        : routeStops,
+    [routeStops],
+  );
 
   const spacing = 1;
   return (
@@ -84,7 +114,7 @@ export function RouteViewer({
         </Stack>
       </GridSidebarTiles>
       <GridContent>
-        <RouteMap routes={routePositions ?? []} stops={routeStops ?? []} />
+        <RouteMap checkpoints={positions ?? []} stops={stops ?? []} />
       </GridContent>
     </Grid>
   );
@@ -111,10 +141,22 @@ function adaptSummary(
     totalDuration: formatDuration(summary.totalDuration),
     drivingDuration: formatDuration(summary.drivingDuration),
     stopDuration: formatDuration(summary.stopDuration),
-    distance: Length.adaptiveFormat(summary.distance, 1),
-    startOdometer: Length.adaptiveFormat(summary.startOdometer, 1),
-    endOdometer: Length.adaptiveFormat(summary.endOdometer, 1),
-    maxSpeed: Speed.format(Speed.convert(summary.maxSpeed).toKph()),
-    averageSpeed: Speed.format(Speed.convert(summary.averageSpeed).toKph()),
+    distance: formatLength(summary.distance),
+    startOdometer: formatLength(summary.startOdometer),
+    endOdometer: formatLength(summary.endOdometer),
+    maxSpeed: formatSpeed(summary.maxSpeed),
+    averageSpeed: formatSpeed(summary.averageSpeed),
   };
+}
+
+function formatLength(unit: Length.BaseLength): string {
+  return Length.adaptiveFormat(unit, 1);
+}
+
+function formatSpeed(unit: Speed.BaseSpeed): string {
+  return Speed.format(Speed.convert(unit).toKph());
+}
+
+function formatVoltage(unit: Voltage.BaseVoltage): string {
+  return Voltage.format(unit);
 }

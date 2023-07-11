@@ -1,23 +1,23 @@
 import { useMemo, useState } from 'react';
 import { AppMap, MapBounds } from '#core/map';
-import { VehicleRoute, VehicleRouteStops } from '../route';
-import type { Coordinates } from '#lib/dimension';
-import type { RoutePosition } from '../../../models/position';
-import type { RouteStop } from '../../../models/route-stop';
-
-const routeColor = '#BA68C8';
+import { Coordinates } from '#lib/dimension';
+import { CombinedRoute } from '../route-map-elements';
+import type {
+  RoutePositionData,
+  RouteStopData,
+} from '../route-map-elements/interface';
 
 export interface RouteMapAttributes {
-  routes: RoutePosition[];
-  stops: RouteStop[];
+  checkpoints: RoutePositionData[];
+  stops: RouteStopData[];
 }
 
-export function RouteMap({ routes, stops }: RouteMapAttributes) {
+export function RouteMap({ checkpoints, stops }: RouteMapAttributes) {
   const [checkpointsVisible, showCheckpoints] = useState(false);
 
   const bounds = useMemo(
-    () => calculateMapBounds(routes, stops),
-    [routes, stops],
+    () => calculateMapBounds([...checkpoints, ...stops]),
+    [checkpoints, stops],
   );
 
   return (
@@ -28,24 +28,22 @@ export function RouteMap({ routes, stops }: RouteMapAttributes) {
       sx={{ height: '100%' }}
     >
       <MapBounds coordinates={bounds} />
-      <VehicleRoute
-        positions={routes}
-        color={routeColor}
+      <CombinedRoute
+        checkpoints={checkpoints}
+        stops={stops}
         showCheckpoints={checkpointsVisible}
       />
-      <VehicleRouteStops stops={stops} />
     </AppMap>
   );
 }
 
-function calculateMapBounds(
-  positions: RoutePosition[],
-  stops: RouteStop[],
-): Coordinates[] {
-  const positionCoordinates = positions.map((position) =>
-    position.coordinates(),
-  );
-  const stopCoordinates = stops.map((stop) => stop.coordinates());
+interface Coordinatable {
+  latitude: number;
+  longitude: number;
+}
 
-  return positionCoordinates.concat(stopCoordinates);
+function calculateMapBounds(positions: Coordinatable[]): Coordinates[] {
+  return positions.map(
+    (position) => new Coordinates(position.latitude, position.longitude),
+  );
 }
