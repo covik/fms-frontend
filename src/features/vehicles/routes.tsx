@@ -1,7 +1,7 @@
 import { lazy } from 'react';
 import { Route } from '@tanstack/router';
 import { z } from 'zod';
-import { MissingRouteDateRedirect } from './route-history/missing-route-date-redirect';
+import { MissingRouteDateRedirect } from './usecase/route-history/missing-route-date-redirect';
 import { formatDateForURL } from '../../utils/date';
 import type { RootRoute } from '@tanstack/router';
 
@@ -10,7 +10,7 @@ export function registerRoutes(rootRoute: RootRoute) {
     getParentRoute: () => rootRoute,
     path: '/',
     component: lazy(
-      () => import('./live-tracking/multiple-vehicles-tracking-page'),
+      () => import('./usecase/live-tracking/multiple-vehicles-tracking-page'),
     ),
   });
 
@@ -22,27 +22,31 @@ export function registerRoutes(rootRoute: RootRoute) {
   const vehiclesIndexRoute = new Route({
     getParentRoute: () => vehiclesRoute,
     path: '/',
-    component: lazy(() => import('./browse-vehicles/browse-vehicles-page')),
+    component: lazy(
+      () => import('./usecase/browse-vehicles/browse-vehicles-page'),
+    ),
   });
 
   const vehicleRoute = new Route({
     getParentRoute: () => vehiclesRoute,
     path: '$vehicleId',
-    component: lazy(() => import('./manage-vehicle/manage-vehicle-root-page')),
+    component: lazy(
+      () => import('./usecase/manage-vehicle/manage-vehicle-root-page'),
+    ),
   });
 
   const vehicleLivePreviewRoute = new Route({
     getParentRoute: () => vehicleRoute,
     path: '/',
     component: lazy(
-      () => import('./live-tracking/single-vehicle-tracking-page'),
+      () => import('./usecase/live-tracking/single-vehicle-tracking-page'),
     ),
   });
 
   const vehicleTodayRoute = new Route({
     getParentRoute: () => vehicleRoute,
     path: '/today',
-    component: lazy(() => import('./route-history/today-route-page')),
+    component: lazy(() => import('./usecase/route-history/today-route-page')),
   });
 
   const vehicleRouteHistoryRoute = new Route({
@@ -65,13 +69,15 @@ export function registerRoutes(rootRoute: RootRoute) {
     stringifyParams: ({ date }) => ({
       date: formatDateForURL(date),
     }),
-    component: lazy(() => import('./route-history/past-route-page')),
+    component: lazy(() => import('./usecase/route-history/past-route-page')),
   });
 
   const mileageReportRoute = new Route({
     getParentRoute: () => rootRoute,
     path: '/reports/mileage',
-    component: lazy(() => import('./mileage-report/mileage-report-page')),
+    component: lazy(
+      () => import('./usecase/mileage-report/mileage-report-page'),
+    ),
   });
 
   return [

@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Length } from '#lib/measurement-unit';
-import { VehicleService } from '../services/vehicle-service';
-import { MileageService } from '../services/mileage-service';
-import { MileageReport } from '../ui/pages/mileage-report';
-import type { MileageSummary } from '../models/mileage-summary';
-import type { MileageItem } from '../ui/pages/mileage-report';
+import { VehicleService } from '../../services/vehicle-service';
+import { MileageService } from '../../services/mileage-service';
+import { MileageReport } from '../../ui/pages/mileage-report';
+import type { MileageSummary } from '../../models/mileage-summary';
+import type { MileageItem } from '../../ui/pages/mileage-report';
 
 const currentMonth = new Date();
 

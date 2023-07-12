@@ -1,12 +1,12 @@
 import { Outlet, useParams } from '@tanstack/router';
 import { useQuery } from '@tanstack/react-query';
-import { VehicleService } from '../services/vehicle-service';
-import { LocatedVehicle } from '../models/vehicle';
+import { VehicleService } from '../../services/vehicle-service';
+import { LocatedVehicle } from '../../models/vehicle';
 import {
   VehicleCommonInterface,
   VehicleLoadingView,
   VehicleWithoutPositionView,
-} from '../ui/pages/manage-vehicle';
+} from '../../ui/pages/manage-vehicle';
 
 export function ManageVehicleRootPage() {
   const { vehicleId } = useParams({ from: '/vehicles/$vehicleId' });
