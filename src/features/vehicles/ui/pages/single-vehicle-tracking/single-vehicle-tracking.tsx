@@ -20,7 +20,7 @@ type VehicleWarning =
   | Extract<VehicleWarningType, 'unavailable' | 'disabled'>
   | undefined;
 
-export interface VehicleLiveViewAttributes {
+export interface SingleVehicleTrackingAttributes {
   name: string;
   latitude: number;
   longitude: number;
@@ -54,7 +54,7 @@ export function SingleVehicleTracking({
   online,
   latency,
   warning,
-}: VehicleLiveViewAttributes) {
+}: SingleVehicleTrackingAttributes) {
   const coordinates = useMemo(
     () => new Coordinates(latitude, longitude),
     [latitude, longitude],

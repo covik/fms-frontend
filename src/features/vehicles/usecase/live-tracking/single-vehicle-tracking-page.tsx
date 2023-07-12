@@ -9,9 +9,9 @@ import {
   UnavailableVehicle,
 } from '../../models/vehicle';
 import { SingleVehicleTracking } from '../../ui/pages/single-vehicle-tracking';
-import type { VehicleLiveViewAttributes } from '../../ui/pages/single-vehicle-tracking';
+import type { SingleVehicleTrackingAttributes } from '../../ui/pages/single-vehicle-tracking';
 
-type WarningVariant = VehicleLiveViewAttributes['warning'];
+type WarningVariant = SingleVehicleTrackingAttributes['warning'];
 
 export function SingleVehicleTrackingPage() {
   const { vehicleId } = useParams({ from: '/vehicles/$vehicleId' });
