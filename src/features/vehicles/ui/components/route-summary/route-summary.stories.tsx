@@ -1,8 +1,8 @@
 import { composeStories } from '@storybook/react';
 import { NoRouteSummaryData, RouteSummary } from '.';
-import * as RouteDurationSummaryStories from '../../molecules/route-duration-summary/route-duration-summary.stories';
-import * as RouteDistanceSummaryStores from '../../molecules/route-distance-summary/route-distance-summary.stories';
-import * as RouteSpeedSummaryStories from '../../molecules/route-speed-summary/route-speed-summary.stories';
+import * as RouteDurationSummaryStories from '../route-duration-summary/route-duration-summary.stories';
+import * as RouteDistanceSummaryStores from '../route-distance-summary/route-distance-summary.stories';
+import * as RouteSpeedSummaryStories from '../route-speed-summary/route-speed-summary.stories';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const RouteDurationSummary = composeStories(RouteDurationSummaryStories);

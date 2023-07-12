@@ -13,6 +13,6 @@ export function NoRouteSummaryData() {
   return <TileNoContent>Nema informacija</TileNoContent>;
 }
 
-export * from '../../molecules/route-duration-summary';
-export * from '../../molecules/route-distance-summary';
-export * from '../../molecules/route-speed-summary';
+export * from '../route-duration-summary';
+export * from '../route-distance-summary';
+export * from '../route-speed-summary';

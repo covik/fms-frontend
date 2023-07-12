@@ -1,5 +1,5 @@
 import { PageTitle } from '#ui/atoms/page-title';
-import { VehicleNavigation } from '../../molecules/vehicle-navigation';
+import { VehicleNavigation } from '../../components/vehicle-navigation';
 import {
   PageHeader,
   PageLayout,

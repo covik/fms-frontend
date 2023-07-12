@@ -4,9 +4,9 @@ import {
   MileageTableRow,
   MileageTableRowLoading,
   MileageTableRowNoData,
-} from '../../molecules/mileage-table-row';
-import { MileageMonthSelection } from '../../organisms/mileage-month-selection';
-import { VehicleMileageTable } from '../../organisms/vehicle-mileage-table';
+} from '../../components/mileage-table-row';
+import { MileageMonthSelection } from '../../components/mileage-month-selection';
+import { VehicleMileageTable } from '../../components/vehicle-mileage-table';
 import {
   ContentContainer,
   PageContent,

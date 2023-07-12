@@ -1,5 +1,5 @@
 import { PageTitle } from '#ui/atoms/page-title';
-import { VehicleWarning } from '../../molecules/vehicle-warning';
+import { VehicleWarning } from '../../components/vehicle-warning';
 import {
   PageContent,
   PageLayout,

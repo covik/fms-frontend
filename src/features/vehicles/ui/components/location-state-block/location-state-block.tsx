@@ -1,8 +1,8 @@
 import { Tile, TileListContent } from '#ui/molecules/tile';
-import { AltitudeListItem } from '../../molecules/altitude-list-item';
-import { CoordinatesListItem } from '../../molecules/coordinates-list-item';
-import { CourseListItem } from '../../molecules/course-list-item';
-import { LocationUpdateTimeListItem } from '../../molecules/location-update-time-list-item';
+import { AltitudeListItem } from '../altitude-list-item';
+import { CoordinatesListItem } from '../coordinates-list-item';
+import { CourseListItem } from '../course-list-item';
+import { LocationUpdateTimeListItem } from '../location-update-time-list-item';
 
 export interface LocationStateBlockAttributes {
   altitude: string;

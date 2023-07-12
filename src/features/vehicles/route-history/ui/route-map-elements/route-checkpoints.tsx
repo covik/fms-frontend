@@ -6,7 +6,7 @@ import {
 } from './icons';
 import type { CSSProperties } from 'react';
 import type { RoutePositionData } from './interface';
-import { PositionInfoWindow } from '../../../ui/organisms/position-info-window';
+import { PositionInfoWindow } from '../../../ui/components/position-info-window';
 
 export interface RouteCheckpointsAttributes {
   checkpoints: RoutePositionData[];

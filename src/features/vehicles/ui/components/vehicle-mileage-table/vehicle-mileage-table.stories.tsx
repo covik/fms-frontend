@@ -3,7 +3,7 @@ import {
   MileageTableRow,
   MileageTableRowLoading,
   MileageTableRowNoData,
-} from '../../molecules/mileage-table-row';
+} from '../mileage-table-row';
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {

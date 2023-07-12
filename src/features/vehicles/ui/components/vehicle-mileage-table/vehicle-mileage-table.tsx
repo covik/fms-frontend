@@ -6,7 +6,7 @@ import {
   TableHead,
   tableCellClasses,
 } from '@mui/material';
-import { MileageTableHeaderRow } from '../../molecules/mileage-table-row';
+import { MileageTableHeaderRow } from '../mileage-table-row';
 import type { ReactNode } from 'react';
 
 export interface VehicleMileageTableAttributes {

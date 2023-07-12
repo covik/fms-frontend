@@ -13,7 +13,7 @@ import {
   Grid,
   GridContent,
   GridSidebarTiles,
-} from '../../../ui/molecules/grid';
+} from '../../../ui/components/grid';
 import { RouteMap } from './route-map';
 import {
   NoRouteSummaryData,
@@ -21,7 +21,7 @@ import {
   RouteDurationSummary,
   RouteSpeedSummary,
   RouteSummary,
-} from '../../../ui/organisms/route-summary';
+} from '../../../ui/components/route-summary';
 import { RouteStopsTable } from './route-stops-table';
 import {
   adaptRoutePositionModel,

@@ -1,10 +1,10 @@
 import { useMemo } from 'react';
-import { VehicleMapIcon } from '../../molecules/vehicle-map-icon';
-import { VehicleMapMarker } from '../../molecules/vehicle-map-marker';
-import { VehicleWarning } from '../../molecules/vehicle-warning';
-import { LocationStateBlock } from '../../organisms/location-state-block';
-import { NetworkStateBlock } from '../../organisms/network-state-block';
-import { VehicleStateBlock } from '../../organisms/vehicle-state-block';
+import { VehicleMapIcon } from '../../components/vehicle-map-icon';
+import { VehicleMapMarker } from '../../components/vehicle-map-marker';
+import { VehicleWarning } from '../../components/vehicle-warning';
+import { LocationStateBlock } from '../../components/location-state-block';
+import { NetworkStateBlock } from '../../components/network-state-block';
+import { VehicleStateBlock } from '../../components/vehicle-state-block';
 import {
   Grid,
   GridContent,
@@ -14,7 +14,7 @@ import {
 } from '../../templates/single-vehicle-tracking';
 import { AppMap, MapSettingsProvider } from '#core/map';
 import { Coordinates } from '#lib/dimension';
-import type { VehicleWarningType } from '../../molecules/vehicle-warning';
+import type { VehicleWarningType } from '../../components/vehicle-warning';
 
 type VehicleWarning =
   | Extract<VehicleWarningType, 'unavailable' | 'disabled'>
