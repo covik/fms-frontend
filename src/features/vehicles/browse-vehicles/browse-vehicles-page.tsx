@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { VehicleService } from '../services/vehicle-service';
 import { WebShare } from '#lib/web-share';
 import { BrowseVehiclesView } from './ui/views';
-import { testingSelectors as cardSelectors } from './ui/vehicle-card';
+import { testingSelectors as cardSelectors } from '../ui/components/vehicle-card';
 import type { ShareHandler, VehicleRenderer } from './ui/views';
 
 export function BrowseVehiclesPage() {
