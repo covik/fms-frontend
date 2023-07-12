@@ -9,11 +9,7 @@ import {
   useRouteStops,
   useRouteSummary,
 } from '../../../queries';
-import {
-  Grid,
-  GridContent,
-  GridSidebarTiles,
-} from '../../../ui/components/grid';
+import { Grid, GridContent, GridSidebarTiles } from '../grid';
 import { RouteMap } from './route-map';
 import {
   NoRouteSummaryData,
@@ -21,7 +17,7 @@ import {
   RouteDurationSummary,
   RouteSpeedSummary,
   RouteSummary,
-} from '../../../ui/components/route-summary';
+} from '../route-summary';
 import { RouteStopsTable } from './route-stops-table';
 import {
   adaptRoutePositionModel,

@@ -1,7 +1,7 @@
 import { endOfDay, startOfDay } from 'date-fns';
 import { useNavigate, useParams } from '@tanstack/router';
 import { Tile } from '#ui/molecules/tile';
-import { RouteViewer } from './ui/route-viewer';
+import { RouteViewer } from '../ui/components/route-viewer';
 import { RouteDateSelection } from '../ui/components/route-date-selection';
 
 const routeHistory = '/vehicles/$vehicleId/history/$date';

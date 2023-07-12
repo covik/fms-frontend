@@ -1,7 +1,7 @@
 import { intervalToDuration } from 'date-fns';
 import stops from '../model/route-stops';
-import { adaptRouteStopModel } from '../../route-history/ui/route-map-elements';
-import type { StopUnitConverters } from '../../route-history/ui/route-map-elements/interface';
+import { adaptRouteStopModel } from '../../ui/components/route-map-elements';
+import type { StopUnitConverters } from '../../ui/components/route-map-elements/interface';
 
 const converters: StopUnitConverters = {
   formatDuration: (durationInSeconds) => {

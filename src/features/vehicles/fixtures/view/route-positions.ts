@@ -1,8 +1,8 @@
 import { format } from 'date-fns';
 import { Length, Speed, Voltage } from '#lib/measurement-unit';
 import positions from '../model/route-positions';
-import { adaptRoutePositionModel } from '../../route-history/ui/route-map-elements';
-import type { PositionUnitConverters } from '../../route-history/ui/route-map-elements/interface';
+import { adaptRoutePositionModel } from '../../ui/components/route-map-elements';
+import type { PositionUnitConverters } from '../../ui/components/route-map-elements/interface';
 
 const converters: Pick<
   PositionUnitConverters,

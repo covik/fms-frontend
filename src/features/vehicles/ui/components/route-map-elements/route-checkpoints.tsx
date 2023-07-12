@@ -4,9 +4,9 @@ import {
   RouteCheckpointMovingIcon,
   RouteCheckpointStationaryIcon,
 } from './icons';
+import { PositionInfoWindow } from '../position-info-window';
 import type { CSSProperties } from 'react';
 import type { RoutePositionData } from './interface';
-import { PositionInfoWindow } from '../../../ui/components/position-info-window';
 
 export interface RouteCheckpointsAttributes {
   checkpoints: RoutePositionData[];
