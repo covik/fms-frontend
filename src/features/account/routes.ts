@@ -7,7 +7,7 @@ export function registerRoutes(rootRoute: RootRoute) {
     new Route({
       getParentRoute: () => rootRoute,
       path: '/account',
-      component: lazy(() => import('./pages/account-page')),
+      component: lazy(() => import('./usecase/view-account-details-page')),
     }),
   ];
 }
