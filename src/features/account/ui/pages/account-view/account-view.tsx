@@ -5,8 +5,8 @@ import {
 } from 'mdi-material-ui';
 import { PageTitle } from '#ui/atoms/page-title';
 import { PageContent, PageLayout } from '../../templates/account-layout';
-import { LogoutButton } from '../../atoms/logout-button';
-import type { LogoutButtonAttributes } from '../../atoms/logout-button';
+import { LogoutButton } from '../../components/logout-button';
+import type { LogoutButtonAttributes } from '../../components/logout-button';
 
 export interface AccountViewAttributes {
   name: string;
