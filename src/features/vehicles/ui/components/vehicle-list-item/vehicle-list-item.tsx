@@ -6,19 +6,8 @@ import {
 } from 'mdi-material-ui';
 import { IgnitionIcon } from '#ui/atoms/ignition-icon';
 import { MovementIcon } from '#ui/atoms/movement-icon';
+import { Grid } from './container';
 import { root } from './selectors';
-
-const Grid = styled('div')(({ theme }) => ({
-  'display': 'grid',
-  'gridTemplateColumns': 'max-content 1fr max-content max-content',
-  'gap': theme.spacing(1),
-  'alignItems': 'center',
-
-  '& svg': {
-    display: 'block',
-  },
-}));
-Grid.displayName = 'Grid';
 
 const VehicleName = styled('div')({
   whiteSpace: 'nowrap',
@@ -71,6 +60,7 @@ interface VehicleIconAttributes {
   variant: Variant;
   mode: Mode;
 }
+
 function VehicleIcon({ variant, mode }: VehicleIconAttributes) {
   const theme = useTheme();
 

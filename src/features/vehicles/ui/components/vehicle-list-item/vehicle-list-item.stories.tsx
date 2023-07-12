@@ -1,4 +1,4 @@
-import { VehicleListItem } from './vehicle-list-item';
+import { VehicleListItem, VehicleListItemLoading } from '.';
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {
@@ -36,6 +36,10 @@ export const Default: Story = {
     ignitionOn: true,
     moving: true,
   },
+};
+
+export const Loading: Story = {
+  render: () => <VehicleListItemLoading />,
 };
 
 export const LongName: Story = {
