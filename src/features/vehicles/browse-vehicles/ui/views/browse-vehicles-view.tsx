@@ -8,7 +8,7 @@ import {
   SectionOperationalVehicles,
   SectionUnavailableVehicles,
   VehicleSections,
-} from '../sections';
+} from '../vehicle-sections';
 import { VehicleCard } from '../../../ui/components/vehicle-card';
 import { Length, Speed, Voltage } from '#lib/measurement-unit';
 import type { ReactElement } from 'react';
