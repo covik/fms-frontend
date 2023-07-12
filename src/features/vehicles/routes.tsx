@@ -9,7 +9,9 @@ export function registerRoutes(rootRoute: RootRoute) {
   const indexRoute = new Route({
     getParentRoute: () => rootRoute,
     path: '/',
-    component: lazy(() => import('./live-tracking/multiple-vehicles-tracking')),
+    component: lazy(
+      () => import('./live-tracking/multiple-vehicles-tracking-page'),
+    ),
   });
 
   const vehiclesRoute = new Route({
@@ -20,19 +22,21 @@ export function registerRoutes(rootRoute: RootRoute) {
   const vehiclesIndexRoute = new Route({
     getParentRoute: () => vehiclesRoute,
     path: '/',
-    component: lazy(() => import('./browse-vehicles')),
+    component: lazy(() => import('./browse-vehicles/browse-vehicles-page')),
   });
 
   const vehicleRoute = new Route({
     getParentRoute: () => vehiclesRoute,
     path: '$vehicleId',
-    component: lazy(() => import('./manage-vehicle')),
+    component: lazy(() => import('./manage-vehicle/manage-vehicle-root-page')),
   });
 
   const vehicleLivePreviewRoute = new Route({
     getParentRoute: () => vehicleRoute,
     path: '/',
-    component: lazy(() => import('./live-tracking/single-vehicle-tracking')),
+    component: lazy(
+      () => import('./live-tracking/single-vehicle-tracking-page'),
+    ),
   });
 
   const vehicleTodayRoute = new Route({

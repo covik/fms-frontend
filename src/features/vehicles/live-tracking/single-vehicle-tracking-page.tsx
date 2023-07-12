@@ -2,14 +2,14 @@ import { useParams } from '@tanstack/router';
 import { useQuery } from '@tanstack/react-query';
 import { useDateTime } from '#core/time';
 import { Length, Speed, Voltage } from '#lib/measurement-unit';
-import { VehicleService } from '../../services/vehicle-service';
+import { VehicleService } from '../services/vehicle-service';
 import {
   DisabledVehicle,
   LocatedVehicle,
   UnavailableVehicle,
-} from '../../models/vehicle';
-import { SingleVehicleTracking } from '../../ui/pages/single-vehicle-tracking';
-import type { VehicleLiveViewAttributes } from '../../ui/pages/single-vehicle-tracking';
+} from '../models/vehicle';
+import { SingleVehicleTracking } from '../ui/pages/single-vehicle-tracking';
+import type { VehicleLiveViewAttributes } from '../ui/pages/single-vehicle-tracking';
 
 type WarningVariant = VehicleLiveViewAttributes['warning'];
 
@@ -70,6 +70,8 @@ export function SingleVehicleTrackingPage() {
     />
   );
 }
+
+export default SingleVehicleTrackingPage;
 
 function pickWarning(vehicle: LocatedVehicle): WarningVariant {
   if (vehicle instanceof UnavailableVehicle) return 'unavailable';

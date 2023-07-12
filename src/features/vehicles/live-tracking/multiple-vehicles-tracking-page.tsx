@@ -2,10 +2,10 @@ import { useMemo } from 'react';
 import { CircularProgress, Paper } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { AppMap, MapBounds } from '#core/map';
-import { VehicleService } from '../../services/vehicle-service';
+import { VehicleService } from '../services/vehicle-service';
 import { FixedPage, PagePadding } from '#ui/atoms/page';
-import { VehicleMapIcon } from '../../ui/components/vehicle-map-icon';
-import { VehicleMapMarker } from '../../ui/components/vehicle-map-marker';
+import { VehicleMapIcon } from '../ui/components/vehicle-map-icon';
+import { VehicleMapMarker } from '../ui/components/vehicle-map-marker';
 import type { ReactNode } from 'react';
 
 export function MultipleVehiclesTrackingPage() {
@@ -48,6 +48,8 @@ export function MultipleVehiclesTrackingPage() {
     </FixedPage>
   );
 }
+
+export default MultipleVehiclesTrackingPage;
 
 function PageContainer({ children }: { children: ReactNode | ReactNode[] }) {
   return (

@@ -38,3 +38,5 @@ export function ManageVehicleRootPage() {
     </VehicleCommonInterface>
   );
 }
+
+export default ManageVehicleRootPage;

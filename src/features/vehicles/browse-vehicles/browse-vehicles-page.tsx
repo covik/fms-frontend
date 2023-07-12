@@ -97,6 +97,8 @@ export function BrowseVehiclesPage() {
   );
 }
 
+export default BrowseVehiclesPage;
+
 export const testingSelectors = {
   toast: 'vehicles-digest-page-toast',
   ...cardSelectors,
