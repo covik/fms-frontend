@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { VehiclesListView } from '.';
+import { BrowseVehiclesView } from '.';
 import {
   createOperationalVehicle,
   createUnavailableVehicle,
@@ -7,13 +7,13 @@ import {
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {
-  title: 'Pages/Vehicles List',
-  component: VehiclesListView,
+  title: 'Pages/Browse Vehicles',
+  component: BrowseVehiclesView,
   parameters: {
     layout: 'fullscreen',
   },
-} satisfies Meta<typeof VehiclesListView>;
-type Story = StoryObj<typeof VehiclesListView>;
+} satisfies Meta<typeof BrowseVehiclesView>;
+type Story = StoryObj<typeof BrowseVehiclesView>;
 
 faker.seed(7);
 

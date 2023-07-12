@@ -1,1 +1,1 @@
-export * from './vehicles-list-view';
+export * from './browse-vehicles-view';

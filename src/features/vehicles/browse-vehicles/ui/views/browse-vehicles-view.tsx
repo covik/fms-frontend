@@ -37,7 +37,7 @@ export type VehicleRenderer = (
   vehicle: LocatedVehicle,
 ) => ReactElement;
 
-export function VehiclesListView({
+export function BrowseVehiclesView({
   operationalVehicles = [],
   unavailableVehicles = [],
   onShareRequest = defaultShareHandler,
