@@ -23,7 +23,7 @@ const defaultVehicleRenderer: VehicleRenderer = (Component, vehicle) => (
   <Fragment key={vehicle.id()}>{Component}</Fragment>
 );
 
-export interface VehiclesDigestViewAttributes {
+export interface BrowseVehiclesViewAttributes {
   operationalVehicles: OperationalVehicle[];
   unavailableVehicles: UnavailableVehicle[];
   onShareRequest?: ShareHandler;
@@ -43,7 +43,7 @@ export function BrowseVehiclesView({
   onShareRequest = defaultShareHandler,
   vehicleRenderer = defaultVehicleRenderer,
   loading = false,
-}: VehiclesDigestViewAttributes) {
+}: BrowseVehiclesViewAttributes) {
   function renderVehicles(vehicles: LocatedVehicle[]) {
     return vehicles.map((vehicle) =>
       vehicleRenderer(
