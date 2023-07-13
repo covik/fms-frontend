@@ -1,6 +1,9 @@
-import { useState } from 'react';
 import { AppMap, MapBounds } from '#core/map';
-import { CombinedRoute, useRouteMapBounds } from '../route-map-elements';
+import {
+  CombinedRoute,
+  useRouteCheckpoints,
+  useRouteMapBounds,
+} from '../route-map-elements';
 import type {
   RoutePositionData,
   RouteStopData,
@@ -12,15 +15,13 @@ export interface RouteMapAttributes {
 }
 
 export function RouteMap({ checkpoints, stops }: RouteMapAttributes) {
-  const [checkpointsVisible, showCheckpoints] = useState(false);
-
+  const { checkpointsVisible, showCheckpointsOnDetailedMap } =
+    useRouteCheckpoints();
   const { bounds } = useRouteMapBounds(checkpoints, stops);
 
   return (
     <AppMap
-      onZoomChanged={(zoom) => {
-        showCheckpoints(zoom >= 15);
-      }}
+      onZoomChanged={showCheckpointsOnDetailedMap}
       sx={{ height: '100%' }}
     >
       <MapBounds coordinates={bounds} />
