@@ -5,7 +5,7 @@ import { AppMap } from '#core/map';
 
 interface Attributes extends Omit<MapSettingsAttributes, 'children'> {}
 
-export function withMap(attributes: Attributes): Decorator {
+export function withMap(attributes: Attributes = {}): Decorator {
   return (Story) => (
     <MapSettingsProvider {...attributes}>
       <AppMap sx={{ height: '400px' }}>
