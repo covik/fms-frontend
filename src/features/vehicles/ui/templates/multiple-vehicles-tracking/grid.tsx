@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 
 export const Grid = styled('div')(({ theme }) => ({
   display: 'grid',
-  gridTemplateColumns: 'max-content 1fr',
+  gridTemplateColumns: 'minmax(330px,max-content) 1fr',
   gap: theme.spacing(1),
   height: '0',
   flex: 1,
@@ -16,7 +16,6 @@ Grid.displayName = 'Grid';
 
 const BaseSidebar = styled('div')({
   overflowY: 'auto',
-  minWidth: '300px',
   padding: '2px',
   margin: '-2px',
 });
