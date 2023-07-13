@@ -5,8 +5,6 @@ import { adaptLocatedVehicles } from '../../ui/adapters/vehicle-adapter';
 import { MultipleVehiclesTracking } from '../../ui/pages/multiple-vehicles-tracking';
 import type { Vehicle } from '../../ui/pages/multiple-vehicles-tracking';
 
-const today = new Date();
-
 export function MultipleVehiclesTrackingPage() {
   const query = useQuery({
     queryKey: ['vehicles'],
@@ -39,10 +37,13 @@ export function MultipleVehiclesTrackingPage() {
     );
   }
 
+  const [routeDate, setRouteDate] = useState(new Date());
+
   return (
     <MultipleVehiclesTracking
       vehicles={adaptedVehicles}
-      routeDate={today}
+      routeDate={routeDate}
+      onRouteDateChange={setRouteDate}
       selectedVehicleId={selectedVehicleId ?? ''}
       onSelectionChange={selectOrUnselectVehicle}
       dataRefreshInProgress={query.isRefetching}
