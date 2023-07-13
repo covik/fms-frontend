@@ -1,14 +1,8 @@
-import { useMemo } from 'react';
 import { Stack } from '@mui/material';
 import { useDateTime } from '#core/time';
 import { Length, Speed, Voltage } from '#lib/measurement-unit';
 import { Tile, TileNoContent, TileRawContent } from '#ui/molecules/tile';
-import {
-  NoSummary,
-  useRoutePositions,
-  useRouteStops,
-  useRouteSummary,
-} from '../../../queries';
+import { useRouteStops, useVehicleRoute } from '../../../queries';
 import { Grid, GridContent, GridSidebarTiles } from '../grid';
 import { RouteMap } from './route-map';
 import {
@@ -19,10 +13,6 @@ import {
   RouteSummary,
 } from '../route-summary';
 import { RouteStopsTable } from './route-stops-table';
-import {
-  adaptRoutePositionModel,
-  adaptRouteStopModel,
-} from '../route-map-elements';
 import type { ReactNode } from 'react';
 
 export interface RouteViewerAttributes {
@@ -39,36 +29,18 @@ export function RouteViewer({
   children = null,
 }: RouteViewerAttributes) {
   const { formatDateTime, formatDuration } = useDateTime();
-  const routePositions = useRoutePositions({ vehicleId, from, to });
-  const routeStops = useRouteStops({ vehicleId, from, to });
-  const routeSummary = useRouteSummary({ vehicleId, from, to });
 
-  const summary = adaptSummary(routeSummary, formatDuration);
-
-  const positions = useMemo(
-    () =>
-      routePositions
-        ? routePositions.map((position) =>
-            adaptRoutePositionModel(position, {
-              formatDateTime,
-              formatMileage: formatLength,
-              formatSpeed,
-              formatVoltage,
-            }),
-          )
-        : routePositions,
-    [routePositions],
-  );
-
-  const stops = useMemo(
-    () =>
-      routeStops
-        ? routeStops.map((stop) =>
-            adaptRouteStopModel(stop, { formatDuration }),
-          )
-        : routeStops,
-    [routeStops],
-  );
+  const { positions, stops, summary } = useVehicleRoute(
+    { vehicleId, from, to },
+    {
+      formatDateTime,
+      formatDuration,
+      formatLength,
+      formatSpeed,
+      formatVoltage,
+    },
+  ) ?? { positions: undefined, stops: undefined, summary: undefined };
+  const legacyRouteStops = useRouteStops({ vehicleId, from, to });
 
   const spacing = 1;
   return (
@@ -77,7 +49,7 @@ export function RouteViewer({
         <Stack spacing={spacing}>
           {children}
           <RouteSummary>
-            {summary instanceof NoSummary ? (
+            {summary === null ? (
               <NoRouteSummaryData />
             ) : (
               <>
@@ -99,11 +71,11 @@ export function RouteViewer({
             )}
           </RouteSummary>
           <Tile label={'Zaustavljanje'}>
-            {routeStops && routeStops.length === 0 ? (
+            {legacyRouteStops && legacyRouteStops.length === 0 ? (
               <TileNoContent>Nema zaustavljanja</TileNoContent>
             ) : (
               <TileRawContent>
-                <RouteStopsTable stops={routeStops} />
+                <RouteStopsTable stops={legacyRouteStops} />
               </TileRawContent>
             )}
           </Tile>
@@ -114,35 +86,6 @@ export function RouteViewer({
       </GridContent>
     </Grid>
   );
-}
-
-interface AdaptedSummary {
-  totalDuration: string;
-  drivingDuration: string;
-  stopDuration: string;
-  distance: string;
-  startOdometer: string;
-  endOdometer: string;
-  maxSpeed: string;
-  averageSpeed: string;
-}
-
-function adaptSummary(
-  summary: ReturnType<typeof useRouteSummary>,
-  formatDuration: (duration: number) => string,
-): AdaptedSummary | NoSummary | undefined {
-  if (summary === undefined || summary instanceof NoSummary) return summary;
-
-  return {
-    totalDuration: formatDuration(summary.totalDuration),
-    drivingDuration: formatDuration(summary.drivingDuration),
-    stopDuration: formatDuration(summary.stopDuration),
-    distance: formatLength(summary.distance),
-    startOdometer: formatLength(summary.startOdometer),
-    endOdometer: formatLength(summary.endOdometer),
-    maxSpeed: formatSpeed(summary.maxSpeed),
-    averageSpeed: formatSpeed(summary.averageSpeed),
-  };
 }
 
 function formatLength(unit: Length.BaseLength): string {
