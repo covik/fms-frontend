@@ -41,6 +41,13 @@ export const WithoutStops: Story = {
   },
 };
 
+export const OnlyStops: Story = {
+  args: {
+    ...Default.args,
+    checkpoints: [],
+  },
+};
+
 export const NoData: Story = {
   args: {
     checkpoints: [],

@@ -24,25 +24,32 @@ export function CombinedRoute({
 }: CombinedRouteAttributes) {
   const { selectedCheckpoint, selectCheckpoint } = useCheckpointSelection();
 
-  if (checkpoints.length < 2) return null;
+  const hasCheckpoints = checkpoints.length > 1;
+  const hasStops = stops && stops.length > 0;
 
-  const firstPosition = checkpoints[0];
-  const lastPosition = checkpoints[checkpoints.length - 1];
+  const firstPosition = hasCheckpoints ? checkpoints[0] : undefined;
+  const lastPosition = hasCheckpoints
+    ? checkpoints[checkpoints.length - 1]
+    : undefined;
 
   return (
     <>
-      <RouteLine points={checkpoints} color={color} />
-      <RouteStartMarker
-        coordinates={
-          new Coordinates(firstPosition.latitude, firstPosition.longitude)
-        }
-      />
-      <RouteFinishMarker
-        coordinates={
-          new Coordinates(lastPosition.latitude, lastPosition.longitude)
-        }
-      />
-      {showCheckpoints ? (
+      {hasCheckpoints ? <RouteLine points={checkpoints} color={color} /> : null}
+      {firstPosition ? (
+        <RouteStartMarker
+          coordinates={
+            new Coordinates(firstPosition.latitude, firstPosition.longitude)
+          }
+        />
+      ) : null}
+      {lastPosition ? (
+        <RouteFinishMarker
+          coordinates={
+            new Coordinates(lastPosition.latitude, lastPosition.longitude)
+          }
+        />
+      ) : null}
+      {hasCheckpoints && showCheckpoints ? (
         <RouteCheckpoints
           checkpoints={checkpoints}
           color={color}
@@ -50,7 +57,7 @@ export function CombinedRoute({
           selectedCheckpointId={selectedCheckpoint?.id ?? ''}
         />
       ) : null}
-      {stops && stops.length > 0 ? <RouteStops stops={stops} /> : null}
+      {hasStops ? <RouteStops stops={stops} /> : null}
     </>
   );
 }
