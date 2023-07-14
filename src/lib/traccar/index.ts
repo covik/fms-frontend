@@ -91,8 +91,8 @@ export const TraccarRouteSummary = z.object({
   averageSpeed: speed,
   distance: z.number().nonnegative(),
   engineHours: z.number().nonnegative(), // engineHours is actually engine milliseconds
-  startTime: datetime.nullable(),
-  endTime: datetime.nullable(),
+  startTime: datetime,
+  endTime: datetime,
   startOdometer: z.number().nonnegative(),
   endOdometer: z.number().nonnegative(),
 });

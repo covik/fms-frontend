@@ -103,10 +103,6 @@ export async function fetchSummaryInRange(
 
   const summary = summaryList[0];
 
-  if (summary.startTime === null || summary.endTime === null) {
-    throw new NoRouteSummary();
-  }
-
   return new RouteSummary({
     startTime: new Date(summary.startTime),
     endTime: new Date(summary.endTime),
