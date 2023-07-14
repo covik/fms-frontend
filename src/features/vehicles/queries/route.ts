@@ -1,8 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { isToday } from 'date-fns';
 import { VehicleService } from '../services/vehicle-service';
-import { RouteSummary } from '../models/route-summary';
-import { RouteStop } from '../models/route-stop';
 import { useMemo } from 'react';
 import { adaptRoutePositions } from '../ui/adapters/route-position';
 import { adaptRouteStops } from '../ui/adapters/route-stop';
@@ -116,12 +114,25 @@ export function useVehicleRoute(
   const stops = stopsQuery.data;
   const partialSummary = summaryQuery.data;
 
-  const summary = useMemo(() => {
-    if (partialSummary === null) return null;
-    if (partialSummary === undefined || stops === undefined) return undefined;
+  const summary: RouteSummaryTransitionalModel | null | undefined =
+    useMemo(() => {
+      if (partialSummary === null) return null;
+      if (partialSummary === undefined || stops === undefined) return undefined;
 
-    return calculateFullSummary(partialSummary, stops);
-  }, [partialSummary, stops]);
+      const { drivingDuration, stopDuration } =
+        partialSummary.drivingAndStopDuration(stops);
+
+      return {
+        totalDuration: partialSummary.durationInSeconds(),
+        drivingDuration,
+        stopDuration,
+        distance: partialSummary.distance(),
+        startOdometer: partialSummary.startOdometer(),
+        endOdometer: partialSummary.endOdometer(),
+        averageSpeed: partialSummary.averageSpeed(),
+        maxSpeed: partialSummary.maxSpeed(),
+      };
+    }, [partialSummary, stops]);
 
   return useMemo(() => {
     if (positions === undefined || stops === undefined || summary === undefined)
@@ -149,29 +160,4 @@ export interface RouteSummaryTransitionalModel {
   endOdometer: Length.BaseLength;
   averageSpeed: Speed.BaseSpeed;
   maxSpeed: Speed.BaseSpeed;
-}
-
-function calculateFullSummary(
-  summary: RouteSummary,
-  stops: RouteStop[],
-): RouteSummaryTransitionalModel {
-  const totalDuration = summary.durationInSeconds();
-  const { drivingDuration, stopDuration } =
-    summary.drivingAndStopDuration(stops);
-  const distance = summary.distance();
-  const startOdometer = summary.startOdometer();
-  const endOdometer = summary.endOdometer();
-  const averageSpeed = summary.averageSpeed();
-  const maxSpeed = summary.maxSpeed();
-
-  return {
-    totalDuration,
-    drivingDuration,
-    stopDuration,
-    distance,
-    startOdometer,
-    endOdometer,
-    averageSpeed,
-    maxSpeed,
-  };
 }
