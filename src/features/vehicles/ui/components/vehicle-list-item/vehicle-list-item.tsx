@@ -4,7 +4,7 @@ import {
   AlertCircle as Warning,
   CheckCircle as Checked,
 } from 'mdi-material-ui';
-import { IgnitionIcon } from '#ui/atoms/ignition-icon';
+import { IgnitionIcon } from '../ignition-icon';
 import { MovementIcon } from '#ui/atoms/movement-icon';
 import { Grid } from './container';
 import { root } from './selectors';

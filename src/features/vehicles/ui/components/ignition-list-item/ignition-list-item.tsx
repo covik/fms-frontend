@@ -1,5 +1,5 @@
 import { ListItem, ListItemIcon, ListItemText } from '@mui/material';
-import { IgnitionIcon } from '#ui/atoms/ignition-icon';
+import { IgnitionIcon } from '../ignition-icon';
 
 export interface IgnitionListItemAttributes {
   on: boolean;
