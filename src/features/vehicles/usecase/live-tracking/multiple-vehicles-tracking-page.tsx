@@ -10,7 +10,7 @@ import { useVehicleRoute } from '../../queries';
 import type { Vehicle } from '../../ui/pages/multiple-vehicles-tracking';
 
 export function MultipleVehiclesTrackingPage() {
-  const { formatDateTime, formatDuration } = useDateTime();
+  const { formatDateTime, formatDuration, formatTime } = useDateTime();
 
   const query = useQuery({
     queryKey: ['vehicles'],
@@ -50,6 +50,7 @@ export function MultipleVehiclesTrackingPage() {
       formatDuration,
       formatLength,
       formatSpeed,
+      formatTime,
       formatVoltage,
     },
   );

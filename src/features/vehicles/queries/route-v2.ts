@@ -43,6 +43,7 @@ export interface UnitFormatters {
   formatDuration: (durationInSeconds: number) => string;
   formatLength: (length: Length.BaseLength) => string;
   formatSpeed: (speed: Speed.BaseSpeed) => string;
+  formatTime: (time: Date) => string;
   formatVoltage: (voltage: Voltage.BaseVoltage) => string;
 }
 

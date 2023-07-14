@@ -16,6 +16,8 @@ export interface RouteStopData {
   latitude: number;
   longitude: number;
   duration: string;
+  startTime: string;
+  endTime: string;
 }
 
 export interface RouteSummaryData {

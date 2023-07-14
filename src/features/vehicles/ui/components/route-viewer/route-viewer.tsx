@@ -28,7 +28,7 @@ export function RouteViewer({
   to,
   children = null,
 }: RouteViewerAttributes) {
-  const { formatDateTime, formatDuration } = useDateTime();
+  const { formatDateTime, formatDuration, formatTime } = useDateTime();
 
   const { positions, stops, summary } = useVehicleRoute(
     { vehicleId, from, to },
@@ -37,6 +37,7 @@ export function RouteViewer({
       formatDuration,
       formatLength,
       formatSpeed,
+      formatTime,
       formatVoltage,
     },
   ) ?? { positions: undefined, stops: undefined, summary: undefined };

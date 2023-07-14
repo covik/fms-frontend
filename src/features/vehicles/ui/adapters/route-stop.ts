@@ -3,19 +3,21 @@ import type { UnitFormatters } from '../../queries';
 import type { RouteStop } from '../../models/route-stop';
 
 export interface StopFormatters
-  extends Pick<UnitFormatters, 'formatDuration'> {}
+  extends Pick<UnitFormatters, 'formatDuration' | 'formatTime'> {}
 
 function adaptRouteStop(
   stop: RouteStop,
   formatters: StopFormatters,
 ): RouteStopData {
-  const { formatDuration } = formatters;
+  const { formatDuration, formatTime } = formatters;
 
   return {
     id: stop.id(),
     latitude: stop.coordinates().latitude(),
     longitude: stop.coordinates().longitude(),
     duration: formatDuration(stop.duration()),
+    startTime: formatTime(stop.startTime()),
+    endTime: formatTime(stop.endTime()),
   };
 }
 
