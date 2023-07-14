@@ -5,7 +5,7 @@ import {
   CheckCircle as Checked,
 } from 'mdi-material-ui';
 import { IgnitionIcon } from '../ignition-icon';
-import { MovementIcon } from '#ui/atoms/movement-icon';
+import { MovementIcon } from '../movement-icon';
 import { Grid } from './container';
 import { root } from './selectors';
 

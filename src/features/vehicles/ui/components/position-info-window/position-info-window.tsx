@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@mui/material';
 import { IgnitionIcon } from '../ignition-icon';
-import { MovementIcon } from '#ui/atoms/movement-icon';
+import { MovementIcon } from '../movement-icon';
 import type { Coordinates } from '#lib/dimension';
 
 export interface PositionInfoWindowAttributes {
