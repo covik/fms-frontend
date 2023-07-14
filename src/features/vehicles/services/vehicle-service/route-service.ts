@@ -1,5 +1,4 @@
 import { z } from 'zod';
-import { PositionTimestamps, RoutePosition } from '../../models/position';
 import { Http } from '#lib/http-client';
 import {
   TraccarPosition,
@@ -8,9 +7,9 @@ import {
 } from '#lib/traccar';
 import { Coordinates } from '#lib/dimension';
 import { Angle, Length, Speed, Voltage } from '#lib/measurement-unit';
+import { PositionTimestamps, RoutePosition } from '../../models/position';
 import { RouteStop } from '../../models/route-stop';
 import { RouteSummary } from '../../models/route-summary';
-import { NoRouteSummary } from './exception';
 
 const RangeParameters = z.object({
   vehicleId: z.string().trim().min(1),
@@ -87,7 +86,7 @@ export async function fetchStopsInRange(
 export async function fetchSummaryInRange(
   options: RangeAttributes,
   signal?: AbortSignal,
-): Promise<RouteSummary> {
+): Promise<RouteSummary | null> {
   const params = constructURLParams(options);
 
   const response = await Http.request(
@@ -97,9 +96,7 @@ export async function fetchSummaryInRange(
   const responseJson = await response.json();
   const summaryList = z.array(TraccarRouteSummary).max(1).parse(responseJson);
 
-  if (summaryList.length === 0) {
-    throw new NoRouteSummary();
-  }
+  if (summaryList.length === 0) return null;
 
   const summary = summaryList[0];
 

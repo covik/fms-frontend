@@ -1,6 +1,6 @@
 import { fetchAll } from './vehicle-service';
 import { takeOnlyOperational, takeOnlyUnavailable } from './filter';
-import { NoRouteSummary, NotFoundException } from './exception';
+import { NotFoundException } from './exception';
 import {
   fetchInRange,
   fetchStopsInRange,
@@ -19,7 +19,6 @@ export const VehicleService = {
   takeOnlyOperational,
   takeOnlyUnavailable,
   NotFoundException,
-  NoRouteSummary,
   RouteService,
   sortAscendingByName,
 };

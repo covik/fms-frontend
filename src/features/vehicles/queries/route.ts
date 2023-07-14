@@ -99,10 +99,7 @@ export function useVehicleRoute(
       VehicleService.RouteService.fetchSummaryInRange(
         { vehicleId, from, to },
         signal,
-      ).catch((e) => {
-        if (e instanceof VehicleService.NoRouteSummary) return null;
-        else throw e;
-      }),
+      ),
     staleTime,
     enabled: isEnabled,
   });
