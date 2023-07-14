@@ -36,7 +36,11 @@ import type {
   VehicleLocation,
   VehicleMovementState,
 } from '../../types/vehicle';
-import type { RoutePositionData, RouteStopData } from '../../types/route';
+import type {
+  RoutePositionData,
+  RouteStopData,
+  RouteSummaryData,
+} from '../../types/route';
 
 export interface Vehicle
   extends MinimalVehicle,
@@ -45,17 +49,6 @@ export interface Vehicle
     VehicleMovementState,
     VehicleCourse,
     VehicleCondition {}
-
-export interface RouteSummaryData {
-  totalDuration: string;
-  drivingDuration: string;
-  stopDuration: string;
-  distance: string;
-  startOdometer: string;
-  endOdometer: string;
-  maxSpeed: string;
-  averageSpeed: string;
-}
 
 export interface MultipleVehiclesTrackingAttributes {
   vehicles: Vehicle[] | undefined;

@@ -17,3 +17,14 @@ export interface RouteStopData {
   longitude: number;
   duration: string;
 }
+
+export interface RouteSummaryData {
+  totalDuration: string;
+  drivingDuration: string;
+  stopDuration: string;
+  distance: string;
+  startOdometer: string;
+  endOdometer: string;
+  maxSpeed: string;
+  averageSpeed: string;
+}

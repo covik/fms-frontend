@@ -1,3 +1,4 @@
+import type { RouteSummaryData } from '../types/route';
 import type { SummaryModel, UnitFormatters } from '../../queries';
 
 export interface SummaryFormatters
@@ -9,7 +10,7 @@ export interface SummaryFormatters
 export function adaptRouteSummary(
   summary: SummaryModel,
   formatters: SummaryFormatters,
-) {
+): RouteSummaryData {
   const { formatDuration, formatLength, formatSpeed } = formatters;
 
   return {

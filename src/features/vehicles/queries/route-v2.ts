@@ -1,5 +1,8 @@
-import type { RoutePositionData, RouteStopData } from '../ui/types/route';
-import type { RouteSummaryData } from '../ui/pages/multiple-vehicles-tracking';
+import type {
+  RoutePositionData,
+  RouteStopData,
+  RouteSummaryData,
+} from '../ui/types/route';
 import type { Length, Speed, Voltage } from '#lib/measurement-unit';
 import { useQuery } from '@tanstack/react-query';
 import { isToday } from 'date-fns';
