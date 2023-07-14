@@ -1,6 +1,10 @@
-import { useMemo } from 'react';
 import { Stack } from '@mui/material';
-import { AppMap, MapBounds, MapFetchIndicator } from '#core/map';
+import {
+  AppMap,
+  MapBounds,
+  MapFetchIndicator,
+  useCreateMapBounds,
+} from '#core/map';
 import { Coordinates } from '#lib/dimension';
 import { Tile, TileNoContent, TileRawContent } from '#ui/molecules/tile';
 import {
@@ -74,13 +78,7 @@ export function MultipleVehiclesTracking({
   dataRefreshInProgress = false,
 }: MultipleVehiclesTrackingAttributes) {
   const vehiclesArray = vehicles ?? [];
-  const vehicleBounds = useMemo(
-    () =>
-      vehiclesArray.map(
-        (vehicle) => new Coordinates(vehicle.latitude, vehicle.longitude),
-      ),
-    [vehiclesArray],
-  );
+  const vehicleBounds = useCreateMapBounds(vehicles ?? [], 'vehicles');
   const isVehicleSelected = vehiclesArray.some(
     (vehicle) => vehicle.id === selectedVehicleId,
   );
@@ -89,10 +87,10 @@ export function MultipleVehiclesTracking({
   const hasRouteStops = routeStops && routeStops.length > 0;
   const routeBounds = useRouteMapBounds(routePositions, routeStops);
 
-  const bounds =
-    hasRoutePositions || hasRouteStops ? routeBounds.bounds : vehicleBounds;
-  const boundsKey =
-    bounds === routeBounds.bounds ? routeBounds.key : 'vehicles';
+  const routeOrVehiclesBounds =
+    hasRoutePositions || hasRouteStops ? routeBounds : vehicleBounds;
+  const bounds = routeOrVehiclesBounds.bounds;
+  const boundsKey = routeOrVehiclesBounds.key;
 
   const { checkpointsVisible, showCheckpointsOnDetailedMap } =
     useRouteCheckpoints();

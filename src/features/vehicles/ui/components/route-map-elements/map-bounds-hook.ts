@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Coordinates } from '#lib/dimension';
+import { useCreateMapBounds } from '#core/map';
 import type { RoutePositionData, RouteStopData } from '../../types/route';
 
 export function useRouteMapBounds(
@@ -11,30 +11,5 @@ export function useRouteMapBounds(
     [checkpoints, stops],
   );
 
-  const key = useMemo(() => computeKey(positions), [positions]);
-  const bounds = useMemo(() => computeBounds(positions), [positions]);
-
-  return {
-    key,
-    bounds,
-  };
-}
-
-interface Identifiable {
-  id: string;
-}
-
-interface Coordinatable {
-  latitude: number;
-  longitude: number;
-}
-
-function computeKey(positions: Identifiable[]): string {
-  return positions.map((position) => position.id).join('=');
-}
-
-function computeBounds(positions: Coordinatable[]): Coordinates[] {
-  return positions.map(
-    (position) => new Coordinates(position.latitude, position.longitude),
-  );
+  return useCreateMapBounds(positions);
 }
