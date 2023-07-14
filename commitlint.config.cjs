@@ -7,6 +7,19 @@ const getDirectories = (source) =>
 const core = getDirectories('./src/core');
 const features = getDirectories('./src/features');
 const libraries = getDirectories('./src/lib');
+const functions = [
+  'adapter',
+  'fixture',
+  'model',
+  'query',
+  'service',
+  'util',
+  'ui-atom',
+  'ui-molecule',
+  'ui-organism',
+  'ui-template',
+  'ui-page',
+];
 
 module.exports = {
   extends: ['@commitlint/config-conventional'],
@@ -19,14 +32,7 @@ module.exports = {
         'deps', // related to dependencies
         'branding',
         'foundation',
-        'service',
-        'model',
-        'util',
-        'ui-atom',
-        'ui-molecule',
-        'ui-organism',
-        'ui-template',
-        'ui-page',
+        ...functions,
         ...features,
         ...core,
         ...libraries,
