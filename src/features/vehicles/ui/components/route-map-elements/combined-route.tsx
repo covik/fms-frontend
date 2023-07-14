@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { flushSync } from 'react-dom';
 import { Coordinates } from '#lib/dimension';
 import { ROUTE_COLOR } from './constants';
@@ -22,7 +22,8 @@ export function CombinedRoute({
   color = ROUTE_COLOR,
   showCheckpoints = false,
 }: CombinedRouteAttributes) {
-  const { selectedCheckpoint, selectCheckpoint } = useCheckpointSelection();
+  const { selectedCheckpoint, selectCheckpoint, clearSelection } =
+    useCheckpointSelection();
 
   const hasCheckpoints = checkpoints.length > 1;
   const hasStops = stops && stops.length > 0;
@@ -31,6 +32,10 @@ export function CombinedRoute({
   const lastPosition = hasCheckpoints
     ? checkpoints[checkpoints.length - 1]
     : undefined;
+
+  useEffect(() => {
+    if (!showCheckpoints) clearSelection();
+  }, [showCheckpoints]);
 
   return (
     <>
@@ -67,15 +72,18 @@ function useCheckpointSelection() {
     RoutePositionData | undefined
   >(undefined);
 
+  function clearSelection() {
+    setSelectedCheckpoint(() => undefined);
+  }
+
   function selectCheckpoint(newPosition: RoutePositionData) {
-    flushSync(() => {
-      setSelectedCheckpoint(() => undefined);
-    });
+    flushSync(() => clearSelection());
     setSelectedCheckpoint(() => newPosition);
   }
 
   return {
     selectedCheckpoint,
     selectCheckpoint,
+    clearSelection,
   };
 }
