@@ -14,14 +14,14 @@ export interface RouteMapAttributes {
 export function RouteMap({ checkpoints, stops }: RouteMapAttributes) {
   const { checkpointsVisible, showCheckpointsOnDetailedMap } =
     useRouteCheckpoints();
-  const { bounds } = useRouteMapBounds(checkpoints, stops);
+  const { bounds, key } = useRouteMapBounds(checkpoints, stops);
 
   return (
     <AppMap
       onZoomChanged={showCheckpointsOnDetailedMap}
       sx={{ height: '100%' }}
     >
-      <MapBounds coordinates={bounds} />
+      <MapBounds coordinates={bounds} key={key} once />
       <CombinedRoute
         checkpoints={checkpoints}
         stops={stops}
