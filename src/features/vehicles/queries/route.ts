@@ -1,7 +1,7 @@
-import { useQuery } from '@tanstack/react-query';
 import { isToday } from 'date-fns';
-import { VehicleService } from '../services/vehicle-service';
 import { useMemo } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { VehicleService } from '../services/vehicle-service';
 import { adaptRoutePositions } from '../ui/adapters/route-position';
 import { adaptRouteStops } from '../ui/adapters/route-stop';
 import { adaptRouteSummary } from '../ui/adapters/route-summary';
