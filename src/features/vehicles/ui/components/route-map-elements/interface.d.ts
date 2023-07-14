@@ -1,6 +1,3 @@
-import type { RoutePosition } from '../../../models/position';
-import type { RouteStop } from '../../../models/route-stop';
-
 export interface RoutePositionData {
   id: string;
   latitude: number;
@@ -19,20 +16,4 @@ export interface RouteStopData {
   latitude: number;
   longitude: number;
   duration: string;
-}
-
-type RoutePositionInstance = InstanceType<typeof RoutePosition>;
-type TimestampInstance = ReturnType<RoutePositionInstance['timestamp']>;
-
-export interface PositionUnitConverters {
-  formatDateTime(unit: ReturnType<TimestampInstance['fixationTime']>): string;
-  formatMileage(unit: ReturnType<RoutePositionInstance['mileage']>): string;
-  formatSpeed(unit: ReturnType<RoutePositionInstance['speed']>): string;
-  formatVoltage(unit: ReturnType<RoutePositionInstance['power']>): string;
-}
-
-type RouteStopInstance = InstanceType<typeof RouteStop>;
-
-export interface StopUnitConverters {
-  formatDuration(unit: ReturnType<RouteStopInstance['duration']>): string;
 }

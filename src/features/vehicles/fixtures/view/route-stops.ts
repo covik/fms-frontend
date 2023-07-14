@@ -1,9 +1,9 @@
 import { intervalToDuration } from 'date-fns';
 import stops from '../model/route-stops';
-import { adaptRouteStopModel } from '../../ui/components/route-map-elements';
-import type { StopUnitConverters } from '../../ui/components/route-map-elements/interface';
+import { adaptRouteStops } from '../../ui/adapters/route-stop';
+import type { UnitFormatters } from '../../queries';
 
-const converters: StopUnitConverters = {
+const converters: Pick<UnitFormatters, 'formatDuration'> = {
   formatDuration: (durationInSeconds) => {
     const duration = intervalToDuration({
       start: 0,
@@ -14,4 +14,4 @@ const converters: StopUnitConverters = {
   },
 };
 
-export default stops.map((model) => adaptRouteStopModel(model, converters));
+export default adaptRouteStops(stops, converters);
