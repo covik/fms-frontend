@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { Polyline } from '@react-google-maps/api';
 import type { CSSProperties } from 'react';
-import type { RoutePositionData } from './interface';
+import type { RoutePositionData } from '../../types/route';
 
 export interface RouteLineAttributes {
   points: Pick<RoutePositionData, 'latitude' | 'longitude'>[];

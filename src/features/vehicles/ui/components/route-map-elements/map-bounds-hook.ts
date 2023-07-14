@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { Coordinates } from '#lib/dimension';
-import type { RoutePositionData, RouteStopData } from './interface';
+import type { RoutePositionData, RouteStopData } from '../../types/route';
 
 export function useRouteMapBounds(
   checkpoints: RoutePositionData[],

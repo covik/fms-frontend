@@ -1,6 +1,6 @@
-import type { RouteStop } from '../../models/route-stop';
-import type { RouteStopData } from '../components/route-map-elements/interface';
+import type { RouteStopData } from '../types/route';
 import type { UnitFormatters } from '../../queries';
+import type { RouteStop } from '../../models/route-stop';
 
 export interface StopFormatters
   extends Pick<UnitFormatters, 'formatDuration'> {}

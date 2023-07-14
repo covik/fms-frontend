@@ -36,10 +36,7 @@ import type {
   VehicleLocation,
   VehicleMovementState,
 } from '../../types/vehicle';
-import type {
-  RoutePositionData,
-  RouteStopData,
-} from '../../components/route-map-elements/interface';
+import type { RoutePositionData, RouteStopData } from '../../types/route';
 
 export interface Vehicle
   extends MinimalVehicle,

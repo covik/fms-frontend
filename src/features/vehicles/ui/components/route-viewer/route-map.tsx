@@ -4,10 +4,7 @@ import {
   useRouteCheckpoints,
   useRouteMapBounds,
 } from '../route-map-elements';
-import type {
-  RoutePositionData,
-  RouteStopData,
-} from '../route-map-elements/interface';
+import type { RoutePositionData, RouteStopData } from '../../types/route';
 
 export interface RouteMapAttributes {
   checkpoints: RoutePositionData[];

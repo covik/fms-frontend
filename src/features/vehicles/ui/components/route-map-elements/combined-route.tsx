@@ -7,7 +7,7 @@ import { RouteCheckpoints } from './route-checkpoints';
 import { RouteLine } from './route-line';
 import { RouteStops } from './route-stops';
 import type { CSSProperties } from 'react';
-import type { RoutePositionData, RouteStopData } from './interface';
+import type { RoutePositionData, RouteStopData } from '../../types/route';
 
 export interface CombinedRouteAttributes {
   checkpoints: RoutePositionData[];

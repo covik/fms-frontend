@@ -1,6 +1,6 @@
-import type { RoutePosition } from '../../models/position';
-import type { RoutePositionData } from '../components/route-map-elements/interface';
+import type { RoutePositionData } from '../types/route';
 import type { UnitFormatters } from '../../queries';
+import type { RoutePosition } from '../../models/position';
 
 export interface PositionFormatters
   extends Pick<

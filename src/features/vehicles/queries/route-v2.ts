@@ -1,7 +1,4 @@
-import type {
-  RoutePositionData,
-  RouteStopData,
-} from '../ui/components/route-map-elements/interface';
+import type { RoutePositionData, RouteStopData } from '../ui/types/route';
 import type { RouteSummaryData } from '../ui/pages/multiple-vehicles-tracking';
 import type { Length, Speed, Voltage } from '#lib/measurement-unit';
 import { useQuery } from '@tanstack/react-query';

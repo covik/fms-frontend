@@ -1,6 +1,6 @@
 import { Coordinates } from '#lib/dimension';
 import { RouteStopMarker } from './markers';
-import type { RouteStopData } from './interface';
+import type { RouteStopData } from '../../types/route';
 
 export interface RouteStopsAttributes {
   stops: RouteStopData[];
