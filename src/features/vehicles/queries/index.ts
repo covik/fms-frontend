@@ -1,1 +1,1 @@
-export * from './route-v2';
+export * from './route';
