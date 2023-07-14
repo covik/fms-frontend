@@ -1,7 +1,7 @@
 import { isToday } from 'date-fns';
 import { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { VehicleService } from '../services/vehicle-service';
+import { RouteService } from '../services/route-service';
 import { adaptRoutePositions } from '../ui/adapters/route-position';
 import { adaptRouteStops } from '../ui/adapters/route-stop';
 import { adaptRouteSummary } from '../ui/adapters/route-summary';
@@ -22,62 +22,10 @@ export function useVehicleRoute(
   const { vehicleId, from, to, isEnabled = true } = parameters;
   const staleTime = isToday(from) || isToday(to) ? 60 * 1000 : Infinity;
 
-  /*const query = useQueries({
-    queries: [
-      {
-        queryKey: ['vehicles', vehicleId, 'routes', from, to],
-        // @ts-expect-error
-        queryFn: ({ signal }) =>
-          VehicleService.RouteService.fetchInRange(
-            {
-              vehicleId,
-              from,
-              to,
-            },
-            signal,
-          ),
-        staleTime,
-      },
-      {
-        queryKey: ['vehicles', vehicleId, 'stops', from, to],
-        // @ts-expect-error
-        queryFn: ({ signal }) =>
-          VehicleService.RouteService.fetchStopsInRange(
-            {
-              vehicleId,
-              from,
-              to,
-            },
-            signal,
-          ),
-        staleTime,
-      },
-      {
-        queryKey: ['vehicles', vehicleId, 'summary', from, to],
-        // @ts-expect-error
-        queryFn: async ({ signal }) => {
-          try {
-            return await VehicleService.RouteService.fetchSummaryInRange(
-              {
-                vehicleId,
-                from,
-                to,
-              },
-              signal,
-            );
-          } catch (e) {
-            if (e instanceof VehicleService.NoRouteSummary) return null;
-            throw e;
-          }
-        },
-        staleTime,
-      },
-    ],
-  });*/
   const positionsQuery = useQuery({
     queryKey: ['vehicles', vehicleId, 'routes', from, to],
     queryFn: ({ signal }) =>
-      VehicleService.RouteService.fetchInRange({ vehicleId, from, to }, signal),
+      RouteService.fetchInRange({ vehicleId, from, to }, signal),
     staleTime,
     enabled: isEnabled,
   });
@@ -85,10 +33,7 @@ export function useVehicleRoute(
   const stopsQuery = useQuery({
     queryKey: ['vehicles', vehicleId, 'stops', from, to],
     queryFn: ({ signal }) =>
-      VehicleService.RouteService.fetchStopsInRange(
-        { vehicleId, from, to },
-        signal,
-      ),
+      RouteService.fetchStopsInRange({ vehicleId, from, to }, signal),
     staleTime,
     enabled: isEnabled,
   });
@@ -96,10 +41,7 @@ export function useVehicleRoute(
   const summaryQuery = useQuery({
     queryKey: ['vehicles', vehicleId, 'summary', from, to],
     queryFn: ({ signal }) =>
-      VehicleService.RouteService.fetchSummaryInRange(
-        { vehicleId, from, to },
-        signal,
-      ),
+      RouteService.fetchSummaryInRange({ vehicleId, from, to }, signal),
     staleTime,
     enabled: isEnabled,
   });

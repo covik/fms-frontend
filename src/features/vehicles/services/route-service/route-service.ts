@@ -17,11 +17,11 @@ const RangeParameters = z.object({
   to: z.date(),
 });
 
-type RangeAttributes = z.infer<typeof RangeParameters>;
-
 const headers = {
   Accept: 'application/json',
 };
+
+type RangeAttributes = z.infer<typeof RangeParameters>;
 
 export async function fetchInRange(
   options: RangeAttributes,
