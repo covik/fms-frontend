@@ -91,6 +91,8 @@ export function MultipleVehiclesTracking({
 
   const bounds =
     hasRoutePositions || hasRouteStops ? routeBounds.bounds : vehicleBounds;
+  const boundsKey =
+    bounds === routeBounds.bounds ? routeBounds.key : 'vehicles';
 
   const { checkpointsVisible, showCheckpointsOnDetailedMap } =
     useRouteCheckpoints();
@@ -183,7 +185,7 @@ export function MultipleVehiclesTracking({
             sx={{ height: '100%' }}
             onZoomChanged={showCheckpointsOnDetailedMap}
           >
-            <MapBounds coordinates={bounds} once />
+            <MapBounds coordinates={bounds} key={boundsKey} once />
             {dataRefreshInProgress ? <MapFetchIndicator /> : null}
             {vehiclesArray.map((vehicle) => (
               <VehicleMapMarker
