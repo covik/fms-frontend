@@ -2,7 +2,7 @@ import { Stack } from '@mui/material';
 import { useDateTime } from '#core/time';
 import { Length, Speed, Voltage } from '#lib/measurement-unit';
 import { Tile, TileNoContent, TileRawContent } from '#ui/molecules/tile';
-import { useRouteStops, useVehicleRoute } from '../../../queries';
+import { useVehicleRoute } from '../../../queries';
 import { Grid, GridContent, GridSidebarTiles } from '../grid';
 import { RouteMap } from './route-map';
 import {
@@ -12,7 +12,7 @@ import {
   RouteSpeedSummary,
   RouteSummary,
 } from '../route-summary';
-import { RouteStopsTable } from './route-stops-table';
+import { RouteStopsTable } from '../route-stops-table';
 import type { ReactNode } from 'react';
 
 export interface RouteViewerAttributes {
@@ -41,7 +41,6 @@ export function RouteViewer({
       formatVoltage,
     },
   ) ?? { positions: undefined, stops: undefined, summary: undefined };
-  const legacyRouteStops = useRouteStops({ vehicleId, from, to });
 
   const spacing = 1;
   return (
@@ -72,11 +71,11 @@ export function RouteViewer({
             )}
           </RouteSummary>
           <Tile label={'Zaustavljanje'}>
-            {legacyRouteStops && legacyRouteStops.length === 0 ? (
+            {stops && stops.length === 0 ? (
               <TileNoContent>Nema zaustavljanja</TileNoContent>
             ) : (
               <TileRawContent>
-                <RouteStopsTable stops={legacyRouteStops} />
+                <RouteStopsTable stops={stops} />
               </TileRawContent>
             )}
           </Tile>
