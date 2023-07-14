@@ -95,17 +95,14 @@ export function useVehicleRoute(
 
   const summaryQuery = useQuery({
     queryKey: ['vehicles', vehicleId, 'summary', from, to],
-    queryFn: async ({ signal }) => {
-      try {
-        return await VehicleService.RouteService.fetchSummaryInRange(
-          { vehicleId, from, to },
-          signal,
-        );
-      } catch (e) {
+    queryFn: ({ signal }) =>
+      VehicleService.RouteService.fetchSummaryInRange(
+        { vehicleId, from, to },
+        signal,
+      ).catch((e) => {
         if (e instanceof VehicleService.NoRouteSummary) return null;
-        throw e;
-      }
-    },
+        else throw e;
+      }),
     staleTime,
     enabled: isEnabled,
   });
