@@ -29,12 +29,7 @@ export function MileageReportPage() {
       selectedMonth,
     ],
     queryFn: ({ signal }) =>
-      MileageService.fetchForMonth(
-        selectedMonth,
-        // @ts-expect-error
-        vehicles.data,
-        signal,
-      ),
+      MileageService.fetchForMonth(selectedMonth, vehicles.data ?? [], signal),
   });
 
   const adaptedMileageData = adaptMileageData(mileage.data);

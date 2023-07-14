@@ -22,6 +22,8 @@ export async function fetchForMonth(
   vehicleIds: string[],
   signal?: AbortSignal,
 ): Promise<MileageSummary[]> {
+  if (vehicleIds && vehicleIds.length === 0) return [];
+
   const params = constructURLParams({
     vehicleIds,
     from: startOfMonth(month),
