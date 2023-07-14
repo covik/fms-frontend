@@ -1,9 +1,3 @@
-import type {
-  RoutePositionData,
-  RouteStopData,
-  RouteSummaryData,
-} from '../ui/types/route';
-import type { Length, Speed, Voltage } from '#lib/measurement-unit';
 import { useQuery } from '@tanstack/react-query';
 import { isToday } from 'date-fns';
 import { VehicleService } from '../services/vehicle-service';
@@ -13,6 +7,8 @@ import { useMemo } from 'react';
 import { adaptRoutePositions } from '../ui/adapters/route-position';
 import { adaptRouteStops } from '../ui/adapters/route-stop';
 import { adaptRouteSummary } from '../ui/adapters/route-summary';
+import type { Length, Speed } from '#lib/measurement-unit';
+import type { RouteData, RouteFormatters } from '../ui/types/route';
 
 export interface QueryParameters {
   vehicleId: string;
@@ -21,36 +17,10 @@ export interface QueryParameters {
   isEnabled?: boolean;
 }
 
-export interface VehicleRoute {
-  positions: RoutePositionData[];
-  stops: RouteStopData[];
-  summary: RouteSummaryData | null;
-}
-
-export interface RouteSummaryTransitionalModel {
-  totalDuration: number;
-  drivingDuration: number;
-  stopDuration: number;
-  distance: Length.BaseLength;
-  startOdometer: Length.BaseLength;
-  endOdometer: Length.BaseLength;
-  averageSpeed: Speed.BaseSpeed;
-  maxSpeed: Speed.BaseSpeed;
-}
-
-export interface UnitFormatters {
-  formatDateTime: (date: Date) => string;
-  formatDuration: (durationInSeconds: number) => string;
-  formatLength: (length: Length.BaseLength) => string;
-  formatSpeed: (speed: Speed.BaseSpeed) => string;
-  formatTime: (time: Date) => string;
-  formatVoltage: (voltage: Voltage.BaseVoltage) => string;
-}
-
 export function useVehicleRoute(
   parameters: QueryParameters,
-  formatters: UnitFormatters,
-): VehicleRoute | undefined {
+  formatters: RouteFormatters,
+): RouteData | undefined {
   const { vehicleId, from, to, isEnabled = true } = parameters;
   const staleTime = isToday(from) || isToday(to) ? 60 * 1000 : Infinity;
 
@@ -168,6 +138,17 @@ export function useVehicleRoute(
       summary: adaptedSummary,
     };
   }, [positions, stops, summary]);
+}
+
+export interface RouteSummaryTransitionalModel {
+  totalDuration: number;
+  drivingDuration: number;
+  stopDuration: number;
+  distance: Length.BaseLength;
+  startOdometer: Length.BaseLength;
+  endOdometer: Length.BaseLength;
+  averageSpeed: Speed.BaseSpeed;
+  maxSpeed: Speed.BaseSpeed;
 }
 
 function calculateFullSummary(

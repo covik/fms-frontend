@@ -1,10 +1,9 @@
-import type { RoutePositionData } from '../types/route';
-import type { UnitFormatters } from '../../queries';
+import type { RoutePositionData, RouteFormatters } from '../types/route';
 import type { RoutePosition } from '../../models/position';
 
 export interface PositionFormatters
   extends Pick<
-    UnitFormatters,
+    RouteFormatters,
     'formatDateTime' | 'formatLength' | 'formatSpeed' | 'formatVoltage'
   > {}
 

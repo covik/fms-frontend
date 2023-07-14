@@ -1,3 +1,11 @@
+import type { Length, Speed, Voltage } from '#lib/measurement-unit';
+
+export interface RouteData {
+  positions: RoutePositionData[];
+  stops: RouteStopData[];
+  summary: RouteSummaryData | null;
+}
+
 export interface RoutePositionData {
   id: string;
   latitude: number;
@@ -29,4 +37,13 @@ export interface RouteSummaryData {
   endOdometer: string;
   maxSpeed: string;
   averageSpeed: string;
+}
+
+export interface RouteFormatters {
+  formatDateTime: (date: Date) => string;
+  formatDuration: (durationInSeconds: number) => string;
+  formatLength: (length: Length.BaseLength) => string;
+  formatSpeed: (speed: Speed.BaseSpeed) => string;
+  formatTime: (time: Date) => string;
+  formatVoltage: (voltage: Voltage.BaseVoltage) => string;
 }

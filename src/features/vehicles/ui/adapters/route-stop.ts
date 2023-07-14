@@ -1,9 +1,8 @@
-import type { RouteStopData } from '../types/route';
-import type { UnitFormatters } from '../../queries';
+import type { RouteStopData, RouteFormatters } from '../types/route';
 import type { RouteStop } from '../../models/route-stop';
 
 export interface StopFormatters
-  extends Pick<UnitFormatters, 'formatDuration' | 'formatTime'> {}
+  extends Pick<RouteFormatters, 'formatDuration' | 'formatTime'> {}
 
 function adaptRouteStop(
   stop: RouteStop,

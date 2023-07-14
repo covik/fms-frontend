@@ -1,12 +1,9 @@
-import type { RouteSummaryData } from '../types/route';
-import type {
-  RouteSummaryTransitionalModel,
-  UnitFormatters,
-} from '../../queries';
+import type { RouteSummaryData, RouteFormatters } from '../types/route';
+import type { RouteSummaryTransitionalModel } from '../../queries';
 
 export interface SummaryFormatters
   extends Pick<
-    UnitFormatters,
+    RouteFormatters,
     'formatDuration' | 'formatLength' | 'formatSpeed'
   > {}
 
