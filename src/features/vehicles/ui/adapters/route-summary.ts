@@ -1,5 +1,8 @@
 import type { RouteSummaryData } from '../types/route';
-import type { SummaryModel, UnitFormatters } from '../../queries';
+import type {
+  RouteSummaryTransitionalModel,
+  UnitFormatters,
+} from '../../queries';
 
 export interface SummaryFormatters
   extends Pick<
@@ -8,7 +11,7 @@ export interface SummaryFormatters
   > {}
 
 export function adaptRouteSummary(
-  summary: SummaryModel,
+  summary: RouteSummaryTransitionalModel,
   formatters: SummaryFormatters,
 ): RouteSummaryData {
   const { formatDuration, formatLength, formatSpeed } = formatters;

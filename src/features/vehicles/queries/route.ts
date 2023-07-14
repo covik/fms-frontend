@@ -27,7 +27,7 @@ export interface VehicleRoute {
   summary: RouteSummaryData | null;
 }
 
-export interface SummaryModel {
+export interface RouteSummaryTransitionalModel {
   totalDuration: number;
   drivingDuration: number;
   stopDuration: number;
@@ -173,7 +173,7 @@ export function useVehicleRoute(
 function calculateFullSummary(
   summary: RouteSummary,
   stops: RouteStop[],
-): SummaryModel {
+): RouteSummaryTransitionalModel {
   const totalDuration = summary.durationInSeconds();
   const { drivingDuration, stopDuration } =
     summary.drivingAndStopDuration(stops);
