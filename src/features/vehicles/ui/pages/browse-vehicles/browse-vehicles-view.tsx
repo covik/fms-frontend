@@ -1,5 +1,6 @@
 import { Fragment } from 'react';
 import { Truck, TruckFast } from 'mdi-material-ui';
+import { useLength, useSpeed, useVoltage } from '#core/measurement-unit';
 import { FluidPage, PagePadding } from '#ui/atoms/page';
 import { PageTitle } from '#ui/atoms/page-title';
 import { VehiclesLoadingView } from './vehicles-loading-view';
@@ -10,7 +11,6 @@ import {
   VehicleSections,
 } from '../../components/vehicle-sections';
 import { VehicleCard } from '../../components/vehicle-card';
-import { Length, Speed, Voltage } from '#lib/measurement-unit';
 import type { ReactElement } from 'react';
 import type {
   LocatedVehicle,
@@ -94,17 +94,20 @@ interface VehicleItemAttributes {
 }
 
 function VehicleItem({ vehicle, shareHandler }: VehicleItemAttributes) {
-  const speedInKph = Speed.convert(vehicle.speed()).toKph();
-  const formattedSpeed = Speed.format(speedInKph);
-  const formattedMileage = Length.adaptiveFormat(vehicle.mileage());
-  const formattedPower = Voltage.format(vehicle.power());
+  const { formatLengthProgressive } = useLength();
+  const { formatSpeed } = useSpeed();
+  const { formatVoltage } = useVoltage();
 
   return (
     <VehicleCard
       title={vehicle.name()}
       icon={vehicle.isInMotion() ? TruckFast : Truck}
       color={vehicle.hasIgnitionTurnedOn() ? 'green' : 'orange'}
-      meta={[formattedSpeed, formattedMileage, formattedPower]}
+      meta={[
+        formatSpeed(vehicle.speed()),
+        formatLengthProgressive(vehicle.mileage()),
+        formatVoltage(vehicle.power()),
+      ]}
       onShare={(e) => {
         e.preventDefault();
         shareHandler(vehicle);

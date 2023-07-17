@@ -1,8 +1,8 @@
 import { endOfDay, startOfDay } from 'date-fns';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
+import { useLength, useSpeed, useVoltage } from '#core/measurement-unit';
 import { useDateTime } from '#core/time';
-import { Length, Speed, Voltage } from '#lib/measurement-unit';
 import { VehicleService } from '../../services/vehicle-service';
 import { adaptLocatedVehicles } from '../../ui/adapters/vehicle-adapter';
 import { MultipleVehiclesTracking } from '../../ui/pages/multiple-vehicles-tracking';
@@ -11,6 +11,9 @@ import type { Vehicle } from '../../ui/pages/multiple-vehicles-tracking';
 
 export function MultipleVehiclesTrackingPage() {
   const { formatDateTime, formatDuration, formatTime } = useDateTime();
+  const { formatLengthProgressive } = useLength();
+  const { formatSpeed } = useSpeed();
+  const { formatVoltage } = useVoltage();
 
   const query = useQuery({
     queryKey: ['vehicles'],
@@ -48,7 +51,7 @@ export function MultipleVehiclesTrackingPage() {
     {
       formatDateTime,
       formatDuration,
-      formatLength,
+      formatLength: formatLengthProgressive,
       formatSpeed,
       formatTime,
       formatVoltage,
@@ -71,15 +74,3 @@ export function MultipleVehiclesTrackingPage() {
 }
 
 export default MultipleVehiclesTrackingPage;
-
-function formatLength(unit: Length.BaseLength): string {
-  return Length.adaptiveFormat(unit, 1);
-}
-
-function formatSpeed(unit: Speed.BaseSpeed): string {
-  return Speed.format(Speed.convert(unit).toKph());
-}
-
-function formatVoltage(unit: Voltage.BaseVoltage): string {
-  return Voltage.format(unit);
-}

@@ -1,6 +1,6 @@
 import { Stack } from '@mui/material';
+import { useLength, useSpeed, useVoltage } from '#core/measurement-unit';
 import { useDateTime } from '#core/time';
-import { Length, Speed, Voltage } from '#lib/measurement-unit';
 import { Tile, TileNoContent, TileRawContent } from '#ui/molecules/tile';
 import { useVehicleRoute } from '../../../queries';
 import { Grid, GridContent, GridSidebarTiles } from '../grid';
@@ -29,13 +29,16 @@ export function RouteViewer({
   children = null,
 }: RouteViewerAttributes) {
   const { formatDateTime, formatDuration, formatTime } = useDateTime();
+  const { formatLengthProgressive } = useLength();
+  const { formatSpeed } = useSpeed();
+  const { formatVoltage } = useVoltage();
 
   const { positions, stops, summary } = useVehicleRoute(
     { vehicleId, from, to },
     {
       formatDateTime,
       formatDuration,
-      formatLength,
+      formatLength: formatLengthProgressive,
       formatSpeed,
       formatTime,
       formatVoltage,
@@ -86,16 +89,4 @@ export function RouteViewer({
       </GridContent>
     </Grid>
   );
-}
-
-function formatLength(unit: Length.BaseLength): string {
-  return Length.adaptiveFormat(unit, 1);
-}
-
-function formatSpeed(unit: Speed.BaseSpeed): string {
-  return Speed.format(Speed.convert(unit).toKph());
-}
-
-function formatVoltage(unit: Voltage.BaseVoltage): string {
-  return Voltage.format(unit);
 }
