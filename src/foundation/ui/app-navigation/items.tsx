@@ -13,14 +13,14 @@ export const all: NavigationItems = [
     icon: <Truck />,
   },
   {
-    to: '/account',
-    label: 'Račun',
-    icon: <Account />,
-  },
-  {
     to: '/reports/mileage',
     label: 'Izvještaji',
     icon: <FileChart />,
+  },
+  {
+    to: '/account',
+    label: 'Račun',
+    icon: <Account />,
   },
 ];
 
