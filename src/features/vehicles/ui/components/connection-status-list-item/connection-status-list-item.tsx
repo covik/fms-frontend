@@ -1,5 +1,5 @@
 import { ListItem, ListItemIcon, ListItemText } from '@mui/material';
-import { WifiStrength4, WifiStrengthOff } from 'mdi-material-ui';
+import { Wifi, WifiOff } from 'mdi-material-ui';
 
 export interface ConnectionStatusListItemAttributes {
   active: boolean;
@@ -12,9 +12,7 @@ export function ConnectionStatusListItem({
 
   return (
     <ListItem>
-      <ListItemIcon>
-        {active ? <WifiStrength4 /> : <WifiStrengthOff />}
-      </ListItemIcon>
+      <ListItemIcon>{active ? <Wifi /> : <WifiOff />}</ListItemIcon>
       <ListItemText primary="Veza sa serverom" secondary={statusText} />
     </ListItem>
   );

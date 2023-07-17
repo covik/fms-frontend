@@ -1,5 +1,5 @@
 import { ListItem, ListItemIcon, ListItemText } from '@mui/material';
-import { MapMarker } from 'mdi-material-ui';
+import { MapMarkerOutline } from 'mdi-material-ui';
 
 export interface CoordinatesListItemAttributes {
   coordinates: string;
@@ -11,7 +11,7 @@ export function CoordinatesListItem({
   return (
     <ListItem>
       <ListItemIcon>
-        <MapMarker />
+        <MapMarkerOutline />
       </ListItemIcon>
       <ListItemText primary="Koordinate" secondary={coordinates} />
     </ListItem>

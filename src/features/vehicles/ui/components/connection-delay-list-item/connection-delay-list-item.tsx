@@ -1,5 +1,5 @@
 import { ListItem, ListItemIcon, ListItemText } from '@mui/material';
-import { Timer } from 'mdi-material-ui';
+import { TimerOutline } from 'mdi-material-ui';
 
 export interface ConnectionDelayListItemAttributes {
   latency: string;
@@ -11,7 +11,7 @@ export function ConnectionDelayListItem({
   return (
     <ListItem>
       <ListItemIcon>
-        <Timer />
+        <TimerOutline />
       </ListItemIcon>
       <ListItemText primary="Kašnjenje" secondary={latency} />
     </ListItem>
