@@ -1,6 +1,11 @@
 import { useParams } from '@tanstack/router';
 import { useQuery } from '@tanstack/react-query';
-import { useLength, useSpeed, useVoltage } from '#core/measurement-unit';
+import {
+  useAngle,
+  useLength,
+  useSpeed,
+  useVoltage,
+} from '#core/measurement-unit';
 import { useDateTime } from '#core/time';
 import { VehicleService } from '../../services/vehicle-service';
 import {
@@ -15,6 +20,7 @@ type WarningVariant = SingleVehicleTrackingAttributes['warning'];
 
 export function SingleVehicleTrackingPage() {
   const { vehicleId } = useParams({ from: '/vehicles/$vehicleId' });
+  const { formatCardinalDirection } = useAngle();
   const { distanceToNowStrictWithSuffix, formatDuration } = useDateTime();
   const { formatLengthProgressive } = useLength();
   const { formatSpeed } = useSpeed();
@@ -38,9 +44,6 @@ export function SingleVehicleTrackingPage() {
   if (vehicle === undefined || !(vehicle instanceof LocatedVehicle))
     return null;
 
-  const formattedCourse = `${vehicle.course().value()} ${vehicle
-    .course()
-    .symbol()}`;
   const formattedAltitude = `${vehicle.position().altitude()}m`;
 
   return (
@@ -55,7 +58,7 @@ export function SingleVehicleTrackingPage() {
       mileage={formatLengthProgressive(vehicle.mileage())}
       voltage={formatVoltage(vehicle.power())}
       updatedAt={distanceToNowStrictWithSuffix(vehicle.lastUpdatedAt())}
-      humanReadableCourse={formattedCourse}
+      humanReadableCourse={formatCardinalDirection(vehicle.course())}
       altitude={formattedAltitude}
       online={vehicle.isOnline()}
       latency={formatDuration(
