@@ -4,6 +4,7 @@ import {
   useGoogleMap,
   useJsApiLoader,
 } from '@react-google-maps/api';
+import { MapTypeControl } from './map-type-control';
 import type { CSSProperties, ReactElement, ReactNode } from 'react';
 
 const mapOptions = {
@@ -71,6 +72,10 @@ export function Map({
       streetViewControl: false,
       gestureHandling: gestureHandling ? 'auto' : 'none',
       clickableIcons: clickablePoi,
+      mapTypeControl: false,
+      fullscreenControlOptions: {
+        position: 9,
+      },
     }),
     [noControls, styles, clickablePoi],
   );
@@ -92,6 +97,7 @@ export function Map({
         mapRef.current = map;
       }}
     >
+      {noControls ? null : <MapTypeControl />}
       {children}
     </GoogleMap>
   );
