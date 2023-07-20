@@ -5,9 +5,9 @@ import {
 } from '.';
 
 const validCoordinate = 45; // valid for both latitude and longitude
-const invalidLatitudeRange = [-90.01, 90.01];
+const invalidLatitudeRange = [-90.01, 90.01, NaN];
 const validLatitudeRange = [-90, 90];
-const invalidLongitudeRange = [-180.01, 180.01];
+const invalidLongitudeRange = [-180.01, 180.01, NaN];
 const validLongitudeRange = [-180, 180];
 
 describe(Coordinates.name, () => {

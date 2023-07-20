@@ -20,12 +20,12 @@ export class Coordinates {
       );
     }
 
-    if (latitude > 90 || latitude < -90)
+    if (latitude > 90 || latitude < -90 || isNaN(latitude))
       throw new InvalidLatitudeException(
         `Latitude must be between -90 and 90. Got ${latitude}.`,
       );
 
-    if (longitude > 180 || longitude < -180)
+    if (longitude > 180 || longitude < -180 || isNaN(longitude))
       throw new InvalidLongitudeException(
         `Longitude must be between -180 and 180. Got ${longitude}.`,
       );
