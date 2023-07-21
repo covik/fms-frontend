@@ -126,7 +126,25 @@ describe(Coordinates.name, () => {
   specify('toGoogleMapsUrl() should return a Google Maps link', () => {
     const coordinates = new Coordinates(44.09437450651524, 15.250005920779836);
     expect(coordinates.toGoogleMapsUrl()).to.equal(
-      'https://www.google.com/maps/search/?api=1&query=44.09437450651524%2C15.250005920779836',
+      `${Coordinates.GOOGLE_MAPS_URL}/search/?api=1&query=44.09437450651524%2C15.250005920779836`,
     );
   });
+
+  specify(
+    'toGoogleStreetViewUrl() should return a Google Maps Street View link',
+    () => {
+      const coordinates = new Coordinates(
+        44.09437450651524,
+        15.250005920779836,
+      );
+
+      expect(coordinates.toGoogleStreetViewUrl()).to.equal(
+        `${Coordinates.GOOGLE_MAPS_URL}/@?api=1&map_action=pano&viewpoint=44.09437450651524%2C15.250005920779836`,
+      );
+
+      expect(coordinates.toGoogleStreetViewUrl(250)).to.equal(
+        `${Coordinates.GOOGLE_MAPS_URL}/@?api=1&map_action=pano&viewpoint=44.09437450651524%2C15.250005920779836&heading=250`,
+      );
+    },
+  );
 });

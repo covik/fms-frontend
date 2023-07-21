@@ -4,6 +4,8 @@ import {
 } from './exception';
 
 export class Coordinates {
+  static GOOGLE_MAPS_URL = 'https://www.google.com/maps';
+
   private readonly _latitude: number;
   private readonly _longitude: number;
 
@@ -48,8 +50,25 @@ export class Coordinates {
 
   public toGoogleMapsUrl(): string {
     const coordinatesToString = this.toString().replaceAll(' ', '');
-    const urlEncodedCoordinates = encodeURIComponent(coordinatesToString);
 
-    return `https://www.google.com/maps/search/?api=1&query=${urlEncodedCoordinates}`;
+    const urlParams = new URLSearchParams({
+      api: '1',
+      query: coordinatesToString,
+    });
+
+    return `${Coordinates.GOOGLE_MAPS_URL}/search/?${urlParams.toString()}`;
+  }
+
+  public toGoogleStreetViewUrl(heading?: number | undefined): string {
+    const coordinatesToString = this.toString().replaceAll(' ', '');
+
+    const urlParams = new URLSearchParams({
+      api: '1',
+      map_action: 'pano',
+      viewpoint: coordinatesToString,
+      ...(typeof heading === 'number' ? { heading: heading.toString() } : {}),
+    });
+
+    return `${Coordinates.GOOGLE_MAPS_URL}/@?${urlParams.toString()}`;
   }
 }
