@@ -119,14 +119,14 @@ describe(Coordinates.name, () => {
     'toString() should return coordinates in {latitude}, {longitude} format',
     () => {
       const coordinates = new Coordinates(45.15, 150.29801);
-      expect(coordinates.toString()).to.equal('45.15, 150.29801');
+      expect(coordinates.toString()).to.equal('45.1500000, 150.2980100');
     },
   );
 
   specify('toGoogleMapsUrl() should return a Google Maps link', () => {
     const coordinates = new Coordinates(44.09437450651524, 15.250005920779836);
     expect(coordinates.toGoogleMapsUrl()).to.equal(
-      `${Coordinates.GOOGLE_MAPS_URL}/search/?api=1&query=44.09437450651524%2C15.250005920779836`,
+      `${Coordinates.GOOGLE_MAPS_URL}/search/?api=1&query=44.0943745%2C15.2500059`,
     );
   });
 
@@ -139,11 +139,11 @@ describe(Coordinates.name, () => {
       );
 
       expect(coordinates.toGoogleStreetViewUrl()).to.equal(
-        `${Coordinates.GOOGLE_MAPS_URL}/@?api=1&map_action=pano&viewpoint=44.09437450651524%2C15.250005920779836`,
+        `${Coordinates.GOOGLE_MAPS_URL}/@?api=1&map_action=pano&viewpoint=44.0943745%2C15.2500059`,
       );
 
       expect(coordinates.toGoogleStreetViewUrl(250)).to.equal(
-        `${Coordinates.GOOGLE_MAPS_URL}/@?api=1&map_action=pano&viewpoint=44.09437450651524%2C15.250005920779836&heading=250`,
+        `${Coordinates.GOOGLE_MAPS_URL}/@?api=1&map_action=pano&viewpoint=44.0943745%2C15.2500059&heading=250`,
       );
     },
   );

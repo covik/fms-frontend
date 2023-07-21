@@ -44,8 +44,11 @@ export class Coordinates {
     return this._longitude;
   }
 
-  public toString(): string {
-    return `${this.latitude()}, ${this.longitude()}`;
+  public toString(precision = 7): string {
+    const latitude = this.latitude().toFixed(precision);
+    const longitude = this.longitude().toFixed(precision);
+
+    return `${latitude}, ${longitude}`;
   }
 
   public toGoogleMapsUrl(): string {
