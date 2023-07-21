@@ -1,10 +1,10 @@
 import { styled } from '@mui/material';
+import { Coordinates } from '#lib/dimension';
 import { MapLocationInformation } from './map-location-information';
-import { Meta, StoryObj } from '@storybook/react';
 import { AppMap } from './map';
 import { MapSettingsProvider } from './map-settings';
-import { Coordinates } from '#lib/dimension';
-import { InfoWindow } from '@react-google-maps/api';
+import { MapInfoWindow } from './map-info-window';
+import type { Meta, StoryObj } from '@storybook/react';
 
 const Container = styled('div')({
   backgroundColor: 'white',
@@ -39,15 +39,13 @@ export const OnMap: Story = {
     ...Default.args,
   },
   render: (args) => {
+    const coordinates = new Coordinates(args.latitude, args.longitude);
     return (
-      <MapSettingsProvider
-        center={new Coordinates(args.latitude, args.longitude)}
-        zoom={16}
-      >
+      <MapSettingsProvider center={coordinates} zoom={16}>
         <AppMap sx={{ height: '400px' }}>
-          <InfoWindow position={{ lat: args.latitude, lng: args.longitude }}>
+          <MapInfoWindow coordinates={coordinates}>
             <MapLocationInformation {...args} />
-          </InfoWindow>
+          </MapInfoWindow>
         </AppMap>
       </MapSettingsProvider>
     );
