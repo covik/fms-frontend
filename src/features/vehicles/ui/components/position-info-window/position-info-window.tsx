@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-import { InfoWindow } from '@react-google-maps/api';
 import {
   Table,
   TableBody,
@@ -7,6 +5,7 @@ import {
   TableRow,
   Typography,
 } from '@mui/material';
+import { MapInfoWindow } from '#core/map/map-info-window';
 import { IgnitionIcon } from '../ignition-icon';
 import { MovementIcon } from '../movement-icon';
 import type { Coordinates } from '#lib/dimension';
@@ -30,16 +29,10 @@ export function PositionInfoWindow({
   ignition,
   movement,
 }: PositionInfoWindowAttributes) {
-  const latitude = coordinates.latitude();
-  const longitude = coordinates.longitude();
-  const position = useMemo(
-    () => ({ lat: latitude, lng: longitude }),
-    [latitude, longitude],
-  );
   const coordinatesText = coordinates.toString();
 
   return (
-    <InfoWindow position={position}>
+    <MapInfoWindow coordinates={coordinates}>
       <Table
         size={'small'}
         sx={{ 'td': { padding: '4px' }, 'tr:last-of-type > td': { border: 0 } }}
@@ -72,6 +65,6 @@ export function PositionInfoWindow({
           </TableRow>
         </TableBody>
       </Table>
-    </InfoWindow>
+    </MapInfoWindow>
   );
 }
