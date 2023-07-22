@@ -1,5 +1,6 @@
 import { useMemo, useRef } from 'react';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+import { Coordinates } from '#lib/dimension';
 import { MapTypeControl } from './map-type-control';
 import type { CSSProperties, ReactElement, ReactNode } from 'react';
 import type { UseLoadScriptOptions } from '@react-google-maps/api/dist/useJsApiLoader';
@@ -22,6 +23,8 @@ export interface MapArguments {
   gestureHandling?: boolean;
   onZoomChanged?: (zoom: number) => void;
   clickablePoi?: boolean;
+  onContextMenu?: (coordinates: Coordinates) => void;
+  onClick?: () => void;
   children?: ReactNode | ReactNode[] | undefined;
 }
 
@@ -37,6 +40,8 @@ export function Map({
   gestureHandling = true,
   onZoomChanged,
   clickablePoi = true,
+  onContextMenu = undefined,
+  onClick = undefined,
   children,
 }: MapArguments) {
   const { isLoaded } = useJsApiLoader(mapOptions);
@@ -94,6 +99,17 @@ export function Map({
       onLoad={(map) => {
         mapRef.current = map;
       }}
+      onClick={onClick}
+      onRightClick={
+        onContextMenu
+          ? (event) => {
+              if (!event.latLng) return;
+              onContextMenu(
+                new Coordinates(event.latLng.lat(), event.latLng.lng()),
+              );
+            }
+          : undefined
+      }
     >
       {noControls ? null : <MapTypeControl />}
       {children}

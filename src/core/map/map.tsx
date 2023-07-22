@@ -3,6 +3,11 @@ import { Card, Skeleton, styled } from '@mui/material';
 import { GoogleMaps } from '#ui/organisms/google-maps';
 import { useMapSettings } from './map-settings';
 import { className as fetchIndicatorClass } from './map-fetch-indicator';
+import { MapAddressSearch } from './address-search';
+import {
+  MapLocationSelection,
+  useLocationSelection,
+} from './location-selection';
 import type { SxProps } from '@mui/material';
 import type { ReactNode } from 'react';
 
@@ -33,23 +38,36 @@ const defaultPadding = 1;
 
 export function AppMap(props: AppMapAttributes) {
   const { sx, ...mapProps } = props;
+  const { children, ...mapPropsWithoutChildren } = mapProps;
   const { center, zoom } = useMapSettings();
 
   const latitude = useMemo(() => center.latitude(), [center.latitude()]);
   const longitude = useMemo(() => center.longitude(), [center.longitude()]);
 
+  const { selectedLocation, selectLocation, clearLocation } =
+    useLocationSelection();
+
   return (
     <Card sx={{ padding: defaultPadding, ...sx }}>
       <MapContainer>
         <GoogleMaps.Map
-          {...mapProps}
+          {...mapPropsWithoutChildren}
           x={latitude}
           y={longitude}
           z={zoom}
           width={'100%'}
           height={'100%'}
           loadingElement={<MapSkeleton />}
-        />
+          onContextMenu={selectLocation}
+          onClick={clearLocation}
+        >
+          <MapAddressSearch
+            onCoordinateChange={selectLocation}
+            Autocomplete={GoogleMaps.PlaceAutocomplete}
+          />
+          <MapLocationSelection location={selectedLocation} />
+          {children}
+        </GoogleMaps.Map>
       </MapContainer>
     </Card>
   );
