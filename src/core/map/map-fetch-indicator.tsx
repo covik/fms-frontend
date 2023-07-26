@@ -1,10 +1,14 @@
-import { CircularProgress, Paper, paperClasses } from '@mui/material';
+import { CircularProgress, Paper } from '@mui/material';
 
-export const className = paperClasses.root;
+export const className = 'map-fetch-indicator';
 
 export function MapFetchIndicator() {
   return (
-    <Paper elevation={0} sx={{ padding: 1, width: 'fit-content' }}>
+    <Paper
+      elevation={0}
+      sx={{ padding: 1, width: 'fit-content' }}
+      className={className}
+    >
       <CircularProgress
         sx={{ display: 'block' }}
         disableShrink={true}
