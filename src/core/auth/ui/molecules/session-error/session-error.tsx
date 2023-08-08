@@ -1,5 +1,6 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { EmoticonCryOutline } from 'mdi-material-ui';
+import { ExpectedErrorSituation } from '#ui/molecules/expected-error-situation';
 import { container, retryButton } from './selectors';
 
 export interface SessionErrorAttributes {
@@ -10,34 +11,29 @@ export function SessionError({ onRetryRequest }: SessionErrorAttributes) {
   return (
     <Box
       sx={{
-        textAlign: 'center',
-        color: 'grey',
         paddingLeft: 2,
         paddingRight: 2,
       }}
       data-testid={container}
     >
-      <Box sx={{ fontSize: '130px', lineHeight: 1 }}>
-        <EmoticonCryOutline fontSize={'inherit'} />
-      </Box>
-
-      <Typography variant={'h6'} fontWeight={'500'}>
-        Greška prilikom dohvaćanja konfiguracije.
-      </Typography>
-
-      <Box sx={{ marginTop: 1, marginBottom: 4 }}>
-        Možete pokušati ponovo. Ako se problem ponovi kontaktirajte podršku.
-      </Box>
-
-      <Button
-        color={'error'}
-        variant={'contained'}
-        fullWidth
-        data-testid={retryButton}
-        onClick={onRetryRequest}
-      >
-        Pokušaj ponovo
-      </Button>
+      <ExpectedErrorSituation
+        Icon={EmoticonCryOutline}
+        title={'Greška prilikom dohvaćanja konfiguracije.'}
+        subtitle={
+          'Možete pokušati ponovo. Ako se problem ponovi kontaktirajte podršku.'
+        }
+        action={
+          <Button
+            color={'error'}
+            variant={'contained'}
+            fullWidth
+            data-testid={retryButton}
+            onClick={onRetryRequest}
+          >
+            Pokušaj ponovo
+          </Button>
+        }
+      />
     </Box>
   );
 }
