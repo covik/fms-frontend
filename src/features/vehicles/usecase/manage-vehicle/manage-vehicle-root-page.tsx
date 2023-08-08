@@ -5,6 +5,7 @@ import { LocatedVehicle } from '../../models/vehicle';
 import {
   VehicleCommonInterface,
   VehicleLoadingView,
+  VehicleNotFoundView,
   VehicleWithoutPositionView,
 } from '../../ui/pages/manage-vehicle';
 
@@ -26,7 +27,7 @@ export function ManageVehicleRootPage() {
   });
 
   if (error instanceof VehicleService.NotFoundException)
-    return <div>Vozilo nije pronađeno</div>;
+    return <VehicleNotFoundView />;
   if (vehicle === undefined) return <VehicleLoadingView />;
 
   if (!(vehicle instanceof LocatedVehicle))
