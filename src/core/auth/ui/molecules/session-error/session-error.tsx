@@ -1,6 +1,7 @@
-import { Box, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import { EmoticonCryOutline } from 'mdi-material-ui';
 import { ExpectedErrorSituation } from '#ui/molecules/expected-error-situation';
+import { ErrorContainer } from 'src/ui/organisms/error-container';
 import { container, retryButton } from './selectors';
 
 export interface SessionErrorAttributes {
@@ -9,13 +10,7 @@ export interface SessionErrorAttributes {
 
 export function SessionError({ onRetryRequest }: SessionErrorAttributes) {
   return (
-    <Box
-      sx={{
-        paddingLeft: 2,
-        paddingRight: 2,
-      }}
-      data-testid={container}
-    >
+    <ErrorContainer data-testid={container}>
       <ExpectedErrorSituation
         Icon={EmoticonCryOutline}
         title={'Greška prilikom dohvaćanja konfiguracije.'}
@@ -34,6 +29,6 @@ export function SessionError({ onRetryRequest }: SessionErrorAttributes) {
           </Button>
         }
       />
-    </Box>
+    </ErrorContainer>
   );
 }

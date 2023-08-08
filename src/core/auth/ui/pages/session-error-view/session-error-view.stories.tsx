@@ -5,6 +5,7 @@ export default {
   title: 'Pages/Session Error',
   component: SessionErrorView,
   parameters: {
+    layout: 'fullscreen',
     controls: { hideNoControlsWarning: true },
   },
 } satisfies Meta<typeof SessionErrorView>;
