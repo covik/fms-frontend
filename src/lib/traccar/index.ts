@@ -12,6 +12,7 @@ export const TraccarUser = z.object({
   disabled: z.boolean(),
   email: z.string().email(),
   name: z.string().min(1),
+  userLimit: z.number(),
 });
 
 export const TraccarDevice = z.object({

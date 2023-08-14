@@ -51,6 +51,7 @@ describe('obtain()', () => {
         disabled: true,
         name: 'Disabled',
         email: 'disabled@example.com',
+        userLimit: 0,
       },
       statusCode: 200,
     });
@@ -70,6 +71,7 @@ describe('obtain()', () => {
         disabled: false,
         name: 'Admin',
         email: 'admin@example.com',
+        userLimit: 0,
       },
       statusCode: 200,
     });
@@ -89,6 +91,7 @@ describe('obtain()', () => {
         disabled: true,
         name: 'Disabled Admin',
         email: 'disabled-admin@example.com',
+        userLimit: 0,
       },
       statusCode: 200,
     });
@@ -110,6 +113,7 @@ describe('obtain()', () => {
         disabled: false,
         name: 'User',
         email: 'user@example.com',
+        userLimit: 0,
       },
       statusCode: 200,
     });

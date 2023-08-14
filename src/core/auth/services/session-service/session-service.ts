@@ -26,6 +26,7 @@ export async function obtain(signal?: AbortSignal): Promise<BaseUser> {
       id: parsedUser.id,
       email: parsedUser.email,
       fullName: parsedUser.name,
+      userLimit: parsedUser.userLimit,
     };
 
     if (parsedUser.disabled) return new DisabledUser(userAttributes);
