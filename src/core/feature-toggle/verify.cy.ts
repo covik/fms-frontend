@@ -1,5 +1,6 @@
 import { isDisabled, isEnabled } from './verify';
-import { defaultToggles, ToggleType } from './toggles';
+import { defaultToggles } from './toggles';
+import type { ToggleType } from './toggles';
 
 specify(
   'isEnabled should return false if given toggle is not present in toggle list',
