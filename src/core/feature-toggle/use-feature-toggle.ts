@@ -5,11 +5,11 @@ import {
   isEnabled as isToggleEnabled,
 } from './verify';
 import { useUser } from '../auth';
-import type { ToggleKeys } from './toggles';
+import type { ToggleType } from './toggles';
 
 export interface FeatureToggleAPI {
-  isDisabled: (toggle: ToggleKeys) => boolean;
-  isEnabled: (toggle: ToggleKeys) => boolean;
+  isDisabled: (toggle: ToggleType) => boolean;
+  isEnabled: (toggle: ToggleType) => boolean;
 }
 
 export function useFeatureToggle(): FeatureToggleAPI {
@@ -20,12 +20,12 @@ export function useFeatureToggle(): FeatureToggleAPI {
   });
 
   const isDisabled = useCallback(
-    (toggle: ToggleKeys) => isToggleDisabled(toggle, resolvedUserFeatures),
+    (toggle: ToggleType) => isToggleDisabled(toggle, resolvedUserFeatures),
     [],
   );
 
   const isEnabled = useCallback(
-    (toggle: ToggleKeys) => isToggleEnabled(toggle, resolvedUserFeatures),
+    (toggle: ToggleType) => isToggleEnabled(toggle, resolvedUserFeatures),
     [],
   );
 

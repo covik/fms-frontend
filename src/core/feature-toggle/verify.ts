@@ -1,12 +1,12 @@
-import type { AllToggles, ToggleKeys } from './toggles';
+import type { AllToggles, ToggleType } from './toggles';
 
 export function isDisabled(
-  toggle: ToggleKeys,
+  toggle: ToggleType,
   toggleList: AllToggles,
 ): boolean {
   return !toggleList[toggle];
 }
 
-export function isEnabled(toggle: ToggleKeys, toggleList: AllToggles): boolean {
+export function isEnabled(toggle: ToggleType, toggleList: AllToggles): boolean {
   return !isDisabled(toggle, toggleList);
 }

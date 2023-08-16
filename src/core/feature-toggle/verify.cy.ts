@@ -1,11 +1,11 @@
 import { isDisabled, isEnabled } from './verify';
-import { defaultToggles, ToggleKeys } from './toggles';
+import { defaultToggles, ToggleType } from './toggles';
 
 specify(
   'isEnabled should return false if given toggle is not present in toggle list',
   () => {
     expect(
-      isEnabled('undefined.toggle' as ToggleKeys, defaultToggles),
+      isEnabled('undefined.toggle' as ToggleType, defaultToggles),
     ).to.equal(false);
   },
 );
@@ -24,7 +24,7 @@ specify(
   'isDisabled should return true if given toggle is not present in toggle list',
   () => {
     expect(
-      isDisabled('undefined.toggle' as ToggleKeys, defaultToggles),
+      isDisabled('undefined.toggle' as ToggleType, defaultToggles),
     ).to.equal(true);
   },
 );

@@ -1,5 +1,5 @@
-export type ToggleKeys = keyof typeof defaultToggles;
-export type AllToggles = Record<ToggleKeys, boolean>;
+export type ToggleType = keyof typeof defaultToggles;
+export type AllToggles = Record<ToggleType, boolean>;
 
 export const defaultToggles = {
   'vehicle.list': true,
