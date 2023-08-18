@@ -1,11 +1,4 @@
-import {
-  Box,
-  Skeleton,
-  styled,
-  TableCell,
-  TableRow,
-  tableCellClasses,
-} from '@mui/material';
+import { Box, Skeleton, styled } from '@mui/material';
 import type { CSSProperties } from 'react';
 
 const barHeight = '5px';
@@ -20,8 +13,7 @@ const StyledSkeleton = styled(Skeleton)({
 
 const breakpoint = 'md';
 
-const ZebraRow = styled(TableRow)(({ theme }) => ({
-  [`& .${tableCellClasses.root}`]: { border: 0 },
+const ZebraRow = styled(Box)(({ theme }) => ({
   '&:not(:last-of-type)': {
     borderBottom: `1px solid ${theme.palette.divider}`,
   },
@@ -32,6 +24,7 @@ const StyledRow = styled(ZebraRow)(({ theme }) => ({
   gridTemplateColumns: 'repeat(3,1fr)',
   gridTemplateRows: 'auto',
   gridTemplateAreas: `"name mileage odometer" "bar bar bar"`,
+  fontSize: theme.typography.body2.fontSize,
 
   [theme.breakpoints.up(breakpoint)]: {
     gridTemplateColumns: 'repeat(3,105px) auto',
@@ -39,7 +32,15 @@ const StyledRow = styled(ZebraRow)(({ theme }) => ({
   },
 }));
 
-const NameColumn = styled(TableCell)({
+const HeaderRow = styled(StyledRow)(({ theme }) => ({
+  fontWeight: theme.typography.fontWeightMedium,
+}));
+
+const Column = styled('div')(({ theme }) => ({
+  padding: `${theme.spacing(0.5)} ${theme.spacing(1)}`,
+}));
+
+const NameColumn = styled(Column)({
   gridArea: 'name',
   textAlign: 'left',
   overflow: 'hidden',
@@ -47,17 +48,17 @@ const NameColumn = styled(TableCell)({
   textOverflow: 'ellipsis',
 });
 
-const MileageColumn = styled(TableCell)({
+const MileageColumn = styled(Column)({
   gridArea: 'mileage',
   textAlign: 'right',
 });
 
-const OdometerColumn = styled(TableCell)({
+const OdometerColumn = styled(Column)({
   gridArea: 'odometer',
   textAlign: 'right',
 });
 
-const BarColumn = styled(TableCell)({
+const BarColumn = styled(Column)({
   gridArea: 'bar',
   display: 'flex',
   alignItems: 'center',
@@ -115,20 +116,18 @@ export function MileageTableRowLoading() {
 
 export function MileageTableRowNoData() {
   return (
-    <ZebraRow>
-      <TableCell align={'center'} width={'100%'}>
-        Nema podataka
-      </TableCell>
+    <ZebraRow textAlign={'center'}>
+      <Column>Nema podataka</Column>
     </ZebraRow>
   );
 }
 
 export function MileageTableHeaderRow() {
   return (
-    <StyledRow>
+    <HeaderRow>
       <NameColumn>Vozilo</NameColumn>
       <MileageColumn>Kilometri</MileageColumn>
       <OdometerColumn>Brojčanik</OdometerColumn>
-    </StyledRow>
+    </HeaderRow>
   );
 }
