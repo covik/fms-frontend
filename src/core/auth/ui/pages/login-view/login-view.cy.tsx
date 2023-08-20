@@ -23,17 +23,7 @@ const submitButton = () =>
 describe(Initial.storyName!, () => {
   beforeEach(() => cy.mount(<Initial />));
 
-  it('should have visible and not disabled email field', () => {
-    emailInput().should('be.visible').and('not.be.disabled');
-  });
-
-  it('should have visible and not disabled password field', () => {
-    passwordInput().should('be.visible').and('not.be.disabled');
-  });
-
-  it('should have visible and not disabled submit button', () => {
-    submitButton().should('be.visible').and('not.be.disabled');
-  });
+  verifyFormIsNotDisabled();
 
   it('should execute login attempt handler on form submit', () => {
     const stub = cy.stub().as('loginAttempt');
@@ -127,17 +117,7 @@ describe(WrongCredentials.storyName!, () => {
       .and('have.text', 'Pogrešan email ili lozinka');
   });
 
-  it('should have visible and not disabled email field', () => {
-    emailInput().should('be.visible').and('not.be.disabled');
-  });
-
-  it('should have visible and not disabled password field', () => {
-    passwordInput().should('be.visible').and('not.be.disabled');
-  });
-
-  it('should have visible and not disabled submit button', () => {
-    submitButton().should('be.visible').and('not.be.disabled');
-  });
+  verifyFormIsNotDisabled();
 });
 
 describe(UnexpectedError.storyName!, () => {
@@ -149,6 +129,10 @@ describe(UnexpectedError.storyName!, () => {
       .and('have.text', 'Došlo je do neočekivane greške');
   });
 
+  verifyFormIsNotDisabled();
+});
+
+function verifyFormIsNotDisabled() {
   it('should have visible and not disabled email field', () => {
     emailInput().should('be.visible').and('not.be.disabled');
   });
@@ -160,4 +144,4 @@ describe(UnexpectedError.storyName!, () => {
   it('should have visible and not disabled submit button', () => {
     submitButton().should('be.visible').and('not.be.disabled');
   });
-});
+}
