@@ -12,18 +12,19 @@ beforeEach(() => {
   );
 });
 
+const emailInput = () =>
+  cy.get(`[data-testid="${testingSelectors.inputs.email}"] input`);
+
+const passwordInput = () =>
+  cy.get(`[data-testid="${testingSelectors.inputs.password}"] input`);
+
+const submitButton = () =>
+  cy.get(`[data-testid="${testingSelectors.inputs.submit}"]`);
+
 it('should render in initial state', () => {
-  cy.get(`[data-testid="${testingSelectors.inputs.email}"] input`)
-    .should('be.visible')
-    .and('not.be.disabled');
-
-  cy.get(`[data-testid="${testingSelectors.inputs.password}"] input`)
-    .should('be.visible')
-    .and('not.be.disabled');
-
-  cy.get(`[data-testid="${testingSelectors.inputs.submit}"]`)
-    .should('be.visible')
-    .and('not.be.disabled');
+  emailInput().should('be.visible').and('not.be.disabled');
+  passwordInput().should('be.visible').and('not.be.disabled');
+  submitButton().should('be.visible').and('not.be.disabled');
 });
 
 it('should go to submitting state after clicking a submit button', () => {
@@ -31,23 +32,13 @@ it('should go to submitting state after clicking a submit button', () => {
 
   submitForm();
 
-  cy.get(`[data-testid="${testingSelectors.inputs.email}"] input`)
-    .should('be.visible')
-    .and('be.disabled');
-
-  cy.get(`[data-testid="${testingSelectors.inputs.password}"] input`)
-    .should('be.visible')
-    .and('be.disabled');
-
-  cy.get(`[data-testid="${testingSelectors.inputs.submit}"]`)
-    .should('be.visible')
-    .and('be.disabled');
+  emailInput().should('be.visible').and('be.disabled');
+  passwordInput().should('be.visible').and('be.disabled');
+  submitButton().should('be.visible').and('be.disabled');
 });
 
 it('should go to validation error state and show error message if email is empty', () => {
-  cy.get(`[data-testid="${testingSelectors.inputs.password}"] input`).type(
-    'strong-password',
-  );
+  passwordInput().type('strong-password');
 
   submitForm();
 
@@ -56,9 +47,7 @@ it('should go to validation error state and show error message if email is empty
 });
 
 it('should go to validation error state and show error message if password is empty', () => {
-  cy.get(`[data-testid="${testingSelectors.inputs.email}"] input`).type(
-    'me@example.com',
-  );
+  emailInput().type('me@example.com');
 
   submitForm();
 
@@ -104,12 +93,8 @@ it('should remember session for one year after successful login', () => {
 });
 
 function fillForm() {
-  cy.get(`[data-testid="${testingSelectors.inputs.email}"] input`).type(
-    'me@example.com',
-  );
-  cy.get(`[data-testid="${testingSelectors.inputs.password}"] input`).type(
-    'strong-password',
-  );
+  emailInput().type('me@example.com');
+  passwordInput().type('strong-password');
 }
 
 function createTestClient() {
