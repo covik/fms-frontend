@@ -22,6 +22,8 @@ const passwordInput = () =>
 const submitButton = () =>
   cy.get(`[data-testid="${testingSelectors.inputs.submit}"]`);
 
+const formResult = () => cy.get(`[data-testid="${testingSelectors.result}"]`);
+
 describe(Initial.storyName!, () => {
   beforeEach(() => cy.mount(<Initial />));
 
@@ -112,7 +114,7 @@ describe(WrongCredentials.storyName!, () => {
   beforeEach(() => cy.mount(<WrongCredentials />));
 
   it('should have visible error message', () => {
-    cy.get(`[data-testid="${testingSelectors.result}"]`)
+    formResult()
       .should('be.visible')
       .and('have.text', 'Pogrešan email ili lozinka');
   });
@@ -124,7 +126,7 @@ describe(UnexpectedError.storyName!, () => {
   beforeEach(() => cy.mount(<UnexpectedError />));
 
   it('should have visible error message', () => {
-    cy.get(`[data-testid="${testingSelectors.result}"]`)
+    formResult()
       .should('be.visible')
       .and('have.text', 'Došlo je do neočekivane greške');
   });
