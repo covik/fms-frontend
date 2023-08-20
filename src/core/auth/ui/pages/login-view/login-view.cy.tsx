@@ -11,6 +11,8 @@ const {
   UnexpectedError,
 } = states;
 
+const form = () => cy.get(`[data-testid="${testingSelectors.form}"]`);
+
 const emailInput = () =>
   cy.get(`[data-testid="${testingSelectors.inputs.email}"] input`);
 
@@ -30,7 +32,7 @@ describe(Initial.storyName!, () => {
     cy.mount(<Initial onLoginAttempt={stub} />);
 
     cy.get('@loginAttempt').should('not.have.been.called');
-    cy.get(`[data-testid="${testingSelectors.form}"]`).submit();
+    form().submit();
     cy.get('@loginAttempt').should('have.been.calledOnce');
   });
 
@@ -42,7 +44,7 @@ describe(Initial.storyName!, () => {
 
     emailInput().type(email);
     passwordInput().type(password);
-    cy.get(`[data-testid="${testingSelectors.form}"]`).submit();
+    form().submit();
     cy.get('@loginAttempt').should(
       'have.been.calledOnceWithExactly',
       email,
