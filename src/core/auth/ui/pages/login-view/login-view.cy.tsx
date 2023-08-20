@@ -40,10 +40,8 @@ describe(Initial.storyName!, () => {
     const stub = cy.stub().as('loginAttempt');
     cy.mount(<Initial onLoginAttempt={stub} />);
 
-    cy.get(`[data-testid="${testingSelectors.inputs.email}"]`).type(email);
-    cy.get(`[data-testid="${testingSelectors.inputs.password}"]`).type(
-      password,
-    );
+    emailInput().type(email);
+    passwordInput().type(password);
     cy.get(`[data-testid="${testingSelectors.form}"]`).submit();
     cy.get('@loginAttempt').should(
       'have.been.calledOnceWithExactly',
