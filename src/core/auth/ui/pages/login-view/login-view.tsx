@@ -44,6 +44,7 @@ export function LoginView({
     />
   );
 
+  const isValidationError = state === 'validation-error';
   return (
     <>
       <Snackbar
@@ -101,8 +102,8 @@ export function LoginView({
               autoComplete="email"
               autoFocus
               disabled={isLoading}
-              error={emailError !== ''}
-              helperText={emailError}
+              error={emailError !== '' && isValidationError}
+              helperText={isValidationError ? emailError : ''}
               data-testid={testingSelectors.inputs.email}
             />
             <TextField
@@ -113,8 +114,8 @@ export function LoginView({
               type="password"
               autoComplete="current-password"
               disabled={isLoading}
-              error={passwordError !== ''}
-              helperText={passwordError}
+              error={passwordError !== '' && isValidationError}
+              helperText={isValidationError ? passwordError : ''}
               data-testid={testingSelectors.inputs.password}
             />
             <Button

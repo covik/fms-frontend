@@ -2,13 +2,14 @@ import { LoginView, testingSelectors } from '.';
 import { composeStories } from '@storybook/react';
 import * as stories from './login-view.stories';
 
+const states = composeStories(stories);
 const {
   Initial,
   Submitting,
   ValidationError,
   WrongCredentials,
   UnexpectedError,
-} = composeStories(stories);
+} = states;
 
 describe(LoginView.name, () => {
   describe(Initial.storyName!, () => {
@@ -105,6 +106,25 @@ describe(LoginView.name, () => {
       cy.get(`[data-testid="${testingSelectors.inputs.submit}"]`)
         .should('be.visible')
         .and('not.be.disabled');
+    });
+
+    describe(`field error message should only be visible in ${ValidationError.storyName}`, () => {
+      const invalidStates = Object.values(states).filter(
+        (state) => state !== ValidationError,
+      );
+
+      invalidStates.forEach((State) => {
+        it(`should not render error messages in ${State.storyName}`, () => {
+          const emailError = 'email error';
+          const passwordError = 'password error';
+
+          cy.mount(
+            <State emailError={emailError} passwordError={passwordError} />,
+          );
+          cy.contains(emailError).should('not.exist');
+          cy.contains(passwordError).should('not.exist');
+        });
+      });
     });
   });
 
