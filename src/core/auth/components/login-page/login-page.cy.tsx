@@ -3,6 +3,14 @@ import { QueryClient } from '@tanstack/query-core';
 import { QueryClientProvider } from '@tanstack/react-query';
 import { LoginPage, testingSelectors } from '.';
 import { SessionService } from '../../services';
+import { ValidationError } from '../../ui/pages/login-view/login-view.stories';
+
+const messages = {
+  incorrectEmail: ValidationError.args?.emailError as string,
+  incorrectPassword: ValidationError.args?.passwordError as string,
+  wrongCredentials: 'Pogrešan email ili lozinka',
+  genericError: 'Došlo je do neočekivane greške',
+};
 
 beforeEach(() => {
   cy.mount(
@@ -42,8 +50,8 @@ it('should go to validation error state and show error message if email is empty
 
   submitForm();
 
-  cy.contains('Email je obavezan').should('be.visible');
-  cy.contains('Lozinka je obavezna').should('not.exist');
+  cy.contains(messages.incorrectEmail).should('be.visible');
+  cy.contains(messages.incorrectPassword).should('not.exist');
 });
 
 it('should go to validation error state and show error message if password is empty', () => {
@@ -51,26 +59,26 @@ it('should go to validation error state and show error message if password is em
 
   submitForm();
 
-  cy.contains('Lozinka je obavezna').should('be.visible');
-  cy.contains('Email je obavezan').should('not.exist');
+  cy.contains(messages.incorrectPassword).should('be.visible');
+  cy.contains(messages.incorrectEmail).should('not.exist');
 });
 
 it('should go to error state and show error message if credentials do not match', () => {
   simulateWrongCredentialsSituation();
   fillForm();
 
-  cy.contains('Pogrešan email ili lozinka').should('not.exist');
+  cy.contains(messages.wrongCredentials).should('not.exist');
   submitForm();
-  cy.contains('Pogrešan email ili lozinka').should('be.visible');
+  cy.contains(messages.wrongCredentials).should('be.visible');
 });
 
 it('should go to error state and show error message if server error occurs', () => {
   simulateServerError();
   fillForm();
 
-  cy.contains('Došlo je do neočekivane greške').should('not.exist');
+  cy.contains(messages.genericError).should('not.exist');
   submitForm();
-  cy.contains('Došlo je do neočekivane greške').should('be.visible');
+  cy.contains(messages.genericError).should('be.visible');
 });
 
 it('should remember session for one year after successful login', () => {
