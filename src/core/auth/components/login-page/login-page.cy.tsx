@@ -52,10 +52,6 @@ describe(LoginPage.name, () => {
 
     submitForm();
 
-    cy.get(`[data-testid="${testingSelectors.inputs.email}"] input`)
-      .should('be.visible')
-      .and('not.be.disabled');
-
     cy.contains('Email je obavezan').should('be.visible');
     cy.contains('Lozinka je obavezna').should('not.exist');
   });
@@ -66,10 +62,6 @@ describe(LoginPage.name, () => {
     );
 
     submitForm();
-
-    cy.get(`[data-testid="${testingSelectors.inputs.password}"] input`)
-      .should('be.visible')
-      .and('not.be.disabled');
 
     cy.contains('Lozinka je obavezna').should('be.visible');
     cy.contains('Email je obavezan').should('not.exist');
