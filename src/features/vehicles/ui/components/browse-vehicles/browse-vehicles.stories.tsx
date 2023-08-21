@@ -9,9 +9,6 @@ import type { Meta, StoryObj } from '@storybook/react';
 export default {
   title: 'Organisms/Browse Vehicles',
   component: BrowseVehicles,
-  parameters: {
-    layout: 'fullscreen',
-  },
 } satisfies Meta<typeof BrowseVehicles>;
 type Story = StoryObj<typeof BrowseVehicles>;
 
