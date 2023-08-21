@@ -13,12 +13,11 @@ import { Car, Menu } from 'mdi-material-ui';
 import { AppMap } from '#core/map';
 import { LayoutProvider } from '#core/layout';
 import { PageLayout } from '../../templates/single-vehicle-tracking';
-import { BrowseVehiclesView } from '../browse-vehicles';
+import { BrowseVehicles } from '../browse-vehicles';
 import type { ReactNode } from 'react';
-import type { BrowseVehiclesViewAttributes } from '../browse-vehicles';
+import type { BrowseVehiclesAttributes } from '../browse-vehicles';
 
-export interface VehicleMapScreenAttributes
-  extends BrowseVehiclesViewAttributes {}
+export interface VehicleMapScreenAttributes extends BrowseVehiclesAttributes {}
 
 export function VehiclesMapScreen({
   operationalVehicles,
@@ -40,7 +39,7 @@ export function VehiclesMapScreen({
         <AppMap sx={{ height: '100%' }} />
 
         <ControlPanel>
-          <BrowseVehiclesView
+          <BrowseVehicles
             operationalVehicles={operationalVehicles}
             unavailableVehicles={unavailableVehicles}
             vehicleRenderer={vehicleRenderer}

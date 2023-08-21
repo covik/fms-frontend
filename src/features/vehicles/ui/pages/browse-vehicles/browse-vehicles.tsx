@@ -21,7 +21,7 @@ const defaultVehicleRenderer: VehicleRenderer = (Component, vehicle) => (
   <Fragment key={vehicle.id()}>{Component}</Fragment>
 );
 
-export interface BrowseVehiclesViewAttributes {
+export interface BrowseVehiclesAttributes {
   operationalVehicles: OperationalVehicle[];
   unavailableVehicles: UnavailableVehicle[];
   onShareRequest?: ShareHandler;
@@ -35,13 +35,13 @@ export type VehicleRenderer = (
   vehicle: LocatedVehicle,
 ) => ReactElement;
 
-export function BrowseVehiclesView({
+export function BrowseVehicles({
   operationalVehicles = [],
   unavailableVehicles = [],
   onShareRequest = defaultShareHandler,
   vehicleRenderer = defaultVehicleRenderer,
   loading = false,
-}: BrowseVehiclesViewAttributes) {
+}: BrowseVehiclesAttributes) {
   function renderVehicles(vehicles: LocatedVehicle[]) {
     return vehicles.map((vehicle) =>
       vehicleRenderer(
