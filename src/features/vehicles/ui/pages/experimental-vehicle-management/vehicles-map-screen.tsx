@@ -22,8 +22,7 @@ export interface VehicleMapScreenAttributes extends BrowseVehiclesAttributes {}
 export function VehiclesMapScreen({
   operationalVehicles,
   unavailableVehicles,
-  vehicleRenderer,
-  onShareRequest,
+  VehicleItem,
   loading,
 }: VehicleMapScreenAttributes) {
   const theme = useTheme();
@@ -42,8 +41,7 @@ export function VehiclesMapScreen({
           <BrowseVehicles
             operationalVehicles={operationalVehicles}
             unavailableVehicles={unavailableVehicles}
-            vehicleRenderer={vehicleRenderer}
-            onShareRequest={onShareRequest}
+            VehicleItem={VehicleItem}
             loading={loading}
           />
         </ControlPanel>

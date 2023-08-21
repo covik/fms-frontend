@@ -18,34 +18,39 @@ import type {
 
 const defaultShareHandler: ShareHandler = () => {};
 const defaultVehicleRenderer: VehicleRenderer = (Component, vehicle) => (
-  <Fragment key={vehicle.id()}>{Component}</Fragment>
+  <Fragment key={vehicle.id()}>{Component()}</Fragment>
 );
 
 export interface BrowseVehiclesAttributes {
   operationalVehicles: OperationalVehicle[];
   unavailableVehicles: UnavailableVehicle[];
-  onShareRequest?: ShareHandler;
-  vehicleRenderer?: VehicleRenderer;
+  VehicleItem?: VehicleRenderer;
   loading?: boolean;
 }
 
 export type ShareHandler = (vehicle: LocatedVehicle) => void;
 export type VehicleRenderer = (
-  Component: ReturnType<typeof VehicleItem>,
+  Component: (onShareRequest?: ShareHandler) => ReturnType<typeof VehicleItem>,
   vehicle: LocatedVehicle,
 ) => ReactElement;
 
 export function BrowseVehicles({
   operationalVehicles = [],
   unavailableVehicles = [],
-  onShareRequest = defaultShareHandler,
-  vehicleRenderer = defaultVehicleRenderer,
+  VehicleItem: VehicleRenderer = defaultVehicleRenderer,
   loading = false,
 }: BrowseVehiclesAttributes) {
   function renderVehicles(vehicles: LocatedVehicle[]) {
     return vehicles.map((vehicle) =>
-      vehicleRenderer(
-        <VehicleItem vehicle={vehicle} shareHandler={onShareRequest} />,
+      VehicleRenderer(
+        (onShareRequest) => (
+          <VehicleItem
+            vehicle={vehicle}
+            shareHandler={() =>
+              (onShareRequest ?? defaultShareHandler)(vehicle)
+            }
+          />
+        ),
         vehicle,
       ),
     );
