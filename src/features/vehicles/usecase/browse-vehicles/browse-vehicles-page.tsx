@@ -69,7 +69,7 @@ export function BrowseVehiclesPage() {
         style={{ display: 'block', textDecoration: 'none' }}
         key={vehicle.id()}
       >
-        {Component}
+        {Component(shareGoogleMapsLink)}
       </Link>
     ),
     [],
