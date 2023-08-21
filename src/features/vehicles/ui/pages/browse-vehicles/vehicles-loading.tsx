@@ -5,7 +5,7 @@ const vehicle = (
   <Skeleton variant={'rounded'} height={'76px'} component={'div'} />
 );
 
-export function VehiclesLoadingView() {
+export function VehiclesLoading() {
   return (
     <SectionContent>
       {vehicle}
