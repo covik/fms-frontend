@@ -1,6 +1,4 @@
 import { Fragment } from 'react';
-import { Truck, TruckFast } from 'mdi-material-ui';
-import { useLength, useSpeed, useVoltage } from '#core/measurement-unit';
 import { VehiclesLoading } from './vehicles-loading';
 import { NoVehicles } from './no-vehicles';
 import {
