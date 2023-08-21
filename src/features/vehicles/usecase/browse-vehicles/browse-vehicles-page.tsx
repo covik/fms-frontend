@@ -4,7 +4,6 @@ import { Link } from '@tanstack/router';
 import { useQuery } from '@tanstack/react-query';
 import { VehicleService } from '../../services/vehicle-service';
 import { WebShare } from '#lib/web-share';
-import { BrowseVehiclesView } from '../../ui/pages/browse-vehicles';
 import { testingSelectors as cardSelectors } from '../../ui/components/vehicle-card';
 import type {
   ShareHandler,
@@ -85,13 +84,6 @@ export function BrowseVehiclesPage() {
         key={toastMessage}
         open={showToast}
         data-testid={testingSelectors.toast}
-      />
-      <BrowseVehiclesView
-        loading={rawData === undefined}
-        operationalVehicles={operationalVehicles}
-        unavailableVehicles={unavailableVehicles}
-        onShareRequest={shareGoogleMapsLink}
-        vehicleRenderer={linkVehicle}
       />
     </>
   );
