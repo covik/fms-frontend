@@ -8,7 +8,7 @@ import {
   SectionUnavailableVehicles,
   VehicleSections,
 } from '../vehicle-sections';
-import { VehicleCard } from '../vehicle-card';
+import { VehicleItem } from './vehicle-item';
 import type { ReactElement } from 'react';
 import type {
   LocatedVehicle,
@@ -71,33 +71,5 @@ export function BrowseVehicles({
         {renderVehicles(unavailableVehicles)}
       </SectionUnavailableVehicles>
     </VehicleSections>
-  );
-}
-
-interface VehicleItemAttributes {
-  vehicle: LocatedVehicle;
-  shareHandler: ShareHandler;
-}
-
-function VehicleItem({ vehicle, shareHandler }: VehicleItemAttributes) {
-  const { formatLengthProgressive } = useLength();
-  const { formatSpeed } = useSpeed();
-  const { formatVoltage } = useVoltage();
-
-  return (
-    <VehicleCard
-      title={vehicle.name()}
-      icon={vehicle.isInMotion() ? TruckFast : Truck}
-      color={vehicle.hasIgnitionTurnedOn() ? 'green' : 'orange'}
-      meta={[
-        formatSpeed(vehicle.speed()),
-        formatLengthProgressive(vehicle.mileage()),
-        formatVoltage(vehicle.power()),
-      ]}
-      onShare={(e) => {
-        e.preventDefault();
-        shareHandler(vehicle);
-      }}
-    />
   );
 }
