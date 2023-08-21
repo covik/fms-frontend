@@ -63,6 +63,7 @@ export function BrowseVehiclesPage() {
     }
   }, []);
 
+  // extract to hyperlink-vehicle-item?
   const linkVehicle = useCallback<VehicleRenderer>(
     (Component, vehicle) => (
       <Link
