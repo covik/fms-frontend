@@ -1,18 +1,17 @@
-import { Skeleton, Stack } from '@mui/material';
-import { PageTitleSkeleton } from '#ui/atoms/page-title';
+import { Skeleton } from '@mui/material';
+import { SectionContent } from '../../components/vehicle-sections/section';
 
-const vehicle = <Skeleton variant={'rounded'} height={'76px'} />;
+const vehicle = (
+  <Skeleton variant={'rounded'} height={'76px'} component={'div'} />
+);
 
 export function VehiclesLoadingView() {
   return (
-    <>
-      <PageTitleSkeleton />
-      <Stack spacing={2} marginTop={2}>
-        {vehicle}
-        {vehicle}
-        {vehicle}
-        {vehicle}
-      </Stack>
-    </>
+    <SectionContent>
+      {vehicle}
+      {vehicle}
+      {vehicle}
+      {vehicle}
+    </SectionContent>
   );
 }

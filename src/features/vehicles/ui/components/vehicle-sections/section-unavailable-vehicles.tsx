@@ -17,8 +17,8 @@ export function SectionUnavailableVehicles({ children }: SectionAttributes) {
       <SectionHeader>
         <SectionTitle>Nedostupna</SectionTitle>
         <SectionWarning color={'warning'} icon={<IconAlert />}>
-          Ova vozila nisu javila poziciju više od 65 minuta. Prikazano stanje
-          vozila možda nije u skladu sa stvarnim stanjem.
+          Vozila koja se nisu javila preko 65 minuta. Prikazano je posljednje
+          poznato stanje.
         </SectionWarning>
       </SectionHeader>
       <SectionContent>{children}</SectionContent>

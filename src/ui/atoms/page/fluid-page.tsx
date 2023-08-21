@@ -7,9 +7,13 @@ export interface FluidPageAttributes {
 }
 
 export function FluidPage({ children }: FluidPageAttributes) {
-  const { offsetBottom, offsetLeft } = useLayout();
+  const { offsetBottom, offsetLeft, offsetTop } = useLayout();
   return (
-    <Page paddingBottom={offsetBottom} marginLeft={offsetLeft}>
+    <Page
+      paddingBottom={offsetBottom}
+      marginLeft={offsetLeft}
+      marginTop={offsetTop}
+    >
       {children}
     </Page>
   );

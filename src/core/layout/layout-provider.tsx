@@ -4,11 +4,13 @@ import type { ReactNode } from 'react';
 interface Layout {
   offsetBottom: string;
   offsetLeft: string;
+  offsetTop: string;
 }
 
 const defaultValue = {
   offsetBottom: '0px',
   offsetLeft: '0px',
+  offsetTop: '0px',
 };
 
 const LayoutContext = createContext<Layout>(defaultValue);
@@ -21,10 +23,11 @@ export function LayoutProvider({
   children,
   offsetBottom = defaultValue.offsetBottom,
   offsetLeft = defaultValue.offsetLeft,
+  offsetTop = defaultValue.offsetTop,
 }: LayoutProviderAttributes) {
   const value = useMemo<Layout>(
-    () => ({ offsetBottom, offsetLeft }),
-    [offsetBottom, offsetLeft],
+    () => ({ offsetBottom, offsetLeft, offsetTop }),
+    [offsetBottom, offsetLeft, offsetTop],
   );
 
   return (

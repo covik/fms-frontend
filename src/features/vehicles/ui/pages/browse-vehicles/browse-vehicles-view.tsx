@@ -1,8 +1,6 @@
 import { Fragment } from 'react';
 import { Truck, TruckFast } from 'mdi-material-ui';
 import { useLength, useSpeed, useVoltage } from '#core/measurement-unit';
-import { FixedPage, FluidPage, PagePadding } from '#ui/atoms/page';
-import { PageTitle } from '#ui/atoms/page-title';
 import { VehiclesLoadingView } from './vehicles-loading-view';
 import { NoVehiclesView } from './no-vehicles-view';
 import {
@@ -53,38 +51,21 @@ export function BrowseVehiclesView({
     );
   }
 
-  if (loading)
-    return (
-      <FluidPage>
-        <PagePadding>
-          <VehiclesLoadingView />
-        </PagePadding>
-      </FluidPage>
-    );
+  if (loading) return <VehiclesLoadingView />;
 
   if (operationalVehicles.length === 0 && unavailableVehicles.length === 0)
-    return (
-      <FixedPage>
-        <NoVehiclesView />
-      </FixedPage>
-    );
+    return <NoVehiclesView />;
 
   return (
-    <FluidPage>
-      <PagePadding>
-        <PageTitle>Vozila</PageTitle>
+    <VehicleSections>
+      <SectionOperationalVehicles>
+        {renderVehicles(operationalVehicles)}
+      </SectionOperationalVehicles>
 
-        <VehicleSections>
-          <SectionOperationalVehicles>
-            {renderVehicles(operationalVehicles)}
-          </SectionOperationalVehicles>
-
-          <SectionUnavailableVehicles>
-            {renderVehicles(unavailableVehicles)}
-          </SectionUnavailableVehicles>
-        </VehicleSections>
-      </PagePadding>
-    </FluidPage>
+      <SectionUnavailableVehicles>
+        {renderVehicles(unavailableVehicles)}
+      </SectionUnavailableVehicles>
+    </VehicleSections>
   );
 }
 

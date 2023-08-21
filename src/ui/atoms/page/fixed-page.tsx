@@ -7,11 +7,12 @@ export interface FixedPageAttributes {
 }
 
 export function FixedPage({ children }: FixedPageAttributes) {
-  const { offsetBottom, offsetLeft } = useLayout();
+  const { offsetBottom, offsetLeft, offsetTop } = useLayout();
   return (
     <Page
-      height={`calc(100vh - ${offsetBottom})`}
+      height={`calc(100vh - ${offsetBottom} - ${offsetTop})`}
       marginLeft={offsetLeft}
+      marginTop={offsetTop}
       overflow={'hidden'}
     >
       {children}
