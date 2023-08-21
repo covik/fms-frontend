@@ -2,7 +2,7 @@ import { HumanDolly } from 'mdi-material-ui';
 import { ExpectedErrorSituation } from '#ui/molecules/expected-error-situation';
 import { ErrorContainer } from '#ui/organisms/error-container';
 
-export function NoVehiclesView() {
+export function NoVehicles() {
   return (
     <ErrorContainer>
       <ExpectedErrorSituation

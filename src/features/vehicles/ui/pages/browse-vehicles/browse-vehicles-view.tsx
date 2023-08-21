@@ -2,7 +2,7 @@ import { Fragment } from 'react';
 import { Truck, TruckFast } from 'mdi-material-ui';
 import { useLength, useSpeed, useVoltage } from '#core/measurement-unit';
 import { VehiclesLoadingView } from './vehicles-loading-view';
-import { NoVehiclesView } from './no-vehicles-view';
+import { NoVehicles } from './no-vehicles';
 import {
   SectionOperationalVehicles,
   SectionUnavailableVehicles,
@@ -54,7 +54,7 @@ export function BrowseVehiclesView({
   if (loading) return <VehiclesLoadingView />;
 
   if (operationalVehicles.length === 0 && unavailableVehicles.length === 0)
-    return <NoVehiclesView />;
+    return <NoVehicles />;
 
   return (
     <VehicleSections>
