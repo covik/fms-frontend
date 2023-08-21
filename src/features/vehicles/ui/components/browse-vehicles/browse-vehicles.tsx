@@ -7,8 +7,8 @@ import {
   SectionOperationalVehicles,
   SectionUnavailableVehicles,
   VehicleSections,
-} from '../../components/vehicle-sections';
-import { VehicleCard } from '../../components/vehicle-card';
+} from '../vehicle-sections';
+import { VehicleCard } from '../vehicle-card';
 import type { ReactElement } from 'react';
 import type {
   LocatedVehicle,

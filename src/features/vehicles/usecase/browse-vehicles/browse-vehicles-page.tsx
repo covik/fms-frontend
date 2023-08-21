@@ -8,7 +8,7 @@ import { testingSelectors as cardSelectors } from '../../ui/components/vehicle-c
 import type {
   ShareHandler,
   VehicleRenderer,
-} from '../../ui/pages/browse-vehicles';
+} from '../../ui/components/browse-vehicles';
 
 export function BrowseVehiclesPage() {
   const query = useQuery({

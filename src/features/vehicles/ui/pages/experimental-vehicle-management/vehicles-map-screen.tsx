@@ -13,9 +13,9 @@ import { Car, Menu } from 'mdi-material-ui';
 import { AppMap } from '#core/map';
 import { LayoutProvider } from '#core/layout';
 import { PageLayout } from '../../templates/single-vehicle-tracking';
-import { BrowseVehicles } from '../browse-vehicles';
+import { BrowseVehicles } from '../../components/browse-vehicles';
 import type { ReactNode } from 'react';
-import type { BrowseVehiclesAttributes } from '../browse-vehicles';
+import type { BrowseVehiclesAttributes } from '../../components/browse-vehicles';
 
 export interface VehicleMapScreenAttributes extends BrowseVehiclesAttributes {}
 

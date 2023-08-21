@@ -1,5 +1,5 @@
 import { Skeleton } from '@mui/material';
-import { SectionContent } from '../../components/vehicle-sections/section';
+import { SectionContent } from '../vehicle-sections/section';
 
 const vehicle = (
   <Skeleton variant={'rounded'} height={'76px'} component={'div'} />

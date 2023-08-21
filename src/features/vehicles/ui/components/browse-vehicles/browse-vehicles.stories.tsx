@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker';
-import { BrowseVehicles } from '.';
+import { BrowseVehicles } from './index';
 import {
   createOperationalVehicle,
   createUnavailableVehicle,
@@ -7,7 +7,7 @@ import {
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {
-  title: 'Pages/Browse Vehicles',
+  title: 'Organisms/Browse Vehicles',
   component: BrowseVehicles,
   parameters: {
     layout: 'fullscreen',
