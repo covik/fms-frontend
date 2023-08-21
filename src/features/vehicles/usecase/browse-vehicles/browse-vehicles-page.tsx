@@ -5,6 +5,8 @@ import { useQuery } from '@tanstack/react-query';
 import { VehicleService } from '../../services/vehicle-service';
 import { WebShare } from '#lib/web-share';
 import { testingSelectors as cardSelectors } from '../../ui/components/vehicle-card';
+import { BrowseVehicles } from '../../ui/components/browse-vehicles';
+import { FluidPage, PagePadding } from '#ui/atoms/page';
 import type {
   ShareHandler,
   VehicleRenderer,
@@ -85,6 +87,16 @@ export function BrowseVehiclesPage() {
         open={showToast}
         data-testid={testingSelectors.toast}
       />
+      <FluidPage>
+        <PagePadding>
+          <BrowseVehicles
+            operationalVehicles={operationalVehicles}
+            unavailableVehicles={unavailableVehicles}
+            loading={rawData === undefined}
+            VehicleItem={linkVehicle}
+          />
+        </PagePadding>
+      </FluidPage>
     </>
   );
 }
