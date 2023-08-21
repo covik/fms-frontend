@@ -5,41 +5,39 @@ import {
   SectionUnavailableVehicles,
   VehicleSections,
 } from '../vehicle-sections';
-import { useRenderVehicles } from './vehicle-renderer';
+import { VehicleList } from './vehicle-renderer';
 import type {
   OperationalVehicle,
   UnavailableVehicle,
 } from '../../../models/vehicle';
-import type { VehicleRenderer } from './vehicle-renderer';
 
 export interface BrowseVehiclesAttributes {
   operationalVehicles: OperationalVehicle[];
   unavailableVehicles: UnavailableVehicle[];
-  VehicleItem?: VehicleRenderer;
   loading?: boolean;
 }
 
 export function BrowseVehicles({
   operationalVehicles = [],
   unavailableVehicles = [],
-  VehicleItem: VehicleRenderer = undefined,
   loading = false,
 }: BrowseVehiclesAttributes) {
-  const renderVehicles = useRenderVehicles(VehicleRenderer);
-
   if (loading) return <VehiclesLoading />;
 
   if (operationalVehicles.length === 0 && unavailableVehicles.length === 0)
     return <NoVehicles />;
 
+  // refaktorat izvan LocatedVehicle
+  // popraviti sakrivanje kategorija bez vozila
+  // dodat filtere
   return (
     <VehicleSections>
       <SectionOperationalVehicles>
-        {renderVehicles(operationalVehicles)}
+        <VehicleList vehicles={operationalVehicles} />
       </SectionOperationalVehicles>
 
       <SectionUnavailableVehicles>
-        {renderVehicles(unavailableVehicles)}
+        <VehicleList vehicles={unavailableVehicles} />
       </SectionUnavailableVehicles>
     </VehicleSections>
   );

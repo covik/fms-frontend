@@ -6,12 +6,9 @@ import {
   SectionWarning,
 } from './section';
 import { AlertCircle as IconAlert } from 'mdi-material-ui';
-import { areChildrenNonEmptyArray } from '../../../../../utils/react';
 import type { SectionAttributes } from './section';
 
 export function SectionUnavailableVehicles({ children }: SectionAttributes) {
-  if (!areChildrenNonEmptyArray(children)) return null;
-
   return (
     <Section>
       <SectionHeader>
