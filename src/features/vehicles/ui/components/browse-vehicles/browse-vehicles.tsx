@@ -1,4 +1,3 @@
-import { Fragment } from 'react';
 import { VehiclesLoading } from './vehicles-loading';
 import { NoVehicles } from './no-vehicles';
 import {
@@ -6,18 +5,12 @@ import {
   SectionUnavailableVehicles,
   VehicleSections,
 } from '../vehicle-sections';
-import { VehicleItem } from './vehicle-item';
-import type { ReactElement } from 'react';
+import { useRenderVehicles } from './vehicle-renderer';
 import type {
-  LocatedVehicle,
   OperationalVehicle,
   UnavailableVehicle,
 } from '../../../models/vehicle';
-
-const defaultShareHandler: ShareHandler = () => {};
-const defaultVehicleRenderer: VehicleRenderer = (Component, vehicle) => (
-  <Fragment key={vehicle.id()}>{Component()}</Fragment>
-);
+import type { VehicleRenderer } from './vehicle-renderer';
 
 export interface BrowseVehiclesAttributes {
   operationalVehicles: OperationalVehicle[];
@@ -26,33 +19,13 @@ export interface BrowseVehiclesAttributes {
   loading?: boolean;
 }
 
-export type ShareHandler = (vehicle: LocatedVehicle) => void;
-export type VehicleRenderer = (
-  Component: (onShareRequest?: ShareHandler) => ReturnType<typeof VehicleItem>,
-  vehicle: LocatedVehicle,
-) => ReactElement;
-
 export function BrowseVehicles({
   operationalVehicles = [],
   unavailableVehicles = [],
-  VehicleItem: VehicleRenderer = defaultVehicleRenderer,
+  VehicleItem: VehicleRenderer = undefined,
   loading = false,
 }: BrowseVehiclesAttributes) {
-  function renderVehicles(vehicles: LocatedVehicle[]) {
-    return vehicles.map((vehicle) =>
-      VehicleRenderer(
-        (onShareRequest) => (
-          <VehicleItem
-            vehicle={vehicle}
-            shareHandler={() =>
-              (onShareRequest ?? defaultShareHandler)(vehicle)
-            }
-          />
-        ),
-        vehicle,
-      ),
-    );
-  }
+  const renderVehicles = useRenderVehicles(VehicleRenderer);
 
   if (loading) return <VehiclesLoading />;
 
