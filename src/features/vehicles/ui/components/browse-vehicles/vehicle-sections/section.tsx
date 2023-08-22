@@ -5,11 +5,7 @@ export interface SectionAttributes {
   children: ReactNode;
 }
 
-const spaceBetweenVehicles = 1.3;
-
-export function VehicleSections({ children }: { children: ReactNode }) {
-  return <Stack spacing={spaceBetweenVehicles}>{children}</Stack>;
-}
+export const spaceBetweenVehicles = 1.3;
 
 export const Section = styled('div')({});
 
