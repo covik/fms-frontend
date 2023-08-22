@@ -1,45 +1,47 @@
 import { createContext, useContext, useMemo } from 'react';
-import { LocatedVehicle } from '../../../models/vehicle';
-import type { VehicleItem } from './vehicle-item';
-import type { ReactElement, ReactNode } from 'react';
+import type { LocatedVehicle } from '../../../models/vehicle';
+import type { FC, ReactElement, ReactNode } from 'react';
+
+type VehicleItemRenderer = FC<ItemAttributes>;
 
 export interface VehicleRendererAPI {
-  renderer: VehicleRenderer;
+  Item: VehicleItemRenderer;
   shareHandler: ShareHandler;
 }
 
+export interface ItemAttributes {
+  vehicle: LocatedVehicle;
+  children: ReactElement;
+}
+
 export type ShareHandler = (vehicle: LocatedVehicle) => void;
-export type VehicleRenderer = (
-  Component: ReturnType<typeof VehicleItem>,
-  vehicle: LocatedVehicle,
-) => ReactElement<typeof VehicleItem>;
 
 const VehicleRendererContext = createContext<VehicleRendererAPI>({
-  renderer: (Component) => Component,
+  Item: DefaultItem,
   shareHandler: () => {},
 });
 
 export interface VehicleRendererProviderAttributes {
-  renderer?: VehicleRenderer;
+  Item?: VehicleItemRenderer;
   shareHandler?: ShareHandler;
   children: ReactNode;
 }
 
 export function VehicleRendererProvider({
-  renderer,
+  Item,
   shareHandler,
   children,
 }: VehicleRendererProviderAttributes) {
   const parent = useVehicleRenderer();
-  const actualRenderer = renderer ?? parent.renderer;
+  const ActualItem = Item ?? parent.Item;
   const actualShareHandler = shareHandler ?? parent.shareHandler;
 
   const api: VehicleRendererAPI = useMemo(
     () => ({
-      renderer: actualRenderer,
+      Item: ActualItem,
       shareHandler: actualShareHandler,
     }),
-    [actualRenderer, actualShareHandler],
+    [ActualItem, actualShareHandler],
   );
 
   return (
@@ -51,4 +53,8 @@ export function VehicleRendererProvider({
 
 export function useVehicleRenderer(): VehicleRendererAPI {
   return useContext(VehicleRendererContext);
+}
+
+function DefaultItem({ children }: ItemAttributes) {
+  return children;
 }

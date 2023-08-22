@@ -1,6 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
 import { Snackbar } from '@mui/material';
-import { Link } from '@tanstack/router';
 import { useQuery } from '@tanstack/react-query';
 import { VehicleService } from '../../services/vehicle-service';
 import { WebShare } from '#lib/web-share';
@@ -8,12 +7,10 @@ import { testingSelectors as cardSelectors } from '../../ui/components/vehicle-c
 import {
   BrowseVehicles,
   VehicleRendererProvider,
+  HyperlinkVehicleItem,
 } from '../../ui/components/browse-vehicles';
 import { FluidPage, PagePadding } from '#ui/atoms/page';
-import type {
-  ShareHandler,
-  VehicleRenderer,
-} from '../../ui/components/browse-vehicles';
+import type { ShareHandler } from '../../ui/components/browse-vehicles';
 
 export function BrowseVehiclesPage() {
   const query = useQuery({
@@ -66,21 +63,6 @@ export function BrowseVehiclesPage() {
     }
   }, []);
 
-  // extract to hyperlink-vehicle-item?
-  const linkVehicle = useCallback<VehicleRenderer>(
-    (Component, vehicle) => (
-      <Link
-        to={'/vehicles/$vehicleId'}
-        params={{ vehicleId: vehicle.id() }}
-        style={{ display: 'block', textDecoration: 'none' }}
-        key={vehicle.id()}
-      >
-        {Component}
-      </Link>
-    ),
-    [],
-  );
-
   return (
     <>
       <Snackbar
@@ -94,7 +76,7 @@ export function BrowseVehiclesPage() {
       <FluidPage>
         <PagePadding>
           <VehicleRendererProvider
-            renderer={linkVehicle}
+            Item={HyperlinkVehicleItem}
             shareHandler={shareGoogleMapsLink}
           >
             <BrowseVehicles
