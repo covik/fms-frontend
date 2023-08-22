@@ -4,11 +4,11 @@ import { VehicleCard } from '../vehicle-card';
 import { Truck, TruckFast } from 'mdi-material-ui';
 import { useVehicleRenderer } from './vehicle-item-renderer';
 
-export interface VehicleItemAttributes {
+export interface VehicleListItemAttributes {
   vehicle: LocatedVehicle;
 }
 
-export function VehicleItem({ vehicle }: VehicleItemAttributes) {
+export function VehicleListItem({ vehicle }: VehicleListItemAttributes) {
   const { shareHandler } = useVehicleRenderer();
   const { formatLengthProgressive } = useLength();
   const { formatSpeed } = useSpeed();

@@ -1,4 +1,4 @@
-import { VehicleItem } from './vehicle-item';
+import { VehicleListItem } from './vehicle-list-item';
 import { useVehicleRenderer } from './vehicle-item-renderer';
 import type { LocatedVehicle } from '../../../models/vehicle';
 
@@ -13,7 +13,7 @@ export function VehicleList({ vehicles }: VehicleListAttributes) {
     <>
       {vehicles.map((vehicle) => (
         <Item vehicle={vehicle} key={vehicle.id()}>
-          <VehicleItem vehicle={vehicle} />
+          <VehicleListItem vehicle={vehicle} />
         </Item>
       ))}
     </>
