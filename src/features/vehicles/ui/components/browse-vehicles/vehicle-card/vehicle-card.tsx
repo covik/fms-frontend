@@ -89,12 +89,12 @@ export function VehicleCard({ children }: VehicleCardAttributes) {
 
 export interface VehicleCardHeaderAttributes {
   children: ReactNode;
-  color: CSSProperties['color'];
+  color?: CSSProperties['color'];
 }
 
 export function VehicleCardHeader({
   children,
-  color,
+  color = undefined,
 }: VehicleCardHeaderAttributes) {
   return <CardHeader color={color}>{children}</CardHeader>;
 }

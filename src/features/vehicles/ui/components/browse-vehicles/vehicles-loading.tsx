@@ -1,17 +1,27 @@
+import { VehicleListItemLoading } from './vehicle-list-item';
+import {
+  Section,
+  SectionContent,
+  SectionHeader,
+  SectionTitle,
+} from '../vehicle-sections/section';
 import { Skeleton } from '@mui/material';
-import { SectionContent } from '../vehicle-sections/section';
-
-const vehicle = (
-  <Skeleton variant={'rounded'} height={'76px'} component={'div'} />
-);
 
 export function VehiclesLoading() {
   return (
-    <SectionContent>
-      {vehicle}
-      {vehicle}
-      {vehicle}
-      {vehicle}
-    </SectionContent>
+    <Section>
+      <SectionHeader>
+        <SectionTitle>
+          <Skeleton variant={'text'} width={'60px'} />
+        </SectionTitle>
+      </SectionHeader>
+
+      <SectionContent>
+        <VehicleListItemLoading />
+        <VehicleListItemLoading />
+        <VehicleListItemLoading />
+        <VehicleListItemLoading />
+      </SectionContent>
+    </Section>
   );
 }
