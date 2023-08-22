@@ -6,7 +6,7 @@ import {
 } from './section';
 import type { SectionAttributes } from './section';
 
-export function SectionOperationalVehicles({ children }: SectionAttributes) {
+export function SectionActiveVehicles({ children }: SectionAttributes) {
   return (
     <Section>
       <SectionHeader>

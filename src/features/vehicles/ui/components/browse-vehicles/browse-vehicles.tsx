@@ -1,7 +1,7 @@
 import { VehiclesLoading } from './vehicles-loading';
 import { NoVehicles } from './no-vehicles';
 import {
-  SectionOperationalVehicles,
+  SectionActiveVehicles,
   SectionUnavailableVehicles,
   VehicleSections,
 } from './vehicle-sections';
@@ -27,9 +27,9 @@ export function BrowseVehicles({ vehicles }: BrowseVehiclesAttributes) {
   // dodat filtere
   return (
     <VehicleSections>
-      <SectionOperationalVehicles>
+      <SectionActiveVehicles>
         <VehicleList vehicles={activeVehicles} />
-      </SectionOperationalVehicles>
+      </SectionActiveVehicles>
 
       <SectionUnavailableVehicles>
         <VehicleList vehicles={unavailableVehicles} />
