@@ -4,7 +4,7 @@ import {
   SectionOperationalVehicles,
   SectionUnavailableVehicles,
   VehicleSections,
-} from '../vehicle-sections';
+} from './vehicle-sections';
 import { VehicleList } from './vehicle-list';
 import type { Vehicle } from './types';
 

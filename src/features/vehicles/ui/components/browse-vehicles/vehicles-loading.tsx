@@ -4,7 +4,7 @@ import {
   SectionContent,
   SectionHeader,
   SectionTitle,
-} from '../vehicle-sections/section';
+} from './vehicle-sections/section';
 import { Skeleton } from '@mui/material';
 
 export function VehiclesLoading() {
