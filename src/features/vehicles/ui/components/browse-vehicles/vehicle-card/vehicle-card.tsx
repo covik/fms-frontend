@@ -1,4 +1,5 @@
 import { Box, Chip, Paper, Stack, styled, svgIconClasses } from '@mui/material';
+import { selectors } from '../selectors';
 import type { CSSProperties, ReactElement, ReactNode } from 'react';
 
 const ComponentName = VehicleCard.name;
@@ -81,7 +82,9 @@ export interface VehicleCardAttributes {
 export function VehicleCard({ children }: VehicleCardAttributes) {
   if (!children) return null;
 
-  return <VehicleCardRoot>{children}</VehicleCardRoot>;
+  return (
+    <VehicleCardRoot data-testid={selectors.card}>{children}</VehicleCardRoot>
+  );
 }
 
 export interface VehicleCardHeaderAttributes {

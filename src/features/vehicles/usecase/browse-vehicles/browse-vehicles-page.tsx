@@ -4,11 +4,11 @@ import { useQuery } from '@tanstack/react-query';
 import { VehicleService } from '../../services/vehicle-service';
 import { Coordinates } from '#lib/dimension';
 import { WebShare } from '#lib/web-share';
-import { testingSelectors as cardSelectors } from '../../ui/components/vehicle-card';
 import {
   BrowseVehicles,
   VehicleRendererProvider,
   HyperlinkVehicleRenderer,
+  selectors as cardSelectors,
 } from '../../ui/components/browse-vehicles';
 import { FluidPage, PagePadding } from '#ui/atoms/page';
 import type { ShareHandler } from '../../ui/components/browse-vehicles';
