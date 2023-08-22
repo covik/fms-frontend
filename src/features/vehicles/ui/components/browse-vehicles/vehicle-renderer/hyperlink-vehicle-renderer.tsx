@@ -8,9 +8,9 @@ export function HyperlinkVehicleRenderer({
   return (
     <Link
       to={'/vehicles/$vehicleId'}
-      params={{ vehicleId: vehicle.id() }}
+      params={{ vehicleId: vehicle.id }}
       style={{ display: 'block', textDecoration: 'none' }}
-      key={vehicle.id()}
+      key={vehicle.id}
     >
       {children}
     </Link>

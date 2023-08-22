@@ -1,9 +1,9 @@
 import { VehicleListItem } from './vehicle-list-item';
 import { useVehicleRenderer } from './vehicle-renderer';
-import type { LocatedVehicle } from '../../../models/vehicle';
+import type { Vehicle } from './types';
 
 export interface VehicleListAttributes {
-  vehicles: LocatedVehicle[];
+  vehicles: Vehicle[];
 }
 
 export function VehicleList({ vehicles }: VehicleListAttributes) {
@@ -12,7 +12,7 @@ export function VehicleList({ vehicles }: VehicleListAttributes) {
   return (
     <>
       {vehicles.map((vehicle) => (
-        <Renderer vehicle={vehicle} key={vehicle.id()}>
+        <Renderer vehicle={vehicle} key={vehicle.id}>
           <VehicleListItem vehicle={vehicle} />
         </Renderer>
       ))}

@@ -11,11 +11,17 @@ import * as CombinedRouteStories from '../../components/route-map-elements/combi
 import type { Meta, StoryObj } from '@storybook/react';
 
 faker.seed(7);
-const vehicles = adaptLocatedVehicles([
-  createOperationalVehicle({ faker }),
-  createOperationalVehicle({ faker }),
-  createUnavailableVehicle({ faker }),
-]);
+const vehicles = adaptLocatedVehicles(
+  [
+    createOperationalVehicle({ faker }),
+    createOperationalVehicle({ faker }),
+    createUnavailableVehicle({ faker }),
+  ],
+  {
+    formatSpeed: (speed) => `${Math.round(speed.value())} ${speed.symbol()}`,
+    formatPower: (power) => `${power.value().toFixed(1)} ${power.symbol()}`,
+  },
+);
 const { Default: RouteStory } = composeStories(CombinedRouteStories);
 
 export default {

@@ -6,34 +6,29 @@ import {
   VehicleSections,
 } from '../vehicle-sections';
 import { VehicleList } from './vehicle-list';
-import type {
-  OperationalVehicle,
-  UnavailableVehicle,
-} from '../../../models/vehicle';
+import type { Vehicle } from './types';
 
-export interface BrowseVehiclesAttributes {
-  operationalVehicles: OperationalVehicle[];
-  unavailableVehicles: UnavailableVehicle[];
-  loading?: boolean;
+export interface BrowseVehiclesAttributes<TVehicle extends Vehicle = Vehicle> {
+  vehicles: TVehicle[] | undefined;
 }
 
-export function BrowseVehicles({
-  operationalVehicles = [],
-  unavailableVehicles = [],
-  loading = false,
-}: BrowseVehiclesAttributes) {
-  if (loading) return <VehiclesLoading />;
+export function BrowseVehicles({ vehicles }: BrowseVehiclesAttributes) {
+  if (vehicles === undefined) return <VehiclesLoading />;
+  if (vehicles.length === 0) return <NoVehicles />;
 
-  if (operationalVehicles.length === 0 && unavailableVehicles.length === 0)
-    return <NoVehicles />;
+  const activeVehicles = vehicles.filter(
+    (vehicle) => vehicle.condition === 'none',
+  );
+  const unavailableVehicles = vehicles.filter(
+    (vehicle) => vehicle.condition === 'unavailable',
+  );
 
-  // refaktorat izvan LocatedVehicle
   // popraviti sakrivanje kategorija bez vozila
   // dodat filtere
   return (
     <VehicleSections>
       <SectionOperationalVehicles>
-        <VehicleList vehicles={operationalVehicles} />
+        <VehicleList vehicles={activeVehicles} />
       </SectionOperationalVehicles>
 
       <SectionUnavailableVehicles>

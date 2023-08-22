@@ -24,7 +24,10 @@ export function MultipleVehiclesTrackingPage() {
 
       const sortedOperational = VehicleService.sortAscendingByName(operational);
       const sortedUnavailable = VehicleService.sortAscendingByName(unavailable);
-      return adaptLocatedVehicles([...sortedOperational, ...sortedUnavailable]);
+      return adaptLocatedVehicles(
+        [...sortedOperational, ...sortedUnavailable],
+        { formatSpeed, formatPower: formatVoltage },
+      );
     },
     refetchInterval: 2000,
   });

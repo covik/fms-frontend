@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker';
 import { BrowseVehicles } from './index';
+import { adaptLocatedVehicles } from '../../adapters/vehicle-adapter';
 import {
   createOperationalVehicle,
   createUnavailableVehicle,
@@ -14,46 +15,47 @@ type Story = StoryObj<typeof BrowseVehicles>;
 
 faker.seed(7);
 
-const operationalVehicles = [
-  createOperationalVehicle({ faker }),
-  createOperationalVehicle({ faker }),
-];
+const formatters: Parameters<typeof adaptLocatedVehicles>[1] = {
+  formatSpeed: (speed) => `${Math.round(speed.value())} ${speed.symbol()}`,
+  formatPower: (power) => `${power.value().toFixed(1)} ${power.symbol()}`,
+};
 
-const unavailableVehicles = [
-  createUnavailableVehicle({ faker }),
-  createUnavailableVehicle({ faker }),
-];
+const activeVehicles = adaptLocatedVehicles(
+  [createOperationalVehicle({ faker }), createOperationalVehicle({ faker })],
+  formatters,
+);
+
+const unavailableVehicles = adaptLocatedVehicles(
+  [createUnavailableVehicle({ faker }), createUnavailableVehicle({ faker })],
+  formatters,
+);
 
 export const All: Story = {
   args: {
-    operationalVehicles,
-    unavailableVehicles,
+    vehicles: [...activeVehicles, ...unavailableVehicles],
   },
 };
 
 export const Loading: Story = {
   args: {
-    loading: true,
+    vehicles: undefined,
   },
 };
 
 export const Empty: Story = {
   args: {
-    operationalVehicles: [],
-    unavailableVehicles: [],
+    vehicles: [],
   },
 };
 
 export const OnlyOperationalVehicles: Story = {
   args: {
-    operationalVehicles,
-    unavailableVehicles: [],
+    vehicles: activeVehicles,
   },
 };
 
 export const OnlyUnavailableVehicles: Story = {
   args: {
-    operationalVehicles: [],
-    unavailableVehicles,
+    vehicles: unavailableVehicles,
   },
 };

@@ -19,11 +19,7 @@ import type { BrowseVehiclesAttributes } from '../../components/browse-vehicles'
 
 export interface VehicleMapScreenAttributes extends BrowseVehiclesAttributes {}
 
-export function VehiclesMapScreen({
-  operationalVehicles,
-  unavailableVehicles,
-  loading,
-}: VehicleMapScreenAttributes) {
+export function VehiclesMapScreen({ vehicles }: VehicleMapScreenAttributes) {
   const theme = useTheme();
 
   return (
@@ -37,11 +33,7 @@ export function VehiclesMapScreen({
         <AppMap sx={{ height: '100%' }} />
 
         <ControlPanel>
-          <BrowseVehicles
-            operationalVehicles={operationalVehicles}
-            unavailableVehicles={unavailableVehicles}
-            loading={loading}
-          />
+          <BrowseVehicles vehicles={vehicles} />
         </ControlPanel>
       </PageLayout>
     </LayoutProvider>

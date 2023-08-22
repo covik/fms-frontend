@@ -7,6 +7,9 @@ import type {
   VehicleMovementState,
   VehicleTracker,
   VehicleCourse,
+  VehiclePower,
+  VehicleSpeed,
+  VehicleFormatters,
 } from '../types/vehicle';
 import type { LocatedVehicle } from '../../models/vehicle';
 
@@ -17,12 +20,19 @@ interface Vehicle
     VehicleIgnitionState,
     VehicleMovementState,
     VehicleCourse,
-    VehicleCondition {}
+    VehicleCondition,
+    VehiclePower,
+    VehicleSpeed {}
 
-function adaptLocatedVehicleModel(vehicle: LocatedVehicle): Vehicle {
+function adaptLocatedVehicleModel(
+  vehicle: LocatedVehicle,
+  formatters: VehicleFormatters,
+): Vehicle {
   let condition: VehicleCondition['condition'] = 'none';
   if (vehicle instanceof UnavailableVehicle) condition = 'unavailable';
   else if (vehicle instanceof DisabledVehicle) condition = 'disabled';
+
+  const { formatPower, formatSpeed } = formatters;
 
   return {
     id: vehicle.id(),
@@ -33,17 +43,16 @@ function adaptLocatedVehicleModel(vehicle: LocatedVehicle): Vehicle {
     ignitionOn: vehicle.hasIgnitionTurnedOn(),
     inMotion: vehicle.isInMotion(),
     courseInDegrees: vehicle.course().value(),
+    power: formatPower(vehicle.power()),
+    speed: formatSpeed(vehicle.speed()),
     condition,
   };
 }
-
-export function adaptLocatedVehicles<
-  Variant extends LocatedVehicle | LocatedVehicle[],
->(vehicles: Variant): Variant extends LocatedVehicle ? Vehicle : Vehicle[];
 export function adaptLocatedVehicles(
-  vehicles: LocatedVehicle | LocatedVehicle[],
-): Vehicle | Vehicle[] {
-  const vehicleList = Array.isArray(vehicles) ? vehicles : [vehicles];
-  const adaptedVehicles: Vehicle[] = vehicleList.map(adaptLocatedVehicleModel);
-  return adaptedVehicles.length === 1 ? adaptedVehicles[0] : adaptedVehicles;
+  vehicles: LocatedVehicle[],
+  formatters: VehicleFormatters,
+): Vehicle[] {
+  return vehicles.map((vehicle) =>
+    adaptLocatedVehicleModel(vehicle, formatters),
+  );
 }

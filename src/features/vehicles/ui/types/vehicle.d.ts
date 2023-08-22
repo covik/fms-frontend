@@ -1,3 +1,5 @@
+import type { Voltage, Speed } from '#lib/measurement-unit';
+
 export interface MinimalVehicle {
   id: string;
   name: string;
@@ -26,4 +28,17 @@ export interface VehicleCourse {
 
 export interface VehicleCondition {
   condition: 'none' | 'unavailable' | 'disabled';
+}
+
+export interface VehiclePower {
+  power: string;
+}
+
+export interface VehicleSpeed {
+  speed: string;
+}
+
+export interface VehicleFormatters {
+  formatPower: (power: Voltage.BaseVoltage) => string;
+  formatSpeed: (speed: Speed.BaseSpeed) => string;
 }

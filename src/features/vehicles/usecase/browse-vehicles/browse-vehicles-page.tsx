@@ -1,7 +1,8 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Snackbar } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { VehicleService } from '../../services/vehicle-service';
+import { Coordinates } from '#lib/dimension';
 import { WebShare } from '#lib/web-share';
 import { testingSelectors as cardSelectors } from '../../ui/components/vehicle-card';
 import {
@@ -11,39 +12,42 @@ import {
 } from '../../ui/components/browse-vehicles';
 import { FluidPage, PagePadding } from '#ui/atoms/page';
 import type { ShareHandler } from '../../ui/components/browse-vehicles';
+import { adaptLocatedVehicles } from '../../ui/adapters/vehicle-adapter';
+import { useSpeed, useVoltage } from '#core/measurement-unit';
 
 export function BrowseVehiclesPage() {
-  const query = useQuery({
+  const { formatVoltage: formatPower } = useVoltage();
+  const { formatSpeed } = useSpeed();
+
+  const { data: vehicles } = useQuery({
     queryKey: ['vehicles'],
     queryFn: ({ signal }) => VehicleService.fetchAll(signal),
+    select: (vehicles) => {
+      const filteredVehicles = [
+        ...VehicleService.takeOnlyOperational(vehicles),
+        ...VehicleService.takeOnlyUnavailable(vehicles),
+      ];
+      const sortedVehicles =
+        VehicleService.sortAscendingByName(filteredVehicles);
+
+      return adaptLocatedVehicles(sortedVehicles, {
+        formatSpeed,
+        formatPower,
+      });
+    },
     refetchInterval: 2000,
   });
-
-  const rawData = query.data;
-  const vehicles = rawData ?? [];
-
-  const sortedVehicles = useMemo(
-    () => VehicleService.sortAscendingByName(vehicles),
-    [vehicles],
-  );
-
-  const operationalVehicles = useMemo(
-    () => VehicleService.takeOnlyOperational(sortedVehicles),
-    [sortedVehicles],
-  );
-
-  const unavailableVehicles = useMemo(
-    () => VehicleService.takeOnlyUnavailable(sortedVehicles),
-    [sortedVehicles],
-  );
 
   const [toastMessage, setToastMessage] = useState('');
   const [showToast, setShowToast] = useState(false);
 
   const shareGoogleMapsLink = useCallback<ShareHandler>(async (vehicle) => {
     try {
-      const title = vehicle.name();
-      const url = vehicle.position().coordinates().toGoogleMapsUrl();
+      const title = vehicle.name;
+      const url = new Coordinates(
+        vehicle.latitude,
+        vehicle.longitude,
+      ).toGoogleMapsUrl();
       const usedStrategy = await WebShare.shareUrl(url, title);
       if (usedStrategy === 'clipboard') {
         setToastMessage(
@@ -79,11 +83,7 @@ export function BrowseVehiclesPage() {
             Renderer={HyperlinkVehicleRenderer}
             shareHandler={shareGoogleMapsLink}
           >
-            <BrowseVehicles
-              operationalVehicles={operationalVehicles}
-              unavailableVehicles={unavailableVehicles}
-              loading={rawData === undefined}
-            />
+            <BrowseVehicles vehicles={vehicles} />
           </VehicleRendererProvider>
         </PagePadding>
       </FluidPage>

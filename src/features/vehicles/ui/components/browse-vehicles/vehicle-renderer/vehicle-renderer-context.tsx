@@ -1,7 +1,7 @@
 import { createContext, useContext, useMemo } from 'react';
 import { DefaultVehicleRenderer } from './default-vehicle-renderer';
-import type { LocatedVehicle } from '../../../../models/vehicle';
 import type { FC, ReactElement, ReactNode } from 'react';
+import type { Vehicle } from '../types';
 
 type VehicleRenderer = FC<VehicleRendererAttributes>;
 
@@ -11,11 +11,11 @@ export interface VehicleRendererAPI {
 }
 
 export interface VehicleRendererAttributes {
-  vehicle: LocatedVehicle;
+  vehicle: Vehicle;
   children: ReactElement;
 }
 
-export type ShareHandler = (vehicle: LocatedVehicle) => void;
+export type ShareHandler = (vehicle: Vehicle) => void;
 
 const VehicleRendererContext = createContext<VehicleRendererAPI>({
   Renderer: DefaultVehicleRenderer,

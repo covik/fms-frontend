@@ -16,37 +16,46 @@ export default {
 } satisfies Meta<typeof VehiclesMapScreen>;
 type Story = StoryObj<typeof VehiclesMapScreen>;
 
+const formatters: Parameters<typeof adaptLocatedVehicles>[1] = {
+  formatSpeed: (speed) => `${Math.round(speed.value())} ${speed.symbol()}`,
+  formatPower: (power) => `${power.value().toFixed(1)} ${power.symbol()}`,
+};
+
 faker.seed(7);
-const activeVehicles = new Array(25)
-  .fill(undefined)
-  .map(() => createOperationalVehicle({ faker }));
-const unavailableVehicles = new Array(5)
-  .fill(undefined)
-  .map(() => createUnavailableVehicle({ faker }));
+const activeVehicles = adaptLocatedVehicles(
+  new Array(25).fill(undefined).map(() => createOperationalVehicle({ faker })),
+  formatters,
+);
+const unavailableVehicles = adaptLocatedVehicles(
+  new Array(25).fill(undefined).map(() => createUnavailableVehicle({ faker })),
+  formatters,
+);
 
 export const Default: Story = {
   args: {
-    operationalVehicles: [activeVehicles[0], activeVehicles[2]],
-    unavailableVehicles: [unavailableVehicles[0], unavailableVehicles[1]],
+    vehicles: [
+      activeVehicles[0],
+      activeVehicles[2],
+      unavailableVehicles[0],
+      unavailableVehicles[1],
+    ],
   },
 };
 
 export const ManyVehicles: Story = {
   args: {
-    operationalVehicles: activeVehicles,
-    unavailableVehicles: unavailableVehicles,
+    vehicles: [...activeVehicles, ...unavailableVehicles],
   },
 };
 
 export const Empty: Story = {
   args: {
-    operationalVehicles: [],
-    unavailableVehicles: [],
+    vehicles: [],
   },
 };
 
 export const Loading: Story = {
   args: {
-    loading: true,
+    vehicles: undefined,
   },
 };
