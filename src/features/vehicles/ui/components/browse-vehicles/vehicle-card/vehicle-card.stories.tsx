@@ -32,7 +32,7 @@ interface ArtificialArguments {
 }
 
 const meta = {
-  title: 'Molecules/Vehicle Card (New)',
+  title: 'Molecules/Vehicle Card',
   // @ts-expect-error
   component: VehicleCard,
   args: {
