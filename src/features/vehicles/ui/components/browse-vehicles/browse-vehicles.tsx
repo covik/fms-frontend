@@ -23,17 +23,23 @@ export function BrowseVehicles({ vehicles }: BrowseVehiclesAttributes) {
     (vehicle) => vehicle.condition === 'unavailable',
   );
 
-  // popraviti sakrivanje kategorija bez vozila
+  const categories = [
+    ['active', SectionActiveVehicles, activeVehicles],
+    ['unavailable', SectionUnavailableVehicles, unavailableVehicles],
+  ] as const;
+
+  const nonEmptyCategories = categories.filter(
+    ([, , vehicles]) => vehicles.length > 0,
+  );
+
   // dodat filtere
   return (
     <VehicleSections>
-      <SectionActiveVehicles>
-        <VehicleList vehicles={activeVehicles} />
-      </SectionActiveVehicles>
-
-      <SectionUnavailableVehicles>
-        <VehicleList vehicles={unavailableVehicles} />
-      </SectionUnavailableVehicles>
+      {nonEmptyCategories.map(([id, Section, vehicles]) => (
+        <Section key={id}>
+          <VehicleList vehicles={vehicles} />
+        </Section>
+      ))}
     </VehicleSections>
   );
 }
