@@ -1,6 +1,6 @@
 import { VehicleListItem } from './vehicle-list-item';
-import { useVehicleRenderer } from './vehicle-renderer';
-import type { Vehicle } from './types';
+import { useVehicleRenderer } from '../vehicle-renderer';
+import type { Vehicle } from '../types';
 
 export interface VehicleListAttributes {
   vehicles: Vehicle[];

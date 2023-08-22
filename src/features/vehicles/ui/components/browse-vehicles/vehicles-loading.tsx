@@ -1,4 +1,4 @@
-import { VehicleListItemLoading } from './vehicle-list-item';
+import { VehicleListItemLoading } from './vehicle-list';
 import { LoadingSection } from './vehicle-sections';
 
 export function VehiclesLoading() {

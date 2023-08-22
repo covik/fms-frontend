@@ -8,11 +8,11 @@ import {
   VehicleCardTags,
   VehicleCardTitle,
   VehicleCardAction,
-} from './vehicle-card';
+} from '../vehicle-card';
 import { Truck, TruckFast } from 'mdi-material-ui';
-import { useVehicleRenderer } from './vehicle-renderer';
-import { ShareVehicle } from './share-vehicle';
-import type { Vehicle } from './types';
+import { useVehicleRenderer } from '../vehicle-renderer';
+import { ShareVehicle } from '../share-vehicle';
+import type { Vehicle } from '../types';
 
 export interface VehicleListItemAttributes {
   vehicle: Vehicle;
