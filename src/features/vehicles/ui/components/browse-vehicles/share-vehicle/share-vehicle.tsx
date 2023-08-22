@@ -1,6 +1,6 @@
 import { IconButton } from '@mui/material';
 import { ShareVariant } from 'mdi-material-ui';
-import { selectors } from './selectors';
+import { selectors } from '../selectors';
 
 export interface ShareVehicleButtonAttributes {
   onShare: () => void;
