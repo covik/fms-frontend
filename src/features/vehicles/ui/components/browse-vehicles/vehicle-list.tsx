@@ -2,26 +2,18 @@ import { VehicleItem } from './vehicle-item';
 import { useVehicleRenderer } from './vehicle-renderer';
 import type { LocatedVehicle } from '../../../models/vehicle';
 
-const defaultShareHandler = () => {};
-
 export interface VehicleListAttributes {
   vehicles: LocatedVehicle[];
 }
 
 export function VehicleList({ vehicles }: VehicleListAttributes) {
-  const renderVehicle = useVehicleRenderer();
+  const { renderer: renderVehicle } = useVehicleRenderer();
 
   return (
     <>
       {vehicles.map((vehicle) =>
         renderVehicle(
-          (shareHandler) => (
-            <VehicleItem
-              vehicle={vehicle}
-              key={vehicle.id()}
-              shareHandler={shareHandler ?? defaultShareHandler}
-            />
-          ),
+          <VehicleItem vehicle={vehicle} key={vehicle.id()} />,
           vehicle,
         ),
       )}

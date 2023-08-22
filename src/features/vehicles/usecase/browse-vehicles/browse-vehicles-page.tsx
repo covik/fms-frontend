@@ -75,7 +75,7 @@ export function BrowseVehiclesPage() {
         style={{ display: 'block', textDecoration: 'none' }}
         key={vehicle.id()}
       >
-        {Component(shareGoogleMapsLink)}
+        {Component}
       </Link>
     ),
     [],
@@ -93,7 +93,10 @@ export function BrowseVehiclesPage() {
       />
       <FluidPage>
         <PagePadding>
-          <VehicleRendererProvider renderer={linkVehicle}>
+          <VehicleRendererProvider
+            renderer={linkVehicle}
+            shareHandler={shareGoogleMapsLink}
+          >
             <BrowseVehicles
               operationalVehicles={operationalVehicles}
               unavailableVehicles={unavailableVehicles}

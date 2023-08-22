@@ -2,14 +2,14 @@ import { LocatedVehicle } from '../../../models/vehicle';
 import { useLength, useSpeed, useVoltage } from '#core/measurement-unit';
 import { VehicleCard } from '../vehicle-card';
 import { Truck, TruckFast } from 'mdi-material-ui';
-import type { ShareHandler } from './vehicle-renderer';
+import { useVehicleRenderer } from './vehicle-renderer';
 
 export interface VehicleItemAttributes {
   vehicle: LocatedVehicle;
-  shareHandler: ShareHandler;
 }
 
-export function VehicleItem({ vehicle, shareHandler }: VehicleItemAttributes) {
+export function VehicleItem({ vehicle }: VehicleItemAttributes) {
+  const { shareHandler } = useVehicleRenderer();
   const { formatLengthProgressive } = useLength();
   const { formatSpeed } = useSpeed();
   const { formatVoltage } = useVoltage();

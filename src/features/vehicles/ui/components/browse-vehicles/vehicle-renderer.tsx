@@ -1,35 +1,54 @@
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useMemo } from 'react';
 import { LocatedVehicle } from '../../../models/vehicle';
-import { VehicleItem } from './vehicle-item';
+import type { VehicleItem } from './vehicle-item';
 import type { ReactElement, ReactNode } from 'react';
+
+export interface VehicleRendererAPI {
+  renderer: VehicleRenderer;
+  shareHandler: ShareHandler;
+}
 
 export type ShareHandler = (vehicle: LocatedVehicle) => void;
 export type VehicleRenderer = (
-  Component: (shareHandler?: ShareHandler) => ReturnType<typeof VehicleItem>,
+  Component: ReturnType<typeof VehicleItem>,
   vehicle: LocatedVehicle,
 ) => ReactElement<typeof VehicleItem>;
 
-const defaultVehicleRenderer: VehicleRenderer = (Component) => Component();
-const VehicleRendererContext = createContext<VehicleRenderer>(
-  defaultVehicleRenderer,
-);
+const VehicleRendererContext = createContext<VehicleRendererAPI>({
+  renderer: (Component) => Component,
+  shareHandler: () => {},
+});
 
 export interface VehicleRendererProviderAttributes {
-  renderer: VehicleRenderer;
+  renderer?: VehicleRenderer;
+  shareHandler?: ShareHandler;
   children: ReactNode;
 }
 
 export function VehicleRendererProvider({
   renderer,
+  shareHandler,
   children,
 }: VehicleRendererProviderAttributes) {
+  const parent = useVehicleRenderer();
+  const actualRenderer = renderer ?? parent.renderer;
+  const actualShareHandler = shareHandler ?? parent.shareHandler;
+
+  const api: VehicleRendererAPI = useMemo(
+    () => ({
+      renderer: actualRenderer,
+      shareHandler: actualShareHandler,
+    }),
+    [actualRenderer, actualShareHandler],
+  );
+
   return (
-    <VehicleRendererContext.Provider value={renderer}>
+    <VehicleRendererContext.Provider value={api}>
       {children}
     </VehicleRendererContext.Provider>
   );
 }
 
-export function useVehicleRenderer(): VehicleRenderer {
+export function useVehicleRenderer(): VehicleRendererAPI {
   return useContext(VehicleRendererContext);
 }
