@@ -5,7 +5,7 @@ import {
   SectionUnavailableVehicles,
   VehicleSections,
 } from '../vehicle-sections';
-import { VehicleList } from './vehicle-renderer';
+import { VehicleList } from './vehicle-list';
 import type {
   OperationalVehicle,
   UnavailableVehicle,
