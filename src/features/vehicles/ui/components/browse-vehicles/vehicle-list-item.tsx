@@ -2,7 +2,7 @@ import { LocatedVehicle } from '../../../models/vehicle';
 import { useLength, useSpeed, useVoltage } from '#core/measurement-unit';
 import { VehicleCard } from '../vehicle-card';
 import { Truck, TruckFast } from 'mdi-material-ui';
-import { useVehicleRenderer } from './vehicle-item-renderer';
+import { useVehicleRenderer } from './vehicle-renderer';
 
 export interface VehicleListItemAttributes {
   vehicle: LocatedVehicle;

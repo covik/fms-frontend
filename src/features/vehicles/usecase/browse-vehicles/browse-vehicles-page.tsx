@@ -7,7 +7,7 @@ import { testingSelectors as cardSelectors } from '../../ui/components/vehicle-c
 import {
   BrowseVehicles,
   VehicleRendererProvider,
-  HyperlinkVehicleItem,
+  HyperlinkVehicleRenderer,
 } from '../../ui/components/browse-vehicles';
 import { FluidPage, PagePadding } from '#ui/atoms/page';
 import type { ShareHandler } from '../../ui/components/browse-vehicles';
@@ -76,7 +76,7 @@ export function BrowseVehiclesPage() {
       <FluidPage>
         <PagePadding>
           <VehicleRendererProvider
-            Item={HyperlinkVehicleItem}
+            Renderer={HyperlinkVehicleRenderer}
             shareHandler={shareGoogleMapsLink}
           >
             <BrowseVehicles

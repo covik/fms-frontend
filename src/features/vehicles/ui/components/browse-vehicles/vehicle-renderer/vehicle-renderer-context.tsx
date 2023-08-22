@@ -1,15 +1,16 @@
 import { createContext, useContext, useMemo } from 'react';
-import type { LocatedVehicle } from '../../../models/vehicle';
+import { DefaultVehicleRenderer } from './default-vehicle-renderer';
+import type { LocatedVehicle } from '../../../../models/vehicle';
 import type { FC, ReactElement, ReactNode } from 'react';
 
-type VehicleItemRenderer = FC<ItemAttributes>;
+type VehicleRenderer = FC<VehicleRendererAttributes>;
 
 export interface VehicleRendererAPI {
-  Item: VehicleItemRenderer;
+  Renderer: VehicleRenderer;
   shareHandler: ShareHandler;
 }
 
-export interface ItemAttributes {
+export interface VehicleRendererAttributes {
   vehicle: LocatedVehicle;
   children: ReactElement;
 }
@@ -17,31 +18,31 @@ export interface ItemAttributes {
 export type ShareHandler = (vehicle: LocatedVehicle) => void;
 
 const VehicleRendererContext = createContext<VehicleRendererAPI>({
-  Item: DefaultItem,
+  Renderer: DefaultVehicleRenderer,
   shareHandler: () => {},
 });
 
 export interface VehicleRendererProviderAttributes {
-  Item?: VehicleItemRenderer;
+  Renderer?: VehicleRenderer;
   shareHandler?: ShareHandler;
   children: ReactNode;
 }
 
 export function VehicleRendererProvider({
-  Item,
+  Renderer,
   shareHandler,
   children,
 }: VehicleRendererProviderAttributes) {
   const parent = useVehicleRenderer();
-  const ActualItem = Item ?? parent.Item;
+  const ActualRenderer = Renderer ?? parent.Renderer;
   const actualShareHandler = shareHandler ?? parent.shareHandler;
 
   const api: VehicleRendererAPI = useMemo(
     () => ({
-      Item: ActualItem,
+      Renderer: ActualRenderer,
       shareHandler: actualShareHandler,
     }),
-    [ActualItem, actualShareHandler],
+    [ActualRenderer, actualShareHandler],
   );
 
   return (
@@ -53,8 +54,4 @@ export function VehicleRendererProvider({
 
 export function useVehicleRenderer(): VehicleRendererAPI {
   return useContext(VehicleRendererContext);
-}
-
-function DefaultItem({ children }: ItemAttributes) {
-  return children;
 }

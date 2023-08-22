@@ -1,7 +1,10 @@
 import { Link } from '@tanstack/router';
-import type { ItemAttributes } from './vehicle-item-renderer';
+import type { VehicleRendererAttributes } from './vehicle-renderer-context';
 
-export function HyperlinkVehicleItem({ children, vehicle }: ItemAttributes) {
+export function HyperlinkVehicleRenderer({
+  children,
+  vehicle,
+}: VehicleRendererAttributes) {
   return (
     <Link
       to={'/vehicles/$vehicleId'}
