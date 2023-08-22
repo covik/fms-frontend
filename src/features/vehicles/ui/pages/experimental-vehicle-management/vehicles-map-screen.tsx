@@ -22,7 +22,6 @@ export interface VehicleMapScreenAttributes extends BrowseVehiclesAttributes {}
 export function VehiclesMapScreen({
   operationalVehicles,
   unavailableVehicles,
-  VehicleItem,
   loading,
 }: VehicleMapScreenAttributes) {
   const theme = useTheme();
@@ -41,7 +40,6 @@ export function VehiclesMapScreen({
           <BrowseVehicles
             operationalVehicles={operationalVehicles}
             unavailableVehicles={unavailableVehicles}
-            VehicleItem={VehicleItem}
             loading={loading}
           />
         </ControlPanel>
