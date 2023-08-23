@@ -1,5 +1,7 @@
 import { Tab } from '@mui/material';
-import { RouterTab } from '#core/router/router-tab';
+import { Link as RouterLink } from '@tanstack/router';
+import type { TabProps } from '@mui/material';
+import type { LinkOptions, RegisteredRoutesInfo } from '@tanstack/router';
 import type { NavigationItemRenderer } from './interface';
 
 export const TabRender: NavigationItemRenderer = (item) => (
@@ -20,4 +22,18 @@ export const RouterTabRender: NavigationItemRenderer = ({
       {...props}
     />
   );
+};
+
+const RouterTab = <
+  TFrom extends RegisteredRoutesInfo['routePaths'] = '/',
+  TTo extends string = '',
+>(
+  props: LinkOptions<RegisteredRoutesInfo, TFrom, TTo> &
+    Omit<TabProps, 'component'>,
+) => {
+  const propsWithOverriddenComponent = {
+    ...props,
+    component: RouterLink,
+  };
+  return <Tab {...propsWithOverriddenComponent} />;
 };
