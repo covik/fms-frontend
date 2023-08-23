@@ -4,8 +4,9 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material';
+import { useNavigationRenderer } from './navigation-renderer';
 import type { ReactNode } from 'react';
-import type { NavigationItem as NavigationItemAttributes } from './types';
+import type { NavigationItemAttributes } from './types';
 
 export interface NavigationListAttributes {
   children: ReactNode;
@@ -19,11 +20,18 @@ export function Navigation({ children }: NavigationListAttributes) {
   );
 }
 
-export function NavigationItem({ label, icon }: NavigationItemAttributes) {
+export function NavigationItem(props: NavigationItemAttributes) {
+  const { Renderer } = useNavigationRenderer(props);
+  const { icon, label } = props;
+
   return (
-    <ListItemButton component={'div'}>
-      <ListItemIcon>{icon}</ListItemIcon>
-      <ListItemText>{label}</ListItemText>
-    </ListItemButton>
+    <Renderer>
+      {(selected: boolean) => (
+        <ListItemButton component={'div'} selected={selected}>
+          <ListItemIcon>{icon}</ListItemIcon>
+          <ListItemText>{label}</ListItemText>
+        </ListItemButton>
+      )}
+    </Renderer>
   );
 }
