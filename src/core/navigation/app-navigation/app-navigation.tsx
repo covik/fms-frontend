@@ -4,11 +4,6 @@ import {
   ListItemIcon,
   ListItemText,
 } from '@mui/material';
-import {
-  Car as CarIcon,
-  FileChart as FileChartIcon,
-  Account as AccountIcon,
-} from 'mdi-material-ui';
 import type { ReactNode } from 'react';
 import type { NavigationItem as NavigationItemAttributes } from './types';
 
