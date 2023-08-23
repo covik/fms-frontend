@@ -1,6 +1,5 @@
 import {
   AppBar as RealAppBar,
-  Box,
   IconButton,
   Toolbar,
   Typography,

@@ -43,6 +43,11 @@ export const Content = styled('div')({
 
 const SidebarContainer = styled('div')({
   gridArea: 'sidebar',
+  overflow: 'auto',
+
+  // fixes card shadows due to overflow auto
+  padding: '2px',
+  margin: '-2px',
 });
 
 export interface SidebarAttributes {

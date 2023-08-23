@@ -34,7 +34,20 @@ const unavailableVehicles = adaptLocatedVehicles(
   formatters,
 );
 
+/**
+ * A default state assumes there is not data.
+ * While the data fetches in the background, skeleton loaders are shown.
+ */
 export const Default: Story = {
+  args: {
+    vehicles: undefined,
+  },
+};
+
+/**
+ * Renders all possible categories.
+ */
+export const AllCategories = {
   args: {
     vehicles: [
       activeVehicles[0],
@@ -45,27 +58,49 @@ export const Default: Story = {
   },
 };
 
+/**
+ * Renders single category (active vehicles).
+ */
+export const SingleCategory = {
+  args: {
+    vehicles: [
+      activeVehicles[0],
+      activeVehicles[1],
+      activeVehicles[2],
+      activeVehicles[3],
+    ],
+  },
+};
+
+/**
+ * Shows how UI looks like when there is a lot of vehicles.
+ *
+ * On desktop, the sidebar should be scrollable but the whole page should not be,
+ * this prevents Google Maps saying you need to hold Ctrl in order to zoom in the map.
+ *
+ * On mobile, control panel should be expanded to 95% of the screen.
+ */
 export const ManyVehicles: Story = {
   args: {
     vehicles: [...activeVehicles, ...unavailableVehicles],
   },
 };
 
+/**
+ * What renders when the data loads but there is no vehicles.
+ */
 export const Empty: Story = {
   args: {
     vehicles: [],
   },
 };
 
-export const Loading: Story = {
-  args: {
-    vehicles: undefined,
-  },
-};
-
+/**
+ * Show a loading spinner on the map if the data is being refreshed in the background.
+ */
 export const Refreshing: Story = {
   args: {
-    ...Default.args,
+    ...AllCategories.args,
     refreshingData: true,
   },
 };
@@ -76,7 +111,7 @@ export const Refreshing: Story = {
  */
 export const RefreshingNoData: Story = {
   args: {
-    ...Loading.args,
+    ...Default.args,
     refreshingData: true,
   },
   parameters: {},
