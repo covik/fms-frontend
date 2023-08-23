@@ -3,6 +3,7 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Typography,
 } from '@mui/material';
 import { useNavigationRenderer } from './navigation-renderer';
 import type { ReactNode } from 'react';
@@ -28,8 +29,17 @@ export function NavigationItem(props: NavigationItemAttributes) {
     <Item>
       {(selected: boolean) => (
         <ListItemButton component={'div'} selected={selected}>
-          <ListItemIcon>{props.icon}</ListItemIcon>
-          <ListItemText>{props.label}</ListItemText>
+          <ListItemIcon>
+            <Typography color={selected ? 'primary' : 'inherit'}>
+              {props.icon}
+            </Typography>
+          </ListItemIcon>
+
+          <ListItemText>
+            <Typography color={selected ? 'primary' : 'inherit'}>
+              {props.label}
+            </Typography>
+          </ListItemText>
         </ListItemButton>
       )}
     </Item>
