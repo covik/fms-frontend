@@ -1,5 +1,7 @@
-import type { NavigationRendererAttributes } from './types';
+import type { NavigationImplementationRendererAttributes } from './types';
 
-export function DefaultRenderer({ children }: NavigationRendererAttributes) {
+export function DefaultRenderer({
+  children,
+}: NavigationImplementationRendererAttributes) {
   return children(false);
 }
