@@ -1,5 +1,5 @@
-import { AppLayout } from '../app-layout';
-import { AppUpdateNotification } from '../app-update-notification';
+import { AppUpdateNotification } from '../app-update';
+import { PrimaryNavigation } from '#core/navigation';
 import type { ReactNode } from 'react';
 
 export interface AppShellAttributes {
@@ -8,9 +8,10 @@ export interface AppShellAttributes {
 
 export function AppShell({ children }: AppShellAttributes) {
   return (
-    <AppLayout>
+    <>
+      <PrimaryNavigation />
       <AppUpdateNotification />
       {children}
-    </AppLayout>
+    </>
   );
 }

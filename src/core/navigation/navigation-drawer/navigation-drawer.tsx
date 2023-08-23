@@ -36,7 +36,6 @@ function NavigationDrawer({
       open={visible}
       onClose={toggleVisibility(false)}
       onOpen={toggleVisibility(true)}
-      disableDiscovery
       sx={{
         [`& .${drawerClasses.paper}`]: { width: '90%', maxWidth: '250px' },
       }}
