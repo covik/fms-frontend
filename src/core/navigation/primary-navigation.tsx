@@ -6,6 +6,7 @@ import {
   Car as CarIcon,
   FileChart as FileChartIcon,
 } from 'mdi-material-ui';
+import { HyperlinkRendererProvider } from './app-navigation/navigation-renderer';
 
 export function PrimaryNavigation() {
   const { visible, openDrawer, toggleDrawer, NavigationDrawer } = useDrawer();
@@ -15,25 +16,27 @@ export function PrimaryNavigation() {
       <AppBar onHamburgerClick={openDrawer} />
 
       <NavigationDrawer visible={visible} onVisibilityChange={toggleDrawer}>
-        <Navigation>
-          <NavigationItem
-            label={'Vozila'}
-            icon={<CarIcon />}
-            to={'/vehicles'}
-          />
+        <HyperlinkRendererProvider>
+          <Navigation>
+            <NavigationItem
+              label={'Vozila'}
+              icon={<CarIcon />}
+              to={'/vehicles'}
+            />
 
-          <NavigationItem
-            label={'Izvještaji'}
-            icon={<FileChartIcon />}
-            to={'/vehicles/$vehicleId'}
-          />
+            <NavigationItem
+              label={'Izvještaji'}
+              icon={<FileChartIcon />}
+              to={'/reports/mileage'}
+            />
 
-          <NavigationItem
-            label={'Profil'}
-            icon={<AccountIcon />}
-            to={'/account'}
-          />
-        </Navigation>
+            <NavigationItem
+              label={'Profil'}
+              icon={<AccountIcon />}
+              to={'/account'}
+            />
+          </Navigation>
+        </HyperlinkRendererProvider>
       </NavigationDrawer>
     </>
   );

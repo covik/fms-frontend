@@ -28,7 +28,7 @@ function CreateRenderer(
 }
 
 export interface NavigationRendererProviderAttributes {
-  Renderer: Renderer;
+  Renderer: ConcreteRenderer;
   children: ReactNode;
 }
 
