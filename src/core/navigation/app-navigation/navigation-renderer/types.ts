@@ -1,17 +1,15 @@
 import type { FC, ReactElement } from 'react';
 import type { NavigationItemAttributes } from '../types';
 
-export interface PublicRendererAttributes {
+export interface RendererProps {
   children: (selected: boolean) => ReactElement;
 }
 
-export interface PrivateRendererAttributes
-  extends PublicRendererAttributes,
-    NavigationItemAttributes {}
+export interface ItemProps extends NavigationItemAttributes {}
 
-export interface PublicRenderer<
-  OtherProps extends PublicRendererAttributes = PublicRendererAttributes,
-> extends FC<OtherProps> {}
+export interface ConcreteRendererProps extends RendererProps, ItemProps {}
 
-export interface PrivateRenderer
-  extends PublicRenderer<PrivateRendererAttributes> {}
+export interface Renderer<Props extends RendererProps = RendererProps>
+  extends FC<Props> {}
+
+export interface ConcreteRenderer extends Renderer<ConcreteRendererProps> {}

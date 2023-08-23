@@ -1,5 +1,5 @@
-import type { PrivateRendererAttributes } from './types';
+import type { ConcreteRendererProps } from './types';
 
-export function DefaultRenderer({ children }: PrivateRendererAttributes) {
+export function DefaultRenderer({ children }: ConcreteRendererProps) {
   return children(false);
 }
