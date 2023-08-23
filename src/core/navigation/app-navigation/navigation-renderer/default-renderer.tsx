@@ -1,7 +1,5 @@
-import type { NavigationImplementationRendererAttributes } from './types';
+import type { PrivateRendererAttributes } from './types';
 
-export function DefaultRenderer({
-  children,
-}: NavigationImplementationRendererAttributes) {
+export function DefaultRenderer({ children }: PrivateRendererAttributes) {
   return children(false);
 }

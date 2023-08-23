@@ -21,17 +21,16 @@ export function Navigation({ children }: NavigationListAttributes) {
 }
 
 export function NavigationItem(props: NavigationItemAttributes) {
-  const { Renderer } = useNavigationRenderer(props);
-  const { icon, label } = props;
+  const Item = useNavigationRenderer(props);
 
   return (
-    <Renderer>
+    <Item>
       {(selected: boolean) => (
         <ListItemButton component={'div'} selected={selected}>
-          <ListItemIcon>{icon}</ListItemIcon>
-          <ListItemText>{label}</ListItemText>
+          <ListItemIcon>{props.icon}</ListItemIcon>
+          <ListItemText>{props.label}</ListItemText>
         </ListItemButton>
       )}
-    </Renderer>
+    </Item>
   );
 }

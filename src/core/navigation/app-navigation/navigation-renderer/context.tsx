@@ -1,42 +1,28 @@
 import { createContext, useContext } from 'react';
 import { DefaultRenderer } from './default-renderer';
-import type { FC } from 'react';
 import type {
-  NavigationImplementationRendererAttributes,
-  NavigationRendererAttributes,
+  PrivateRenderer,
+  PublicRenderer,
+  PublicRendererAttributes,
 } from './types';
 import type { NavigationItemAttributes } from '../types';
 
-export interface NavigationRenderAPI {
-  Renderer: FC<NavigationImplementationRendererAttributes>;
-}
-
-export interface NavigationRendererOptions {
-  Renderer: FC<NavigationRendererAttributes>;
-}
-
-const NavigationRenderContext = createContext<
-  NavigationRendererOptions | undefined
->(undefined);
+const NavigationRenderContext = createContext<PrivateRenderer>(DefaultRenderer);
 
 export function useNavigationRenderer(
   props: NavigationItemAttributes,
-): NavigationRenderAPI {
-  const { Renderer } = useContext(NavigationRenderContext) ?? {
-    Renderer: DefaultRenderer,
-  };
-  const ActualRenderer = CreateRenderer(Renderer, props);
+): PublicRenderer {
+  const RendererImplementation = useContext(NavigationRenderContext);
 
-  return {
-    Renderer: ActualRenderer,
-  };
+  // does it need useCallback optimization? does it matter?
+  return CreateRealRenderer(RendererImplementation, props);
 }
 
-function CreateRenderer(
-  Renderer: FC<NavigationImplementationRendererAttributes>,
+function CreateRealRenderer(
+  PrivateRenderer: PrivateRenderer,
   props: NavigationItemAttributes,
-) {
-  return function RenderItem({ children }: NavigationRendererAttributes) {
-    return <Renderer {...props}>{children}</Renderer>;
+): PublicRenderer {
+  return function RenderItem({ children }: PublicRendererAttributes) {
+    return <PrivateRenderer {...props}>{children}</PrivateRenderer>;
   };
 }
