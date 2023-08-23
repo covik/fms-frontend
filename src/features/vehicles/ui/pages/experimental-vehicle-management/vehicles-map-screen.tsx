@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import {
   AppBar as RealAppBar,
   Box,
@@ -7,12 +6,11 @@ import {
   Typography,
   useTheme,
 } from '@mui/material';
-import { Car, Menu } from 'mdi-material-ui';
+import { Menu } from 'mdi-material-ui';
 import { AppMap } from '#core/map';
 import { LayoutProvider } from '#core/layout';
-import { PageLayout } from '../../templates/single-vehicle-tracking';
+import { Content, Main, Page, Sidebar } from './layout';
 import { BrowseVehicles } from '../../components/browse-vehicles';
-import { BottomControlPanel } from '../../components/bottom-control-panel';
 import type { ReactNode } from 'react';
 import type { BrowseVehiclesAttributes } from '../../components/browse-vehicles';
 
@@ -23,40 +21,25 @@ export function VehiclesMapScreen({ vehicles }: VehicleMapScreenAttributes) {
 
   return (
     <LayoutProvider offsetTop={theme.spacing(APP_BAR_SIZE + APP_BAR_SPACING)}>
-      <PageLayout>
+      <Page>
         <AppBar>
           <HamburgerButton />
           <PageTitle>Vozila</PageTitle>
         </AppBar>
 
-        <AppMap sx={{ height: '100%' }} />
+        <Main>
+          <Content>
+            <AppMap sx={{ height: '100%' }} />
+          </Content>
 
-        <ControlPanel>
-          <Box padding={1.5}>
-            <BrowseVehicles vehicles={vehicles} />
-          </Box>
-        </ControlPanel>
-      </PageLayout>
+          <Sidebar>
+            <Box padding={1.5}>
+              <BrowseVehicles vehicles={vehicles} />
+            </Box>
+          </Sidebar>
+        </Main>
+      </Page>
     </LayoutProvider>
-  );
-}
-
-interface ControlPanelAttributes {
-  children: ReactNode;
-}
-
-function ControlPanel({ children }: ControlPanelAttributes) {
-  const [visible, setVisible] = useState(false);
-
-  return (
-    <BottomControlPanel
-      bleeding={33}
-      PullerIcon={<Car fontSize={'medium'} />}
-      visible={visible}
-      onVisibilityChange={setVisible}
-    >
-      {children}
-    </BottomControlPanel>
   );
 }
 
