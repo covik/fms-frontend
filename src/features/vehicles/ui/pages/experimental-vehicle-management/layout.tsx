@@ -54,7 +54,7 @@ export function Sidebar({ children }: SidebarAttributes) {
   const largeEnoughScreen = useMediaQuery(theme.breakpoints.up(breakpoint));
 
   return largeEnoughScreen ? (
-    <SidebarContainer>children</SidebarContainer>
+    <SidebarContainer>{children}</SidebarContainer>
   ) : (
     <ControlPanel>{children}</ControlPanel>
   );
