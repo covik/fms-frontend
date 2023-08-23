@@ -35,17 +35,17 @@ const unavailableVehicles = adaptLocatedVehicles(
 );
 
 /**
- * A default state assumes there is not data.
+ * A default state assumes there is no data.
  * While the data fetches in the background, skeleton loaders are shown.
  */
-export const Default: Story = {
+export const Loading: Story = {
   args: {
     vehicles: undefined,
   },
 };
 
 /**
- * Renders all possible categories.
+ * Shows all possible categories.
  */
 export const AllCategories = {
   args: {
@@ -59,7 +59,7 @@ export const AllCategories = {
 };
 
 /**
- * Renders single category (active vehicles).
+ * Shows single category [active vehicles].
  */
 export const SingleCategory = {
   args: {
@@ -75,8 +75,8 @@ export const SingleCategory = {
 /**
  * Shows how UI looks like when there is a lot of vehicles.
  *
- * On desktop, the sidebar should be scrollable but the whole page should not be,
- * this prevents Google Maps saying you need to hold Ctrl in order to zoom in the map.
+ * On desktop, the sidebar should be scrollable but the whole page should not be.
+ * This prevents Google Maps saying you need to hold Ctrl in order to zoom in the map.
  *
  * On mobile, control panel should be expanded to 95% of the screen.
  */
@@ -87,7 +87,7 @@ export const ManyVehicles: Story = {
 };
 
 /**
- * What renders when the data loads but there is no vehicles.
+ * Shows what happens when the data loads but there is no vehicles.
  */
 export const Empty: Story = {
   args: {
@@ -111,7 +111,7 @@ export const Refreshing: Story = {
  */
 export const RefreshingNoData: Story = {
   args: {
-    ...Default.args,
+    ...Loading.args,
     refreshingData: true,
   },
   parameters: {},
