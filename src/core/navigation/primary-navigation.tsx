@@ -1,7 +1,6 @@
-import { useState } from 'react';
 import { AppBar } from './app-bar';
 import { Navigation, NavigationItem } from './app-navigation';
-import { NavigationDrawer } from './navigation-drawer';
+import { useDrawer } from './navigation-drawer';
 import {
   Account as AccountIcon,
   Car as CarIcon,
@@ -9,13 +8,13 @@ import {
 } from 'mdi-material-ui';
 
 export function PrimaryNavigation() {
-  const [visible, setVisible] = useState(false);
+  const { visible, openDrawer, toggleDrawer, NavigationDrawer } = useDrawer();
 
   return (
     <>
-      <AppBar onHamburgerClick={() => setVisible(true)} />
+      <AppBar onHamburgerClick={openDrawer} />
 
-      <NavigationDrawer visible={visible} onHide={() => setVisible(false)}>
+      <NavigationDrawer visible={visible} onVisibilityChange={toggleDrawer}>
         <Navigation>
           <NavigationItem
             label={'Vozila'}

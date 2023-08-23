@@ -1,27 +1,47 @@
-import { Drawer, drawerClasses } from '@mui/material';
+import { useCallback, useState } from 'react';
+import { SwipeableDrawer, drawerClasses } from '@mui/material';
 import type { ReactNode } from 'react';
+
+export function useDrawer() {
+  const [visible, toggleDrawer] = useState(false);
+  const openDrawer = useCallback(() => toggleDrawer(true), []);
+
+  return {
+    visible,
+    openDrawer,
+    toggleDrawer,
+    NavigationDrawer,
+  };
+}
 
 export interface NavigationDrawerAttributes {
   visible: boolean;
-  onHide: () => void;
+  onVisibilityChange: (newVisibility: boolean) => void;
   children: ReactNode;
 }
 
-export function NavigationDrawer({
+function NavigationDrawer({
   visible,
-  onHide,
+  onVisibilityChange,
   children,
 }: NavigationDrawerAttributes) {
+  const toggleVisibility = useCallback(
+    (newVisibility: boolean) => () => onVisibilityChange(newVisibility),
+    [onVisibilityChange],
+  );
+
   return (
-    <Drawer
+    <SwipeableDrawer
       anchor={'left'}
       open={visible}
-      onClose={onHide}
+      onClose={toggleVisibility(false)}
+      onOpen={toggleVisibility(true)}
+      disableDiscovery
       sx={{
         [`& .${drawerClasses.paper}`]: { width: '90%', maxWidth: '250px' },
       }}
     >
       {children}
-    </Drawer>
+    </SwipeableDrawer>
   );
 }
