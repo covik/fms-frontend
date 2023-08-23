@@ -1,4 +1,4 @@
-import { styled, useMediaQuery, useTheme } from '@mui/material';
+import { Box, styled, useMediaQuery, useTheme } from '@mui/material';
 import { FixedPage, PagePadding } from '#ui/atoms/page';
 import { ControlPanel } from './control-panel';
 import type { ReactNode } from 'react';
@@ -56,6 +56,8 @@ export function Sidebar({ children }: SidebarAttributes) {
   return largeEnoughScreen ? (
     <SidebarContainer>{children}</SidebarContainer>
   ) : (
-    <ControlPanel>{children}</ControlPanel>
+    <ControlPanel>
+      <Box padding={1.5}>{children}</Box>
+    </ControlPanel>
   );
 }

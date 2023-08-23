@@ -44,9 +44,7 @@ export function VehiclesMapScreen({
           </Content>
 
           <Sidebar>
-            <Box padding={1.5}>
-              <BrowseVehicles vehicles={vehicles} />
-            </Box>
+            <BrowseVehicles vehicles={vehicles} />
           </Sidebar>
         </Main>
       </Page>
