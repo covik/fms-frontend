@@ -1,4 +1,4 @@
-import { Outlet, RootRoute } from '@tanstack/router';
+import { Navigate, Outlet, RootRoute, Route } from '@tanstack/router';
 import { AuthenticatedApp } from '#foundation/authenticated-app';
 import * as features from '#features';
 
@@ -11,11 +11,14 @@ function RootComponent() {
 }
 
 const rootRoute = new RootRoute({ component: RootComponent });
+const indexRoute = new Route({
+  getParentRoute: () => rootRoute,
+  path: '/',
+  component: () => <Navigate to={'/vehicles'} />,
+});
 
-const featureModules = Object.values(features);
-const featureRoutes = featureModules.map((feature) =>
-  feature.registerRoutes(rootRoute),
-);
-const flatFeatureRoutes = featureRoutes.flat();
+const featureRoutes = Object.values(features)
+  .map((feature) => feature.registerRoutes(rootRoute))
+  .flat();
 
-export const routeTree = rootRoute.addChildren(flatFeatureRoutes);
+export const routeTree = rootRoute.addChildren([indexRoute, ...featureRoutes]);

@@ -6,14 +6,6 @@ import { formatDateForURL } from '../../utils/date';
 import type { RootRoute } from '@tanstack/router';
 
 export function registerRoutes(rootRoute: RootRoute) {
-  const indexRoute = new Route({
-    getParentRoute: () => rootRoute,
-    path: '/',
-    component: lazy(
-      () => import('./usecase/live-tracking/multiple-vehicles-tracking-page'),
-    ),
-  });
-
   const vehiclesRoute = new Route({
     getParentRoute: () => rootRoute,
     path: 'vehicles',
@@ -81,7 +73,6 @@ export function registerRoutes(rootRoute: RootRoute) {
   });
 
   return [
-    indexRoute,
     vehiclesRoute.addChildren([
       vehiclesIndexRoute,
       vehicleRoute.addChildren([
