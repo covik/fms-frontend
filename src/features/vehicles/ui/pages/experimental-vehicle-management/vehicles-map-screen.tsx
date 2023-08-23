@@ -27,29 +27,31 @@ export function VehiclesMapScreen({
   const showRefreshIndicator = refreshingData && vehicles !== undefined;
 
   return (
-    <LayoutProvider offsetTop={theme.spacing(APP_BAR_SIZE + APP_BAR_SPACING)}>
-      <Page>
-        <AppBar>
+    <Page>
+      <Main>
+        <Content>
+          <AppMap sx={{ height: '100%' }}>
+            <VehiclesMap vehicles={vehicles ?? []} />
+            {showRefreshIndicator ? <MapFetchIndicator /> : null}
+          </AppMap>
+        </Content>
+
+        <Sidebar>
+          <BrowseVehicles vehicles={vehicles} />
+        </Sidebar>
+      </Main>
+    </Page>
+  );
+}
+
+/*
+<LayoutProvider offsetTop={theme.spacing(APP_BAR_SIZE + APP_BAR_SPACING)}>
+<AppBar>
           <HamburgerButton />
           <PageTitle>Vozila</PageTitle>
         </AppBar>
-
-        <Main>
-          <Content>
-            <AppMap sx={{ height: '100%' }}>
-              <VehiclesMap vehicles={vehicles ?? []} />
-              {showRefreshIndicator ? <MapFetchIndicator /> : null}
-            </AppMap>
-          </Content>
-
-          <Sidebar>
-            <BrowseVehicles vehicles={vehicles} />
-          </Sidebar>
-        </Main>
-      </Page>
-    </LayoutProvider>
-  );
-}
+        </LayoutProvider>
+ */
 
 const APP_BAR_SIZE = 7.5;
 const APP_BAR_SPACING = 1;
