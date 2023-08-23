@@ -11,6 +11,10 @@ faker.seed(1);
 const operationalVehicle = createOperationalVehicle({ faker });
 
 describe(BrowseVehiclesPage.name, () => {
+  beforeEach(() => {
+    cy.viewport(1280, 720);
+  });
+
   specify(
     'given no native sharing mechanism the toast notification should pop up',
     () => {

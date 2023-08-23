@@ -5,21 +5,20 @@ import { VehicleService } from '../../services/vehicle-service';
 import { Coordinates } from '#lib/dimension';
 import { WebShare } from '#lib/web-share';
 import {
-  BrowseVehicles,
   VehicleRendererProvider,
   HyperlinkVehicleRenderer,
   selectors as cardSelectors,
 } from '../../ui/components/browse-vehicles';
-import { FluidPage, PagePadding } from '#ui/atoms/page';
 import type { ShareHandler } from '../../ui/components/browse-vehicles';
 import { adaptLocatedVehicles } from '../../ui/adapters/vehicle-adapter';
 import { useSpeed, useVoltage } from '#core/measurement-unit';
+import { VehiclesMapScreen } from '../../ui/pages/experimental-vehicle-management/vehicles-map-screen';
 
 export function BrowseVehiclesPage() {
   const { formatVoltage: formatPower } = useVoltage();
   const { formatSpeed } = useSpeed();
 
-  const { data: vehicles } = useQuery({
+  const { data: vehicles, isRefetching } = useQuery({
     queryKey: ['vehicles'],
     queryFn: ({ signal }) => VehicleService.fetchAll(signal),
     select: (vehicles) => {
@@ -77,16 +76,12 @@ export function BrowseVehiclesPage() {
         open={showToast}
         data-testid={testingSelectors.toast}
       />
-      <FluidPage>
-        <PagePadding>
-          <VehicleRendererProvider
-            Renderer={HyperlinkVehicleRenderer}
-            shareHandler={shareGoogleMapsLink}
-          >
-            <BrowseVehicles vehicles={vehicles} />
-          </VehicleRendererProvider>
-        </PagePadding>
-      </FluidPage>
+      <VehicleRendererProvider
+        Renderer={HyperlinkVehicleRenderer}
+        shareHandler={shareGoogleMapsLink}
+      >
+        <VehiclesMapScreen vehicles={vehicles} refreshingData={isRefetching} />
+      </VehicleRendererProvider>
     </>
   );
 }
