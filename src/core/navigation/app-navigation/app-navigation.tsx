@@ -23,6 +23,7 @@ export function Navigation({ children }: NavigationListAttributes) {
 export function NavigationItem(props: NavigationItemAttributes) {
   const Item = useNavigationRenderer(props);
 
+  // odvojit vizualno?
   return (
     <Item>
       {(selected: boolean) => (
