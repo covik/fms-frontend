@@ -7,17 +7,25 @@ import {
   useTheme,
 } from '@mui/material';
 import { Menu } from 'mdi-material-ui';
-import { AppMap } from '#core/map';
+import { AppMap, MapFetchIndicator } from '#core/map';
 import { LayoutProvider } from '#core/layout';
 import { Content, Main, Page, Sidebar } from './layout';
+import { VehiclesMap } from './map';
 import { BrowseVehicles } from '../../components/browse-vehicles';
 import type { ReactNode } from 'react';
-import type { BrowseVehiclesAttributes } from '../../components/browse-vehicles';
+import type { Vehicles } from './types';
 
-export interface VehicleMapScreenAttributes extends BrowseVehiclesAttributes {}
+export interface VehicleMapScreenAttributes {
+  vehicles: Vehicles | undefined;
+  refreshingData: boolean;
+}
 
-export function VehiclesMapScreen({ vehicles }: VehicleMapScreenAttributes) {
+export function VehiclesMapScreen({
+  vehicles,
+  refreshingData,
+}: VehicleMapScreenAttributes) {
   const theme = useTheme();
+  const showRefreshIndicator = refreshingData && vehicles !== undefined;
 
   return (
     <LayoutProvider offsetTop={theme.spacing(APP_BAR_SIZE + APP_BAR_SPACING)}>
@@ -29,7 +37,10 @@ export function VehiclesMapScreen({ vehicles }: VehicleMapScreenAttributes) {
 
         <Main>
           <Content>
-            <AppMap sx={{ height: '100%' }} />
+            <AppMap sx={{ height: '100%' }}>
+              <VehiclesMap vehicles={vehicles ?? []} />
+              {showRefreshIndicator ? <MapFetchIndicator /> : null}
+            </AppMap>
           </Content>
 
           <Sidebar>

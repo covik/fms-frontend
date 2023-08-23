@@ -13,6 +13,9 @@ export default {
   parameters: {
     layout: 'fullscreen',
   },
+  args: {
+    refreshingData: false,
+  },
 } satisfies Meta<typeof VehiclesMapScreen>;
 type Story = StoryObj<typeof VehiclesMapScreen>;
 
@@ -58,4 +61,23 @@ export const Loading: Story = {
   args: {
     vehicles: undefined,
   },
+};
+
+export const Refreshing: Story = {
+  args: {
+    ...Default.args,
+    refreshingData: true,
+  },
+};
+
+/**
+ * If initial data is not loaded yet,
+ * there is no point in showing refresh indicator
+ */
+export const RefreshingNoData: Story = {
+  args: {
+    ...Loading.args,
+    refreshingData: true,
+  },
+  parameters: {},
 };
