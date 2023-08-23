@@ -3,7 +3,20 @@ import type { ConcreteRendererProps } from '../types';
 
 export function HyperlinkRenderer({
   children,
-  ...linkProps
+  ...props
 }: ConcreteRendererProps) {
-  return <Link {...linkProps}>{children(false)}</Link>;
+  const { label, icon, ...linkProps } = props;
+
+  return (
+    <Link
+      {...linkProps}
+      style={{
+        display: 'block',
+        textDecoration: 'none',
+        color: 'inherit',
+      }}
+    >
+      {children(false)}
+    </Link>
+  );
 }
