@@ -1,4 +1,4 @@
-import { Link } from '@tanstack/router';
+import { Link, useMatches } from '@tanstack/router';
 import type { ConcreteRendererProps } from '../types';
 
 export function HyperlinkRenderer({
@@ -6,6 +6,9 @@ export function HyperlinkRenderer({
   ...props
 }: ConcreteRendererProps) {
   const { label, icon, ...linkProps } = props;
+
+  const fullPaths = useMatches().map(({ route }) => route.fullPath);
+  const isActive = fullPaths.includes(linkProps.to);
 
   return (
     <Link
@@ -16,7 +19,7 @@ export function HyperlinkRenderer({
         color: 'inherit',
       }}
     >
-      {children(false)}
+      {children(isActive)}
     </Link>
   );
 }
