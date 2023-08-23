@@ -1,5 +1,5 @@
 import { Page } from './page';
-import { useLayout } from '#core/layout';
+import { GlobalStyles } from '@mui/material';
 import type { ReactNode } from 'react';
 
 export interface FixedPageAttributes {
@@ -7,15 +7,20 @@ export interface FixedPageAttributes {
 }
 
 export function FixedPage({ children }: FixedPageAttributes) {
-  const { offsetBottom, offsetLeft, offsetTop } = useLayout();
   return (
-    <Page
-      height={`calc(100vh - ${offsetBottom} - ${offsetTop})`}
-      marginLeft={offsetLeft}
-      marginTop={offsetTop}
-      overflow={'hidden'}
-    >
-      {children}
-    </Page>
+    <>
+      <GlobalStyles
+        styles={{
+          '#root': {
+            height: '100vh',
+            display: 'flex',
+            flexDirection: 'column',
+          },
+        }}
+      />
+      <Page flex={1} height={0}>
+        {children}
+      </Page>
+    </>
   );
 }

@@ -27,7 +27,7 @@ export const Main = styled('div')(({ theme }) => ({
   height: '100%',
   display: 'grid',
   gridTemplateRows: '1fr max-content',
-  gridTemplateAreas: '"content" "sidebar"',
+  gridTemplateAreas: '"content" "content"',
   gap: theme.spacing(1),
 
   [theme.breakpoints.up(breakpoint)]: {
