@@ -2,7 +2,7 @@ import { AppBar } from '.';
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {
-  title: 'Molecules/App Bar',
+  title: 'Organisms/App Bar',
   component: AppBar,
   parameters: {
     layout: 'fullscreen',
@@ -10,12 +10,7 @@ export default {
 } satisfies Meta<typeof AppBar>;
 type Story = StoryObj<typeof AppBar>;
 
-export const Default: Story = {};
-
-/**
- * Content should not be partially hidden because of AppBar
- */
-export const WithContent: Story = {
+export const Default: Story = {
   render: (args) => {
     return (
       <>
