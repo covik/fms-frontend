@@ -1,1 +1,1 @@
-export * from './primary-navigation';
+export * from './navigation';
