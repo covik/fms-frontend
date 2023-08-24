@@ -1,6 +1,6 @@
 import { useLogout, useUser } from '#core/auth';
 import { AccountView } from '../ui/pages/account-view';
-import { Administrator } from '../../../models/user';
+import { Administrator } from '../../../core/auth/user';
 
 export default function ViewAccountDetailsPage() {
   const user = useUser();

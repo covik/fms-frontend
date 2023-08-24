@@ -12,7 +12,7 @@ import {
   BaseUser,
   DisabledUser,
   StandardUser,
-} from '../../../../models/user';
+} from '../../user';
 
 export const cookie = 'JSESSIONID';
 

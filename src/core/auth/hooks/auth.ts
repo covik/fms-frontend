@@ -1,6 +1,6 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { SessionService } from '../services';
-import { BaseUser } from '../../../models/user';
+import { BaseUser } from '../user';
 import { fetchIfOffline } from '../../../utils/tanstack-query';
 
 export interface AuthAPI {

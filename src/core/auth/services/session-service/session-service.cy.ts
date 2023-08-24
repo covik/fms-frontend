@@ -1,10 +1,6 @@
 import { SessionService } from '.';
 import { Http } from '../../../../lib/http-client';
-import {
-  Administrator,
-  DisabledUser,
-  StandardUser,
-} from '../../../../models/user';
+import { Administrator, DisabledUser, StandardUser } from '../../user';
 
 describe('obtain()', () => {
   it(`should throw ${SessionService.UserNotAuthenticatedException.name} if response code is 404`, () => {
