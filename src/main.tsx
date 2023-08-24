@@ -1,10 +1,10 @@
 import { createRoot } from 'react-dom/client';
 import { QueryClient } from '@tanstack/query-core';
 import { QueryClientProvider } from '@tanstack/react-query';
-import { SessionManager } from '#core/auth';
-import { router, RouterProvider } from '#core/router';
 import { AppUpdateManager } from '#app/update';
 import { DesignBaseline } from '#app/design-baseline';
+import { ProductionRouter } from '#app/router';
+import { SessionManager } from '#core/auth';
 
 const queryClient = new QueryClient();
 
@@ -13,7 +13,7 @@ createRoot(document.getElementById('root') as HTMLElement).render(
     <QueryClientProvider client={queryClient}>
       <DesignBaseline>
         <SessionManager>
-          <RouterProvider router={router} />
+          <ProductionRouter />
         </SessionManager>
       </DesignBaseline>
     </QueryClientProvider>

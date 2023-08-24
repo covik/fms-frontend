@@ -14,7 +14,7 @@ const root = new RootRoute({ component: App });
 const index = new Route({
   getParentRoute: () => root,
   path: '/',
-  component: () => <Navigate to={'/vehicles'} />,
+  component: () => <Navigate to={'/vehicles'} replace />,
 });
 const features = Object.values(featureModules)
   .map((feature) => feature.registerRoutes(root))

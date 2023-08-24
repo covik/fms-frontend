@@ -1,11 +1,5 @@
-import {
-  createMemoryHistory,
-  RootRoute,
-  Route,
-  Router,
-  RouterProvider,
-} from '@tanstack/router';
-import { defaultPendingComponent } from './router';
+import { createMemoryHistory, RootRoute, Route } from '@tanstack/router';
+import { Router, RouterProvider } from './router';
 import type { ReactNode } from 'react';
 import type { RouteComponent } from '@tanstack/router';
 
@@ -28,7 +22,6 @@ export function TestRouterProvider({
   const router = new Router({
     routeTree,
     history: createMemoryHistory({ initialEntries: ['/'] }),
-    defaultPendingComponent,
   });
   return <RouterProvider router={router} />;
 }
