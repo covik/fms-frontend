@@ -12,7 +12,8 @@ const ControlPanel = styled(SwipeableDrawer, {
 const PullerContainer = styled(Box, {
   name: ComponentName,
   slot: 'PullerContainer',
-})(() => ({
+})(({ theme }) => ({
+  backgroundColor: theme.palette.background.default,
   position: 'absolute',
   borderTopLeftRadius: 8,
   borderTopRightRadius: 8,
