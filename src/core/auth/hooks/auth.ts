@@ -1,7 +1,10 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { SessionService } from '../session-service';
 import { BaseUser } from '../user';
-import { fetchIfOffline } from '../../../utils/tanstack-query';
+import {
+  fetchIfOffline,
+  preventAutomaticRefetch,
+} from '../../../utils/tanstack-query';
 
 export interface AuthAPI {
   user: BaseUser | undefined;
@@ -21,6 +24,7 @@ export function useAuth(): AuthAPI {
     staleTime: Infinity,
     cacheTime: Infinity,
     ...fetchIfOffline,
+    ...preventAutomaticRefetch,
     retry: (failureCount, error) => {
       if (error instanceof SessionService.UserNotAuthenticatedException)
         return false;
