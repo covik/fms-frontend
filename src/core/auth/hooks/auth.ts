@@ -1,5 +1,5 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { SessionService } from '../services';
+import { SessionService } from '../session-service';
 import { BaseUser } from '../user';
 import { fetchIfOffline } from '../../../utils/tanstack-query';
 

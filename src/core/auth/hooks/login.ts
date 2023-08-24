@@ -1,8 +1,8 @@
 import { useMutation } from '@tanstack/react-query';
 import { useCheckSession } from './auth';
-import { SessionService } from '../services';
+import { SessionService } from '../session-service';
 import { createAdapter } from '../../adapter';
-import type { SessionCredentials } from '../services';
+import type { SessionCredentials } from '../session-service';
 
 const {
   create: createSession,
