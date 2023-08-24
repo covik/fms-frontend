@@ -2,7 +2,7 @@ import { lazy } from 'react';
 import { Route } from '#core/router';
 import { z } from 'zod';
 import { MissingRouteDateRedirect } from './usecase/route-history/missing-route-date-redirect';
-import { formatDateForURL } from '../../utils/date';
+import { formatDateForURL } from '#core/time';
 import type { RootRoute } from '#core/router';
 
 export function registerRoutes(rootRoute: RootRoute) {
