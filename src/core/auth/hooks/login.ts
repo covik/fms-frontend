@@ -1,7 +1,15 @@
 import { useMutation } from '@tanstack/react-query';
 import { useCheckSession } from './auth';
 import { SessionService } from '../services';
+import { createAdapter } from '../../adapter';
 import type { SessionCredentials } from '../services';
+
+const {
+  create: createSession,
+  rememberForOneYear,
+  ValidationException,
+  WrongCredentialsException,
+} = SessionService;
 
 export interface ValidationErrors {
   isEmailError: boolean;
@@ -32,10 +40,9 @@ export interface LoginAPI {
 export function useLogin(): LoginAPI {
   const checkSession = useCheckSession();
   const login = useMutation({
-    mutationFn: (credentials: SessionCredentials) =>
-      SessionService.create(credentials),
+    mutationFn: (credentials: SessionCredentials) => createSession(credentials),
     onSuccess: () => {
-      SessionService.rememberForOneYear();
+      rememberForOneYear();
       checkSession();
     },
   });
@@ -46,19 +53,21 @@ export function useLogin(): LoginAPI {
     onWrongCredentials,
     onUnknownError,
   ): void {
+    const adaptException = createAdapter((transform) => {
+      transform(ValidationException, (error) =>
+        onValidationError({
+          isEmailError: !error.isEmailOk(),
+          isPasswordError: !error.isPasswordOk(),
+        }),
+      );
+
+      transform(WrongCredentialsException, () => onWrongCredentials());
+
+      return onUnknownError;
+    });
+
     login.mutate(credentials, {
-      onError: (error) => {
-        if (error instanceof SessionService.ValidationException) {
-          onValidationError({
-            isEmailError: !error.isEmailOk(),
-            isPasswordError: !error.isPasswordOk(),
-          });
-        } else if (error instanceof SessionService.WrongCredentialsException) {
-          onWrongCredentials();
-        } else {
-          onUnknownError();
-        }
-      },
+      onError: (exception) => adaptException(exception),
     });
   };
 }
