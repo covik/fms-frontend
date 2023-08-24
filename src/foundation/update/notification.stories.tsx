@@ -1,5 +1,5 @@
 import { withAppUpdate } from '#storybook/decorators';
-import { AppUpdateNotification } from '.';
+import { AppUpdateNotification } from './notification';
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {

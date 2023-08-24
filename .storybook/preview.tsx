@@ -1,4 +1,4 @@
-import { DesignBaseline } from '#foundation/design-baseline';
+import { withDesignBaseline } from './decorators';
 import type { Preview } from '@storybook/react';
 
 const preview: Preview = {
@@ -18,13 +18,7 @@ const preview: Preview = {
       },
     },
   },
-  decorators: [
-    (Story) => (
-      <DesignBaseline>
-        <Story />
-      </DesignBaseline>
-    ),
-  ],
+  decorators: [withDesignBaseline],
 };
 
 export default preview;

@@ -1,4 +1,4 @@
-import { AppUpdateNotification } from '../app-update';
+import { AppUpdateNotification } from './update';
 import { PrimaryNavigation } from '#core/navigation';
 import type { ReactNode } from 'react';
 
