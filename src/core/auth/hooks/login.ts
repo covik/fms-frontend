@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useCheckSession } from './auth';
 import { SessionService } from '../session-service';
@@ -11,35 +12,24 @@ const {
   WrongCredentialsException,
 } = SessionService;
 
-export interface ValidationErrors {
+interface ValidationErrors {
   isEmailError: boolean;
   isPasswordError: boolean;
 }
 
-export interface OnValidationError {
-  (errors: ValidationErrors): void;
-}
-
-export interface OnWrongCredentials {
-  (): void;
-}
-
-export interface OnUnknownError {
-  (): void;
+interface ErrorHandlers {
+  onValidationError: (errors: ValidationErrors) => void;
+  onWrongCredentials: () => void;
+  onUnknownError: () => void;
 }
 
 export interface LoginAPI {
-  (
-    credentials: SessionCredentials,
-    onValidationError: OnValidationError,
-    onWrongCredentials: OnWrongCredentials,
-    onUnknownError: OnUnknownError,
-  ): void;
+  (credentials: SessionCredentials, events: ErrorHandlers): void;
 }
 
 export function useLogin(): LoginAPI {
   const checkSession = useCheckSession();
-  const login = useMutation({
+  const { mutateAsync: doLogin } = useMutation({
     mutationFn: (credentials: SessionCredentials) => createSession(credentials),
     onSuccess: () => {
       rememberForOneYear();
@@ -47,27 +37,27 @@ export function useLogin(): LoginAPI {
     },
   });
 
-  return function performLogin(
-    credentials,
-    onValidationError,
-    onWrongCredentials,
-    onUnknownError,
-  ): void {
-    const adaptException = createAdapter((transform) => {
-      transform(ValidationException, (error) =>
-        onValidationError({
-          isEmailError: !error.isEmailOk(),
-          isPasswordError: !error.isPasswordOk(),
-        }),
-      );
+  return useCallback(function performLogin(credentials, events) {
+    const notify = createLoginExceptionAdapter(events);
+    doLogin(credentials).catch(notify);
+  }, []);
+}
 
-      transform(WrongCredentialsException, () => onWrongCredentials());
+function createLoginExceptionAdapter({
+  onValidationError,
+  onWrongCredentials,
+  onUnknownError,
+}: ErrorHandlers) {
+  return createAdapter((transform) => {
+    transform(ValidationException, (error) =>
+      onValidationError({
+        isEmailError: !error.isEmailOk(),
+        isPasswordError: !error.isPasswordOk(),
+      }),
+    );
 
-      return onUnknownError;
-    });
+    transform(WrongCredentialsException, () => onWrongCredentials());
 
-    login.mutate(credentials, {
-      onError: (exception) => adaptException(exception),
-    });
-  };
+    return () => onUnknownError();
+  });
 }

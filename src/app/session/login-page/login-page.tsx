@@ -1,11 +1,6 @@
 import { useState } from 'react';
 import { useLogin } from '#core/auth';
 import { LoginView } from '../login-view';
-import type {
-  OnValidationError,
-  OnWrongCredentials,
-  OnUnknownError,
-} from '#core/auth';
 import type { LoginViewAttributes } from '../login-view';
 
 export { testingSelectors } from '../login-view';
@@ -18,31 +13,23 @@ export function LoginPage() {
 
   const login = useLogin();
 
-  const handleValidationErrors: OnValidationError = ({
-    isEmailError,
-    isPasswordError,
-  }) => {
-    goTo('validation-error');
-    if (isEmailError) setEmailError('Email je obavezan');
-    if (isPasswordError) setPasswordError('Lozinka je obavezna');
-  };
-
-  const handleWrongCredentials: OnWrongCredentials = () => {
-    goTo('wrong-credentials');
-  };
-
-  const handleUnexpectedError: OnUnknownError = () => {
-    goTo('unexpected-error');
-  };
-
   function tryLogin(email: string, password: string) {
     goTo('submitting');
-
     login(
       { email, password },
-      handleValidationErrors,
-      handleWrongCredentials,
-      handleUnexpectedError,
+      {
+        onValidationError({ isEmailError, isPasswordError }) {
+          goTo('validation-error');
+          if (isEmailError) setEmailError('Email je obavezan');
+          if (isPasswordError) setPasswordError('Lozinka je obavezna');
+        },
+        onWrongCredentials() {
+          goTo('wrong-credentials');
+        },
+        onUnknownError() {
+          goTo('unexpected-error');
+        },
+      },
     );
   }
 
