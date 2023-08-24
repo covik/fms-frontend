@@ -17,7 +17,8 @@
     "prepare": "husky install",
     "sb:dev": "storybook dev -p 6006",
     "sb:build": "storybook build",
-    "type-check": "tsc -p tsconfig.json && tsc -p tsconfig.spec.json"
+    "type-check": "tsc -p tsconfig.json && tsc -p tsconfig.spec.json",
+    "rm": "rimraf node_modules/{.cache,.vite}"
   },
   "dependencies": {
     "@emotion/react": "^11.10.5",
