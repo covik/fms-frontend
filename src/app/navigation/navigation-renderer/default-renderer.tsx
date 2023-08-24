@@ -1,5 +1,6 @@
 import type { ConcreteRendererProps } from './types';
+import { BaseRenderer } from './base-renderer';
 
 export function DefaultRenderer({ children }: ConcreteRendererProps) {
-  return children(false);
+  return <BaseRenderer selected={false}>{children}</BaseRenderer>;
 }

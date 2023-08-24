@@ -1,7 +1,9 @@
 import { AppUpdateNotification } from './update';
 import { AppBar } from './bar';
 import { useDrawer, AppDrawer } from './drawer';
+import { AppNavigation } from './navigation';
 import type { ReactNode } from 'react';
+import { HyperlinkRendererProvider } from './navigation/navigation-renderer';
 
 export interface AppShellAttributes {
   children: ReactNode;
@@ -17,8 +19,11 @@ export function AppShell({ children }: AppShellAttributes) {
       <AppBar onHamburgerClick={openDrawer} />
 
       <AppDrawer visible={visible} onVisibilityChange={toggleDrawer}>
-        test
+        <HyperlinkRendererProvider>
+          <AppNavigation />
+        </HyperlinkRendererProvider>
       </AppDrawer>
+
       {children}
     </>
   );
