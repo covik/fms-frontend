@@ -18,9 +18,9 @@
 
     "baseUrl": ".",
     "paths": {
+      "#app": ["src/app/index"],
       "#core/*": ["src/core/*"],
       "#features": ["src/features"],
-      "#app/*": ["src/app/*"],
       "#lib/*": ["src/lib/*"],
       "#ui/*": ["src/ui/*"],
       "#storybook/*": [".storybook/*"]

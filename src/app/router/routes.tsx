@@ -1,4 +1,4 @@
-import { AuthenticatedApp } from '#app/authenticated-app';
+import { AuthenticatedApp } from '../authenticated-app';
 import { Navigate, Outlet, RootRoute, Route } from '#core/router';
 import * as featureModules from '#features';
 

@@ -1,4 +1,4 @@
-import { DesignBaseline } from '#app/design-baseline';
+import { DesignBaseline } from '#app';
 import type { Decorator } from '@storybook/react';
 
 export const withDesignBaseline: Decorator = (Story) => (
