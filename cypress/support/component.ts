@@ -38,7 +38,10 @@ function mount(
   rerenderKey?: string,
 ): ReturnType<typeof reactMount> {
   return reactMount(
-    React.createElement(DesignBaseline, { children: jsx }),
+    React.createElement('div', {
+      id: 'root',
+      children: React.createElement(DesignBaseline, { children: jsx }),
+    }),
     options,
     rerenderKey,
   );
