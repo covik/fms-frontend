@@ -1,6 +1,6 @@
 import { ReactElement, useCallback } from 'react';
 import { Box, styled, SwipeableDrawer } from '@mui/material';
-import { Car, ChevronUp } from 'mdi-material-ui';
+import { ChevronUp } from 'mdi-material-ui';
 import type { ReactNode } from 'react';
 
 const ComponentName = 'BottomControlPanel';
@@ -20,6 +20,7 @@ const PullerContainer = styled(Box, {
   visibility: 'visible',
   right: 0,
   left: 0,
+  pointerEvents: 'auto',
 }));
 
 const Puller = styled(Box, {
@@ -89,13 +90,12 @@ export function BottomControlPanel({
       onClose={togglePanel(false)}
       sx={{
         '& > .MuiPaper-root': {
-          height: `calc(auto - ${bleeding}px)`,
-          maxHeight: `calc(95% - ${bleeding}px)`,
+          height: `calc(100% - ${bleeding}px)`,
           overflow: 'visible',
         },
       }}
     >
-      <PullerContainer top={-bleeding}>
+      <PullerContainer top={-bleeding} onMouseUp={togglePanel(!visible)}>
         <Puller>{PullerIcon}</Puller>
       </PullerContainer>
 

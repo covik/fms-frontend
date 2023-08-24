@@ -1,5 +1,5 @@
 import { useMemo } from 'react';
-import { Card, Skeleton, styled } from '@mui/material';
+import { Skeleton, styled } from '@mui/material';
 import { GoogleMaps } from '#ui/organisms/google-maps';
 import { useMapSettings } from './map-settings';
 import { className as fetchIndicatorClass } from './map-fetch-indicator';
@@ -26,6 +26,7 @@ const MapContainer = styled('div')({
   height: '100%',
   position: 'relative',
   overflow: 'hidden',
+  userSelect: 'none',
 
   [`& .${fetchIndicatorClass}`]: {
     position: 'absolute',
@@ -33,8 +34,6 @@ const MapContainer = styled('div')({
     left: '10px',
   },
 });
-
-const defaultPadding = 1;
 
 export function AppMap(props: AppMapAttributes) {
   const { sx, ...mapProps } = props;
@@ -48,28 +47,27 @@ export function AppMap(props: AppMapAttributes) {
     useLocationSelection();
 
   return (
-    <Card sx={{ padding: defaultPadding, ...sx }}>
-      <MapContainer>
-        <GoogleMaps.Map
-          {...mapPropsWithoutChildren}
-          x={latitude}
-          y={longitude}
-          z={zoom}
-          width={'100%'}
-          height={'100%'}
-          loadingElement={<MapSkeleton />}
-          onContextMenu={selectLocation}
-          onClick={clearLocation}
-        >
-          <MapAddressSearch
-            onCoordinateChange={selectLocation}
-            Autocomplete={GoogleMaps.PlaceAutocomplete}
-          />
-          <MapLocationSelection location={selectedLocation} />
-          {children}
-        </GoogleMaps.Map>
-      </MapContainer>
-    </Card>
+    <MapContainer>
+      <GoogleMaps.Map
+        {...mapPropsWithoutChildren}
+        x={latitude}
+        y={longitude}
+        z={zoom}
+        width={'100%'}
+        height={'100%'}
+        loadingElement={<MapSkeleton />}
+        onContextMenu={selectLocation}
+        onClick={clearLocation}
+      >
+        <MapAddressSearch
+          onCoordinateChange={selectLocation}
+          Autocomplete={GoogleMaps.PlaceAutocomplete}
+        />
+        <MapLocationSelection location={selectedLocation} />
+        <GoogleMaps.MapTypeControl />
+        {children}
+      </GoogleMaps.Map>
+    </MapContainer>
   );
 }
 

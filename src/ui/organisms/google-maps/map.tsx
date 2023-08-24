@@ -1,7 +1,6 @@
 import { useMemo, useRef } from 'react';
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import { Coordinates } from '#lib/dimension';
-import { MapTypeControl } from './map-type-control';
 import type { CSSProperties, ReactElement, ReactNode } from 'react';
 import type { UseLoadScriptOptions } from '@react-google-maps/api/dist/useJsApiLoader';
 
@@ -18,7 +17,6 @@ export interface MapArguments {
   width: CSSProperties['width'];
   height: CSSProperties['height'];
   loadingElement: ReactElement;
-  noControls?: boolean;
   noLabels?: boolean;
   gestureHandling?: boolean;
   onZoomChanged?: (zoom: number) => void;
@@ -35,7 +33,6 @@ export function Map({
   width,
   height,
   loadingElement,
-  noControls = false,
   noLabels = false,
   gestureHandling = true,
   onZoomChanged,
@@ -70,7 +67,7 @@ export function Map({
 
   const options: google.maps.MapOptions = useMemo(
     () => ({
-      disableDefaultUI: noControls,
+      disableDefaultUI: true,
       styles,
       streetViewControl: false,
       gestureHandling: gestureHandling ? 'auto' : 'none',
@@ -80,7 +77,7 @@ export function Map({
         position: 9,
       },
     }),
-    [noControls, styles, clickablePoi],
+    [styles, clickablePoi],
   );
 
   const map = () => (
@@ -111,7 +108,6 @@ export function Map({
           : undefined
       }
     >
-      {noControls ? null : <MapTypeControl />}
       {children}
     </GoogleMap>
   );

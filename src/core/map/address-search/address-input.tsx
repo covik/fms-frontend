@@ -10,6 +10,7 @@ export function MapAddressInput() {
         sx: (theme) => ({
           backgroundColor: theme.palette.background.paper,
           boxShadow: 'rgba(0, 0, 0, 0.3) 0px 1px 4px -1px', // from google maps
+          borderRadius: '15% / 100%',
           height: '40px',
           padding: 0,
 
@@ -22,7 +23,7 @@ export function MapAddressInput() {
             <SearchIcon fontSize={'medium'} />
           </InputAdornment>
         ),
-        placeholder: 'Adresa, tvrtka, koordinate, ...',
+        placeholder: 'Pretraži kartu',
       }}
     />
   );

@@ -1,6 +1,7 @@
 import { AppMap, MapFetchIndicator } from '#core/map';
-import { Content, Main, Page, Sidebar } from './layout';
+import { FixedPage as Page } from '#ui/atoms/page';
 import { VehiclesMap } from './map';
+import { Content } from './content';
 import { BrowseVehicles } from '../../components/browse-vehicles';
 import type { Vehicles } from './types';
 
@@ -17,18 +18,14 @@ export function VehiclesMapScreen({
 
   return (
     <Page>
-      <Main>
-        <Content>
-          <AppMap sx={{ height: '100%' }}>
-            <VehiclesMap vehicles={vehicles ?? []} />
-            {showRefreshIndicator ? <MapFetchIndicator /> : null}
-          </AppMap>
-        </Content>
+      <AppMap sx={{ height: '100%' }}>
+        <VehiclesMap vehicles={vehicles ?? []} />
+        {showRefreshIndicator ? <MapFetchIndicator /> : null}
+      </AppMap>
 
-        <Sidebar>
-          <BrowseVehicles vehicles={vehicles} />
-        </Sidebar>
-      </Main>
+      <Content>
+        <BrowseVehicles vehicles={vehicles} />
+      </Content>
     </Page>
   );
 }
