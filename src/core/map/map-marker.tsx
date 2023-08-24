@@ -1,8 +1,8 @@
 import { useMemo } from 'react';
+import { renderToString } from 'react-dom/server';
 import { Marker } from '@react-google-maps/api';
 import { useTheme } from '@mui/material';
 import { Coordinates } from '#lib/dimension';
-import { jsxToSVGDataURI } from '../../utils/react';
 import type { CSSProperties, ReactElement } from 'react';
 
 export interface MapMarkerAttributes {
@@ -93,4 +93,10 @@ export function MapMarker(props: MapMarkerAttributes) {
       onClick={onClick}
     />
   );
+}
+
+function jsxToSVGDataURI(element: ReactElement<SVGElement>) {
+  const iconString = renderToString(element);
+  const urlEncodedIcon = encodeURIComponent(iconString);
+  return `data:image/svg+xml,${urlEncodedIcon}`;
 }
