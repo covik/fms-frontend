@@ -1,6 +1,5 @@
-import { ReactElement, useCallback } from 'react';
+import { useCallback } from 'react';
 import { Box, styled, SwipeableDrawer } from '@mui/material';
-import { ChevronUp } from 'mdi-material-ui';
 import type { ReactNode } from 'react';
 
 const ComponentName = 'BottomControlPanel';
@@ -20,28 +19,23 @@ const PullerContainer = styled(Box, {
   visibility: 'visible',
   right: 0,
   left: 0,
-  pointerEvents: 'auto',
 }));
 
 const Puller = styled(Box, {
   name: ComponentName,
   slot: 'Puller',
 })(({ theme }) => ({
-  'backgroundColor': theme.palette.background.default,
-  'borderRadius': '50% 50% 0 0',
-  'color': theme.palette.primary.light,
-  'boxShadow': theme.shadows['5'],
-  'padding': '6px 8px 3px',
+  backgroundColor: theme.palette.text.primary,
 
-  'position': 'absolute',
-  'left': '50%',
-  'transform': 'translateX(-50%)',
-  'top': '0',
-  'zIndex': -1,
+  borderRadius: '6px',
+  height: '6px',
+  width: '30px',
 
-  '& > svg': {
-    display: 'block !important',
-  },
+  position: 'absolute',
+  left: '50%',
+  transform: 'translate(-50%, 100%)',
+  top: '0',
+  pointerEvents: 'auto',
 }));
 
 const Content = styled(Box, {
@@ -54,14 +48,12 @@ const Content = styled(Box, {
 }));
 
 const defaultBleeding = 44;
-const DefaultPullerIcon = <ChevronUp fontSize={'large'} />;
 
 export interface BottomControlPanelAttributes {
   children: ReactNode;
   visible: boolean;
   onVisibilityChange: (newOpen: boolean) => void;
   bleeding?: number;
-  PullerIcon?: ReactElement;
 }
 
 // TODO: try calculating puller size so bleeding prop is not needed
@@ -70,7 +62,6 @@ export function BottomControlPanel({
   visible,
   onVisibilityChange,
   bleeding = defaultBleeding,
-  PullerIcon = DefaultPullerIcon,
 }: BottomControlPanelAttributes) {
   const togglePanel = useCallback(
     (newOpen: boolean) => () => {
@@ -98,7 +89,7 @@ export function BottomControlPanel({
       }}
     >
       <PullerContainer top={-bleeding} onMouseUp={togglePanel(!visible)}>
-        <Puller>{PullerIcon}</Puller>
+        <Puller />
       </PullerContainer>
 
       <Content>{children}</Content>
