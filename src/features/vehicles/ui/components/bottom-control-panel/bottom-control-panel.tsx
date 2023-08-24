@@ -35,7 +35,6 @@ const Puller = styled(Box, {
   position: 'absolute',
   left: '50%',
   transform: 'translate(-50%, 100%)',
-  top: '0',
   pointerEvents: 'auto',
 }));
 
@@ -48,13 +47,11 @@ const Content = styled(Box, {
   overflow: 'auto',
 }));
 
-const defaultBleeding = 44;
-
 export interface BottomControlPanelAttributes {
   children: ReactNode;
   visible: boolean;
   onVisibilityChange: (newOpen: boolean) => void;
-  bleeding?: number;
+  // bleeding?: number;
 }
 
 // TODO: try calculating puller size so bleeding prop is not needed
@@ -62,8 +59,9 @@ export function BottomControlPanel({
   children,
   visible,
   onVisibilityChange,
-  bleeding = defaultBleeding,
 }: BottomControlPanelAttributes) {
+  const bleeding = 60;
+
   const togglePanel = useCallback(
     (newOpen: boolean) => () => {
       onVisibilityChange(newOpen);
@@ -84,13 +82,18 @@ export function BottomControlPanel({
       onClose={togglePanel(false)}
       sx={{
         '& > .MuiPaper-root': {
-          height: 'fit-contents',
+          height: 'fit-content',
+          maxHeight: `calc(100% - ${bleeding}px)`,
           overflow: 'visible',
         },
       }}
     >
-      <PullerContainer top={-bleeding} onMouseUp={togglePanel(!visible)}>
-        <Puller />
+      <PullerContainer
+        top={-bleeding}
+        minHeight={bleeding + 1}
+        onMouseUp={togglePanel(!visible)}
+      >
+        <Puller top={bleeding / 2 - 3} />
       </PullerContainer>
 
       <Content>{children}</Content>
