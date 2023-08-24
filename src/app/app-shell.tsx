@@ -1,5 +1,6 @@
 import { AppUpdateNotification } from './update';
-import { PrimaryNavigation } from '#core/navigation';
+import { AppBar } from './bar';
+import { useDrawer, AppNavigationDrawer } from './navigation-drawer';
 import type { ReactNode } from 'react';
 
 export interface AppShellAttributes {
@@ -7,10 +8,14 @@ export interface AppShellAttributes {
 }
 
 export function AppShell({ children }: AppShellAttributes) {
+  const { visible, openDrawer, toggleDrawer } = useDrawer();
   return (
     <>
-      <PrimaryNavigation />
+      <AppBar onHamburgerClick={openDrawer} />
       <AppUpdateNotification />
+      <AppNavigationDrawer visible={visible} onVisibilityChange={toggleDrawer}>
+        test
+      </AppNavigationDrawer>
       {children}
     </>
   );

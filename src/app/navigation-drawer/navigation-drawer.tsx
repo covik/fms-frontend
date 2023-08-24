@@ -1,30 +1,18 @@
-import { useCallback, useState } from 'react';
+import { useCallback } from 'react';
 import { SwipeableDrawer, drawerClasses } from '@mui/material';
 import type { ReactNode } from 'react';
 
-export function useDrawer() {
-  const [visible, toggleDrawer] = useState(false);
-  const openDrawer = useCallback(() => toggleDrawer(true), []);
-
-  return {
-    visible,
-    openDrawer,
-    toggleDrawer,
-    NavigationDrawer,
-  };
-}
-
-export interface NavigationDrawerAttributes {
+export interface AppNavigationDrawerAttributes {
   visible: boolean;
   onVisibilityChange: (newVisibility: boolean) => void;
   children: ReactNode;
 }
 
-function NavigationDrawer({
+export function AppNavigationDrawer({
   visible,
   onVisibilityChange,
   children,
-}: NavigationDrawerAttributes) {
+}: AppNavigationDrawerAttributes) {
   const toggleVisibility = useCallback(
     (newVisibility: boolean) => () => onVisibilityChange(newVisibility),
     [onVisibilityChange],
