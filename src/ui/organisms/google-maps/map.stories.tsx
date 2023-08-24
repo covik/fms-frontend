@@ -24,13 +24,6 @@ export const Basic: Story = {
   },
 };
 
-export const WithoutControls: Story = {
-  args: {
-    ...Basic.args,
-    noControls: true,
-  },
-};
-
 export const WithoutLabels: Story = {
   args: {
     ...Basic.args,
