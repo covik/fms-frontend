@@ -1,4 +1,5 @@
-import { Link, useMatches } from '@tanstack/router';
+import { Link, styled } from '@mui/material';
+import { useLinkProps, useMatches } from '@tanstack/router';
 import { BaseRenderer } from './base-renderer';
 import { NavigationRendererProvider } from './context';
 import type {
@@ -6,23 +7,26 @@ import type {
   ConcreteRendererProviderAttributes,
 } from './types';
 
-function HyperlinkRenderer({ children, ...props }: ConcreteRendererProps) {
+const BlockLink = styled(Link)({
+  display: 'block',
+  textDecoration: 'none',
+  color: 'inherit',
+});
+
+export function HyperlinkRenderer({
+  children,
+  ...props
+}: ConcreteRendererProps) {
   const { label, icon, ...linkProps } = props;
+  const realLinkProps = useLinkProps(props);
 
   const fullPaths = useMatches().map(({ route }) => route.fullPath);
   const isActive = fullPaths.includes(linkProps.to);
 
   return (
-    <Link
-      {...linkProps}
-      style={{
-        display: 'block',
-        textDecoration: 'none',
-        color: 'inherit',
-      }}
-    >
+    <BlockLink {...realLinkProps}>
       <BaseRenderer selected={isActive}>{children}</BaseRenderer>
-    </Link>
+    </BlockLink>
   );
 }
 
