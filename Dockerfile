@@ -5,7 +5,10 @@ WORKDIR /deps
 COPY package.json .
 COPY yarn.lock .
 
-RUN --mount=type=cache,target=/root/.yarn YARN_CACHE_FOLDER=/root/.yarn yarn install --frozen-lockfile
+RUN --mount=type=cache,target=/root/.yarn \
+    YARN_CACHE_FOLDER=/root/.yarn \
+    CYPRESS_INSTALL_BINARY=0 \
+    yarn install --frozen-lockfile
 
 FROM node-environment AS app
 WORKDIR /app
