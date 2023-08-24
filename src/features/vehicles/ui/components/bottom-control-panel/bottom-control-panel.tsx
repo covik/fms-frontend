@@ -85,6 +85,8 @@ export function BottomControlPanel({
       anchor="bottom"
       swipeAreaWidth={bleeding}
       disableSwipeToOpen={false}
+      disableBackdropTransition
+      disablePortal
       ModalProps={{ keepMounted: true }}
       onOpen={togglePanel(true)}
       onClose={togglePanel(false)}
