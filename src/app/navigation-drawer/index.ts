@@ -1,2 +1,2 @@
-export * from './navigation-drawer';
+export * from './drawer';
 export * from './use-drawer';

@@ -1,5 +1,5 @@
 import { withNavigation } from '#storybook/decorators';
-import { Navigation, NavigationItem } from './index';
+import { Navigation, NavigationItem } from './app-navigation';
 import {
   Account as AccountIcon,
   Car as CarIcon,

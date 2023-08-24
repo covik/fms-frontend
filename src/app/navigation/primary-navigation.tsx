@@ -4,7 +4,7 @@ import {
   Car as CarIcon,
   FileChart as FileChartIcon,
 } from 'mdi-material-ui';
-import { HyperlinkRendererProvider } from './app-navigation/navigation-renderer';
+import { HyperlinkRendererProvider } from './navigation-renderer';
 
 export function PrimaryNavigation() {
   return (

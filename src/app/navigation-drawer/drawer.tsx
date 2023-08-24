@@ -8,7 +8,7 @@ export interface AppNavigationDrawerAttributes {
   children: ReactNode;
 }
 
-export function AppNavigationDrawer({
+export function AppDrawer({
   visible,
   onVisibilityChange,
   children,
