@@ -91,7 +91,7 @@ export function BottomControlPanel({
         top={-bleeding}
         minHeight={bleeding + 1}
         onMouseUp={togglePanel(!visible)}
-        borderRadius={visible ? 0 : undefined}
+        borderRadius={visible ? '0 !important' : undefined}
       >
         <Puller top={bleeding / 2 - 3} />
       </PullerContainer>
