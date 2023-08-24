@@ -15,7 +15,7 @@
 
 import './commands';
 import { mount as reactMount, MountOptions } from 'cypress/react18';
-import { DesignBaseline } from '../../src/foundation/design-baseline';
+import { DesignBaseline } from '../../src/app/design-baseline';
 import * as React from 'react';
 
 // Augment the Cypress namespace to include type definitions for

@@ -20,7 +20,7 @@
     "paths": {
       "#core/*": ["src/core/*"],
       "#features": ["src/features"],
-      "#foundation/*": ["src/foundation/*"],
+      "#app/*": ["src/foundation/*"],
       "#lib/*": ["src/lib/*"],
       "#ui/*": ["src/ui/*"],
       "#storybook/*": [".storybook/*"]

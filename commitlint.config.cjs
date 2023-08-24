@@ -31,7 +31,7 @@ module.exports = {
         'workspace', // anything applied to whole repo
         'deps', // related to dependencies
         'branding',
-        'foundation',
+        'app',
         ...functions,
         ...features,
         ...core,

@@ -1,4 +1,4 @@
-import { AppShell } from '#foundation/app-shell';
+import { AppShell } from '#app/app-shell';
 import type { Decorator } from '@storybook/react';
 
 export function withAppShell(): Decorator {
