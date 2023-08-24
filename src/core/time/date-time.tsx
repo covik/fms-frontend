@@ -7,21 +7,11 @@ import {
   formatDistanceToNowStrict,
   intervalToDuration,
 } from 'date-fns';
-import type { Locale } from 'date-fns';
-import type { ReactNode } from 'react';
-
-export interface FormatAPI {
-  distanceToNowStrictWithSuffix(date: Date): string;
-  formatTime(date: Date): string;
-  formatDuration(durationInSeconds: number): string;
-  formatDateTime(date: Date): string;
-}
-
-interface DateTimeOptions {
-  locale: Locale;
-  dateFormat: string;
-  timeFormat: string;
-}
+import type {
+  DateTimeAPI,
+  DateTimeOptions,
+  DateTimeProviderProps,
+} from './types';
 
 const defaultOptions: DateTimeOptions = {
   locale: hr,
@@ -36,7 +26,7 @@ export function DateTimeProvider({
   dateFormat,
   timeFormat,
   children,
-}: Partial<DateTimeOptions> & { children: ReactNode }) {
+}: DateTimeProviderProps) {
   const actualLocale = locale ?? defaultOptions.locale;
   const actualDateFormat = dateFormat ?? defaultOptions.dateFormat;
   const actualTimeFormat = timeFormat ?? defaultOptions.timeFormat;
@@ -62,7 +52,7 @@ export function DateTimeProvider({
   );
 }
 
-export function useDateTime(): FormatAPI {
+export function useDateTime(): DateTimeAPI {
   const context = useContext(DateTimeContext);
 
   const distanceToNowStrictWithSuffix = useCallback(
