@@ -1,7 +1,7 @@
 import { Button } from '@mui/material';
 import { EmoticonCryOutline } from 'mdi-material-ui';
 import { ExpectedErrorSituation } from '#ui/molecules/expected-error-situation';
-import { ErrorContainer } from 'src/ui/organisms/error-container';
+import { ErrorContainer } from '#ui/organisms/error-container';
 import { container, retryButton } from './selectors';
 
 export interface SessionErrorAttributes {

@@ -1,5 +1,5 @@
 import { styled } from '@mui/material';
-import { SessionLoadingIndicator } from '../../atoms/session-loading-indicator';
+import { SessionLoadingIndicator } from '../session-loading-indicator';
 
 const Container = styled('div')({
   width: '100%',

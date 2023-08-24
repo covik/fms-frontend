@@ -1,7 +1,7 @@
-import { useAuth } from '../../hooks/auth';
-import { SessionLoadingView } from '../../ui/pages/session-loading-view';
-import { SessionErrorView } from '../../ui/pages/session-error-view';
-import { LoginPage } from '../login-page';
+import { useAuth } from '#core/auth';
+import { SessionLoadingView } from './session-loading-view';
+import { SessionErrorView } from './session-error-view';
+import { LoginPage } from './login-page';
 import type { ReactNode } from 'react';
 
 export function SessionManager({ children }: { children: ReactNode }) {

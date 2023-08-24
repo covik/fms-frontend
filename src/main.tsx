@@ -4,7 +4,7 @@ import { QueryClientProvider } from '@tanstack/react-query';
 import { AppUpdateManager } from '#app/update';
 import { DesignBaseline } from '#app/design-baseline';
 import { ProductionRouter } from '#app/router';
-import { SessionManager } from '#core/auth';
+import { SessionManager } from '#app/session';
 
 const queryClient = new QueryClient();
 

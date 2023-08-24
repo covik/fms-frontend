@@ -1,6 +1,6 @@
 import { styled } from '@mui/material';
-import { SessionError } from '../../molecules/session-error';
-import type { SessionErrorAttributes } from '../../molecules/session-error';
+import { SessionError } from '../session-error';
+import type { SessionErrorAttributes } from '../session-error';
 
 export interface SessionErrorViewAttributes extends SessionErrorAttributes {}
 

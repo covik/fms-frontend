@@ -1,14 +1,11 @@
 import { QueryClient } from '@tanstack/query-core';
 import { QueryClientProvider } from '@tanstack/react-query';
-import { SessionManager } from './index';
-import { SessionService } from '../../services';
-import { loadingIndicator } from '../../ui/atoms/session-loading-indicator';
-import { testingSelectors as loginSelectors } from '../../ui/pages/login-view';
-import {
-  container as errorContainer,
-  retryButton,
-} from '../../ui/molecules/session-error';
-import { retryCount } from '../../hooks/auth';
+import { SessionManager } from '.';
+import { SessionService } from '../../core/auth/session-service';
+import { loadingIndicator } from './session-loading-indicator';
+import { testingSelectors as loginSelectors } from './login-view';
+import { container as errorContainer, retryButton } from './session-error';
+import { retryCount } from '#core/auth/hooks/auth';
 
 const authenticatedAppSelector = 'authenticated-app';
 
