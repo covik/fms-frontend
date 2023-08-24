@@ -83,7 +83,7 @@ export function BottomControlPanel({
       onClose={togglePanel(false)}
       sx={{
         '& > .MuiPaper-root': {
-          height: `calc(100% - ${bleeding}px)`,
+          height: 'fit-contents',
           overflow: 'visible',
         },
       }}
