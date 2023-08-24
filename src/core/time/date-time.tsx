@@ -13,13 +13,11 @@ import type {
   DateTimeProviderProps,
 } from './types';
 
-const defaultOptions: DateTimeOptions = {
+const DateTimeContext = createContext<DateTimeOptions>({
   locale: hr,
   dateFormat: 'dd.MM.yyyy.',
   timeFormat: 'HH:mm',
-};
-
-const DateTimeContext = createContext<DateTimeOptions>(defaultOptions);
+});
 
 export function DateTimeProvider({
   locale,
@@ -27,9 +25,10 @@ export function DateTimeProvider({
   timeFormat,
   children,
 }: DateTimeProviderProps) {
-  const actualLocale = locale ?? defaultOptions.locale;
-  const actualDateFormat = dateFormat ?? defaultOptions.dateFormat;
-  const actualTimeFormat = timeFormat ?? defaultOptions.timeFormat;
+  const parent = useContext(DateTimeContext);
+  const actualLocale = locale ?? parent.locale;
+  const actualDateFormat = dateFormat ?? parent.dateFormat;
+  const actualTimeFormat = timeFormat ?? parent.timeFormat;
 
   const value = useMemo<DateTimeOptions>(
     () => ({
