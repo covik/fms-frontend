@@ -5,12 +5,7 @@ import { SessionService } from '../session-service';
 import { createAdapter } from '../../adapter';
 import type { SessionCredentials } from '../session-service';
 
-const {
-  create: createSession,
-  rememberForOneYear,
-  ValidationException,
-  WrongCredentialsException,
-} = SessionService;
+const { ValidationException, WrongCredentialsException } = SessionService;
 
 interface ValidationErrors {
   isEmailError: boolean;
@@ -30,9 +25,10 @@ export interface LoginAPI {
 export function useLogin(): LoginAPI {
   const checkSession = useCheckSession();
   const { mutateAsync: doLogin } = useMutation({
-    mutationFn: (credentials: SessionCredentials) => createSession(credentials),
+    mutationFn: (credentials: SessionCredentials) =>
+      SessionService.create(credentials),
     onSuccess: () => {
-      rememberForOneYear();
+      SessionService.rememberForOneYear();
       checkSession();
     },
   });
