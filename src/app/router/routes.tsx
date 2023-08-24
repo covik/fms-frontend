@@ -1,5 +1,5 @@
-import { Navigate, Outlet, RootRoute, Route } from '@tanstack/router';
 import { AuthenticatedApp } from '#app/authenticated-app';
+import { Navigate, Outlet, RootRoute, Route } from '#core/router';
 import * as featureModules from '#features';
 
 function App() {

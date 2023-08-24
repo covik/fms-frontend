@@ -1,5 +1,5 @@
 import { createMemoryHistory, RootRoute, Route } from '@tanstack/router';
-import { Router, RouterProvider } from './router';
+import { BaseRouter, Router } from './router';
 import type { ReactNode } from 'react';
 import type { RouteComponent } from '@tanstack/router';
 
@@ -12,16 +12,17 @@ export function TestRouterProvider({
   children,
   component,
 }: TestRouterProviderAttributes) {
-  const rootRoute = new RootRoute();
-  const indexRoute = new Route({
-    getParentRoute: () => rootRoute,
+  const root = new RootRoute();
+  const index = new Route({
+    getParentRoute: () => root,
     path: '/',
     component: children ? () => <>{children}</> : component,
   });
-  const routeTree = rootRoute.addChildren([indexRoute]);
+
   const router = new Router({
-    routeTree,
+    routeTree: root.addChildren([index]),
     history: createMemoryHistory({ initialEntries: ['/'] }),
   });
-  return <RouterProvider router={router} />;
+
+  return <BaseRouter router={router} />;
 }
