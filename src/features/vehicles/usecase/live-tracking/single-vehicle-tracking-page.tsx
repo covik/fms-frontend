@@ -1,4 +1,4 @@
-import { useParams } from '@tanstack/router';
+import { useParams } from '#core/router';
 import { useQuery } from '@tanstack/react-query';
 import {
   useAngle,

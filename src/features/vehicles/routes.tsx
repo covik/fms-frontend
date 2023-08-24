@@ -1,9 +1,9 @@
 import { lazy } from 'react';
-import { Route } from '@tanstack/router';
+import { Route } from '#core/router';
 import { z } from 'zod';
 import { MissingRouteDateRedirect } from './usecase/route-history/missing-route-date-redirect';
 import { formatDateForURL } from '../../utils/date';
-import type { RootRoute } from '@tanstack/router';
+import type { RootRoute } from '#core/router';
 
 export function registerRoutes(rootRoute: RootRoute) {
   const vehiclesRoute = new Route({

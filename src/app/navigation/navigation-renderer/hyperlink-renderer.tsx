@@ -1,5 +1,5 @@
 import { Link, styled } from '@mui/material';
-import { useLinkProps, useMatches } from '@tanstack/router';
+import { useLinkProps, useMatches } from '#core/router';
 import { BaseRenderer } from './base-renderer';
 import { NavigationRendererProvider } from './context';
 import type {

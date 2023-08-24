@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { useRouter } from '@tanstack/router';
+import { useRouter } from '#core/router';
 import { NavigationProvider } from './navigation-provider';
 import { RouterTabRender } from './navigation-item-renderer';
 import type {

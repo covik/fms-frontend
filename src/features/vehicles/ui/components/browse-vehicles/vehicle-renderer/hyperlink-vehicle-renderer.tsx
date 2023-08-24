@@ -1,4 +1,4 @@
-import { Link } from '@tanstack/router';
+import { Link } from '#core/router';
 import type { VehicleRendererAttributes } from './vehicle-renderer-context';
 
 export function HyperlinkVehicleRenderer({

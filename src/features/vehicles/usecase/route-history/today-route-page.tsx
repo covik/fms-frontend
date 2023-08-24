@@ -1,5 +1,5 @@
 import { endOfDay, startOfDay } from 'date-fns';
-import { useParams } from '@tanstack/router';
+import { useParams } from '#core/router';
 import { RouteViewer } from '../../ui/components/route-viewer';
 
 const today = new Date();

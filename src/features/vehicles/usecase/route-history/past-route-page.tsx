@@ -1,5 +1,5 @@
 import { endOfDay, startOfDay } from 'date-fns';
-import { useNavigate, useParams } from '@tanstack/router';
+import { useNavigate, useParams } from '#core/router';
 import { Tile } from '#ui/molecules/tile';
 import { RouteViewer } from '../../ui/components/route-viewer';
 import { RouteDateSelection } from '../../ui/components/route-date-selection';

@@ -1,5 +1,5 @@
-import { LinkOptions, RegisteredRoutesInfo } from '@tanstack/router';
-import { ReactElement } from 'react';
+import type { ReactElement } from 'react';
+import type { LinkOptions, RegisteredRoutesInfo } from '#core/router';
 
 export interface NavigationItemAttributes
   extends LinkOptions<RegisteredRoutesInfo> {

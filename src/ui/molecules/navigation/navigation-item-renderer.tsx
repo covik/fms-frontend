@@ -1,7 +1,7 @@
 import { Tab } from '@mui/material';
-import { Link as RouterLink } from '@tanstack/router';
+import { Link as RouterLink } from '#core/router';
 import type { TabProps } from '@mui/material';
-import type { LinkOptions, RegisteredRoutesInfo } from '@tanstack/router';
+import type { LinkOptions, RegisteredRoutesInfo } from '#core/router';
 import type { NavigationItemRenderer } from './interface';
 
 export const TabRender: NavigationItemRenderer = (item) => (

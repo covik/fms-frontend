@@ -1,4 +1,4 @@
-import { Outlet, useParams } from '@tanstack/router';
+import { Outlet, useParams } from '#core/router';
 import { useQuery } from '@tanstack/react-query';
 import { VehicleService } from '../../services/vehicle-service';
 import { LocatedVehicle } from '../../models/vehicle';

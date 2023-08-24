@@ -1,6 +1,6 @@
-import { Route } from '@tanstack/router';
+import { Route } from '#core/router';
 import { lazy } from 'react';
-import type { RootRoute } from '@tanstack/router';
+import type { RootRoute } from '#core/router';
 
 export function registerRoutes(rootRoute: RootRoute) {
   return [

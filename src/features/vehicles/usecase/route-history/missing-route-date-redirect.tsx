@@ -1,4 +1,4 @@
-import { Navigate, useParams } from '@tanstack/router';
+import { Navigate, useParams } from '#core/router';
 
 export function MissingRouteDateRedirect() {
   const { vehicleId } = useParams({ from: '/vehicles/$vehicleId/history' });
