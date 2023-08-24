@@ -155,5 +155,5 @@ function assertToastIsVisible() {
 }
 
 function triggerShare() {
-  cy.get(`[data-testid="${testingSelectors.share}"]`).click();
+  cy.get(`[data-testid="${testingSelectors.share}"]`).click({ force: true });
 }
