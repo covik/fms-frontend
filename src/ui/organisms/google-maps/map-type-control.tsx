@@ -10,14 +10,15 @@ const ControlContainer = styled('div')({
 
 const ControlButton = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
-  borderRadius: '2px',
-  boxShadow: 'rgba(0, 0, 0, 0.3) 0px 1px 4px -1px',
+  boxShadow: theme.shadows[2],
+  borderRadius: '100% / 100%',
   cursor: 'pointer',
+  height: '40px',
+  width: '40px',
+
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  height: '40px',
-  width: '40px',
 }));
 
 export function MapTypeControl() {

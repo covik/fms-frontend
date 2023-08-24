@@ -14,12 +14,15 @@ const PullerContainer = styled(Box, {
   slot: 'PullerContainer',
 })(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
+  boxShadow: theme.shadows[9],
+
   position: 'absolute',
   borderTopLeftRadius: 8,
   borderTopRightRadius: 8,
   visibility: 'visible',
   right: 0,
   left: 0,
+  zIndex: -1,
 }));
 
 const Puller = styled(Box, {
