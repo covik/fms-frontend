@@ -87,9 +87,11 @@ export const Outline: Story = {
         <AppBarMenu style={{ border: '1px solid red' }}>
           <MenuIcon />
         </AppBarMenu>
+
         <AppBarContent style={{ border: '1px solid green' }}>
           App Bar
         </AppBarContent>
+
         <AppBarAction style={{ border: '1px solid blue' }}>
           <ControlCenterIcon />
         </AppBarAction>
