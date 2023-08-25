@@ -7,9 +7,12 @@ export const AppBar = styled('div', {
   slot: 'Background',
 })(({ theme }) => ({
   backgroundColor: theme.palette.background.default,
+  padding: theme.spacing(2),
+}));
+
+export const AppBarBottom = styled(AppBar)(({ theme }) => ({
   borderTopLeftRadius: theme.spacing(2),
   borderTopRightRadius: theme.spacing(2),
-  padding: theme.spacing(2),
 }));
 
 export const AppBarToolbar = styled('header', {

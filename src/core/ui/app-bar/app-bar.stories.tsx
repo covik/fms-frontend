@@ -6,6 +6,7 @@ import {
   AppBarMenu,
   AppBar,
   AppBarTitle,
+  AppBarBottom,
 } from '.';
 import {
   Menu as MenuIcon,
@@ -27,12 +28,6 @@ export default {
 type Story = StoryObj<typeof AppBarToolbar>;
 
 export const Default: Story = {
-  decorators: [
-    withNote(
-      `Assumption is that the bar will be positioned on the bottom of the page.
-      If there is a need to move it to top/left/right, don't forget to adjust the border radius.`,
-    ),
-  ],
   render: () => (
     <AppBar>
       <AppBarToolbar>
@@ -94,6 +89,29 @@ export const BackButton: Story = {
         </AppBarContent>
       </AppBarToolbar>
     </AppBar>
+  ),
+};
+
+/**
+ * Moderately curves the top of the bar.
+ */
+export const Bottom: Story = {
+  render: () => (
+    <AppBarBottom>
+      <AppBarToolbar>
+        <AppBarMenu>
+          <MenuIcon />
+        </AppBarMenu>
+
+        <AppBarContent>
+          <AppBarTitle>App Bar</AppBarTitle>
+        </AppBarContent>
+
+        <AppBarAction>
+          <ControlCenterIcon />
+        </AppBarAction>
+      </AppBarToolbar>
+    </AppBarBottom>
   ),
 };
 
