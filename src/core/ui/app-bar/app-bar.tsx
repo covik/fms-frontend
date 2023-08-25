@@ -18,7 +18,7 @@ const AppBarRoot = styled('header', {
   },
 }));
 
-export const AppBarBarContainer = styled('div', {
+export const AppBar = styled('div', {
   name,
   slot: 'Background',
 })(({ theme }) => ({
@@ -32,7 +32,7 @@ export interface AppBarAttributes extends ComponentPropsWithoutRef<'div'> {
   children: ReactNode;
 }
 
-export function AppBar({ children, ...props }: AppBarAttributes) {
+export function AppBarToolbar({ children, ...props }: AppBarAttributes) {
   return <AppBarRoot {...props}>{children}</AppBarRoot>;
 }
 

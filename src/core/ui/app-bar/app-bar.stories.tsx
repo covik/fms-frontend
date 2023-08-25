@@ -1,10 +1,10 @@
 import { withNote } from '#storybook/decorators';
 import {
-  AppBar,
+  AppBarToolbar,
   AppBarAction,
   AppBarContent,
   AppBarMenu,
-  AppBarBarContainer,
+  AppBar,
 } from '.';
 import {
   Menu as MenuIcon,
@@ -18,12 +18,12 @@ import type { Meta, StoryObj } from '@storybook/react';
  */
 export default {
   title: 'Molecules/App Bar',
-  component: AppBar,
+  component: AppBarToolbar,
   parameters: {
     controls: { hideNoControlsWarning: true },
   },
-} satisfies Meta<typeof AppBar>;
-type Story = StoryObj<typeof AppBar>;
+} satisfies Meta<typeof AppBarToolbar>;
+type Story = StoryObj<typeof AppBarToolbar>;
 
 export const Default: Story = {
   decorators: [
@@ -33,8 +33,8 @@ export const Default: Story = {
     ),
   ],
   render: () => (
-    <AppBarBarContainer>
-      <AppBar>
+    <AppBar>
+      <AppBarToolbar>
         <AppBarMenu>
           <MenuIcon />
         </AppBarMenu>
@@ -44,8 +44,8 @@ export const Default: Story = {
         <AppBarAction>
           <ControlCenterIcon />
         </AppBarAction>
-      </AppBar>
-    </AppBarBarContainer>
+      </AppBarToolbar>
+    </AppBar>
   ),
 };
 
@@ -54,8 +54,8 @@ export const Default: Story = {
  */
 export const BackButton: Story = {
   render: () => (
-    <AppBarBarContainer>
-      <AppBar>
+    <AppBar>
+      <AppBarToolbar>
         <AppBarMenu>
           <BackIcon />
         </AppBarMenu>
@@ -65,8 +65,8 @@ export const BackButton: Story = {
         <AppBarAction>
           <ControlCenterIcon />
         </AppBarAction>
-      </AppBar>
-    </AppBarBarContainer>
+      </AppBarToolbar>
+    </AppBar>
   ),
 };
 
@@ -80,10 +80,10 @@ export const Outline: Story = {
     ),
   ],
   render: () => (
-    <AppBarBarContainer
+    <AppBar
       style={{ border: '1px solid #000', backgroundColor: 'transparent' }}
     >
-      <AppBar style={{ height: '70px' }}>
+      <AppBarToolbar style={{ height: '70px' }}>
         <AppBarMenu style={{ border: '1px solid red' }}>
           <MenuIcon />
         </AppBarMenu>
@@ -93,7 +93,7 @@ export const Outline: Story = {
         <AppBarAction style={{ border: '1px solid blue' }}>
           <ControlCenterIcon />
         </AppBarAction>
-      </AppBar>
-    </AppBarBarContainer>
+      </AppBarToolbar>
+    </AppBar>
   ),
 };
