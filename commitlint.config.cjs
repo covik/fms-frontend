@@ -4,18 +4,11 @@ const getDirectories = (source) =>
     .filter((dirent) => dirent.isDirectory())
     .map((dirent) => dirent.name);
 
-const core = getDirectories('./src/core');
+const core = getDirectories('./src/core').filter((dir) => dir !== 'ui');
+const ui = getDirectories('./src/core/ui');
 const features = getDirectories('./src/features');
 const libraries = getDirectories('./src/lib');
-const functions = [
-  'adapter',
-  'fixture',
-  'model',
-  'query',
-  'service',
-  'util',
-  'ui',
-];
+const functions = ['adapter', 'fixture', 'model', 'query', 'service', 'util'];
 
 module.exports = {
   extends: ['@commitlint/config-conventional'],
@@ -32,6 +25,7 @@ module.exports = {
         ...features,
         ...core,
         ...libraries,
+        ...ui,
       ],
     ],
   },
