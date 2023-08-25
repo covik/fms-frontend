@@ -56,3 +56,12 @@ export const AppBarAction = styled('section', {
 })({
   gridArea: 'action',
 });
+
+export const AppBarTitle = styled('span', {
+  name,
+  slot: 'Title',
+})(({ theme }) => ({
+  display: 'block',
+  fontSize: theme.typography.h6.fontSize,
+  fontWeight: theme.typography.h6.fontWeight,
+}));

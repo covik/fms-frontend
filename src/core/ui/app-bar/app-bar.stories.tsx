@@ -5,6 +5,7 @@ import {
   AppBarContent,
   AppBarMenu,
   AppBar,
+  AppBarTitle,
 } from '.';
 import {
   Menu as MenuIcon,
@@ -50,6 +51,34 @@ export const Default: Story = {
 };
 
 /**
+ * Should be used in every page.
+ */
+export const Title: Story = {
+  decorators: [
+    withNote(`Title is styled with AppBarTitle component.
+    The reason it's not part of AppBarContent is because you can add other 
+    elements which would then inherit font size and weight from it.`),
+  ],
+  render: () => (
+    <AppBar>
+      <AppBarToolbar>
+        <AppBarMenu>
+          <MenuIcon />
+        </AppBarMenu>
+
+        <AppBarContent>
+          <AppBarTitle>App Bar</AppBarTitle>
+        </AppBarContent>
+
+        <AppBarAction>
+          <ControlCenterIcon />
+        </AppBarAction>
+      </AppBarToolbar>
+    </AppBar>
+  ),
+};
+
+/**
  * Instead of menu we can display back button.
  */
 export const BackButton: Story = {
@@ -60,7 +89,9 @@ export const BackButton: Story = {
           <BackIcon />
         </AppBarMenu>
 
-        <AppBarContent>App Bar</AppBarContent>
+        <AppBarContent>
+          <AppBarTitle>App Bar</AppBarTitle>
+        </AppBarContent>
       </AppBarToolbar>
     </AppBar>
   ),
@@ -85,7 +116,7 @@ export const Outline: Story = {
         </AppBarMenu>
 
         <AppBarContent style={{ border: '1px solid green' }}>
-          App Bar
+          <AppBarTitle>App Bar</AppBarTitle>
         </AppBarContent>
 
         <AppBarAction style={{ border: '1px solid blue' }}>
