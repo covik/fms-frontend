@@ -1,9 +1,18 @@
 import { styled, svgIconClasses } from '@mui/material';
-import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
 const name = 'AppBar';
 
-const AppBarRoot = styled('header', {
+export const AppBar = styled('div', {
+  name,
+  slot: 'Background',
+})(({ theme }) => ({
+  backgroundColor: theme.palette.background.default,
+  borderTopLeftRadius: theme.spacing(2),
+  borderTopRightRadius: theme.spacing(2),
+  padding: theme.spacing(2),
+}));
+
+export const AppBarToolbar = styled('header', {
   name,
   slot: 'Root',
 })(({ theme }) => ({
@@ -17,24 +26,6 @@ const AppBarRoot = styled('header', {
     display: 'block',
   },
 }));
-
-export const AppBar = styled('div', {
-  name,
-  slot: 'Background',
-})(({ theme }) => ({
-  backgroundColor: theme.palette.background.default,
-  borderTopLeftRadius: theme.spacing(2),
-  borderTopRightRadius: theme.spacing(2),
-  padding: theme.spacing(2),
-}));
-
-export interface AppBarAttributes extends ComponentPropsWithoutRef<'div'> {
-  children: ReactNode;
-}
-
-export function AppBarToolbar({ children, ...props }: AppBarAttributes) {
-  return <AppBarRoot {...props}>{children}</AppBarRoot>;
-}
 
 export const AppBarContent = styled('section', {
   name,
