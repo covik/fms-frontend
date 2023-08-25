@@ -1,4 +1,8 @@
-import { AppBar } from '.';
+import { AppBar, AreaControlCenter, AreaContent, AreaMenu } from '.';
+import {
+  Menu as MenuIcon,
+  ChevronUp as ControlCenterIcon,
+} from 'mdi-material-ui';
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {
@@ -7,4 +11,16 @@ export default {
 } satisfies Meta<typeof AppBar>;
 type Story = StoryObj<typeof AppBar>;
 
-export const Transparent: Story = {};
+export const Transparent: Story = {
+  render: () => (
+    <AppBar>
+      <AreaMenu>
+        <MenuIcon />
+      </AreaMenu>
+      <AreaContent>App Bar</AreaContent>
+      <AreaControlCenter>
+        <ControlCenterIcon />
+      </AreaControlCenter>
+    </AppBar>
+  ),
+};
