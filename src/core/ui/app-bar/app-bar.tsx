@@ -17,6 +17,16 @@ const AppBarRoot = styled('header', {
   },
 }));
 
+export const AppBarBarContainer = styled('div', {
+  name,
+  slot: 'Background',
+})(({ theme }) => ({
+  backgroundColor: theme.palette.background.default,
+  borderTopLeftRadius: theme.spacing(2),
+  borderTopRightRadius: theme.spacing(2),
+  padding: theme.spacing(2),
+}));
+
 export interface AppBarAttributes extends ComponentPropsWithoutRef<'div'> {
   children: ReactNode;
 }

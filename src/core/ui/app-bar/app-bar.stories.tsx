@@ -1,5 +1,11 @@
 import { withNote } from '#storybook/decorators';
-import { AppBar, AreaControlCenter, AreaContent, AreaMenu } from '.';
+import {
+  AppBar,
+  AreaControlCenter,
+  AreaContent,
+  AreaMenu,
+  AppBarBarContainer,
+} from '.';
 import {
   Menu as MenuIcon,
   ChevronUp as ControlCenterIcon,
@@ -12,27 +18,38 @@ import type { Meta, StoryObj } from '@storybook/react';
 export default {
   title: 'Molecules/App Bar',
   component: AppBar,
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+  },
 } satisfies Meta<typeof AppBar>;
 type Story = StoryObj<typeof AppBar>;
 
 export const Default: Story = {
+  decorators: [
+    withNote(
+      `Assumption is that the bar will be positioned on the bottom of the page.
+      If there is a need to move it to top/left/right, don't forget to adjust the border radius.`,
+    ),
+  ],
   render: () => (
-    <AppBar>
-      <AreaMenu>
-        <MenuIcon />
-      </AreaMenu>
+    <AppBarBarContainer>
+      <AppBar>
+        <AreaMenu>
+          <MenuIcon />
+        </AreaMenu>
 
-      <AreaContent>App Bar</AreaContent>
+        <AreaContent>App Bar</AreaContent>
 
-      <AreaControlCenter>
-        <ControlCenterIcon />
-      </AreaControlCenter>
-    </AppBar>
+        <AreaControlCenter>
+          <ControlCenterIcon />
+        </AreaControlCenter>
+      </AppBar>
+    </AppBarBarContainer>
   ),
 };
 
 /**
- * Communicates content outline.
+ * Communicates content structure.
  */
 export const Outline: Story = {
   decorators: [
@@ -41,16 +58,18 @@ export const Outline: Story = {
     ),
   ],
   render: () => (
-    <AppBar
-      style={{ border: '1px solid #000', padding: '8px', height: '70px' }}
+    <AppBarBarContainer
+      style={{ border: '1px solid #000', backgroundColor: 'transparent' }}
     >
-      <AreaMenu style={{ border: '1px solid red' }}>
-        <MenuIcon />
-      </AreaMenu>
-      <AreaContent style={{ border: '1px solid green' }}>App Bar</AreaContent>
-      <AreaControlCenter style={{ border: '1px solid blue' }}>
-        <ControlCenterIcon />
-      </AreaControlCenter>
-    </AppBar>
+      <AppBar style={{ height: '70px' }}>
+        <AreaMenu style={{ border: '1px solid red' }}>
+          <MenuIcon />
+        </AreaMenu>
+        <AreaContent style={{ border: '1px solid green' }}>App Bar</AreaContent>
+        <AreaControlCenter style={{ border: '1px solid blue' }}>
+          <ControlCenterIcon />
+        </AreaControlCenter>
+      </AppBar>
+    </AppBarBarContainer>
   ),
 };
