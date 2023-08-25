@@ -13,7 +13,9 @@ type Story = StoryObj<typeof AppBar>;
 
 export const Outline: Story = {
   render: () => (
-    <AppBar style={{ border: '1px solid #000', padding: '8px' }}>
+    <AppBar
+      style={{ border: '1px solid #000', padding: '8px', height: '70px' }}
+    >
       <AreaMenu style={{ border: '1px solid red' }}>
         <MenuIcon />
       </AreaMenu>

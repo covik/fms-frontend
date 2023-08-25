@@ -9,6 +9,7 @@ const AppBarRoot = styled('header', {
 })({
   display: 'grid',
   gridTemplateColumns: 'max-content 1fr max-content',
+  alignItems: 'center',
 
   [`& .${svgIconClasses.root}`]: {
     display: 'block',
