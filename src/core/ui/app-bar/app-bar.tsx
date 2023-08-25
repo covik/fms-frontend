@@ -11,7 +11,7 @@ const AppBarRoot = styled('header', {
   gridTemplateColumns: 'max-content 1fr max-content',
   gridTemplateAreas: '"menu content control-center"',
   alignItems: 'center',
-  gap: theme.spacing(1),
+  gap: theme.spacing(2),
 
   [`& .${svgIconClasses.root}`]: {
     display: 'block',
