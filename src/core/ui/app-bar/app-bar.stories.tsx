@@ -9,6 +9,7 @@ import {
 import {
   Menu as MenuIcon,
   ChevronUp as ControlCenterIcon,
+  ChevronLeft as BackIcon,
 } from 'mdi-material-ui';
 import type { Meta, StoryObj } from '@storybook/react';
 
@@ -36,6 +37,27 @@ export const Default: Story = {
       <AppBar>
         <AreaMenu>
           <MenuIcon />
+        </AreaMenu>
+
+        <AreaContent>App Bar</AreaContent>
+
+        <AreaControlCenter>
+          <ControlCenterIcon />
+        </AreaControlCenter>
+      </AppBar>
+    </AppBarBarContainer>
+  ),
+};
+
+/**
+ * Instead of menu we can display back button.
+ */
+export const BackButton: Story = {
+  render: () => (
+    <AppBarBarContainer>
+      <AppBar>
+        <AreaMenu>
+          <BackIcon />
         </AreaMenu>
 
         <AreaContent>App Bar</AreaContent>
