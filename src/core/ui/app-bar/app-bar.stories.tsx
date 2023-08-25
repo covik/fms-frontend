@@ -6,6 +6,9 @@ import {
 } from 'mdi-material-ui';
 import type { Meta, StoryObj } from '@storybook/react';
 
+/**
+ * This is the main component user interacts with in order to navigate the application.
+ */
 export default {
   title: 'Molecules/App Bar',
   component: AppBar,
