@@ -6,15 +6,16 @@ const name = 'AppBar';
 const AppBarRoot = styled('header', {
   name,
   slot: 'Root',
-})({
+})(({ theme }) => ({
   display: 'grid',
   gridTemplateColumns: 'max-content 1fr max-content',
   alignItems: 'center',
+  gap: theme.spacing(1),
 
   [`& .${svgIconClasses.root}`]: {
     display: 'block',
   },
-});
+}));
 
 export interface AppBarAttributes extends ComponentPropsWithoutRef<'div'> {
   children: ReactNode;
