@@ -1,4 +1,5 @@
-import { AppBar, AreaControlCenter, AreaContent, AreaMenu } from './index';
+import { withNote } from '#storybook/decorators';
+import { AppBar, AreaControlCenter, AreaContent, AreaMenu } from '.';
 import {
   Menu as MenuIcon,
   ChevronUp as ControlCenterIcon,
@@ -11,7 +12,15 @@ export default {
 } satisfies Meta<typeof AppBar>;
 type Story = StoryObj<typeof AppBar>;
 
+/**
+ * Communicates content outline.
+ */
 export const Outline: Story = {
+  decorators: [
+    withNote(
+      `Height is determined by content.In this example it's set to 70px so vertical alignment can be seen and tested.`,
+    ),
+  ],
   render: () => (
     <AppBar
       style={{ border: '1px solid #000', padding: '8px', height: '70px' }}
