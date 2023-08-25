@@ -80,6 +80,7 @@ export function BottomControlPanel({
       disableSwipeToOpen={false}
       disableBackdropTransition
       disablePortal
+      hideBackdrop
       ModalProps={{ keepMounted: true }}
       onOpen={togglePanel(true)}
       onClose={togglePanel(false)}
