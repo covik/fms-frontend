@@ -28,11 +28,7 @@ export function MapTypeControl() {
 
   function changeMapLayer() {
     if (!map) return;
-    const layers = [
-      google.maps.MapTypeId.ROADMAP,
-      google.maps.MapTypeId.HYBRID,
-      google.maps.MapTypeId.TERRAIN,
-    ];
+    const layers = ['hybrid', 'roadmap', 'terrain'];
     const currentLayer = map.getMapTypeId()?.toLowerCase() ?? '';
     const currentIndex = layers.findIndex(
       (layer) => layer.toLowerCase() === currentLayer,

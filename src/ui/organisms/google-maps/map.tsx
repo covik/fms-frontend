@@ -68,14 +68,10 @@ export function Map({
   const options: google.maps.MapOptions = useMemo(
     () => ({
       disableDefaultUI: true,
-      styles,
-      streetViewControl: false,
       gestureHandling: gestureHandling ? 'auto' : 'none',
       clickableIcons: clickablePoi,
-      mapTypeControl: false,
-      fullscreenControlOptions: {
-        position: 9,
-      },
+      styles,
+      mapTypeId: 'hybrid',
     }),
     [styles, clickablePoi],
   );
