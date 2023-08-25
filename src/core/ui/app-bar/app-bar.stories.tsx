@@ -1,7 +1,7 @@
 import { withNote } from '#storybook/decorators';
 import {
   AppBar,
-  AreaControlCenter,
+  AreaAction,
   AreaContent,
   AreaMenu,
   AppBarBarContainer,
@@ -41,9 +41,9 @@ export const Default: Story = {
 
         <AreaContent>App Bar</AreaContent>
 
-        <AreaControlCenter>
+        <AreaAction>
           <ControlCenterIcon />
-        </AreaControlCenter>
+        </AreaAction>
       </AppBar>
     </AppBarBarContainer>
   ),
@@ -62,9 +62,9 @@ export const BackButton: Story = {
 
         <AreaContent>App Bar</AreaContent>
 
-        <AreaControlCenter>
+        <AreaAction>
           <ControlCenterIcon />
-        </AreaControlCenter>
+        </AreaAction>
       </AppBar>
     </AppBarBarContainer>
   ),
@@ -88,9 +88,9 @@ export const Outline: Story = {
           <MenuIcon />
         </AreaMenu>
         <AreaContent style={{ border: '1px solid green' }}>App Bar</AreaContent>
-        <AreaControlCenter style={{ border: '1px solid blue' }}>
+        <AreaAction style={{ border: '1px solid blue' }}>
           <ControlCenterIcon />
-        </AreaControlCenter>
+        </AreaAction>
       </AppBar>
     </AppBarBarContainer>
   ),

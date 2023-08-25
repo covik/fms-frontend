@@ -9,7 +9,7 @@ const AppBarRoot = styled('header', {
 })(({ theme }) => ({
   display: 'grid',
   gridTemplateColumns: 'max-content 1fr max-content',
-  gridTemplateAreas: '"menu content control-center"',
+  gridTemplateAreas: '"menu content action"',
   alignItems: 'center',
   gap: theme.spacing(2),
 
@@ -50,9 +50,9 @@ export const AreaMenu = styled('section', {
   gridArea: 'menu',
 });
 
-export const AreaControlCenter = styled('section', {
+export const AreaAction = styled('section', {
   name,
-  slot: 'ControlCenter',
+  slot: 'Action',
 })({
-  gridArea: 'control-center',
+  gridArea: 'action',
 });
