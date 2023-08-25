@@ -11,14 +11,14 @@ export default {
 } satisfies Meta<typeof AppBar>;
 type Story = StoryObj<typeof AppBar>;
 
-export const Transparent: Story = {
+export const Outline: Story = {
   render: () => (
-    <AppBar>
-      <AreaMenu>
+    <AppBar style={{ border: '1px solid #000', padding: '8px' }}>
+      <AreaMenu style={{ border: '1px solid red' }}>
         <MenuIcon />
       </AreaMenu>
-      <AreaContent>App Bar</AreaContent>
-      <AreaControlCenter>
+      <AreaContent style={{ border: '1px solid green' }}>App Bar</AreaContent>
+      <AreaControlCenter style={{ border: '1px solid blue' }}>
         <ControlCenterIcon />
       </AreaControlCenter>
     </AppBar>
