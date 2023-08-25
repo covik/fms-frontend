@@ -15,6 +15,22 @@ export default {
 } satisfies Meta<typeof AppBar>;
 type Story = StoryObj<typeof AppBar>;
 
+export const Default: Story = {
+  render: () => (
+    <AppBar>
+      <AreaMenu>
+        <MenuIcon />
+      </AreaMenu>
+
+      <AreaContent>App Bar</AreaContent>
+
+      <AreaControlCenter>
+        <ControlCenterIcon />
+      </AreaControlCenter>
+    </AppBar>
+  ),
+};
+
 /**
  * Communicates content outline.
  */
