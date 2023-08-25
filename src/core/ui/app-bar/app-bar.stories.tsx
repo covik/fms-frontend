@@ -1,4 +1,4 @@
-import { AppBar, AreaControlCenter, AreaContent, AreaMenu } from '.';
+import { AppBar, AreaControlCenter, AreaContent, AreaMenu } from './index';
 import {
   Menu as MenuIcon,
   ChevronUp as ControlCenterIcon,
