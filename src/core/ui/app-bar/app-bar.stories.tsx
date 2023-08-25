@@ -61,10 +61,6 @@ export const BackButton: Story = {
         </AppBarMenu>
 
         <AppBarContent>App Bar</AppBarContent>
-
-        <AppBarAction>
-          <ControlCenterIcon />
-        </AppBarAction>
       </AppBarToolbar>
     </AppBar>
   ),
