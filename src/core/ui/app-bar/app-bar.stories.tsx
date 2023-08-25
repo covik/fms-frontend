@@ -1,9 +1,9 @@
 import { withNote } from '#storybook/decorators';
 import {
   AppBar,
-  AreaAction,
-  AreaContent,
-  AreaMenu,
+  AppBarAction,
+  AppBarContent,
+  AppBarMenu,
   AppBarBarContainer,
 } from '.';
 import {
@@ -35,15 +35,15 @@ export const Default: Story = {
   render: () => (
     <AppBarBarContainer>
       <AppBar>
-        <AreaMenu>
+        <AppBarMenu>
           <MenuIcon />
-        </AreaMenu>
+        </AppBarMenu>
 
-        <AreaContent>App Bar</AreaContent>
+        <AppBarContent>App Bar</AppBarContent>
 
-        <AreaAction>
+        <AppBarAction>
           <ControlCenterIcon />
-        </AreaAction>
+        </AppBarAction>
       </AppBar>
     </AppBarBarContainer>
   ),
@@ -56,15 +56,15 @@ export const BackButton: Story = {
   render: () => (
     <AppBarBarContainer>
       <AppBar>
-        <AreaMenu>
+        <AppBarMenu>
           <BackIcon />
-        </AreaMenu>
+        </AppBarMenu>
 
-        <AreaContent>App Bar</AreaContent>
+        <AppBarContent>App Bar</AppBarContent>
 
-        <AreaAction>
+        <AppBarAction>
           <ControlCenterIcon />
-        </AreaAction>
+        </AppBarAction>
       </AppBar>
     </AppBarBarContainer>
   ),
@@ -84,13 +84,15 @@ export const Outline: Story = {
       style={{ border: '1px solid #000', backgroundColor: 'transparent' }}
     >
       <AppBar style={{ height: '70px' }}>
-        <AreaMenu style={{ border: '1px solid red' }}>
+        <AppBarMenu style={{ border: '1px solid red' }}>
           <MenuIcon />
-        </AreaMenu>
-        <AreaContent style={{ border: '1px solid green' }}>App Bar</AreaContent>
-        <AreaAction style={{ border: '1px solid blue' }}>
+        </AppBarMenu>
+        <AppBarContent style={{ border: '1px solid green' }}>
+          App Bar
+        </AppBarContent>
+        <AppBarAction style={{ border: '1px solid blue' }}>
           <ControlCenterIcon />
-        </AreaAction>
+        </AppBarAction>
       </AppBar>
     </AppBarBarContainer>
   ),

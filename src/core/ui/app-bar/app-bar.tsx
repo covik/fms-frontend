@@ -36,21 +36,21 @@ export function AppBar({ children, ...props }: AppBarAttributes) {
   return <AppBarRoot {...props}>{children}</AppBarRoot>;
 }
 
-export const AreaContent = styled('section', {
+export const AppBarContent = styled('section', {
   name,
   slot: 'Content',
 })({
   gridArea: 'content',
 });
 
-export const AreaMenu = styled('section', {
+export const AppBarMenu = styled('section', {
   name,
   slot: 'Menu',
 })({
   gridArea: 'menu',
 });
 
-export const AreaAction = styled('section', {
+export const AppBarAction = styled('section', {
   name,
   slot: 'Action',
 })({
