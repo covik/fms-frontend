@@ -14,11 +14,7 @@ const functions = [
   'query',
   'service',
   'util',
-  'ui-atom',
-  'ui-molecule',
-  'ui-organism',
-  'ui-template',
-  'ui-page',
+  'ui',
 ];
 
 module.exports = {
