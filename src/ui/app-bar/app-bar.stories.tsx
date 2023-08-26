@@ -7,7 +7,7 @@ import {
   AppBar,
   AppBarTitle,
   AppBarBottom,
-} from '.';
+} from './index';
 import {
   Menu as MenuIcon,
   ChevronUp as ControlCenterIcon,

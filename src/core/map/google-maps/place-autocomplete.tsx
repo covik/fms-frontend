@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Coordinates } from '#lib/dimension';
-import type { SearchImplementationAttributes } from '#core/map/types';
+import type { SearchImplementationAttributes } from '../types';
 
 export interface PlaceAutocompleteAttributes
   extends SearchImplementationAttributes {}

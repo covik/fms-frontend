@@ -5,7 +5,7 @@ const getDirectories = (source) =>
     .map((dirent) => dirent.name);
 
 const core = getDirectories('./src/core').filter((dir) => dir !== 'ui');
-const ui = getDirectories('./src/core/ui');
+const ui = getDirectories('./src/ui');
 const libraries = getDirectories('./src/lib');
 
 module.exports = {
