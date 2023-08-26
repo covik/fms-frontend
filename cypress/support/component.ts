@@ -15,7 +15,7 @@
 
 import './commands';
 import { mount as reactMount, MountOptions } from 'cypress/react18';
-import { DesignBaseline } from '../../src/app/design-baseline';
+import { ThemeManager } from '../../src/app/theme-manager';
 import * as React from 'react';
 
 // Augment the Cypress namespace to include type definitions for
@@ -40,7 +40,7 @@ function mount(
   return reactMount(
     React.createElement('div', {
       id: 'root',
-      children: React.createElement(DesignBaseline, { children: jsx }),
+      children: React.createElement(ThemeManager, { children: jsx }),
     }),
     options,
     rerenderKey,

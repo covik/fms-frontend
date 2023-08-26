@@ -1,8 +1,8 @@
-import { DesignBaseline } from '#app';
+import { ThemeManager } from '#app';
 import type { Decorator } from '@storybook/react';
 
 export const withDesignBaseline: Decorator = (Story) => (
-  <DesignBaseline>
+  <ThemeManager>
     <Story />
-  </DesignBaseline>
+  </ThemeManager>
 );

@@ -3,7 +3,7 @@ import { QueryClient } from '@tanstack/query-core';
 import { QueryClientProvider } from '@tanstack/react-query';
 import {
   AppUpdateManager,
-  DesignBaseline,
+  ThemeManager,
   SessionManager,
   ProductionRouter,
 } from '#app';
@@ -13,11 +13,11 @@ const queryClient = new QueryClient();
 createRoot(document.getElementById('root') as HTMLElement).render(
   <AppUpdateManager>
     <QueryClientProvider client={queryClient}>
-      <DesignBaseline>
+      <ThemeManager>
         <SessionManager>
           <ProductionRouter />
         </SessionManager>
-      </DesignBaseline>
+      </ThemeManager>
     </QueryClientProvider>
   </AppUpdateManager>,
 );

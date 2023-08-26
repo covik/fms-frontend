@@ -20,7 +20,11 @@ const theme = createTheme({
   },
 });
 
-export function DesignBaseline({ children }: { children: ReactNode }) {
+export interface ThemeManagerProps {
+  children: ReactNode;
+}
+
+export function ThemeManager({ children }: ThemeManagerProps) {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
