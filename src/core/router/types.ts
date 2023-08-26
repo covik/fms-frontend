@@ -5,7 +5,7 @@ import type {
   RoutesInfo,
 } from '@tanstack/router';
 
-export interface BaseRouterAttributes<
+export interface BaseRouterProps<
   TRouteTree extends AnyRoute = AnyRoute,
   TRoutesInfo extends AnyRoutesInfo = RoutesInfo<TRouteTree>,
 > {
