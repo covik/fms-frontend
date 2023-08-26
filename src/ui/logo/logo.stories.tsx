@@ -1,4 +1,4 @@
-import { Logo } from '.';
+import { Logo } from './index';
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {

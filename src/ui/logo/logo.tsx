@@ -1,4 +1,4 @@
-import logo from '../../assets/logo.svg';
+import logo from './logo.svg';
 
 export interface LogoAttributes {
   size: number;

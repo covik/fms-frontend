@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
 import { AlertCircleOutline } from 'mdi-material-ui';
-import { ExpectedErrorSituation } from '.';
+import { ExpectedErrorSituation } from './index';
 import type { Meta, StoryObj } from '@storybook/react';
 
 export default {

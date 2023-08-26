@@ -1,4 +1,4 @@
-import { ErrorContainer } from '.';
+import { ErrorContainer } from './index';
 
 it('should render children', () => {
   const content = 'Content';

@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { Skeleton, styled } from '@mui/material';
-import { GoogleMaps } from '#ui/organisms/google-maps';
+import { GoogleMaps } from 'src/ui/google-maps';
 import { useMapSettings } from './map-settings';
 import { className as fetchIndicatorClass } from './map-fetch-indicator';
 import { MapAddressSearch } from './address-search';

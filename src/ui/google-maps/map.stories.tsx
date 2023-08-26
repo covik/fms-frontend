@@ -1,4 +1,4 @@
-import { GoogleMaps } from '.';
+import { GoogleMaps } from './index';
 import type { Meta, StoryObj } from '@storybook/react';
 
 const croatia = {

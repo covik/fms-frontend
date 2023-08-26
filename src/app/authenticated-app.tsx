@@ -1,5 +1,4 @@
 import { DateTimeProvider } from '#core/time';
-import { RouterNavigationProvider } from '#ui/molecules/navigation';
 import { AppUpdateNotification } from './update';
 import type { ReactNode } from 'react';
 
@@ -11,9 +10,7 @@ export function AuthenticatedApp({ children }: AuthenticatedAppAttributes) {
   return (
     <>
       <AppUpdateNotification />
-      <DateTimeProvider>
-        <RouterNavigationProvider>{children}</RouterNavigationProvider>
-      </DateTimeProvider>
+      <DateTimeProvider>{children}</DateTimeProvider>
     </>
   );
 }
