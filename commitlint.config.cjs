@@ -6,7 +6,6 @@ const getDirectories = (source) =>
 
 const core = getDirectories('./src/core').filter((dir) => dir !== 'ui');
 const ui = getDirectories('./src/core/ui');
-const features = getDirectories('./src/features');
 const libraries = getDirectories('./src/lib');
 
 module.exports = {
@@ -21,7 +20,6 @@ module.exports = {
         'branding',
         'app',
         ...core,
-        ...features,
         ...libraries,
         ...ui,
       ],
