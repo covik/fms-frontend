@@ -37,13 +37,6 @@ function adaptLocatedVehicleModel(vehicle: LocatedVehicle): Vehicle {
   };
 }
 
-export function adaptLocatedVehicles<
-  Variant extends LocatedVehicle | LocatedVehicle[],
->(vehicles: Variant): Variant extends LocatedVehicle ? Vehicle : Vehicle[];
-export function adaptLocatedVehicles(
-  vehicles: LocatedVehicle | LocatedVehicle[],
-): Vehicle | Vehicle[] {
-  const vehicleList = Array.isArray(vehicles) ? vehicles : [vehicles];
-  const adaptedVehicles: Vehicle[] = vehicleList.map(adaptLocatedVehicleModel);
-  return adaptedVehicles.length === 1 ? adaptedVehicles[0] : adaptedVehicles;
+export function adaptLocatedVehicles(vehicles: LocatedVehicle[]): Vehicle[] {
+  return vehicles.map(adaptLocatedVehicleModel);
 }
