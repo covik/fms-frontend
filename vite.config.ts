@@ -6,6 +6,7 @@ import tsconfigPaths from 'vite-tsconfig-paths';
 const baseConfig = defineConfig({
   plugins: [react(), pwa(), tsconfigPaths()],
   build: {
+    sourcemap: true,
     rollupOptions: {
       output: {
         manualChunks,
