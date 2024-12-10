@@ -26,5 +26,5 @@ RUN deluser --remove-home node && \
 USER $USERNAME
 RUN mkdir ~/.cache && \
     mkdir ~/.docker && \
-    mkdir -p ~/.cache/JetBrains && \
+    mkdir -p ~/.cache/JetBrains/RemoteDev/dist && \
     git config --global commit.gpgsign true
