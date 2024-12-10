@@ -12,10 +12,25 @@ RUN unlink /usr/local/bin/npm \
         curl \
         git \
         gnupg2 \
+        libgtk2.0-0 \
+        libgtk-3-0 \
+        libgbm-dev \
+        libnotify-dev \
+        libnss3 \
+        libxss1 \
+        libasound2 \
+        libxtst6 \
         openssh-client \
         sudo \
         watch \
         wget \
+        xauth \
+        xvfb \
+    && curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
+    && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list \
+    && apt-get update \
+    && apt-get --no-install-recommends install -y \
+      google-chrome-stable \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 RUN deluser --remove-home node \

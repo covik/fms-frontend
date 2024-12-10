@@ -2,8 +2,14 @@
   "build": {
     "dockerfile": "./Dockerfile"
   },
-  "postCreateCommand": "yarn install --frozen-lockfile",
+  "postCreateCommand": "yarn install --frozen-lockfile && yarn cypress install",
   "mounts": [
-    "source=jetbrains,target=/home/developer/.cache/JetBrains/RemoteDev/dist,type=volume"
-  ]
+    "source=jetbrains,target=/home/developer/.cache/JetBrains/RemoteDev/dist,type=volume",
+    "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind",
+    "source=${localEnv:HOME}/.Xauthority,target=/home/developer/.Xauthority,type=bind"
+  ],
+  "runArgs": ["--hostname", "${localEnv:HOSTNAME}"],
+  "containerEnv": {
+    "DISPLAY": "${localEnv:DISPLAY}"
+  }
 }
