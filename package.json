@@ -11,7 +11,7 @@
     "cy:dev": "cypress open --component --browser chrome",
     "cy:ct:chrome": "cypress run --component --browser chrome",
     "cy:ct:firefox": "cypress run --component --browser firefox",
-    "dev": "vite",
+    "dev": "vite --host",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "prepare": "husky install",
