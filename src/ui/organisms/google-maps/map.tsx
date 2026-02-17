@@ -5,8 +5,16 @@ import { MapTypeControl } from './map-type-control';
 import type { CSSProperties, ReactElement, ReactNode } from 'react';
 import type { UseLoadScriptOptions } from '@react-google-maps/api/dist/useJsApiLoader';
 
+const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY as string | undefined;
+
+if (!apiKey) {
+  throw new Error(
+    'Missing VITE_GOOGLE_MAPS_API_KEY environment variable. Set VITE_GOOGLE_MAPS_API_KEY in your environment or .env file.',
+  );
+}
+
 const mapOptions: UseLoadScriptOptions = {
-  googleMapsApiKey: 'AIzaSyCRzHH5N9W0FWKvY5qhRbk9H-AHm-vs8rw',
+  googleMapsApiKey: apiKey,
   version: '3.53',
   libraries: ['places'],
 };
